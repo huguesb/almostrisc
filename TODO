@@ -1,0 +1,54 @@
+
+ MUCH needed instructions
+	* register swap (gnl)
+	* stack manipulation (gnl)
+	* interrupts-related (gnl)
+	* multiplication/division (op)
+	* streamed
+	* add/sub with immediates?
+
+
+ ROOM for instructions :
+ 
+	* UAL operations :
+		* 4 between negb and and
+			001100
+			001101
+			
+			001110
+			001111
+			
+		* 12 between not and shl
+			010100
+			010101
+			
+			010110
+			010111
+			
+			011000
+			011001
+			
+			011010
+			011011
+			
+			011100
+			011101
+			
+			011110
+			011111
+
+	* "variants" (assuming fixed value for 'x' bits) [spec apparently does not allow this...]
+		* 63 "variants" of in
+		* 63 "variants" of out
+		* 7 "variants" of lw (conditionals?)
+		* 7 "variants" of sw (conditionals?)
+		* 7 "variants" of brl (conditionals?)
+		* 7 "variants" of bal (conditionals?)
+		
+	* brand new
+		* 11011 prefix : 2^13 = 8192 (from out to brcc)
+		* 111001 prefix : 2^12 = 4096 (from brcc/bacc to brl/bal)
+		* 111101 prefix : 2^12 = 4096 (from bal to xx)
+		* 11111 prefix : 2^13-1 = 8191 (from xx to reset)
+		
+		=> 24k instruction slots : more than enough...

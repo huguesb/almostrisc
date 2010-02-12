@@ -1,0 +1,48 @@
+
+Quick README for Archi2 project
+
+ * goals :
+	* write a RISC-like CPU in VHDL
+	* test it on a Spartan3 FPGA with a custom program
+ 
+ * tools : 
+	* ghdl for simulation
+		
+		# build testbench
+		$ ghdl -m --ieee=synopsys -fexplicit testbench
+		
+		# run testbench
+		$ ./testbench --stop-time=1000ns --vcd=testbench.vcd
+		
+	* gtkwave to view simulation results (waveforms)
+		
+		# view testbench results
+		$ gtkwave testbench.vcd
+		
+	* Xilinx cli tools (via build.sh) to create bitstream for Spartan3 FPGA
+		
+		# complete build sequence
+		$ ./build.sh
+		
+	* homemade modular assembler
+		
+		# ./assembler opcodes.js test.asm
+		
+
+ * specs : see cdc2010.pdf
+
+ * extensions : see todo
+
+ * history : 
+	11/02/2010 : extended test suite
+		* slight changes in testbench
+		* added a proof-of-concept assembler (C++/QtScript) 
+		
+	10/02/2010 : minor changes
+		* now compiles with ghdl
+		* basic FSM/PO tests (in, out, reset) using ghdl/gtkwave
+
+	07/02/2010 : first version
+		* written after basic specs
+		* compiles with xilinx tools
+		* untested
