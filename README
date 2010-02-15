@@ -34,6 +34,13 @@ Quick README for Archi2 project
  * extensions : see todo
 
  * history : 
+	12/02/2010 : small changes
+		* Fixed small VGA bug after first TP
+		* Added sim script to streamline simulation
+		* Imported all project files into a Git repo
+		* Some small cleanups (replacing std_logic_arith with numeric_std)
+		* Fixed UAL-related instruction parsing in assembler
+		
 	11/02/2010 : extended test suite
 		* slight changes in testbench
 		* added a proof-of-concept assembler (C++/QtScript) 

@@ -22,13 +22,19 @@ end mux_4_16;
 
 architecture Behavioral of mux_4_16 is
 begin
-	process (Sel, I0, I1, I2, I3)
-	begin
-		case Sel is
-			when "00" => S <= I0;
-			when "01" => S <= I1;
-			when "10" => S <= I2;
-			when others => S <= I3;
-		end case;
-	end process;
+-- 	process (Sel, I0, I1, I2, I3)
+-- 	begin
+-- 		case Sel is
+-- 			when "00" => S <= I0;
+-- 			when "01" => S <= I1;
+-- 			when "10" => S <= I2;
+-- 			when others => S <= I3;
+-- 		end case;
+-- 	end process;
+	
+	S <=
+		(I0 and (15 downto 0 => not Sel(0) and not Sel(1))) or
+		(I1 and (15 downto 0 => Sel(0) and not Sel(1))) or
+		(I2 and (15 downto 0 => not Sel(0) and Sel(1))) or
+		(I3 and (15 downto 0 => Sel(0) and Sel(1)));
 end Behavioral;

@@ -15,7 +15,7 @@ use ieee.numeric_std.all;
 
 entity reg16inc is
 	Port(
-		CLK, E, I, R : in std_logic;
+		CLK, E, L, I, R : in std_logic;
 		D : in std_logic_vector(15 downto 0);
 		Q : out std_logic_vector(15 downto 0)
 	);
@@ -30,7 +30,7 @@ architecture Behavioral of reg16inc is
 		);
 	end component;
 	
-	component mux_2_16 is
+	component mux_2_16
 		Port(
 			Sel : in std_logic;
 			I0, I1 : in std_logic_vector(15 downto 0);
@@ -38,27 +38,42 @@ architecture Behavioral of reg16inc is
 		);
 	end component;
 	
-	signal sD, sQ, sQn : std_logic_vector(15 downto 0);
+	component inc_dec
+		Port(
+			D : in std_logic;
+			I : in std_logic_vector(15 downto 0);
+			S : out std_logic_vector(15 downto 0)
+		);
+	end component;
+	
+	signal sQ : std_logic_vector(15 downto 0);
 begin
-	
-	sQn <= std_logic_vector(unsigned(sQ) + 1);
-	Q <= sQ;
-	
-	cReg : reg16
-	port map(
-		CLK=>CLK,
-		E=>E,
-		R=>R,
-		D=>sD,
-		Q=>sQ
-	);
-	
-	cMux : mux_2_16
-	port map(
-		Sel=>I,
-		I0=>D,
-		I1=>sQn,
-		S=>sD
-	);
-	
+	process (CLK, R)
+	begin
+		if ( R'event and R='1' ) then
+			sQ <= x"0000";
+			Q <= x"0000";
+			
+			if ( E='1' ) then
+				if ( L='1' ) then
+					sQ <= D;
+				elsif ( I='1' ) then
+					sQ <= x"0001";
+				else
+					sQ <= x"FFFF";
+				end if;
+			end if;
+		elsif ( CLK'event and CLK='1' ) then
+			if ( E='1' ) then
+				if ( L='1' ) then
+					sQ <= D;
+				elsif ( I='1' ) then
+					sQ <= std_logic_vector(unsigned(sQ) + 1);
+				else
+					sQ <= std_logic_vector(unsigned(sQ) - 1);
+				end if;
+			end if;
+			Q <= sQ;
+		end if;
+	end process;
 end Behavioral;

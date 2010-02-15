@@ -38,7 +38,7 @@ test_sw:
 test_brcc:
 	br	r0, r0
 	breq	r0, r1
-	brinc	r2, r3
+	bric	r2, r3
 	brne	r6, r7
 	
 test_bacc:
@@ -50,11 +50,36 @@ test_bricc:
 	brine	r0, test_ops
 
 test_brl:
-
-test_bal:
-
-test_ops:
+	brl	r0 , r0
 	
+test_bal:
+	bal	r6	r7
+	
+test_ops:
+	nop
+	
+	inc r0, r0
+	dec	r0, r0
+	
+	add	r0, r1, r0
+	sub r5, r4, r3
+	
+	adc r0, r0, r0
+	sbc r0, r0, r0
+	
+	and r0 r1 r1
+	or  r3 r2 r4
+	xor r0, r0 r0
+	
+	not	r0, r0
+	
+	mova r0, r1
+	movb r2, r3
+	negb r0, r0
+	nega r5, r6
+	
+	shl r0, r2, 3
+	shr r1, r5, 7
 	
 test_reset:
 	reset

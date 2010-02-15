@@ -62,17 +62,21 @@ begin
 	-- clock the simulation
 	clock_gen : process is
 	begin
-		CLK <= '0' ;
-		wait for clk_period;
 		CLK <= '1' ;
+		wait for clk_period;
+		CLK <= '0' ;
 		wait for clk_period;
 	end process clock_gen;
 	
-	RESET <= '0' ;
 	
 	-- feed some input stimuli to the simulation
 	tb : process
 	begin
+		RESET <= '1' ;
+		
+		wait for clk_period * 2;
+		
+		RESET <= '0' ;
 		
 		PIN <= x"FFFF";
 		

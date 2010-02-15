@@ -22,12 +22,14 @@ end reg16;
 
 architecture Behavioral of reg16 is
 begin
-	process (CLK, R)
+	process (CLK, R) is
 	begin
-		if ( R = '1' ) then 
+		if ( R='1' ) then
 			Q <= x"0000";
-		elsif ( CLK'event and CLK='1' and E='1' ) then
-			Q <= D;
+		elsif ( CLK'event and CLK='1' ) then
+			if ( E='1' ) then
+				Q <= D;
+			end if;
 		end if;
 	end process;
 end Behavioral;

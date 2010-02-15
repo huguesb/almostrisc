@@ -14,7 +14,7 @@ use ieee.std_logic_1164.all;
 
 entity reg1 is
 	Port(
-		CLK, E : in std_logic;
+		CLK, E, R : in std_logic;
 		D : in std_logic;
 		Q : out std_logic
 	);
@@ -22,10 +22,14 @@ end reg1;
 
 architecture Behavioral of reg1 is
 begin
-	process (CLK)
+	process (CLK, R)
 	begin
-		if ( CLK'event and CLK='1' and E='1' ) then
-			Q <= D;
+		if ( R='1' ) then
+			Q <= '0' ;
+		elsif ( CLK'event and CLK='1' ) then
+			if ( E='1' ) then
+				Q <= D;
+			end if;
 		end if;
 	end process;
 end Behavioral;

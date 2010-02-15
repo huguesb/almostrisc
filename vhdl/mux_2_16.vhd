@@ -22,11 +22,12 @@ end mux_2_16;
 
 architecture Behavioral of mux_2_16 is
 begin
-	process (Sel, I0, I1)
-	begin
-		case Sel is
-			when '0' => S <= I0;
-			when others => S <= I1;
-		end case;
-	end process;
+-- 	process (Sel, I0, I1)
+-- 	begin
+-- 		case Sel is
+-- 			when '0' => S <= I0;
+-- 			when others => S <= I1;
+-- 		end case;
+-- 	end process;
+	S <= (I0 and (15 downto 0 => not Sel)) or (I1 and (15 downto 0 => Sel));
 end Behavioral;

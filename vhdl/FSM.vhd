@@ -11,8 +11,6 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
--- use ieee.std_logic_arith.all;
--- use ieee.std_logic_unsigned.all;
 use ieee.numeric_std.all;
 
 entity FSM is
@@ -41,38 +39,79 @@ end FSM;
 architecture Behavioral of FSM is
 	type StateType is (
 		SReset,
+		SStall,
 		SFetch,
-		SDecode,
-		SBcc,
-		SBRIcc
+		SDecode
 	);
 	
+	signal sForceExec : std_logic;
 	signal sCurState, sNextState : StateType;
 begin
 
 	-- generic state switching code
 	process (CLK, RESET) 
 	begin 
-		if ( RESET='1' ) then 
-			sCurState <= SReset;
-		elsif ( CLK'event and CLK='1' ) then 
-			sCurState <= sNextState;
+		if ( CLK'event and CLK='1' ) then 
+			if ( RESET='1' ) then
+				sCurState <= SReset;
+			else
+				sCurState <= sNextState;
+			end if;
 		end if;
-	end process;	
+	end process;
 	
-	-- states details 
+	
+	-- wire for all cases :
+	op <= IR(14 downto 9);
+	SelRb <= IR(8 downto 6);
+	SelRa <= IR(5 downto 3);
+	SelRd <= IR(2 downto 0);
+	SelCond <= IR(2 downto 0);
+	
+	EPC <= '1' ;
+	CE <= '1' ;
+	
 	process (sCurState, IR, COND)
 	begin
+		-- determine next state
+		case sCurState is
+			when SReset =>
+				sNextState <= SStall;
+				
+			when SStall =>
+				-- stall state upon PC change
+				sNextState <= SFetch;
+				
+			when SFetch =>
+				-- IR = PC
+				-- PC = PC + 1
+				sNextState <= SDecode;
+				
+			when SDecode =>
+			
+				if ( IR = x"FFFF" ) then
+					-- RESET : PC = 0
+					sNextState <= SReset;
+				elsif ( (COND='1' and (IR(15 downto 10) = "111000" or IR(15 downto 14) = "10")) or IR(15 downto 10) = "111100" ) then
+					
+					--IR(15) and (((IR(14) and IR(13) and not IR(11) and not IR(10)) and (IR(12) or COND)) or (COND and not IR(14)))
+					
+					-- BRcc/BAcc
+					-- BRL/BAL
+					-- BRIcc
+					
+					sNextState <= SStall;
+				else
+					sNextState <= SDecode;
+				end if;
+				
+		end case;
+		
+		--determine outputs
+		
 		-- common code to avoid latch inference without bloating state-specific code
 		-- (latch inference is apparently responsible for misinterpretation of some
 		-- signals as clock nets which in turn causes a whole lot of trouble)
-		
-		-- wire for all cases :
-		op <= IR(14 downto 9);
-		SelRb <= IR(8 downto 6);
-		SelRa <= IR(5 downto 3);
-		SelRd <= IR(2 downto 0);
-		SelCond <= IR(2 downto 0);
 		
 		-- default values to avoid latch inference
 		SelRIn <= "000";
@@ -80,15 +119,11 @@ begin
 		SelPCOff <= '0' ;
 		ImmOff <= x"0000";
 		
-		-- no PC change, no IR change unless otherwise notified
-		EPC <= '0' ;
 		EIR <= '0' ;
 		LDPC <= '0' ;
 		CLRPC <= '0' ;
 		SelPC <= '0' ;
 		
-		-- no RAM I/O unless otherwise notified
-		CE <= '1' ;
 		WE <= '0' ;
 		OE <= '0' ;
 		
@@ -99,58 +134,52 @@ begin
 		ERd <= '0' ;
 		ECarry <= '0' ;
 		
-		
 		-- state-specific code
 		
 		case sCurState is
 			when SReset =>
-				-- PC = 0
+				-- init fsm (somehow impossible to merge with STALL)
+				-- without artifacts in PC (reg16 do not like E and R at the same time)
 				
 				CLRPC <= '1' ;
 				
-				sNextState <= SFetch;
+			when SStall =>
+				-- stall state upon PC change
 				
 			when SFetch =>
 				-- IR = PC
 				-- PC = PC + 1
 				
 				EIR <= '1' ;
-				EPC <= '1' ;
-				
-				sNextState <= SDecode;
 				
 			when SDecode =>
+			
 				if ( IR(15) = '0' ) then
 					-- UAL : Rd = Ra op Rb
 					
 					ERd <= '1' ;
 					ECarry <= '1' ;
-					SelRIn <= "000";
 					
-					-- 2cc
-					sNextState <= SFetch;
-				elsif ( IR = x"FFFF" ) then
-					-- RESET : PC = 0
+					-- prefetching
+					EIR <= '1' ;
 					
-					CLRPC <= '1' ;
-					
-					-- 2cc
-					sNextState <= SFetch;
 				elsif ( IR(15 downto 9) = "1101010" ) then
 					-- IN : Rd = ports
 					
 					ERd <= '1' ;
 					SelRIn <= "011";
 					
-					-- 2cc
-					sNextState <= SFetch;
+					-- prefetching
+					EIR <= '1' ;
+					
 				elsif ( IR(15 downto 9) = "1101011" ) then
 					-- OUT : ports = Rb
 					
 					EOUT <= '1' ;
 					
-					-- 2cc
-					sNextState <= SFetch;
+					-- prefetching
+					EIR <= '1' ;
+					
 				elsif ( IR(15 downto 9) = "1101000" ) then
 					-- LW : Rd = (Ra)
 					
@@ -159,83 +188,60 @@ begin
 					ERd <= '1' ;
 					SelRIn <= "001";
 					
-					-- 2cc
-					sNextState <= SFetch;
-				elsif ( IR(15 downto 10) = "111000" ) then
-					-- BRcc/BAcc
+					-- prefetching
+					EIR <= '1' ;
 					
-					sNextState <= SBcc;
-					
-				elsif ( IR(15 downto 10) = "111000" ) then
-					-- BRL/BAL
-					
-					ERd <= '1' ;
-					SelRIn <= "010";
-					
-					EPC <= '1' ;
-					LDPC <= '1' ;
-					SelPC <= IR(9);
-					SelPCOff <= '1' ;
-					
-					-- 2cc
-					sNextState <= SFetch;
 				elsif ( IR(15 downto 9) = "1101001" ) then
 					-- SW : (Ra) = Rd
 					
 					WE <= '1' ;
 					
-					-- 2cc
-					sNextState <= SFetch;
-				elsif ( IR(15 downto 12) = "1100" ) then
-					-- LI : TODO
+					-- prefetching
+					EIR <= '1' ;
 					
-					SelRd <= IR(2 downto 0);
-					--ImmOff <= SXT(IR(13 downto 6), 16);
-					ImmOff <= std_logic_vector(resize(signed(IR(13 downto 6)), 16));
+				elsif ( IR(15 downto 10) = "111000" ) then
+					-- BRcc/BAcc
+					
+					EIR <= not COND;
+					
+					LDPC <= COND ;
+					SelPC <= IR(9);
+					SelPCOff <= '1' ;
+					
+				elsif ( IR(15 downto 10) = "111100" ) then
+					-- BRL/BAL
+					
+					ERd <= '1' ;
+					SelRIn <= "010";
+					
+					LDPC <= '1' ;
+					SelPC <= IR(9);
+					SelPCOff <= '1' ;
+					
+				elsif ( IR(15 downto 12) = "1100" ) then
+					-- LI 
+					
+					ImmOff <= std_logic_vector(resize(signed(IR(11 downto 3)), 16));
 					
 					ERd <= '1' ;
 					SelRIn <= "100";
 					
-					-- 2cc
-					sNextState <= SFetch;
+					-- prefetching
+					EIR <= '1' ;
+					
 				elsif ( IR(15 downto 14) = "10" ) then
 					-- BRIcc
 					
-					SelRa <= IR(5 downto 3);
-					SelCond <= IR(2 downto 0);
-					--ImmOff <= SXT(IR(11 downto 3), 16);
-					ImmOff <= std_logic_vector(resize(signed(IR(11 downto 3)), 16));
+					ImmOff <= std_logic_vector(resize(signed(IR(13 downto 6)), 16));
 					
-					sNextState <= SBRIcc;
+					EIR <= not COND;
+					LDPC <= COND ;
+					
 				else
-					-- 2cc
-					sNextState <= SFetch;
+					-- prefetching
+					EIR <= '1' ;
+					
 				end if;
-				
-			when SBcc =>
-				if ( COND='1' ) then
-					EPC <= '1' ;
-					LDPC <= '1' ;
-					SelPC <= IR(9);
-					SelPCOff <= '1' ;
-				end if;
-				
-				-- 3cc
-				sNextState <= SFetch;
-				
-			when SBRIcc =>
-				if ( COND='1' ) then
-					EPC <= '1' ;
-					LDPC <= '1' ;
-					SelPC <= '0' ;
-					SelPCOff <= '0' ;
-				end if;
-				
-				-- 3cc
-				sNextState <= SFetch;
-				
-			when others =>
-				sNextState <= SFetch;
 				
 		end case;
 	end process;
