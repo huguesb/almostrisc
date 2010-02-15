@@ -44,7 +44,7 @@ architecture Behavioral of FSM is
 		SDecode
 	);
 	
-	signal sForceExec : std_logic;
+	signal sIt, sWi, sSel : std_logic;
 	signal sCurState, sNextState : StateType;
 begin
 
@@ -71,6 +71,59 @@ begin
 	EPC <= '1' ;
 	CE <= '1' ;
 	
+	-- only set for UAL ops
+	ECarry <= not IR(15);
+	
+	--IR(15 downto 9) = "1101010"
+	-- IR(15) = '0' or IR(15 downto 9) = "1101000" or IR(15 downto 10) = "111100" or IR(15 downto 12) = "1100"
+-- 	ERd <= (not IR(15)) or
+-- 			(
+-- 				IR(14) and
+-- 				(
+-- 					(
+-- 						(not IR(13)) and
+-- 						(
+-- 							(not IR(12)) or
+-- 							(
+-- 								IR(12) and
+-- 								(not IR(11)) and
+-- 								(not IR(9))
+-- 							)
+-- 						)
+-- 					) or (
+-- 						IR(13) and IR(12) and (not IR(11)) and (not IR(10))
+-- 					)
+-- 				)
+-- 			);
+	
+	ERd <= IR(15) nand
+			(
+				IR(14) nand
+				(
+					(
+						IR(13) nor (IR(12) and (IR(12) nand (IR(11) nor IR(9))))
+					) or (
+						IR(13) and IR(12) and (IR(11) nor IR(10))
+					)
+				)
+			);
+	
+	sIt <= IR(15) and IR(14);
+	sWi <= sIt and IR(12) and (IR(13) nor IR(11));
+	
+	-- IR(15 downto 9) = "1101011"
+	EOUT <= sWi and IR(10) and IR(9);
+	
+	-- IR(15 downto 9) = "1101001"
+	WE <= sWi and (not IR(10)) and IR(9);
+	
+	-- IR(15 downto 9) = "1101000"
+	OE <= sWi and (IR(10) nor not IR(9));
+	
+	sSel <= sIt and IR(13) and (IR(11) nor IR(10));
+	SelPC <= IR(9) and sSel;
+	SelPCOff <= sSel;
+	
 	process (sCurState, IR, COND)
 	begin
 		-- determine next state
@@ -92,7 +145,9 @@ begin
 				if ( IR = x"FFFF" ) then
 					-- RESET : PC = 0
 					sNextState <= SReset;
-				elsif ( (COND='1' and (IR(15 downto 10) = "111000" or IR(15 downto 14) = "10")) or IR(15 downto 10) = "111100" ) then
+				elsif ( IR(15 downto 10) = "111100" or
+						(COND='1' and (IR(15 downto 10) = "111000" or IR(15 downto 14) = "10"))
+						) then
 					
 					--IR(15) and (((IR(14) and IR(13) and not IR(11) and not IR(10)) and (IR(12) or COND)) or (COND and not IR(14)))
 					
@@ -115,24 +170,11 @@ begin
 		
 		-- default values to avoid latch inference
 		SelRIn <= "000";
-		SelPC <= '0' ;
-		SelPCOff <= '0' ;
 		ImmOff <= x"0000";
 		
 		EIR <= '0' ;
 		LDPC <= '0' ;
 		CLRPC <= '0' ;
-		SelPC <= '0' ;
-		
-		WE <= '0' ;
-		OE <= '0' ;
-		
-		-- no port output unless otherwise notified
-		EOUT <= '0' ;
-		
-		-- no register change unless otherwise notified
-		ERd <= '0' ;
-		ECarry <= '0' ;
 		
 		-- state-specific code
 		
@@ -157,16 +199,12 @@ begin
 				if ( IR(15) = '0' ) then
 					-- UAL : Rd = Ra op Rb
 					
-					ERd <= '1' ;
-					ECarry <= '1' ;
-					
 					-- prefetching
 					EIR <= '1' ;
 					
 				elsif ( IR(15 downto 9) = "1101010" ) then
 					-- IN : Rd = ports
 					
-					ERd <= '1' ;
 					SelRIn <= "011";
 					
 					-- prefetching
@@ -175,17 +213,12 @@ begin
 				elsif ( IR(15 downto 9) = "1101011" ) then
 					-- OUT : ports = Rb
 					
-					EOUT <= '1' ;
-					
 					-- prefetching
 					EIR <= '1' ;
 					
 				elsif ( IR(15 downto 9) = "1101000" ) then
 					-- LW : Rd = (Ra)
 					
-					OE <= '1' ;
-					
-					ERd <= '1' ;
 					SelRIn <= "001";
 					
 					-- prefetching
@@ -193,8 +226,6 @@ begin
 					
 				elsif ( IR(15 downto 9) = "1101001" ) then
 					-- SW : (Ra) = Rd
-					
-					WE <= '1' ;
 					
 					-- prefetching
 					EIR <= '1' ;
@@ -205,25 +236,19 @@ begin
 					EIR <= not COND;
 					
 					LDPC <= COND ;
-					SelPC <= IR(9);
-					SelPCOff <= '1' ;
 					
 				elsif ( IR(15 downto 10) = "111100" ) then
 					-- BRL/BAL
 					
-					ERd <= '1' ;
 					SelRIn <= "010";
 					
 					LDPC <= '1' ;
-					SelPC <= IR(9);
-					SelPCOff <= '1' ;
 					
 				elsif ( IR(15 downto 12) = "1100" ) then
 					-- LI 
 					
 					ImmOff <= std_logic_vector(resize(signed(IR(11 downto 3)), 16));
 					
-					ERd <= '1' ;
 					SelRIn <= "100";
 					
 					-- prefetching
