@@ -11,24 +11,37 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-entity reg1 is
+entity PS2 is
 	Port(
-		CLK, E, R : in std_logic;
-		D : in std_logic;
-		Q : out std_logic
+		CLK, RESET : in std_logic;
+		
+		AD : in std_logic_vector(1 downto 0);
+		DIN : in std_logic_vector(15 downto 0);
+		DOUT : out std_logic_vector(15 downto 0);
+		
+		CE, OE, WE : in std_logic;
+		
+		IRQ : out std_logic
 	);
-end reg1;
+end PS2;
 
-architecture Behavioral of reg1 is
+--
+-- PS/2 driver
+--
+
+architecture Behavioral of PS2 is
+	
 begin
-	process (CLK, R)
+	process (CLK)
 	begin
-		if ( R='1' ) then
-			Q <= '0' ;
-		elsif ( CLK'event and CLK='1' ) then
-			if ( E='1' ) then
-				Q <= D;
+		if ( CLK'event and CLK='1' ) then
+			IRQ <= '0' ;
+			DOUT <= x"0000";
+			
+			if ( CE='1' ) then
+				IRQ <= '1' ;
 			end if;
 		end if;
 	end process;

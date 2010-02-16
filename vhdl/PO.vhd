@@ -11,6 +11,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity PO is
 	Port(
@@ -20,7 +21,7 @@ entity PO is
 		
 		COND : out std_logic;
 		
-		CLK, SelPC, SelPCOff, CLRPC : in std_logic;
+		CLK, RESET, SelPC, SelPCOff, CLRPC : in std_logic;
 		
 		op : in std_logic_vector(5 downto 0);
 		SelCond : in std_logic_vector(2 downto 0);
@@ -28,7 +29,12 @@ entity PO is
 		
 		SelRIn, SelRa, SelRb, SelRd : in std_logic_vector(2 downto 0);
 		
-		EIR, EPC, LDPC, ERd, ECarry, EOut : in std_logic
+		EIR, EPC, LDPC, ERd, ECarry, EOut : in std_logic;
+		
+		SelReti : in std_logic;
+		EINT : in std_logic;
+		INTi : in std_logic;
+		INTo : out std_logic
 		
 		--
 		-- Note on divergence from proposed solution :
@@ -44,7 +50,7 @@ end PO;
 architecture Behavioral of PO is
 	component reg1
 		Port(
-			CLK, E : in std_logic;
+			CLK, E, R : in std_logic;
 			D : in std_logic;
 			Q : out std_logic
 		);
@@ -60,7 +66,7 @@ architecture Behavioral of PO is
 	
 	component reg16inc
 		Port(
-			CLK, E, I, R : in std_logic;
+			CLK, E, L, I, R : in std_logic;
 			D : in std_logic_vector(15 downto 0);
 			Q : out std_logic_vector(15 downto 0)
 		);
@@ -124,217 +130,183 @@ architecture Behavioral of PO is
 		);
 	end component;
 	
-	signal sIR, sPC, sPCn, sPCi, sPCoff : std_logic_vector(15 downto 0);
+	type reg16array is array (integer range <>) of std_logic_vector(15 downto 0);
+	-- use 16 regs instead of 8 : alternate register bank for interrupts
+	signal sR : reg16array(15 downto 0);
+	signal sRegE : std_logic_vector(15 downto 0);
+	
+	signal sigRa, sigRb, sigRd, sRin : std_logic_vector(15 downto 0);
+	
+	signal sIR : std_logic_vector(15 downto 0);
 	
 	signal sUAL : std_logic_vector(15 downto 0);
-	signal sCin, sCout : std_logic;
+	signal sCstore, sCsave, sCin, sCout : std_logic;
 	
-	signal sNotLDPC : std_logic;
+	signal sEPCprev : std_logic;
+	signal sPC, sPCin, sPCinc, sPCnext, sPCprev, sPCIR, sPCorg, sPCoff, sPCload, sPCint : std_logic_vector(15 downto 0);
 	
-	-- damn it : id are not case sensistive and SRA is already defined (Shift Right Arithmetic)
-	signal sigRa, sRb, sRd, sR0, sR1, sR2, sR3, sR4, sR5, sR6, sR7 : std_logic_vector(15 downto 0);
-	
-	signal ER0, ER1, ER2, ER3, ER4, ER5, ER6, ER7 : std_logic;
+	signal sINTo : std_logic;
 begin
+	-- interrupt status register
+	cINT : reg1
+	port map(
+		CLK=>CLK,
+		E=>EINT,
+		D=>INTi,
+		Q=>sINTo,
+		R=>RESET
+	);
 	
-	-- internal registers (PC, IR, SP) and related
+	INTo <= sINTo;
+	
+	-- interrupt return address reg
+	cPCint : reg16
+	port map(
+		CLK=>CLK,
+		E=>EINT,
+		D=>sPCIR,
+		Q=>sPCint,
+		R=>RESET
+	);
+	
+	-- instruction register
 	cIR : reg16
 	port map(
 		CLK=>CLK,
-		D=>DPROG,
-		Q=>sIR,
 		E=>EIR,
-		R=>'0'
+		D=>DPROG,
+		Q=>IR,
+		R=>RESET
 	);
 	
-	IR <= sIR;
-	
-	cPC : reg16inc
+	-- program counter
+	cPC : reg16
 	port map(
 		CLK=>CLK,
-		D=>sPCn,
-		Q=>sPC,
 		E=>EPC,
-		I=>sNotLDPC,
+		D=>sPCin,
+		Q=>sPC,
 		R=>CLRPC
 	);
 	
-	sNotLDPC <= not LDPC;
 	
-	-- compute intermediate PC value (PC + offset)
-	cPCi : add16
+	-- keep track of value of PC associated with IR
+	-- to reuse it in absolute jumps.
+	-- this is required by instruction pipelining :
+	--  clk    ^    ^
+	--  ad   a   b    c
+	--  d       m(a) m(b)
+	--  ir           m(a)
+	
+	cPCprev : reg16
 	port map(
-		A=>sPC,
-		B=>sPCoff,
-		S=>sPCi
+		CLK=>CLK,
+		E=>sEPCprev,
+		D=>sPC,
+		Q=>sPCprev,
+		R=>RESET
 	);
 	
-	-- select offset to add to PC for rel jump (register or immediate)
-	cPCoffsel : mux_2_16
+	cPCIR : reg16
+	port map(
+		CLK=>CLK,
+		E=>sEPCprev,
+		D=>sPCprev,
+		Q=>sPCIR,
+		R=>RESET
+	);
+	
+	sEPCprev <= EPC or CLRPC;
+	
+	-- mux and adders to select value to load into pc
+	
+	sPCinc <= std_logic_vector(unsigned(sPC) + 1);
+	
+	cMuxPCnext : mux_2_16
+	port map(
+		Sel=>SelReti,
+		I0=>sPCinc,
+		I1=>sPCint,
+		S=>sPCnext
+	);
+	
+	cMuxPCin : mux_2_16
+	port map(
+		Sel=>LDPC,
+		I0=>sPCnext,
+		I1=>sPCload,
+		S=>sPCin
+	);
+	
+	sPCorg <= sPCIR and (15 downto 0 => not SelPC);
+	
+	cMuxPCoff : mux_2_16
 	port map(
 		Sel=>SelPCOff,
 		I0=>ImmOff,
-		I1=>sRb,
+		I1=>sigRb,
 		S=>sPCoff
 	);
 	
-	-- select next PC value (absolute or relative jump)
-	cPCsel : mux_2_16
-	port map(
-		Sel=>SelPC,
-		I0=>sPCi,
-		I1=>sRb,
-		S=>sPCn
-	);
-	
-	ADPROG <= sPC;
-	
-	-- condition checker
-	cCC : cond_checker
-	port map(
-		I=>sigRa,
-		C=>SelCond,
-		R=>COND
-	);
+	sPCload <= std_logic_vector(unsigned(sPCorg) + unsigned(sPCoff));
 	
 	-- gp registers and related
 	
-	cR0 : reg16
-	port map(
-		CLK=>CLK,
-		D=>sRd,
-		Q=>sR0,
-		E=>ER0,
-		R=>'0'
-	);
+	cRegs: for idx in sR'Range generate
+		cReg: reg16
+		port map(
+			CLK=>CLK,
+			D=>sigRd,
+			Q=>sR(idx),
+			E=>sRegE(idx),
+			R=>RESET
+		);
+	end generate;
 	
-	cR1 : reg16
-	port map(
-		CLK=>CLK,
-		D=>sRd,
-		Q=>sR1,
-		E=>ER1,
-		R=>'0'
-	);
+	sigRa <= sR(to_integer(sINTo & unsigned(SelRa)));
+	sigRb <= sR(to_integer(sINTo & unsigned(SelRb)));
 	
-	cR2 : reg16
-	port map(
-		CLK=>CLK,
-		D=>sRd,
-		Q=>sR2,
-		E=>ER2,
-		R=>'0'
-	);
+	cSelRd : process(SelRd, ERd)
+	begin
+		sRegE <= (others => '0' );
+		sRegE(to_integer(sINTo & unsigned(SelRd))) <= ERd ;
+	end process;
 	
-	cR3 : reg16
-	port map(
-		CLK=>CLK,
-		D=>sRd,
-		Q=>sR3,
-		E=>ER3,
-		R=>'0'
-	);
-	
-	cR4 : reg16
-	port map(
-		CLK=>CLK,
-		D=>sRd,
-		Q=>sR4,
-		E=>ER4,
-		R=>'0'
-	);
-	
-	cR5 : reg16
-	port map(
-		CLK=>CLK,
-		D=>sRd,
-		Q=>sR5,
-		E=>ER5,
-		R=>'0'
-	);
-	
-	cR6 : reg16
-	port map(
-		CLK=>CLK,
-		D=>sRd,
-		Q=>sR6,
-		E=>ER6,
-		R=>'0'
-	);
-	
-	cR7 : reg16
-	port map(
-		CLK=>CLK,
-		D=>sRd,
-		Q=>sR7,
-		E=>ER7,
-		R=>'0'
-	);
-	
-	cSelRa : mux_8_16
-	port map(
-		Sel=>SelRa,
-		I0=>sR0,
-		I1=>sR1,
-		I2=>sR2,
-		I3=>sR3,
-		I4=>sR4,
-		I5=>sR5,
-		I6=>sR6,
-		I7=>sR7,
-		S=>sigRa
-	);
-	
-	cSelRb : mux_8_16
-	port map(
-		Sel=>SelRb,
-		I0=>sR0,
-		I1=>sR1,
-		I2=>sR2,
-		I3=>sR3,
-		I4=>sR4,
-		I5=>sR5,
-		I6=>sR6,
-		I7=>sR7,
-		S=>sRb
-	);
-	
-	cSelRIn : mux_8_16
-	port map(
-		Sel=>SelRIn,
-		I0=>sUAL,
-		I1=>DDATAIN,
-		I2=>sPC,
-		I3=>PIN,
-		I4=>ImmOff,
-		I5=>x"0000",
-		I6=>x"0000",
-		I7=>x"0000",
-		S=>sRd
-	);
-	
-	cSelRd : demux_8_1
-	port map(
-		Sel=>SelRd,
-		I=>ERd,
-		S0=>ER0,
-		S1=>ER1,
-		S2=>ER2,
-		S3=>ER3,
-		S4=>ER4,
-		S5=>ER5,
-		S6=>ER6,
-		S7=>ER7
-	);
-	
+	ADPROG <= sPC;
 	ADDATA <= sigRa;
+	
+	-- SelRin coding :
+	--	000	: DDATAIN
+	--	001	: PCIR + 1 = PCprev
+	--	010	: PIN
+	--	011	: ImmOff
+	--	100	: UAL
+	
+	-- prioritize UAL to decrease critical timings
+	cSelRInUAL : mux_2_16
+	port map(
+		Sel=>SelRIn(2),
+		I0=>sRin,
+		I1=>sUAL,
+		S=>sigRd
+	);
+	
+	cSelRIn : mux_4_16
+	port map(
+		Sel=>SelRIn(1 downto 0),
+		I0=>DDATAIN,
+		I1=>sPCprev,
+		I2=>PIN,
+		I3=>ImmOff,
+		S=>sRin
+	);
 	
 	-- UAL and related
 	
 	cUAL : UAL
 	port map(
 		A=>sigRa,
-		B=>sRb,
+		B=>sigRb,
 		S=>sUAL,
 		CIN=>sCin,
 		COUT=>sCout,
@@ -345,35 +317,43 @@ begin
 	port map(
 		CLK=>CLK,
 		E=>ECarry,
-		D=>sCout,
+		R=>RESET,
+		D=>sCstore,
 		Q=>sCin
 	);
 	
+	cCarrySave : reg1
+	port map(
+		CLK=>CLK,
+		E=>INTi,
+		R=>RESET,
+		D=>sCin,
+		Q=>sCsave
+	);
+	
+	sCstore <= (sCsave and SelReti) or (sCout and not SelReti);
+	
 	-- memory
 	
-	cSelRs : mux_8_16
-	port map(
-		Sel=>SelRd,
-		I0=>sR0,
-		I1=>sR1,
-		I2=>sR2,
-		I3=>sR3,
-		I4=>sR4,
-		I5=>sR5,
-		I6=>sR6,
-		I7=>sR7,
-		S=>DDATAOUT
-	);
+	DDATAOUT <= sR(to_integer(sINTo & unsigned(SelRd)));
 	
 	-- ports
 	
 	cRout : reg16
 	port map(
 		CLK=>CLK,
-		D=>sRb,
+		D=>sigRb,
 		Q=>POUT,
 		E=>EOUT,
-		R=>'0'
+		R=>RESET
+	);
+	
+	-- condition checker
+	cCC : cond_checker
+	port map(
+		I=>sigRa,
+		C=>SelCond,
+		R=>COND
 	);
 	
 end Behavioral;

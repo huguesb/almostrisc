@@ -14,7 +14,7 @@ use ieee.std_logic_1164.all;
 
 entity VGA is
 	Port(
-		CLK : in std_logic;
+		CLK, RESET : in std_logic;
 		
 		AD : out std_logic_vector(12 downto 0);
 		DATA : in std_logic_vector(15 downto 0);
@@ -27,7 +27,7 @@ end VGA;
 architecture Behavioral of VGA is
 	component GeneRGB
 		Port(
-			CLK : in std_logic;
+			CLK, RESET : in std_logic;
 			X : in  std_logic_vector (9 downto 0);
 			Y : in  std_logic_vector (8 downto 0);
 			IMG : in  std_logic;
@@ -43,7 +43,7 @@ architecture Behavioral of VGA is
 	
 	component GeneSync
 		Port(
-			CLK : in std_logic;
+			CLK, RESET : in std_logic;
 			HSYNC : out std_logic;
 			VSYNC : out std_logic;
 			IMG : out std_logic;
@@ -59,6 +59,7 @@ begin
 	cSync : GeneSync 
 	port map(
 		CLK=>CLK,
+		RESET=>RESET,
 		HSYNC=>HS,
 		VSYNC=>VS,
 		IMG=>IMGi,
@@ -69,6 +70,7 @@ begin
 	cRGB : GeneRGB
 	port map(
 		CLK=>CLK,
+		RESET=>RESET,
 		X=>Xi,
 		Y=>Yi,
 		IMG=>IMGi,

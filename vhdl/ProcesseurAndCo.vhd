@@ -12,6 +12,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity ProcesseurAndCo is
 	Port(
@@ -34,7 +35,7 @@ architecture Behavioral of ProcesseurAndCo is
 			DDATAIN : in std_logic_vector(15 downto 0);
 			DDATAOUT : out std_logic_vector(15 downto 0);
 			
-			CLK, RESET : in std_logic;
+			CLK, RESET, INT : in std_logic;
 			CE, WE, OE : out std_logic;
 			
 			PIN : in std_logic_vector(15 downto 0);
@@ -47,6 +48,18 @@ architecture Behavioral of ProcesseurAndCo is
 			AD : in std_logic_vector (12 downto 0);
 			D : out std_logic_vector (15 downto 0);
 			CLK : in std_logic
+		);
+	end component;
+	
+	component MMU
+		Port(
+			AD : in std_logic_vector(15 downto 0);
+			CE : in std_logic;
+			
+			CEram : out std_logic;
+			CEirq : out std_logic;
+			CEps2 : out std_logic;
+			CEtmr : out std_logic
 		);
 	end component;
 	
@@ -64,9 +77,25 @@ architecture Behavioral of ProcesseurAndCo is
 		);
 	end component;
 	
+	component IRQ is
+		Port(
+			CLK, RESET : in std_logic;
+			
+			AD : in std_logic_vector(1 downto 0);
+			DIN : in std_logic_vector(15 downto 0);
+			DOUT : out std_logic_vector(15 downto 0);
+			
+			CE, OE, WE : in std_logic;
+			
+			IRQin : in std_logic_vector(15 downto 0);
+			IRQout : out std_logic
+		);
+	end component;
+	
+	
 	component VGA
 		Port(
-			CLK : in std_logic;
+			CLK, RESET : in std_logic;
 			
 			AD : out std_logic_vector(12 downto 0);
 			DATA : in std_logic_vector(15 downto 0);
@@ -76,14 +105,46 @@ architecture Behavioral of ProcesseurAndCo is
 		);
 	end component;
 	
+	component PS2
+		Port(
+			CLK, RESET : in std_logic;
+			
+			AD : in std_logic_vector(1 downto 0);
+			DIN : in std_logic_vector(15 downto 0);
+			DOUT : out std_logic_vector(15 downto 0);
+			
+			CE, OE, WE : in std_logic;
+			
+			IRQ : out std_logic
+		);
+	end component;
+	
+	component Timer
+		Port(
+			CLK, RESET : in std_logic;
+			
+			AD : in std_logic_vector(2 downto 0);
+			DIN : in std_logic_vector(15 downto 0);
+			DOUT : out std_logic_vector(15 downto 0);
+			
+			CE, OE, WE : in std_logic;
+			
+			IRQ : out std_logic
+		);
+	end component;
+	
+	signal INT : std_logic;
 	signal ADPROG, ADDATA, ADVGA : std_logic_vector(15 downto 0);
 	signal DPROG, DDATAIN, DDATAOUT, DVGA : std_logic_vector(15 downto 0);
+	signal sRAMout, sIRQout, sPS2out, sTMRout, sIRQin : std_logic_vector(15 downto 0);
 	signal WE, CE, OE : std_logic;
+	signal CEram, CEirq, CEps2, CEtmr : std_logic;
 begin
 	cProcesseur : Processeur
 	port map(
 		CLK=>CLK,
 		RESET=>RESET,
+		INT=>INT,
 		ADPROG=>ADPROG,
 		DPROG=>DPROG,
 		ADDATA=>ADDATA,
@@ -103,22 +164,51 @@ begin
 		D=>DPROG
 	);
 	
+	cMMU : MMU
+	port map(
+		AD=>ADDATA,
+		CE=>CE,
+		CEram=>CEram,
+		CEirq=>CEirq,
+		CEps2=>CEps2,
+		CEtmr=>CEtmr
+	);
+	
 	cRAMDoublePort : RAMDoublePort
 	port map(
 		CLK=>CLK,
 		AD1=>ADDATA(12 downto 0),
 		DIN1=>DDATAOUT,
-		DOUT1=>DDATAIN,
+		DOUT1=>sRAMout,
 		AD2=>ADVGA(12 downto 0),
 		DOUT2=>DVGA,
 		WE1=>WE,
-		CE1=>CE,
+		CE1=>CEram,
 		OE1=>OE
 	);
+	
+	sIRQin(15 downto 2) <= (others => '1' );
+	
+	cIRQ : IRQ
+	port map(
+		CLK=>CLK,
+		RESET=>RESET,
+		AD=>ADDATA(1 downto 0),
+		DIN=>DDATAOUT,
+		DOUT=>sIRQout,
+		CE=>CEirq,
+		WE=>WE,
+		OE=>OE,
+		IRQin=>sIRQin,
+		IRQout=>INT
+	);
+	
+	DDATAIN <= sRAMout or sIRQout or sPS2out or sTMRout;
 	
 	cVGA : VGA
 	port map(
 		CLK=>CLK,
+		RESET=>RESET,
 		AD=>ADVGA(12 downto 0),
 		DATA=>DVGA,
 		HS=>HS,
@@ -126,6 +216,32 @@ begin
 		R=>R,
 		G=>G,
 		B=>B
+	);
+	
+	cPS2 : PS2
+	port map(
+		CLK=>CLK,
+		RESET=>RESET,
+		AD=>ADDATA(1 downto 0),
+		DIN=>DDATAOUT,
+		DOUT=>sPS2out,
+		CE=>CEps2,
+		WE=>WE,
+		OE=>OE,
+		IRQ=>sIRQin(0)
+	);
+	
+	cTimer : Timer
+	port map(
+		CLK=>CLK,
+		RESET=>RESET,
+		AD=>ADDATA(2 downto 0),
+		DIN=>DDATAOUT,
+		DOUT=>sTMRout,
+		CE=>CEtmr,
+		WE=>WE,
+		OE=>OE,
+		IRQ=>sIRQin(1)
 	);
 	
 end Behavioral;

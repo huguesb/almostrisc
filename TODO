@@ -1,7 +1,9 @@
 
+ Memory mapping for peripherals
+
  MUCH needed instructions
 	* register swap (gnl)
-	* stack manipulation (gnl)
+	* stack manipulation (gnl) : no special purpose reg??? UAL hack???
 	* interrupts-related (gnl)
 	* multiplication/division (op)
 	* streamed
@@ -52,3 +54,13 @@
 		* 11111 prefix : 2^13-1 = 8191 (from xx to reset)
 		
 		=> 24k instruction slots : more than enough...
+
+extended instruction set v1 :
+
+	|F|E|D|C|B|A|9|8|7|6|5|4|3|2|1|0| 
+    |-------------------------------|
+	|1|1|1|0|1|0|0|0|0|0|  Ra |  Rd | push rd, ra <=> sw rd, ra \ dec ra
+	|1|1|1|0|1|0|0|0|0|1|  Ra |  Rd | pop rd, ra <=> lw rd, ra \ inc ra
+    |-------------------------------|
+    |1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|0| reti
+    |-------------------------------|

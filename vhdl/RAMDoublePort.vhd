@@ -1,7 +1,15 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+----------------------------------------------------------------------------------
+--
+-- File retrieved, on 07/02/2010, from :
+-- http://sebastien-viardot.imag.fr/Enseignements/Archi1A2s/sources/RAMDoublePort.vhd
+--
+-- Slightly altered to get rid of vendor-specific packages and adjust formatting
+--
+----------------------------------------------------------------------------------
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity RAMDoublePort is
     Port ( AD1 : in  STD_LOGIC_VECTOR (12 downto 0);
@@ -26,7 +34,7 @@ begin
    process(CLK)
 	begin 
 		if (CLK'event AND CLK='1') then
-			DOUT2 <= memoire(conv_integer(AD2));
+			DOUT2 <= memoire(to_integer(unsigned(AD2)));
 		end if;
 	end process;
 
@@ -34,7 +42,7 @@ begin
 	begin 
 		if (CLK'event AND CLK='1') then
 			if ((CE1='1') AND (OE1='1')) then 
-				DOUT1<=memoire(conv_integer(AD1));
+				DOUT1<=memoire(to_integer(unsigned(AD1)));
 			else 
 				DOUT1<=(others =>'0');
 			end if;		
@@ -45,7 +53,7 @@ begin
 	begin
 	  IF (CLK'event AND CLK='1') then
 			if ((CE1='1') AND (WE1='1')) then 
-				memoire(conv_integer(AD1))<=DIN1;
+				memoire(to_integer(unsigned(AD1)))<=DIN1;
 			end if;
 		  end if;
 	end process;

@@ -11,24 +11,37 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-entity reg1 is
+entity Timer is
 	Port(
-		CLK, E, R : in std_logic;
-		D : in std_logic;
-		Q : out std_logic
+		CLK, RESET : in std_logic;
+		
+		AD : in std_logic_vector(2 downto 0);
+		DIN : in std_logic_vector(15 downto 0);
+		DOUT : out std_logic_vector(15 downto 0);
+		
+		CE, OE, WE : in std_logic;
+		
+		IRQ : out std_logic
 	);
-end reg1;
+end Timer;
 
-architecture Behavioral of reg1 is
+--
+-- Timer(s) driver : basically clock divider which generate interrupts
+--
+
+architecture Behavioral of Timer is
+	
 begin
-	process (CLK, R)
+	process (CLK)
 	begin
-		if ( R='1' ) then
-			Q <= '0' ;
-		elsif ( CLK'event and CLK='1' ) then
-			if ( E='1' ) then
-				Q <= D;
+		IRQ <= '0' ;
+		DOUT <= x"0000";
+		
+		if ( CLK'event and CLK='1' ) then
+			if ( CE='1' ) then
+				
 			end if;
 		end if;
 	end process;
