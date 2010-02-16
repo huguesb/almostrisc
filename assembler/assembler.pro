@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = assembler
+TARGET = asrisc
 DEPENDPATH += .
 INCLUDEPATH += .
 
@@ -11,6 +11,9 @@ CONFIG += debug
 
 QT -= gui
 QT += script
+
+DESTDIR = ..
+OBJECTS_DIR = .build
 
 # Input
 SOURCES += main.cpp
