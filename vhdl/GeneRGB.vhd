@@ -15,7 +15,7 @@ use ieee.numeric_std.all;
 
 entity GeneRGB is
 	Port (
-		CLK : in std_logic;
+		CLK, RESET : in std_logic;
 		
 		X : in  STD_LOGIC_VECTOR (9 downto 0);
 		Y : in  STD_LOGIC_VECTOR (8 downto 0);
@@ -58,31 +58,13 @@ begin
 	begin
 		if ( CLK'event and CLK='1' )
 		then 
-			S <= X(4 downto 1);
+			if ( RESET='1' ) then
+				S <= (others => '0');
+			else
+				S <= X(4 downto 1);
+			end if;
 		end if;
 	end process;
-	
--- 	cPixel : mux_16_1
--- 	port map(
--- 		Sel=>S,
--- 		I0=>DATA(15),
--- 		I1=>DATA(14),
--- 		I2=>DATA(13),
--- 		I3=>DATA(12),
--- 		I4=>DATA(11),
--- 		I5=>DATA(10),
--- 		I6=>DATA(9),
--- 		I7=>DATA(8),
--- 		I8=>DATA(7),
--- 		I9=>DATA(6),
--- 		I10=>DATA(5),
--- 		I11=>DATA(4),
--- 		I12=>DATA(3),
--- 		I13=>DATA(2),
--- 		I14=>DATA(1),
--- 		I15=>DATA(0),
--- 		S=>sPixel
--- 	);
 	
 	-- same but :
 	-- sPixel <= DATA(TO_INTEGER(unsigned(15 - S))); -- clearer
@@ -90,10 +72,7 @@ begin
 	
 	AD <= Y(8 downto 1) & X(9 downto 5);
 	
-	-- might be off by one...
-	
 	R <= IMG and sPixel;
 	G <= IMG and sPixel;
 	B <= IMG and sPixel;
-	
 end Behavioral;

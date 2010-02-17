@@ -20,7 +20,7 @@ entity Processeur is
 		ADDATA, DDATAOUT : out std_logic_vector(15 downto 0);
 		DDATAIN : in std_logic_vector(15 downto 0);
 		
-		CLK, RESET : in std_logic;
+		CLK, RESET, INT : in std_logic;
 		CE, WE, OE : out std_logic;
 		
 		PIN : in std_logic_vector(15 downto 0);
@@ -31,7 +31,7 @@ end Processeur;
 architecture Behavioral of Processeur is
 	component PO
 		Port(
-			CLK : in std_logic;
+			CLK, RESET : in std_logic;
 			
 			ADPROG : out std_logic_vector(15 downto 0);
 			DPROG : in std_logic_vector(15 downto 0);
@@ -56,7 +56,12 @@ architecture Behavioral of Processeur is
 			
 			SelRIn ,SelRa, SelRb, SelRd : in std_logic_vector(2 downto 0);
 			
-			ERd, ECarry, EOut : in std_logic
+			ERd, ECarry, EOut : in std_logic;
+			
+			SelReti : in std_logic;
+			EINT : in std_logic;
+			INTi : in std_logic;
+			INTo : out std_logic
 		);
 	end component;
 	
@@ -64,6 +69,8 @@ architecture Behavioral of Processeur is
 		Port(
 			CLK : in std_logic;
 			RESET : in std_logic;
+			INT : in std_logic;
+			
 			IR : in std_logic_vector(15 downto 0);
 			
 			COND : in std_logic;
@@ -80,7 +87,12 @@ architecture Behavioral of Processeur is
 			
 			ERd, ECarry, EOut : out std_logic;
 			
-			CE, WE, OE : out std_logic
+			CE, WE, OE : out std_logic;
+			
+			SelReti : out std_logic;
+			EINT : out std_logic;
+			INTi : out std_logic;
+			INTo : in std_logic
 		);
 	end component ;
 	
@@ -91,11 +103,13 @@ architecture Behavioral of Processeur is
 	signal EIR, EPC, CLRPC, LDPC, ERd, ECarry, EOut, COND : std_logic;
 	signal SelPC, SelPCOff : std_logic;
 	signal SelRIn, SelRa, SelRb, SelRd : std_logic_vector(2 downto 0);
+	signal SelReti, EINT, INTi, INTo : std_logic;
 begin
 	cFSM : FSM
 	port map (
 		CLK=>CLK,
 		RESET=>RESET,
+		INT=>INT,
 		IR=>IR,
 		EIR=>EIR,
 		EPC=>EPC,
@@ -116,12 +130,17 @@ begin
 		ImmOff=>ImmOff,
 		CE=>CE,
 		WE=>WE,
-		OE=>OE
+		OE=>OE,
+		SelReti=>SelReti,
+		EINT=>EINT,
+		INTi=>INTi,
+		INTo=>INTo
 	);
 	
 	cDataPath : PO
 	port map (
 		CLK=>CLK,
+		RESET=>RESET,
 		ADPROG=>ADPROG,
 		DPROG=>DPROG,
 		IR=>IR,
@@ -146,7 +165,11 @@ begin
 		op=>op,
 		COND=>COND,
 		SelCond=>SelCond,
-		ImmOff=>ImmOff
+		ImmOff=>ImmOff,
+		SelReti=>SelReti,
+		EINT=>EINT,
+		INTi=>INTi,
+		INTo=>INTo
 	);
 	
 end Behavioral;

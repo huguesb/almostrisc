@@ -73,6 +73,7 @@ begin
 	tb : process
 	begin
 		RESET <= '1' ;
+		PIN <= x"0000";
 		
 		wait for clk_period * 2;
 		

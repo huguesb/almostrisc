@@ -27,7 +27,5 @@ begin
 		I(15) or I(14) or I(13) or I(12) or I(11) or I(10) or I(9) or I(8) or
 		I( 7) or I( 6) or I( 5) or I( 4) or I( 3) or I( 2) or I(1) or I(0);
 	
-	sNeg <= I(15);
-	
-	R <= C(2) xor ((not sNnull) or (C(1) and not sNeg) or (C(0) and sNeg));
+	R <= C(2) xor ((not sNnull) or (C(1) and I(15)) or (C(0) and not I(15)));
 end Behavioral;

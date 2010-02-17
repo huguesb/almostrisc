@@ -21,10 +21,10 @@
 */
 
 // register code fields
-var reg = new Array();
+var regs = new Array();
 
 for ( i = 0; i < 8; ++i )
-	reg["r" + i] = i;
+	regs["r" + i] = i;
 
 // UAL operation code fields
 var ops = new Array();
@@ -61,22 +61,22 @@ conds[8] = {name : "", value : 3};
 
 // instruction patterns
 var instr = new Array();
-instr["li\\s+(r[0-7])\\s*,?\\s*(\\w+)"]		= "0xC000 + reg[\"\\1\"] + (immediate(\"\\2\", 9, 0) << 3)";
-instr["lw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xD000 + reg[\"\\1\"] + (reg[\"\\2\"] << 3)";
-instr["sw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xD200 + reg[\"\\1\"] + (reg[\"\\2\"] << 3)";
-instr["in\\s+(r[0-7])"]						= "0xD400 + reg[\"\\1\"]";
-instr["out\\s+(r[0-7])"]					= "0xD600 + reg[\"\\1\"]";
-instr["bri(|eq|ge|le|ic|ne|lt|gt)?\\s+(r[0-7])\\s*,?\\s*(\\w+)"] = "0x8000 + condition(\"\\1\") + (reg[\"\\2\"] << 3) + (immediate(\"\\3\", 8, 1) << 6)";
-instr["brl\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xF000 + reg[\"\\1\"] + (reg[\"\\2\"] << 6)";
-instr["bal\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xF200 + reg[\"\\1\"] + (reg[\"\\2\"] << 6)";
-instr["br(|eq|ge|le|ic|ne|lt|gt)?\\s+(r[0-7])\\s*,?\\s*(r[0-7])"] = "0xE000 + condition(\"\\1\") + (reg[\"\\2\"] << 3) + (reg[\"\\3\"] << 6)";
-instr["ba(|eq|ge|le|ic|ne|lt|gt)?\\s+(r[0-7])\\s*,?\\s*(r[0-7])"] = "0xE200 + condition(\"\\1\") + (reg[\"\\2\"] << 3) + (reg[\"\\3\"] << 6)";
+instr["li\\s+(r[0-7])\\s*,?\\s*(.+)"]		= "0xC000 + reg(\"\\1\") + ((immediate(\"\\2\", 9, 0) << 3) & 0x0FF8)";
+instr["lw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xD000 + reg(\"\\1\") + (reg(\"\\2\") << 3)";
+instr["sw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xD200 + reg(\"\\1\") + (reg(\"\\2\") << 3)";
+instr["in\\s+(r[0-7])"]						= "0xD400 + reg(\"\\1\")";
+instr["out\\s+(r[0-7])"]					= "0xD600 + reg(\"\\1\")";
+instr["bri(|eq|ge|le|ic|ne|lt|gt)?\\s+(-|r[0-7])\\s*,?\\s*(.+)"] = "0x8000 + condition(\"\\1\") + (reg(\"\\2\") << 3) + ((immediate(\"\\3\", 8, 1) << 6) & 0x3FC0)";
+instr["brl\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xF000 + reg(\"\\1\") + (reg(\"\\2\") << 6)";
+instr["bal\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xF200 + reg(\"\\1\") + (reg(\"\\2\") << 6)";
+instr["br(|eq|ge|le|ic|ne|lt|gt)?\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])"] = "0xE000 + condition(\"\\1\") + (reg(\"\\2\") << 3) + (reg(\"\\3\") << 6)";
+instr["ba(|eq|ge|le|ic|ne|lt|gt)?\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])"] = "0xE200 + condition(\"\\1\") + (reg(\"\\2\") << 3) + (reg(\"\\3\") << 6)";
 instr["reset"] = "0xFFFF";
 instr["nop"] = "0x0000";
-instr["(inc|dec|mova|nega|not)\\s+(r[0-7])\\s*(,\\s*)?(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg[\"\\2\"] + (reg[\"\\3\"] << 3)";
-instr["(movb|negb)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg[\"\\2\"] + (reg[\"\\3\"] << 3)";
-instr["(shl|shr)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(\\w+)"]	= "(operation(\"\\1\") << 9) + reg[\"\\2\"] + (reg[\"\\3\"] << 3) + (immediate(\"\\4\", 4, 0) << 9)";
-instr["(\\w+)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg[\"\\2\"] + (reg[\"\\3\"] << 3) + (reg[\"\\4\"] << 3)";
+instr["(inc|dec|mova|nega|not)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3)";
+instr["(movb|negb)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 6)";
+instr["(shl|shr)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"]	= "(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + ((immediate(\"\\4\", 4, 0) << 9) & 0x1F00)";
+instr["(\\w+)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + (reg(\"\\4\") << 6)";
 
 // internal assembler variables
 var pc = 0;
@@ -90,6 +90,11 @@ UnknownLabelError = new Error("Unknown label");
 UnknownInstructionError = new Error("Unknown instruction");
 DuplicateLabelError = new Error("Duplicate label");
 
+function reg(name)
+{
+	return regs[name.toLowerCase()];
+}
+
 // exception-throwing proxy to access operations table
 function operation(name)
 {
@@ -97,7 +102,7 @@ function operation(name)
 	{
 		var op = ops[i];
 		
-		if ( op.name == name )
+		if ( op.name == name.toLowerCase() )
 			return op.value;
 	}
 	
@@ -111,7 +116,7 @@ function condition(name)
 	{
 		var cond = conds[i];
 		
-		if ( cond.name == name )
+		if ( cond.name == name.toLowerCase() )
 			return cond.value;
 	}
 	
@@ -141,10 +146,25 @@ function immediate(value, bits, rel)
 	{
 		r = parseInt(value);
 	} else {
-		r = label(value);
+		if ( /[-+/*()~&|^$]/.test(value) )
+		{
+			value = value.replace("$", " " + pc + " ");
+			
+			for ( i in labels )
+				value = value.replace(labels[i].name, " " + labels[i].address + " ");
+			
+			try {
+				r = eval(value);
+			} catch ( e ) {
+				throw UnknownLabelError;
+			}
+		} else {
+			r = label(value);
+		}
 		
 		if ( rel != 0 )
 			r -= pc;
+		
 	}
 	
 	if ( r >= (1 << bits) )

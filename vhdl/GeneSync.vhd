@@ -13,7 +13,7 @@ use ieee.numeric_std.all;
 
 entity GeneSync is
 	Port (
-		CLK : in std_logic;
+		CLK, RESET : in std_logic;
 		HSYNC : out std_logic;
 		VSYNC : out std_logic;
 		IMG : out std_logic;
@@ -36,19 +36,25 @@ begin
 	VSYNC<=pulseY;
 	IMG<=IMGX AND IMGY;
 	
-	process (clk)
+	process (CLK)
 	begin 
-		if (CLK'event and CLK='1')then 
-			if comptX(10 downto 1)<800 then 
-				comptX<=comptX+1;
-			else 
-				comptX<="00000000000";
-			end if;
-			if comptX=0 then 
-				if comptY<521 then 
-					comptY<=comptY+1;
+		if ( CLK'event and CLK='1' )then
+			if ( RESET='1' ) then
+				comptX <= (others => '0' );
+				comptY <= (others => '0' );
+			else
+				if ( comptX(10 downto 1) < 800 ) then 
+					comptX <= comptX+1;
 				else 
-					comptY<="0000000000";
+					comptX <= (others => '0' );
+				end if;
+				
+				if ( comptX = 0 ) then 
+					if ( comptY < 521 ) then 
+						comptY <= comptY+1;
+					else 
+						comptY <= (others => '0' );
+					end if;
 				end if;
 			end if;
 		end if;
@@ -56,24 +62,24 @@ begin
 	
 	process (comptX)
 	begin 
-		if (comptX(10 downto 1)<96) then 
-			X<="0000000000";
-			pulseX<='0';
-			IMGX<='0';
+		if ( comptX(10 downto 1) < 96 ) then 
+			X <= (others => '0' );
+			pulseX <= '0' ;
+			IMGX <= '0' ;
 		else 
-			if (comptX(10 downto 1)<(96+48)) then 
-				X<="0000000000";
-				pulseX<='1';
-				IMGX<='0';
+			if ( comptX(10 downto 1) < (96+48) ) then 
+				X<= (others => '0' );
+				pulseX <= '1';
+				IMGX <= '0';
 			else 
-				if (comptX(10 downto 1)<(96+48+640)) then 
-					X<=std_logic_vector(comptX(10 downto 1)-96-48);
-					IMGX<='1';
-					pulseX<='1';
+				if ( comptX(10 downto 1) < (96+48+640) ) then 
+					X <= std_logic_vector(comptX(10 downto 1)-96-48);
+					IMGX <= '1' ;
+					pulseX <= '1' ;
 				else 
-					X<="0000000000";
-					pulseX<='1';
-					IMGX<='0';
+					X <= (others => '0' );
+					pulseX <= '1' ;
+					IMGX <= '0' ;
 				end if;		
 			end if;
 		end if;
@@ -81,25 +87,25 @@ begin
 
 	process (comptY)
 	begin 
-		if (comptY<2) then 
-			Yaux<="0000000000";
+		if ( comptY < 2 ) then 
+			Yaux <= (others => '0' );
 			pulseY<='0';
 			IMGY <= '0';
 		else 
-			if (comptY<(2+29)) then 
-				Yaux<="0000000000";
-				pulseY<='1';
-				IMGY<='0';
+			if ( comptY < (2+29) ) then 
+				Yaux <= (others => '0' );
+				pulseY <= '1' ;
+				IMGY <= '0' ;
 				
 			else 
-				if (comptY<(2+29+480)) then 
-					Yaux<=comptY-2-29;
-					pulseY<='1';
-					IMGY<='1';
+				if ( comptY < (2+29+480) ) then 
+					Yaux <=comptY-2-29;
+					pulseY <= '1' ;
+					IMGY <= '1' ;
 				else 
-					Yaux<="0000000000";
-					pulseY<='1';
-					IMGY<='0';
+					Yaux<= (others => '0' );
+					pulseY <= '1' ;
+					IMGY <= '0' ;
 				end if;		
 			end if;
 		end if;
