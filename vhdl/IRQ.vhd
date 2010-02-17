@@ -96,11 +96,12 @@ begin
 			if ( sE(2)='1' ) then
 				sSig <= sSig and not DIN;
 			end if;
+			
+			DOUT <= sOut and (15 downto 0 => sR);
 		end if;
 	end process;
 	
 	IRQout <= sSig(15) or sSig(14) or sSig(13) or sSig(12) or sSig(11) or sSig(10) or sSig(9) or sSig(8)
 			or sSig(7) or sSig(6) or sSig(5) or sSig(4) or sSig(3) or sSig(2) or sSig(1) or sSig(0);
 	
-	DOUT <= sOut and (15 downto 0 => sR);
 end Behavioral;
