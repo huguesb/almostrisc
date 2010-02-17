@@ -17,13 +17,26 @@ int_reset:
 	li	r0, 0x20
 	shl	r0, r0, 7
 	
-	; unmask all
+	; interrupts : unmask all
 	li	r1, -1
 	sw	r1, r0
-	
-	; sensibility : 
 	inc	r0, r0
+	
+	; interrupts : sensibility 
 	sw	r1, r0
+	inc	r0, r0
+	
+	; Timer : first timer freq 100KHz
+	li	r2, 10
+	add	r0, r0, r2
+	sw	r2, r0
+	
+	li	r2, 3
+	add	r0, r0, r2
+	
+	; Timer : enable, loop and interrupt for first timer
+	li	r2, 7
+	sw	r2, r0
 	
 	li	r0, start - ($+1)
 	br	-, r0

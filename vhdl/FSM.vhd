@@ -53,6 +53,7 @@ architecture Behavioral of FSM is
 		SInterrupt
 	);
 	
+	signal sPostponedIRQ : std_logic;
 	signal sCurState, sNextState : StateType;
 begin
 	-- generic state switching code
@@ -61,9 +62,12 @@ begin
 		if ( CLK'event and CLK='1' ) then 
 			if ( RESET='1' ) then
 				sCurState <= SReset;
-			elsif ( INT='1' ) then
+				sPostponedIRQ <= '0' ;
+			elsif ( (INT='1' or sPostponedIRQ='1') and INTo='0' and (sNextState = SDecode) ) then
 				sCurState <= SInterrupt;
+				sPostponedIRQ <= '0' ;
 			else
+				sPostponedIRQ <= INT or sPostponedIRQ;
 				sCurState <= sNextState;
 			end if;
 		end if;
@@ -136,7 +140,6 @@ begin
 				elsif ( IR = x"FFFE" ) then
 					-- RETI :
 					EINT <= '1' ;
-					
 					SelReti <= '1' ;
 					
 					sNextState <= SStall;
@@ -252,10 +255,14 @@ begin
 					-- set PC to interrupt handler...
 					
 					LDPC <= '1' ;
-					ImmOff <= x"1234";
+					SelPC <= '1' ;
+					ImmOff <= x"0010";
+					sNextState <= SStall;
+				else
+					EPC <= '0' ;
+					sNextState <= SDecode;
 				end if;
 				
-				sNextState <= SStall;
 		end case;
 	end process;
 	

@@ -88,6 +88,8 @@ begin
 	
 	sSigIn <= sMask and (((sVal xor IRQin) and sSens) or (IRQin and not sSens));
 	
+	--sSig <= sSig and (DIN nand (15 downto 0 => sE(2)));
+	
 	cIRQsig : process(CLK)
 	begin
 		if ( CLK'event and CLK='1' ) then

@@ -27,6 +27,7 @@ end testbench;
 architecture test of testbench is
 	constant clk_cycles : integer := 10;
 	constant clk_period : time := 20 ns;
+	constant clk_hperiod : time := 10 ns;
 	
 	component ProcesseurAndCo is
 		Port(
@@ -63,9 +64,9 @@ begin
 	clock_gen : process is
 	begin
 		CLK <= '1' ;
-		wait for clk_period;
+		wait for clk_hperiod;
 		CLK <= '0' ;
-		wait for clk_period;
+		wait for clk_hperiod;
 	end process clock_gen;
 	
 	

@@ -137,8 +137,6 @@ architecture Behavioral of PO is
 	
 	signal sigRa, sigRb, sigRd, sRin : std_logic_vector(15 downto 0);
 	
-	signal sIR : std_logic_vector(15 downto 0);
-	
 	signal sUAL : std_logic_vector(15 downto 0);
 	signal sCstore, sCsave, sCin, sCout : std_logic;
 	

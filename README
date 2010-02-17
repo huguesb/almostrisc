@@ -26,7 +26,7 @@ Quick README for Archi2 project
 		
 	* homemade modular assembler
 		
-		# ./assembler opcodes.js test.asm
+		# ./assembler assembler/opcodes.js demo/demo.asm
 		
 
  * specs : see cdc2010.pdf
@@ -34,6 +34,14 @@ Quick README for Archi2 project
  * extensions : see todo
 
  * history : 
+	16/02/2010 : 
+		* Merged all changes of the last few days into master git branch
+		* Created a public git repo on telesun (not quite public really more of a backup)
+	
+	15/02/2010 : history "lost" in an unnamed git branch
+	14/02/2010 : history "lost" in an unnamed git branch
+	13/02/2010 : history "lost" in an unnamed git branch
+	
 	12/02/2010 : small changes
 		* Fixed small VGA bug after first TP
 		* Added sim script to streamline simulation
