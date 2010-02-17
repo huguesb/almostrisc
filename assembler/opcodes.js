@@ -72,6 +72,7 @@ instr["bal\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xF200 + reg(\"\\1\") + (reg(\"\\2
 instr["br(|eq|ge|le|ic|ne|lt|gt)?\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])"] = "0xE000 + condition(\"\\1\") + (reg(\"\\2\") << 3) + (reg(\"\\3\") << 6)";
 instr["ba(|eq|ge|le|ic|ne|lt|gt)?\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])"] = "0xE200 + condition(\"\\1\") + (reg(\"\\2\") << 3) + (reg(\"\\3\") << 6)";
 instr["reset"] = "0xFFFF";
+instr["reti"] = "0xFFFE";
 instr["nop"] = "0x0000";
 instr["(inc|dec|mova|nega|not)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3)";
 instr["(movb|negb)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 6)";
@@ -80,6 +81,7 @@ instr["(\\w+)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"
 
 // internal assembler variables
 var pc = 0;
+var filler = 0;
 var labels = new Array();
 var hex = new Array();
 var fwd = new Array();
@@ -89,6 +91,7 @@ ImmediateSizeError = new Error("Immediate too large");
 UnknownLabelError = new Error("Unknown label");
 UnknownInstructionError = new Error("Unknown instruction");
 DuplicateLabelError = new Error("Duplicate label");
+InvalidOrgAddress = new Error("Invalid org address");
 
 function reg(name)
 {
@@ -245,8 +248,37 @@ function assemble(text)
 		var last = line.search(/\S\s*$/);
 		line = line.substring(first, last + 1);
 		
-		if ( line[last] == ':' )
+		var dir = /\.(org|equ|filler)\s+(.+)\s*/i.exec(line);
+		
+		if ( dir != null )
 		{
+			if ( dir[1] == "org" )
+			{
+				npc = immediate(dir[2], 16, 0);
+				
+				if ( npc < pc )
+					throw InvalidOrgAddress;
+				
+				while ( pc < npc )
+				{
+					hex[pc] = filler;
+					++pc;
+				}
+			} else if ( dir[1] == "filler" ) {
+				filler = immediate(dir[2], 16, 0);
+			} else if ( dir[1] == "equ" ) {
+				ws = dir[2].search(/\s/);
+				
+				lblname = ws != -1 ? dir[2].substring(0, ws) : dir[2];
+				lblvalue = ws != -1 ? dir[2].substr(ws) : "";
+				
+				for ( l in labels )
+					if ( labels[l].name == lblname )
+						throw DuplicateLabelError;
+				
+				labels[labels.length] = {name : lblname, address : eval(lblvalue)};
+			}
+		} else if ( line[last] == ':' ) {
 			lblname = line.substr(0, last);
 			
 			for ( l in labels )
