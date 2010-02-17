@@ -160,7 +160,7 @@ begin
 					-- LW : Rd = (Ra)  ["1101000"]
 					-- SW : (Ra) = Rd  ["1101001"]
 					
-					ERd <= IR(9) nor IR(10);
+					ERd <= not IR(9) and IR(10);
 					SelRIn(1) <= IR(10) ;
 					
 					EOUT <= IR(9) and IR(10);
@@ -237,9 +237,8 @@ begin
 				end if;
 				
 			when SLoad =>
-				ERd <= IR(9) nor IR(10);
-				SelRIn(1) <= IR(10) ;
-				
+				ERd <= '1' ;
+				--OE <= '1' ;
 				--EIR <= '1' ;
 				
 				sNextState <= SDecode;
