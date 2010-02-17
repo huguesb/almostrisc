@@ -166,11 +166,13 @@ function immediate(value, bits, rel)
 		}
 		
 		if ( rel != 0 )
+		{
+			print(value + " : " + r + " - " + pc);
 			r -= pc;
-		
+		}
 	}
 	
-	if ( r >= (1 << bits) )
+	if ( Math.abs(r) >= (1 << bits) )
 	{
 		throw ImmediateSizeError;
 	}
@@ -261,7 +263,7 @@ function assemble(text)
 				
 				while ( pc < npc )
 				{
-					hex[pc] = filler;
+					hex[pc] = { op : filler };
 					++pc;
 				}
 			} else if ( dir[1] == "filler" ) {
@@ -309,7 +311,7 @@ function assemble(text)
 			}
 			
 			// bin file
-			hex[pc] = op;
+			hex[pc] = { op : op, instr : line };
 			
 			// listing file (incorrect in case of fwd ref...)
 			//print(hex16(pc) + "\t" + bin16(op) + "\t" + line);
@@ -335,7 +337,7 @@ function assemble(text)
 		
 		//print("fwd : " + hex16(ref.pc) + "\t" + bin16(op) + "\t" + ref.instr);
 		
-		hex[ref.pc] = op;
+		hex[ref.pc] = { op : op, instr : ref.instr };
 	}
 	
 	// print final result
@@ -344,6 +346,7 @@ function assemble(text)
 		// print(hex16(Number(h)) + "\t" + hex16(hex[h]));
 		
 		// vhdl-friendly representation (for copy/paste into ROMPROG)
-		print(h + "=>x\"" + hex16(hex[h]) + "\",");
+		if ( hex[h].op != filler )
+			print(h + "=>x\"" + hex16(hex[h].op) + "\",\t-- " + bin16(hex[h].op) + "  " + hex[h].instr);
 	}
 }
