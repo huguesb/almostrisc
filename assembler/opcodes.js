@@ -167,7 +167,7 @@ function immediate(value, bits, rel)
 		
 		if ( rel != 0 )
 		{
-			print(value + " : " + r + " - " + pc);
+			//print(value + " : " + r + " - " + pc);
 			r -= pc;
 		}
 	}
