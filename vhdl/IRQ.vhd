@@ -55,6 +55,7 @@ begin
 		case AD is
 			when "00" => sOut <= sMask;
 			when "01" => sOut <= sSens;
+			when "10" => sOut <= sSig;
 			when others => sOut <= IRQin;
 		end case;
 	end process;
@@ -86,18 +87,40 @@ begin
 		Q=>sVal
 	);
 	
-	sSigIn <= sMask and (((sVal xor IRQin) and sSens) or (IRQin and not sSens));
+	sSigIn <= ((sMask and (((sVal xor IRQin) and sSens) or (IRQin and not sSens)))
+			or sSig) and (DIN nand (15 downto 0 => sE(2)))
+			;
+	
+	cIRQSig : reg16
+	port map(
+		CLK=>CLK,
+		E=>'1',
+		R=>RESET,
+		D=>sSigIn,
+		Q=>sSig
+	);
 	
 	--sSig <= sSig and (DIN nand (15 downto 0 => sE(2)));
+-- 	sSig <= sSigIn;
+-- 			
+-- 			if ( sE(2)='1' ) then
+-- 				sSig <= sSig and not DIN;
+-- 			end if;
 	
-	cIRQsig : process(CLK)
+	process(CLK)
 	begin
 		if ( CLK'event and CLK='1' ) then
-			sSig <= sSigIn;
+-- 			if ( RESET='1' ) then 
+-- 				sSig <= x"0000";
+-- 			else
+-- 				sSig <= sSigIn or sSig;
+-- 			end if;
+-- 			
+-- 			if ( sE(2) = '1' ) then
+-- 				sSig <= sSig and not DIN;
+-- 			end if;
 			
-			if ( sE(2)='1' ) then
-				sSig <= sSig and not DIN;
-			end if;
+			--sSig <= (sSig or sSigIn) and (DIN nand (15 downto 0 => sE(2))) and (15 downto 0 => not RESET);
 			
 			DOUT <= sOut and (15 downto 0 => sR);
 		end if;

@@ -53,7 +53,7 @@ architecture Behavioral of FSM is
 		SInterrupt
 	);
 	
-	signal sPostponedIRQ : std_logic;
+	--signal sPostponedIRQ : std_logic;
 	signal sCurState, sNextState : StateType;
 begin
 	-- generic state switching code
@@ -62,12 +62,12 @@ begin
 		if ( CLK'event and CLK='1' ) then 
 			if ( RESET='1' ) then
 				sCurState <= SReset;
-				sPostponedIRQ <= '0' ;
-			elsif ( (INT='1' or sPostponedIRQ='1') and INTo='0' and (sNextState = SDecode) ) then
+				--sPostponedIRQ <= '0' ;
+			elsif ( INT='1' and INTo='0' and (sNextState = SDecode) ) then
 				sCurState <= SInterrupt;
-				sPostponedIRQ <= '0' ;
+				--sPostponedIRQ <= '0' ;
 			else
-				sPostponedIRQ <= INT or sPostponedIRQ;
+				--sPostponedIRQ <= INT or sPostponedIRQ;
 				sCurState <= sNextState;
 			end if;
 		end if;
