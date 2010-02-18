@@ -38,6 +38,8 @@ baicc ra, 0xdead => 0xbaicc
  ROOM for instructions :
  
 	* UAL operations :
+		candidates : scf, ccf, clrf, nand, nor, xnor, swaphi/lo, maskhi/lo
+		
 		* 4 between negb and and
 			001100
 			001101
@@ -73,9 +75,10 @@ baicc ra, 0xdead => 0xbaicc
 		* 7 "variants" of bal (conditionals?)
 		
 	* brand new
-		* 11011 prefix : 2^13 = 8192 (from out to brcc)
-		* 111001 prefix : 2^12 = 4096 (from brcc/bacc to brl/bal)
-		* 111101 prefix : 2^12 = 4096 (from bal to xx)
-		* 11111 prefix : 2^13-1 = 8191 (from xx to reset)
+		* 11011  prefix : 2^11 = 2048 (from out to brcc)
+		* 111001 prefix : 2^10 = 1024 (from brcc/bacc to ..)
+		* 11101  prefix : 2^11 = 2048 (.. to brl/bal)
+		* 111101 prefix : 2^10 = 1024 (from bal to xx)
+		* 11111  prefix : 2^11-2 = 2046 (from xx to reset)
 		
-		=> 24k instruction slots : more than enough...
+		=> 8k instruction slots
