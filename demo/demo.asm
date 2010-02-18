@@ -49,18 +49,17 @@ int_isr:
 	li	r0, 0x20
 	shl	r0, r0, 7
 	
-	inc	r0, r0
-	inc	r0, r0
-	inc	r0, r0
+	; base + 2 : ACK
+	li	r2, 2
+	add	r0, r0, r2
 	
 	; acknowledge all
-	xor	r1, r1, r1
+	li	r1, -1
 	sw	r1, r0
 	
 	; resume normal execution
 	reti
 
-.filler 0xffff
 .org	0x0100
 start:
 	
