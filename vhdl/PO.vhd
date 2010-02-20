@@ -270,15 +270,12 @@ begin
 		sRegE(to_integer(sINTo & unsigned(SelRd))) <= ERd ;
 	end process;
 	
-	ADPROG <= sPC;
-	ADDATA <= sigRa;
-	
 	-- SelRin coding :
-	--	000	: DDATAIN
-	--	001	: PCIR + 1 = PCprev
-	--	010	: PIN
-	--	011	: ImmOff
-	--	100	: UAL
+	--	000	: DDATAIN (lw)
+	--	001	: PCIR + 1 = PCprev (brl, bal)
+	--	010	: PIN (in)
+	--	011	: ImmOff (li)
+	--	100	: UAL (op)
 	
 	-- prioritize UAL to decrease critical timings
 	cSelRInUAL : mux_2_16
@@ -332,6 +329,9 @@ begin
 	sCstore <= (sCsave and SelReti) or (sCout and not SelReti);
 	
 	-- memory
+	
+	ADPROG <= sPC;
+	ADDATA <= sigRa;
 	
 	DDATAOUT <= sR(to_integer(sINTo & unsigned(SelRd)));
 	
