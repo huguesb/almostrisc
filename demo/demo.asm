@@ -26,7 +26,7 @@ int_reset:
 	sw	r1, r0
 	inc	r0, r0
 	
-	; Timer : first timer freq 100KHz
+	; Timer : first timer count : 10
 	li	r2, 10
 	add	r0, r0, r2
 	sw	r2, r0
@@ -34,8 +34,8 @@ int_reset:
 	li	r2, 3
 	add	r0, r0, r2
 	
-	; Timer : enable, loop and interrupt for first timer
-	li	r2, 7
+	; Timer : enable first timer, loop, max speed (10MHz)
+	li	r2, 0x18
 	sw	r2, r0
 	
 	li	r0, start - ($+1)

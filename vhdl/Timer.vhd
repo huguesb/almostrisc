@@ -49,15 +49,12 @@ architecture Behavioral of Timer is
 	type reg16array is array (integer range <>) of std_logic_vector(15 downto 0);
 	
 	signal sRegisters : reg16array(7 downto 0);
-	signal sRegInput : reg16array(2 downto 0);
-	signal sRegNull, sRegRes : std_logic_vector(2 downto 0);
 	signal sRegEnable : std_logic_vector(7 downto 0);
 	
-	signal ctrl_chg : std_logic;
 	signal TMR_CLK : std_logic_vector(7 downto 0);
 	signal cnt_base : counter4(7 downto 0);
 	
-	signal sIRQ, sCLK : std_logic_vector(2 downto 0);
+	signal sIRQ, sCLK, ld : std_logic_vector(2 downto 0);
 begin
 	-- clock divider : produce 10MHz timer clock from 50MHz circuit clock
 	base : process (CLK)
@@ -98,26 +95,12 @@ begin
 	end generate;
 	
 	IRQ <= sIRQ;
-	--DOUT <= x"0000";
-	
--- 	process (TMR_CLK(2))
--- 	begin
--- 		if ( TMR_CLK(2)'event and TMR_CLK(2)='1' ) then
--- 			if ( RESET='1' ) then
--- 				sIRQ <= "000";
--- 			else
--- 				sIRQ <= std_logic_vector(unsigned(sIRQ) + 1);
--- 			end if;
--- 		end if;
--- 	end process;
 	
 	-- status, control and counter registers
 	-- 0-2 : loop current count [R0]
 	-- 3 : status [RO]
 	-- 4-6 : loop base count [RW]
-	-- 7 : control 0xghij : g=enable each timer, h,i,j=per-timer setup : b4=loop, b3-b0 : clock speed [RW]
-	
-	ctrl_chg <= WE and AD(2) and AD(1) and AD(0);
+	-- 7 : control : groups of 5 bits : enabled | loop | speed[3]
 	
 	cGenRegs : for idx in 7 downto 3 generate
 		cCounter : reg16
@@ -133,30 +116,26 @@ begin
 	end generate;
 	
 	cCntRegs : for idx in 2 downto 0 generate
--- 		cCounter : reg16
--- 		port map(
--- 			CLK=>sCLK(idx),
--- 			D=>sRegInput(idx),
--- 			Q=>sRegisters(idx),
--- 			E=>sRegEnable(idx),
--- 			R=>sRegRes(idx)
--- 		);
--- 		
-		sCLK(idx) <= TMR_CLK(to_integer(unsigned(sRegisters(7)(4 * idx + 2 downto 4 * idx))));
--- 		
--- 		-- reset upon change in enable status
--- 		sRegRes(idx) <= RESET or (ctrl_chg and (DIN(4 * idx) xor sRegisters(7)(12 + idx)));
--- 		
--- 		sIRQ(idx) <= sRegisters(7)(12 + idx) when sRegisters(idx) = sRegisters(4 + idx) else '0' ;
--- 		
--- 		sRegEnable(idx) <= sRegisters(7)(12 + idx) when sRegisters(idx) < sRegisters(4 + idx) else '0';
--- 		
--- 		sRegInput(idx) <= std_logic_vector(unsigned(sRegisters(idx)) + 1);
+		sCLK(idx) <= TMR_CLK(to_integer(unsigned(sRegisters(7)(5 * idx + 2 downto 5 * idx))));
 		
-		process(sCLK(idx))
+		process(sCLK(idx), ld(idx))
 		begin
-			if ( sCLK(idx)'event and sCLK(idx)='1' ) then
-				sIRQ(idx) <= sRegisters(7)(12 + idx);
+			if ( ld(idx)='1' ) then
+				sIRQ(idx) <= '0' ;
+				sRegisters(idx) <= DIN;
+			elsif ( sCLK(idx)'event and sCLK(idx)='1' ) then
+				sIRQ(idx) <= '0' ;
+				if ( sRegisters(7)(5 * idx + 4)='1' ) then
+					if ( sRegisters(idx) = x"0000" ) then
+						sIRQ(idx) <= '1';
+						
+						if ( sRegisters(7)(5 * idx + 3)='1' ) then
+							sRegisters(idx) <= std_logic_vector(unsigned(sRegisters(4 + idx)) - 1);
+						end if;
+					else
+						sRegisters(idx) <= std_logic_vector(unsigned(sRegisters(idx)) - 1);
+					end if;
+				end if;
 			end if;
 		end process;
 	end generate;
@@ -164,12 +143,16 @@ begin
 	process(CLK)
 	begin
 		if ( CLK'event and CLK='1' ) then
-			if ( WE='1' ) then
+			if ( (CE and WE)='1' ) then
 				if ( ((AD(1) nor AD(2)) or (AD(0) nor AD(2))) ='1' ) then
 					-- trying to write to counters or status : exception?
 					
 				end if;
 			end if;
+			
+			ld(0) <= CE and WE and (AD(0) nor AD(1));
+			ld(1) <= CE and WE and (AD(0) and not AD(1));
+			ld(2) <= CE and WE and (not AD(0) and AD(1));
 			
 			DOUT <= sRegisters(to_integer(unsigned(AD))) and (15 downto 0 => CE and OE);
 		end if;
