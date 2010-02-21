@@ -32,9 +32,20 @@ end Timer;
 --
 
 -- 
--- offer 3 "programmable" countdown timers with a base clock of 1MHz (assuming
--- a circuit clock of 50MHz)
+-- offer 3 "programmable" countdown timers with a base clock of 10MHz (assuming
+-- a circuit clock of 50MHz) and 7 derived clocks, each one being an order of
+-- magnitude slower than its "parent" clock (i.e 10 times slower) : 1MHz, 100KHz,
+-- 10KHz, 1KHz, 100Hz, 10Hz and 1Hz
 --
+-- each timer is associated with a 16 bit counter which offers a practical range
+-- of timing from 10MHz to 1/65536Hz
+--
+
+-- 	status, control and counter registers
+-- 	0-2 : loop current count [RO]
+-- 	3 : unused [RO]
+-- 	4-6 : loop base count [RW]
+-- 	7 : control (3 MSB unused, groups of 5 bits : enabled | loop | speed(3)) [RW]
 
 architecture Behavioral of Timer is
 	component reg16
@@ -95,12 +106,6 @@ begin
 	end generate;
 	
 	IRQ <= sIRQ;
-	
-	-- status, control and counter registers
-	-- 0-2 : loop current count [R0]
-	-- 3 : status [RO]
-	-- 4-6 : loop base count [RW]
-	-- 7 : control : groups of 5 bits : enabled | loop | speed[3]
 	
 	cGenRegs : for idx in 7 downto 3 generate
 		cCounter : reg16

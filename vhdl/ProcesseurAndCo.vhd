@@ -21,7 +21,11 @@ entity ProcesseurAndCo is
 		HS, VS, R, G, B : out std_logic;
 		
 		PIN : in std_logic_vector(15 downto 0);
-		POUT : out std_logic_vector(15 downto 0)
+		POUT : out std_logic_vector(15 downto 0);
+		
+		PS2C, PS2D : in std_logic;
+		
+		RXD, TXD : in std_logic
 	);
 end ProcesseurAndCo;
 
@@ -59,7 +63,8 @@ architecture Behavioral of ProcesseurAndCo is
 			CEram : out std_logic;
 			CEirq : out std_logic;
 			CEps2 : out std_logic;
-			CEtmr : out std_logic
+			CEtmr : out std_logic;
+			CE232 : out std_logic
 		);
 	end component;
 	
@@ -109,6 +114,8 @@ architecture Behavioral of ProcesseurAndCo is
 		Port(
 			CLK, RESET : in std_logic;
 			
+			PS2C, PS2D : in std_logic;
+			
 			AD : in std_logic_vector(1 downto 0);
 			DIN : in std_logic_vector(15 downto 0);
 			DOUT : out std_logic_vector(15 downto 0);
@@ -136,9 +143,9 @@ architecture Behavioral of ProcesseurAndCo is
 	signal INT : std_logic;
 	signal ADPROG, ADDATA, ADVGA : std_logic_vector(15 downto 0);
 	signal DPROG, DDATAIN, DDATAOUT, DVGA : std_logic_vector(15 downto 0);
-	signal sRAMout, sIRQout, sPS2out, sTMRout, sIRQin : std_logic_vector(15 downto 0);
+	signal sRAMout, sIRQout, sPS2out, sTMRout, s232out, sIRQin : std_logic_vector(15 downto 0);
 	signal WE, CE, OE : std_logic;
-	signal CEram, CEirq, CEps2, CEtmr : std_logic;
+	signal CEram, CEirq, CEps2, CEtmr, CE232 : std_logic;
 begin
 	cProcesseur : Processeur
 	port map(
@@ -171,7 +178,8 @@ begin
 		CEram=>CEram,
 		CEirq=>CEirq,
 		CEps2=>CEps2,
-		CEtmr=>CEtmr
+		CEtmr=>CEtmr,
+		CE232=>CE232
 	);
 	
 	cRAMDoublePort : RAMDoublePort
@@ -222,6 +230,8 @@ begin
 	port map(
 		CLK=>CLK,
 		RESET=>RESET,
+		PS2C=>PS2C,
+		PS2D=>PS2D,
 		AD=>ADDATA(1 downto 0),
 		DIN=>DDATAOUT,
 		DOUT=>sPS2out,

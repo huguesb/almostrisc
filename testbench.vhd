@@ -36,8 +36,12 @@ architecture test of testbench is
 			HS, VS, R, G, B : out std_logic;
 			
 			PIN : in std_logic_vector(15 downto 0);
-			POUT : out std_logic_vector(15 downto 0)
-		);
+			POUT : out std_logic_vector(15 downto 0);
+			
+			PS2C, PS2D : in std_logic;
+			
+			RXD, TXD : in std_logic
+			);
 	end component;
 	
 	signal CLK, RESET : std_logic;
@@ -46,6 +50,10 @@ architecture test of testbench is
 	
 	signal PIN : std_logic_vector(15 downto 0);
 	signal POUT : std_logic_vector(15 downto 0);
+	
+	signal PS2C, PS2D : std_logic;
+	
+	signal RXD, TXD : std_logic;
 begin
 	uut : ProcesseurAndCo
 	port map(
@@ -57,7 +65,11 @@ begin
 		G=>G,
 		B=>B,
 		PIN=>PIN,
-		POUT=>POUT
+		POUT=>POUT,
+		PS2C=>PS2C,
+		PS2D=>PS2D,
+		RXD=>RXD,
+		TXD=>TXD
 	);
 	
 	-- clock the simulation

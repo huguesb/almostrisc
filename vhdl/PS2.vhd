@@ -17,6 +17,8 @@ entity PS2 is
 	Port(
 		CLK, RESET : in std_logic;
 		
+		PS2C, PS2D : in std_logic;
+		
 		AD : in std_logic_vector(1 downto 0);
 		DIN : in std_logic_vector(15 downto 0);
 		DOUT : out std_logic_vector(15 downto 0);

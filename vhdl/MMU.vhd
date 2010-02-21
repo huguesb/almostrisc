@@ -21,7 +21,8 @@ entity MMU is
 		CEram : out std_logic;
 		CEirq : out std_logic;
 		CEps2 : out std_logic;
-		CEtmr : out std_logic
+		CEtmr : out std_logic;
+		CE232 : out std_logic
 	);
 end MMU;
 
@@ -29,11 +30,16 @@ end MMU;
 -- pseudo MMU : simple peripheral mappings
 --
 
+--
 -- 0x0000 - 0x1FFF : RAM    (8192 * 16b)
+--
 -- 0x2000 - 0x2003 : IRQ    (   4 * 16b)
 -- 0x2004 - 0x2007 : PS2    (   4 * 16b)
 -- 0x2008 - 0x200F : Timers (   8 * 16b)
--- beyond : void
+-- 0x2010 - 0x2013 : RS232  (   4 * 16b)
+-- 
+-- 0x4000 - 0xFFFF : mapping of SRAM ???
+--
 
 architecture Behavioral of MMU is
 	signal CEi : unsigned(2 downto 0);
@@ -54,6 +60,8 @@ begin
 				CEps2 <= CE;
 			elsif ( AD(12 downto 3) = "0000000001" ) then
 				CEtmr <= CE;
+			elsif ( AD(12 downto 3) = "00000000100" ) then
+				CE232 <= CE;
 			else
 				-- raise MMU exception?
 			end if;
