@@ -28,6 +28,19 @@ entity IRQ is
 	);
 end IRQ;
 
+--
+-- simple IRQ
+--
+
+--
+-- memory mapping :
+--
+-- * 16 bits : Interrupt Enable Register (RW)
+-- * 16 bits : Interrupt Sensibility Register (RW)
+-- * 16 bits : Interrupt ACK Register (WO)
+-- * 16 bits : Interrupt Status Register (RO)
+--
+
 architecture Behavioral of IRQ is
 	component reg16
 		Port(
@@ -66,7 +79,7 @@ begin
 		E=>sE(0),
 		R=>RESET,
 		D=>DIN,
-		Q=>sSens
+		Q=>sMask
 	);
 	
 	cIRQSens : reg16
@@ -75,7 +88,7 @@ begin
 		E=>sE(1),
 		R=>RESET,
 		D=>DIN,
-		Q=>sMask
+		Q=>sSens
 	);
 	
 	cIRQVal : reg16
@@ -100,28 +113,9 @@ begin
 		Q=>sSig
 	);
 	
-	--sSig <= sSig and (DIN nand (15 downto 0 => sE(2)));
--- 	sSig <= sSigIn;
--- 			
--- 			if ( sE(2)='1' ) then
--- 				sSig <= sSig and not DIN;
--- 			end if;
-	
 	process(CLK)
 	begin
 		if ( CLK'event and CLK='1' ) then
--- 			if ( RESET='1' ) then 
--- 				sSig <= x"0000";
--- 			else
--- 				sSig <= sSigIn or sSig;
--- 			end if;
--- 			
--- 			if ( sE(2) = '1' ) then
--- 				sSig <= sSig and not DIN;
--- 			end if;
-			
-			--sSig <= (sSig or sSigIn) and (DIN nand (15 downto 0 => sE(2))) and (15 downto 0 => not RESET);
-			
 			DOUT <= sOut and (15 downto 0 => sR);
 		end if;
 	end process;

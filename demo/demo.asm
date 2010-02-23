@@ -73,7 +73,8 @@ start:
 	exw	r1, r0
 	exw	r1, r0
 	
-	reset
+	nop
+	;reset
 	
 	lw	r1, r0
 	

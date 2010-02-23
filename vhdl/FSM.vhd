@@ -50,13 +50,14 @@ architecture Behavioral of FSM is
 		SFetch,
 		SDecode,
 		SLoad,
+		SExchg,
 		SInterrupt
 	);
 	
 	--signal sPostponedIRQ : std_logic;
 	signal sCurState, sNextState : StateType;
 	
-	signal SelRdBackup : std_logic_vector(2 downto 0);
+	signal SelRaBackup, SelRdBackup : std_logic_vector(2 downto 0);
 begin
 	-- generic state switching code
 	process (CLK) 
@@ -186,22 +187,25 @@ begin
 					if ( IR(9)='0' and IR(10)='0' ) then
 						--EPC <= '0' ;
 						sNextState <= SLoad;
+						SelRaBackup <= IR(5 downto 3);
 						SelRdBackup <= IR(2 downto 0);
 					else
 						-- prefetching
 						--EIR <= '1' ;
 						sNextState <= SDecode;
 					end if;
-				elsif ( IR(15 downto 10) = "1110010000" ) then
+				elsif ( IR(15 downto 6) = "1110010000" ) then
 					-- EXW : Rd <=> (Ra)
-					WE <= '1' ;
+					--WE <= '1' ;
 					OE <= '1' ;
 					EIR <= '1' ;
 					EPC <= '0' ;
-					ERd <= '0' ;
 					
-					sNextState <= SLoad;
+					SelRaBackup <= IR(5 downto 3);
 					SelRdBackup <= IR(2 downto 0);
+					
+					--sNextState <= SLoad;
+					sNextState <= SExchg;
 				elsif ( IR(15 downto 10) = "111000" ) then
 					-- BRcc/BAcc
 					
@@ -260,31 +264,31 @@ begin
 				end if;
 				
 			when SLoad =>
+				-- load delay due to memory synchronicity
 				ERd <= '1' ;
 				SelRd <= SelRdBackup;
 				
-				--OE <= '1' ;
-				--EIR <= '1' ;
+				sNextState <= SDecode;
+				
+			when SExchg =>
+				ERd <= '1' ;
+				SelRa <= SelRaBackup;
+				SelRd <= SelRdBackup;
+				
+				WE <= '1' ;
 				
 				sNextState <= SDecode;
 				
 			when SInterrupt =>
+				EINT <= '1' ;
+				INTi <= '1' ;
 				
-				if ( INTo='0' ) then
-					EINT <= '1' ;
-					INTi <= '1' ;
-					
-					-- set PC to interrupt handler...
-					
-					LDPC <= '1' ;
-					SelPC <= '1' ;
-					ImmOff <= x"0010";
-					sNextState <= SStall;
-				else
-					EPC <= '0' ;
-					sNextState <= SDecode;
-				end if;
+				-- set PC to ISR address...
 				
+				LDPC <= '1' ;
+				SelPC <= '1' ;
+				ImmOff <= x"0010";
+				sNextState <= SStall;
 		end case;
 	end process;
 	
