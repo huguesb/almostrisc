@@ -55,6 +55,8 @@ architecture Behavioral of FSM is
 	
 	--signal sPostponedIRQ : std_logic;
 	signal sCurState, sNextState : StateType;
+	
+	signal SelRdBackup : std_logic_vector(2 downto 0);
 begin
 	-- generic state switching code
 	process (CLK) 
@@ -78,6 +80,13 @@ begin
 	begin
 		
 		--determine outputs
+		
+		-- wire for all cases :
+		op <= IR(14 downto 9);
+		SelRb <= IR(8 downto 6);
+		SelRa <= IR(5 downto 3);
+		SelRd <= IR(2 downto 0);
+		SelCond <= IR(2 downto 0);
 		
 		-- common code to avoid latch inference without bloating state-specific code
 		-- (latch inference is apparently responsible for misinterpretation of some
@@ -177,11 +186,22 @@ begin
 					if ( IR(9)='0' and IR(10)='0' ) then
 						--EPC <= '0' ;
 						sNextState <= SLoad;
+						SelRdBackup <= IR(2 downto 0);
 					else
 						-- prefetching
 						--EIR <= '1' ;
 						sNextState <= SDecode;
 					end if;
+				elsif ( IR(15 downto 10) = "1110010000" ) then
+					-- EXW : Rd <=> (Ra)
+					WE <= '1' ;
+					OE <= '1' ;
+					EIR <= '1' ;
+					EPC <= '0' ;
+					ERd <= '0' ;
+					
+					sNextState <= SLoad;
+					SelRdBackup <= IR(2 downto 0);
 				elsif ( IR(15 downto 10) = "111000" ) then
 					-- BRcc/BAcc
 					
@@ -241,6 +261,8 @@ begin
 				
 			when SLoad =>
 				ERd <= '1' ;
+				SelRd <= SelRdBackup;
+				
 				--OE <= '1' ;
 				--EIR <= '1' ;
 				
@@ -266,13 +288,5 @@ begin
 		end case;
 	end process;
 	
-	-- wire for all cases :
-	op <= IR(14 downto 9);
-	SelRb <= IR(8 downto 6);
-	SelRa <= IR(5 downto 3);
-	SelRd <= IR(2 downto 0);
-	SelCond <= IR(2 downto 0);
-	
 	CE <= '1' ;
-	
 end Behavioral;

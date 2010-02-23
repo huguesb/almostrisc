@@ -67,7 +67,15 @@ start:
 	li	r0, 0x20
 	shl	r0, r0, 7
 	
-	lw	r1, r1
+	li	r1, 0x100
+	exw	r1, r0
+	exw	r1, r0
+	exw	r1, r0
+	exw	r1, r0
+	
+	reset
+	
+	lw	r1, r0
 	
 test.factorial:
 ; 	li r0, 7
