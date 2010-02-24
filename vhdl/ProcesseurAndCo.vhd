@@ -18,14 +18,25 @@ entity ProcesseurAndCo is
 	Port(
 		CLK, RESET : in std_logic;
 		
+		OSCILLATOR : in std_logic;
+		
+		LED : out std_logic_vector(7 downto 0);
+		
+		ANODE : out std_logic_vector(3 downto 0);
+		SEGMENT : out std_logic_vector(6 downto 0);
+		
+		SLIDER : in std_logic_vector(7 downto 0);
+		PUSHBUTTON : in std_logic_vector(2 downto 0);
+		
 		HS, VS, R, G, B : out std_logic;
 		
-		PIN : in std_logic_vector(15 downto 0);
-		POUT : out std_logic_vector(15 downto 0);
+		--PIN : in std_logic_vector(15 downto 0);
+		--POUT : out std_logic_vector(15 downto 0);
 		
-		PS2C, PS2D : in std_logic;
+		PS2C, PS2D : inout std_logic;
 		
-		RXD, TXD : in std_logic
+		RXD, RXDA : in std_logic;
+		TXD, TXDA : out std_logic
 	);
 end ProcesseurAndCo;
 
@@ -114,7 +125,7 @@ architecture Behavioral of ProcesseurAndCo is
 		Port(
 			CLK, RESET : in std_logic;
 			
-			PS2C, PS2D : in std_logic;
+			PS2C, PS2D : inout std_logic;
 			
 			AD : in std_logic_vector(1 downto 0);
 			DIN : in std_logic_vector(15 downto 0);
@@ -141,12 +152,20 @@ architecture Behavioral of ProcesseurAndCo is
 	end component;
 	
 	signal INT : std_logic;
+	signal PIN, POUT : std_logic_vector(15 downto 0);
 	signal ADPROG, ADDATA, ADVGA : std_logic_vector(15 downto 0);
 	signal DPROG, DDATAIN, DDATAOUT, DVGA : std_logic_vector(15 downto 0);
 	signal sRAMout, sIRQout, sPS2out, sTMRout, s232out, sIRQin : std_logic_vector(15 downto 0);
 	signal WE, CE, OE : std_logic;
 	signal CEram, CEirq, CEps2, CEtmr, CE232 : std_logic;
 begin
+	-- map pin/pout for backward compat with original ucf file...
+	ANODE(0) <= POUT(15);
+	SEGMENT <= POUT(14 downto 8);
+	LED <= POUT(7 downto 0);
+	
+	PIN <= OSCILLATOR & RXDA & RXD & PS2C & PS2D & PUSHBUTTON & SLIDER;
+	
 	cProcesseur : Processeur
 	port map(
 		CLK=>CLK,

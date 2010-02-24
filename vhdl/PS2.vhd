@@ -17,7 +17,10 @@ entity PS2 is
 	Port(
 		CLK, RESET : in std_logic;
 		
-		PS2C, PS2D : in std_logic;
+		PS2C, PS2D : inout std_logic;
+		
+		BYTE_ERROR : out std_logic;
+		BYTE_AVAIL : out std_logic;
 		
 		AD : in std_logic_vector(1 downto 0);
 		DIN : in std_logic_vector(15 downto 0);
@@ -30,12 +33,92 @@ entity PS2 is
 end PS2;
 
 --
--- PS/2 driver
+-- low-level PS/2 driver
 --
 
 architecture Behavioral of PS2 is
+	component FIFO is
+		generic (
+			bits  : integer := 8;
+			words : integer := 16
+		);
+		
+		port (
+			CLK, RESET : in  std_logic;
+			
+			OE, WE : in std_logic;
+			
+			DIN  : in  std_logic_vector(bits-1 downto 0);
+			DOUT : out std_logic_vector(bits-1 downto 0);
+			
+			full : out std_logic;
+			empty : out std_logic
+		);
+	end component;
 	
+	signal sIdle : std_logic;
+	
+	signal sParity : std_logic;
+	signal sBitCount : unsigned(3 downto 0);
+	signal sInput : std_logic_vector(8 downto 0);
 begin
+	-- receive
+	process(PS2C)
+	begin
+		if ( PS2C'event and PS2C='0' ) then
+			BYTE_AVAIL <= '0' ;
+			
+			if ( sIdle='1' ) then
+				sIdle <= PS2D ;
+				sParity <= '0';
+				sBitCount <= x"0";
+			elsif ( sBitCount = x"9" ) then
+				if ( PS2D='1' and sParity='1' ) then
+					-- received a byte, proper parity
+					
+					BYTE_AVAIL <= '1' ;
+				else
+					-- transmission error...
+					
+				end if;
+				
+				sIdle <= '1' ;
+				sParity <= '0' ;
+			else
+				sBitCount <= sBitCount + 1;
+				sInput(to_integer(sBitCount)) <= PS2D;
+				sParity <= sParity xor PS2D;
+			end if;
+		end if;
+	end process;
+	
+	-- send
+-- 	process(PS2C)
+-- 	begin
+-- 		if ( PS2C'event and PS2C='1' ) then
+-- 			if ( sIdle='1' ) then
+-- 				sIdle <= PS2D ;
+-- 				sParity <= '0';
+-- 				sBitCount <= x"9";
+-- 			elsif ( sBitCount = x"0" ) then
+-- 				if ( PS2D='1' and sParity='1' ) then
+-- 					-- received a byte, proper parity
+-- 					
+-- 				else
+-- 					-- transmission error...
+-- 					
+-- 				end if;
+-- 				
+-- 				sIdle <= '1' ;
+-- 				sParity <= '0' ;
+-- 			else
+-- 				sBitCount <= sBitCount - 1;
+-- 				sInput(to_integer(sBitCount)) <= PS2D;
+-- 				sParity <= sParity xor PS2D;
+-- 			end if;
+-- 		end if;
+-- 	end process;
+	
 	process (CLK)
 	begin
 		if ( CLK'event and CLK='1' ) then

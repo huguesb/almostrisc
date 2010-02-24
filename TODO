@@ -4,19 +4,27 @@ extended instruction set :
 	|F|E|D|C|B|A|9|8|7|6|5|4|3|2|1|0| 
 	|-------------------------------|
 
-v1
+done
 	|-------------------------------|
 	|1 1 1 1|1 1 1 1|1 1 1 1|1 1 1 0| reti
 	|-------------------------------|
-
-v2?
-	|-------------------------------|
 	|1 1 1 0|0 1 0 0|0 0|  Ra |  Rd | exw rd, ra <=> ((ra), rd) = (rd, (ra))
+	|-------------------------------|
+
+proposed
     |-------------------------------|
-	|1 1 1 0|1 0 0 0|0 0|  Ra |  Rd | push rd, ra <=> sw rd, ra \ dec ra
-	|1 1 1 0|1 0 0 0|0 1|  Ra |  Rd | pop rd, ra <=> lw rd, ra \ inc ra
+	|1 1 1 0|0 1 0 1|bnk|  Ra |  Rd | ex rd, ra <=> (ra, rd) = (rd, ra)   [lotsa wiring...]
+	|-------------------------------|
+	|1 1 1 0|0 1 0 0|1 0|  Ra |  Rd | push rd, ra <=> dec ra \ sw rd, ra
+	|1 1 1 0|0 1 0 0|1 1|  Ra |  Rd | pop rd, ra <=> lw rd, ra \ inc ra
+	|-------------------------------|
+	|1 1 1 0|0 1 0 1|bnk|  Ra |  Rd | lih/lil
     |-------------------------------|
     
+ timings :
+	* branching : 3cc
+	* mem read  : 2cc
+	* others    : 1cc
 
  MUCH needed instructions
 	* register swap (gnl)
@@ -28,10 +36,10 @@ v2?
 	* conditionnal branch with link
 	* 16 bit immediates (2 words instructions)
 
-li rd, 0xdead => 0xlird
+liw rd, 0xdead => 0xlird
                  0xdead
 
-baicc ra, 0xdead => 0xbaicc
+bai[l]cc ra, 0xdead => 0xbaicc
                     0xdead
 
  ROOM for instructions :

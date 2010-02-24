@@ -33,43 +33,68 @@ architecture test of testbench is
 		Port(
 			CLK, RESET : in std_logic;
 			
+			OSCILLATOR : in std_logic;
+			
+			LED : out std_logic_vector(7 downto 0);
+			
+			ANODE : out std_logic_vector(3 downto 0);
+			SEGMENT : out std_logic_vector(6 downto 0);
+			
+			SLIDER : in std_logic_vector(7 downto 0);
+			PUSHBUTTON : in std_logic_vector(2 downto 0);
+			
 			HS, VS, R, G, B : out std_logic;
 			
-			PIN : in std_logic_vector(15 downto 0);
-			POUT : out std_logic_vector(15 downto 0);
+			--PIN : in std_logic_vector(15 downto 0);
+			--POUT : out std_logic_vector(15 downto 0);
 			
-			PS2C, PS2D : in std_logic;
+			PS2C, PS2D : inout std_logic;
 			
-			RXD, TXD : in std_logic
-			);
+			RXD, RXDA : in std_logic;
+			TXD, TXDA : out std_logic
+		);
 	end component;
 	
-	signal CLK, RESET : std_logic;
+	signal CLK, RESET, OSCILLATOR : std_logic;
 	
 	signal HS, VS, R, G, B : std_logic;
 	
 	signal PIN : std_logic_vector(15 downto 0);
 	signal POUT : std_logic_vector(15 downto 0);
 	
+	signal LED : std_logic_vector(7 downto 0);
+	
+	signal ANODE : std_logic_vector(3 downto 0);
+	signal SEGMENT : std_logic_vector(6 downto 0);
+	
+	signal SLIDER : std_logic_vector(7 downto 0);
+	signal PUSHBUTTON : std_logic_vector(2 downto 0);
+	
 	signal PS2C, PS2D : std_logic;
 	
-	signal RXD, TXD : std_logic;
+	signal RXD, RXDA, TXD, TXDA : std_logic;
 begin
 	uut : ProcesseurAndCo
 	port map(
 		CLK=>CLK,
 		RESET=>RESET,
+		OSCILLATOR=>OSCILLATOR,
 		HS=>HS,
 		VS=>VS,
 		R=>R,
 		G=>G,
 		B=>B,
-		PIN=>PIN,
-		POUT=>POUT,
+		LED=>LED,
+		ANODE=>ANODE,
+		SEGMENT=>SEGMENT,
+		SLIDER=>SLIDER,
+		PUSHBUTTON=>PUSHBUTTON,
 		PS2C=>PS2C,
 		PS2D=>PS2D,
 		RXD=>RXD,
-		TXD=>TXD
+		TXD=>TXD,
+		RXDA=>RXDA,
+		TXDA=>TXDA
 	);
 	
 	-- clock the simulation
