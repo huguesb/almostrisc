@@ -17,7 +17,7 @@ entity PO is
 	Port(
 		DPROG, DDATAIN, PIN : in std_logic_vector(15 downto 0);
 		
-		ADPROG, ADDATA, DDATAOUT, POUT, IR : out std_logic_vector(15 downto 0);
+		ADPROG, ADDATA, DDATAOUT, POUT, IR, PIR : out std_logic_vector(15 downto 0);
 		
 		COND : out std_logic;
 		
@@ -141,7 +141,7 @@ architecture Behavioral of PO is
 	signal sCstore, sCsave, sCin, sCout : std_logic;
 	
 	signal sEPCprev : std_logic;
-	signal sPC, sPCin, sPCinc, sPCnext, sPCprev, sPCIR, sPCorg, sPCoff, sPCload, sPCint : std_logic_vector(15 downto 0);
+	signal sIR, sPC, sPCin, sPCinc, sPCnext, sPCprev, sPCIR, sPCorg, sPCoff, sPCload, sPCint : std_logic_vector(15 downto 0);
 	
 	signal sINTo : std_logic;
 begin
@@ -173,7 +173,19 @@ begin
 		CLK=>CLK,
 		E=>EIR,
 		D=>DPROG,
-		Q=>IR,
+		Q=>sIR,
+		R=>RESET
+	);
+	
+	IR <= sIR;
+	
+	-- previous instruction register (pipelining constraint...)
+	cPIR : reg16
+	port map(
+		CLK=>CLK,
+		E=>EIR,
+		D=>sIR,
+		Q=>PIR,
 		R=>RESET
 	);
 	
@@ -186,7 +198,6 @@ begin
 		Q=>sPC,
 		R=>CLRPC
 	);
-	
 	
 	-- keep track of value of PC associated with IR
 	-- to reuse it in absolute jumps.

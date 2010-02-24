@@ -35,7 +35,7 @@ architecture Behavioral of Processeur is
 			
 			ADPROG : out std_logic_vector(15 downto 0);
 			DPROG : in std_logic_vector(15 downto 0);
-			IR : out std_logic_vector(15 downto 0);
+			IR, PIR : out std_logic_vector(15 downto 0);
 			
 			ADDATA : out std_logic_vector(15 downto 0);
 			DDATAIN : in std_logic_vector(15 downto 0);
@@ -71,7 +71,7 @@ architecture Behavioral of Processeur is
 			RESET : in std_logic;
 			INT : in std_logic;
 			
-			IR : in std_logic_vector(15 downto 0);
+			IR, PIR : in std_logic_vector(15 downto 0);
 			
 			COND : in std_logic;
 			
@@ -96,7 +96,7 @@ architecture Behavioral of Processeur is
 		);
 	end component ;
 	
-	signal IR : std_logic_vector(15 downto 0);
+	signal IR, PIR : std_logic_vector(15 downto 0);
 	signal SelCond : std_logic_vector(2 downto 0);
 	signal ImmOff : std_logic_vector(15 downto 0);
 	signal op : std_logic_vector(5 downto 0);
@@ -111,6 +111,7 @@ begin
 		RESET=>RESET,
 		INT=>INT,
 		IR=>IR,
+		PIR=>PIR,
 		EIR=>EIR,
 		EPC=>EPC,
 		CLRPC=>CLRPC,
@@ -144,6 +145,7 @@ begin
 		ADPROG=>ADPROG,
 		DPROG=>DPROG,
 		IR=>IR,
+		PIR=>PIR,
 		ADDATA=>ADDATA,
 		DDATAIN=>DDATAIN,
 		DDATAOUT=>DDATAOUT,

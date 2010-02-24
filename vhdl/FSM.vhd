@@ -19,7 +19,7 @@ entity FSM is
 		RESET : in std_logic;
 		INT : std_logic;
 		
-		IR : in std_logic_vector(15 downto 0);
+		IR, PIR : in std_logic_vector(15 downto 0);
 		COND : in std_logic;
 		
 		EIR : out std_logic;
@@ -50,14 +50,11 @@ architecture Behavioral of FSM is
 		SFetch,
 		SDecode,
 		SLoad,
-		SExchg,
+		--SExchg,
 		SInterrupt
 	);
 	
-	--signal sPostponedIRQ : std_logic;
 	signal sCurState, sNextState : StateType;
-	
-	signal SelRaBackup, SelRdBackup : std_logic_vector(2 downto 0);
 begin
 	-- generic state switching code
 	process (CLK) 
@@ -65,12 +62,9 @@ begin
 		if ( CLK'event and CLK='1' ) then 
 			if ( RESET='1' ) then
 				sCurState <= SReset;
-				--sPostponedIRQ <= '0' ;
 			elsif ( INT='1' and INTo='0' and (sNextState = SDecode) ) then
 				sCurState <= SInterrupt;
-				--sPostponedIRQ <= '0' ;
 			else
-				--sPostponedIRQ <= INT or sPostponedIRQ;
 				sCurState <= sNextState;
 			end if;
 		end if;
@@ -82,12 +76,8 @@ begin
 		
 		--determine outputs
 		
-		-- wire for all cases :
-		op <= IR(14 downto 9);
-		SelRb <= IR(8 downto 6);
 		SelRa <= IR(5 downto 3);
 		SelRd <= IR(2 downto 0);
-		SelCond <= IR(2 downto 0);
 		
 		-- common code to avoid latch inference without bloating state-specific code
 		-- (latch inference is apparently responsible for misinterpretation of some
@@ -127,10 +117,12 @@ begin
 				-- without artifacts in PC (reg16 do not like E and R at the same time)
 				
 				CLRPC <= '1' ;
+				
 				sNextState <= SStall;
 				
 			when SStall =>
 				-- stall state upon PC change
+				
 				sNextState <= SFetch;
 				
 			when SFetch =>
@@ -185,27 +177,17 @@ begin
 					EPC <= IR(9) or IR(10);
 					
 					if ( IR(9)='0' and IR(10)='0' ) then
-						--EPC <= '0' ;
 						sNextState <= SLoad;
-						SelRaBackup <= IR(5 downto 3);
-						SelRdBackup <= IR(2 downto 0);
 					else
-						-- prefetching
-						--EIR <= '1' ;
 						sNextState <= SDecode;
 					end if;
 				elsif ( IR(15 downto 6) = "1110010000" ) then
 					-- EXW : Rd <=> (Ra)
-					--WE <= '1' ;
 					OE <= '1' ;
 					EIR <= '1' ;
 					EPC <= '0' ;
 					
-					SelRaBackup <= IR(5 downto 3);
-					SelRdBackup <= IR(2 downto 0);
-					
-					--sNextState <= SLoad;
-					sNextState <= SExchg;
+					sNextState <= SLoad; --Exchg;
 				elsif ( IR(15 downto 10) = "111000" ) then
 					-- BRcc/BAcc
 					
@@ -266,18 +248,24 @@ begin
 			when SLoad =>
 				-- load delay due to memory synchronicity
 				ERd <= '1' ;
-				SelRd <= SelRdBackup;
+				
+				if ( PIR(13)='1' ) then
+					WE <= '1' ;
+					SelRa <= PIR(5 downto 3);
+				end if;
+				
+				SelRd <= PIR(2 downto 0);
 				
 				sNextState <= SDecode;
 				
-			when SExchg =>
-				ERd <= '1' ;
-				SelRa <= SelRaBackup;
-				SelRd <= SelRdBackup;
-				
-				WE <= '1' ;
-				
-				sNextState <= SDecode;
+-- 			when SExchg =>
+-- 				ERd <= '1' ;
+-- 				SelRa <= PIR(5 downto 3);
+-- 				SelRd <= PIR(2 downto 0);
+-- 				
+-- 				WE <= '1' ;
+-- 				
+-- 				sNextState <= SDecode;
 				
 			when SInterrupt =>
 				EINT <= '1' ;
@@ -291,6 +279,12 @@ begin
 				sNextState <= SStall;
 		end case;
 	end process;
+	
+	-- wire for all cases :
+	op <= IR(14 downto 9);
+	SelRb <= IR(8 downto 6);
+	
+	SelCond <= IR(2 downto 0);
 	
 	CE <= '1' ;
 end Behavioral;
