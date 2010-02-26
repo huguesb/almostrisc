@@ -161,8 +161,15 @@ architecture Behavioral of ProcesseurAndCo is
 begin
 	-- map pin/pout for backward compat with original ucf file...
 	ANODE(0) <= POUT(15);
+	ANODE(1) <= '1' ;
+	ANODE(2) <= '1' ;
+	ANODE(3) <= '1' ;
+	
 	SEGMENT <= POUT(14 downto 8);
 	LED <= POUT(7 downto 0);
+	
+	TXD  <= '0' ; 
+	TXDA <= '0' ;
 	
 	PIN <= OSCILLATOR & RXDA & RXD & PS2C & PS2D & PUSHBUTTON & SLIDER;
 	
