@@ -1,0 +1,57 @@
+ command line:
+   ./testbench_isim_beh.exe
+     -intstyle  ise
+     -ipchost  localhost
+     -ipcport  41581
+
+Sun Feb 14 14:53:16 2010
+
+Total Line Count : 870
+
+ Elaboration time : 0.28 sec.
+
+ Estimate current memory usage : 172.45 Meg. 
+
+ Total Signals          : 293
+ Total Nets             : 131824
+ Total Signal Drivers   : 100
+ Total Blocks           : 31
+ Total Primitive Blocks : 24
+ Total Processes        : 63
+ Total Traceable Variables  : 0
+ Total Scalar Nets and Variables : 131824
+ntrace select -o on -n /testbench/clk 
+ntrace select -o on -n /testbench/reset 
+ntrace select -o on -n /testbench/hs 
+ntrace select -o on -n /testbench/vs 
+ntrace select -o on -n /testbench/r 
+ntrace select -o on -n /testbench/g 
+ntrace select -o on -n /testbench/b 
+ntrace select -o on -n /testbench/pin 
+ntrace select -o on -n /testbench/pout 
+ntrace select -o on -n /testbench/uut/adprog 
+ntrace select -o on -n /testbench/uut/cProcesseur/adprog 
+ntrace select -o on -n /testbench/uut/cProcesseur/dprog 
+ntrace select -o on -n /testbench/uut/cProcesseur/eir 
+ntrace select -o on -n /testbench/uut/cProcesseur/epc 
+ntrace select -o on -n /testbench/uut/cProcesseur/clrpc 
+ntrace select -o on -n /testbench/uut/cProcesseur/cDataPath/cPC/r 
+ntrace select -o on -n /testbench/uut/cProcesseur/cDataPath/cPC/i 
+ntrace select -o on -n /testbench/uut/cProcesseur/cDataPath/cPC/e 
+ntrace select -o on -n /testbench/uut/cProcesseur/cDataPath/cPC/sq 
+ntrace select -o on -n /testbench/uut/cProcesseur/cDataPath/cPC/sd 
+ntrace start 
+isimrun 1000 ns 
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+restart
+isimrun 1000 ns 
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+
+ Simulation time 0.39 sec.
+
+ Estimate current memory usage : 184.414 Meg. 
+
+Sun Feb 14 23:08:33 2010
+

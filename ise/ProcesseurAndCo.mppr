@@ -1,0 +1,14 @@
+
+Constraints file: ProcesseurAndCo.pcf.
+
+Level/      Design      Timing      Number      Number     Number      Number      Run         NCD
+Cost [ncd]  Score       Score       Unrouted    Errors     Warnings    Infos       Time        Status
+----------  ------      --------    --------    -----      --------    ------     ------      ------------
+H_H_2   *   355         0           0           0           10          2           05:35       Complete        
+H_H_1   *   361         0           0           0           12          2           06:35       Complete        
+H_H_3   *   365         0           0           0           10          2           03:05       Complete        
+
+
+* : Design saved.
+
+PAR done!

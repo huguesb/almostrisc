@@ -1,0 +1,114 @@
+--------------------------------------------------------------------------------
+Release 9.2i Trace 
+Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
+
+trce -ise /home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise
+-intstyle ise -e 3 -s 4 -xml ProcesseurAndCo ProcesseurAndCo.ncd -o
+ProcesseurAndCo.twr ProcesseurAndCo.pcf -ucf
+/home/k4user/poly-imag/archi2/projet/ProcesseurAndCo.ucf
+
+Design file:              ProcesseurAndCo.ncd
+Physical constraint file: ProcesseurAndCo.pcf
+Device,package,speed:     xc3s1000,ft256,-4 (PRODUCTION 1.39 2007-04-13)
+Report level:             error report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:2698 - No timing constraints found, doing default enumeration.
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Setup/Hold to clock CLK
+-------------+------------+------------+------------------+--------+
+             |  Setup to  |  Hold to   |                  | Clock  |
+Source       | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
+-------------+------------+------------+------------------+--------+
+OSCILLATOR   |    7.432(R)|   -2.719(R)|CLK_BUFGP         |   0.000|
+PS2C         |    7.436(R)|   -3.318(R)|CLK_BUFGP         |   0.000|
+PS2D         |    6.442(R)|   -2.740(R)|CLK_BUFGP         |   0.000|
+PUSHBUTTON<0>|    8.023(R)|   -4.069(R)|CLK_BUFGP         |   0.000|
+PUSHBUTTON<1>|    8.021(R)|   -4.226(R)|CLK_BUFGP         |   0.000|
+PUSHBUTTON<2>|    6.280(R)|   -2.540(R)|CLK_BUFGP         |   0.000|
+RXD          |    8.444(R)|   -4.312(R)|CLK_BUFGP         |   0.000|
+RXDA         |    4.927(R)|   -1.461(R)|CLK_BUFGP         |   0.000|
+SLIDER<0>    |    6.780(R)|   -2.474(R)|CLK_BUFGP         |   0.000|
+SLIDER<1>    |    6.605(R)|   -2.659(R)|CLK_BUFGP         |   0.000|
+SLIDER<2>    |    5.822(R)|   -2.263(R)|CLK_BUFGP         |   0.000|
+SLIDER<3>    |    4.598(R)|   -1.259(R)|CLK_BUFGP         |   0.000|
+SLIDER<4>    |    6.444(R)|   -2.694(R)|CLK_BUFGP         |   0.000|
+SLIDER<5>    |    5.619(R)|   -2.143(R)|CLK_BUFGP         |   0.000|
+SLIDER<6>    |    8.087(R)|   -3.855(R)|CLK_BUFGP         |   0.000|
+SLIDER<7>    |    5.399(R)|   -1.909(R)|CLK_BUFGP         |   0.000|
+-------------+------------+------------+------------------+--------+
+
+Clock CLK to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+ANODE<0>    |    7.254(R)|CLK_BUFGP         |   0.000|
+B           |   18.273(R)|CLK_BUFGP         |   0.000|
+G           |   18.273(R)|CLK_BUFGP         |   0.000|
+HS          |   12.695(R)|CLK_BUFGP         |   0.000|
+LED<0>      |    7.454(R)|CLK_BUFGP         |   0.000|
+LED<1>      |    7.256(R)|CLK_BUFGP         |   0.000|
+LED<2>      |    7.454(R)|CLK_BUFGP         |   0.000|
+LED<3>      |    7.304(R)|CLK_BUFGP         |   0.000|
+LED<4>      |    7.341(R)|CLK_BUFGP         |   0.000|
+LED<5>      |    7.201(R)|CLK_BUFGP         |   0.000|
+LED<6>      |    7.235(R)|CLK_BUFGP         |   0.000|
+LED<7>      |    7.250(R)|CLK_BUFGP         |   0.000|
+R           |   18.265(R)|CLK_BUFGP         |   0.000|
+SEGMENT<0>  |    7.298(R)|CLK_BUFGP         |   0.000|
+SEGMENT<1>  |    7.454(R)|CLK_BUFGP         |   0.000|
+SEGMENT<2>  |    7.283(R)|CLK_BUFGP         |   0.000|
+SEGMENT<3>  |    7.256(R)|CLK_BUFGP         |   0.000|
+SEGMENT<4>  |    7.331(R)|CLK_BUFGP         |   0.000|
+SEGMENT<5>  |    7.488(R)|CLK_BUFGP         |   0.000|
+SEGMENT<6>  |    7.283(R)|CLK_BUFGP         |   0.000|
+VS          |   13.217(R)|CLK_BUFGP         |   0.000|
+------------+------------+------------------+--------+
+
+Clock to Setup on destination clock CLK
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+CLK            |   18.539|         |         |         |
+RESET          |    8.694|    8.694|         |         |
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock RESET
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+RESET          |         |         |         |    1.584|
+---------------+---------+---------+---------+---------+
+
+
+Analysis completed Thu Feb 25 19:45:29 2010 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 103 MB
+
+
+

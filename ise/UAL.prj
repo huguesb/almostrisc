@@ -1,0 +1,2 @@
+vhdl work "../vhdl/fast_adder.vhd"
+vhdl work "../vhdl/UAL.vhd"

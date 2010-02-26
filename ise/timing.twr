@@ -1,0 +1,47 @@
+Asterisk (*) preceding a constraint indicates it was not met.
+   This may be due to a setup or hold violation.
+
+------------------------------------------------------------------------------------------------------
+  Constraint                                |  Check  | Worst Case |  Best Case | Timing |   Timing   
+                                            |         |    Slack   | Achievable | Errors |    Score   
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net CLK | SETUP   |         N/A|    17.747ns|     N/A|           0
+  _BUFGP                                    | HOLD    |     0.743ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.631ns|     N/A|           2
+  mer/TMR_CLK<6>                            | HOLD    |     0.453ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.889ns|     N/A|           0
+  mer/TMR_CLK<4>                            | HOLD    |     0.485ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.908ns|     N/A|           0
+  mer/TMR_CLK<5>                            | HOLD    |     0.394ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.287ns|     N/A|           0
+  mer/TMR_CLK<2>                            | HOLD    |     0.494ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.486ns|     N/A|           0
+  mer/TMR_CLK<3>                            | HOLD    |     0.380ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.334ns|     N/A|           0
+  mer/TMR_CLK<0>                            | HOLD    |     0.745ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     7.888ns|     N/A|           0
+  mer/TMR_CLK<1>                            | HOLD    |     0.515ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     7.642ns|     N/A|           0
+  mer/sCLK<1>                               | HOLD    |     1.695ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     7.956ns|     N/A|           0
+  mer/sCLK<2>                               | HOLD    |     1.069ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     1.591ns|     N/A|           1
+  mer/TMR_CLK_0_cmp_eq0000                  | HOLD    |     0.827ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+
+
+2 constraints not met.
+INFO:Timing:2761 - N/A entries in the Constraints list may indicate that the 
+   constraint does not cover any paths or that it has no requested value.
+
+

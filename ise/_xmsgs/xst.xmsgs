@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/ProcesseurAndCo.vhd</arg>&quot; line <arg fmt="%d" index="2">255</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">BYTE_ERROR</arg>&apos; of component &apos;<arg fmt="%s" index="4">PS2</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/ProcesseurAndCo.vhd</arg>&quot; line <arg fmt="%d" index="2">255</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">BYTE_AVAIL</arg>&apos; of component &apos;<arg fmt="%s" index="4">PS2</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
+</msg>
+
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">37</arg>: Index value(s) does not match array range, simulation mismatch.
+</msg>
+
+<msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
+</msg>
+
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">45</arg>: Index value(s) does not match array range, simulation mismatch.
+</msg>
+
+<msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
+</msg>
+
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">56</arg>: Index value(s) does not match array range, simulation mismatch.
+</msg>
+
+<msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
+</msg>
+
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/PS2.vhd</arg>&quot; line <arg fmt="%d" index="2">89</arg>: Index value(s) does not match array range, simulation mismatch.
+</msg>
+
+<msg type="info" file="Xst" num="2679" delta="unknown" >Register &lt;<arg fmt="%s" index="1">DOUT</arg>&gt; in unit &lt;<arg fmt="%s" index="2">PS2</arg>&gt; has a constant value of <arg fmt="%s" index="3">0000000000000000</arg> during circuit operation. The register is replaced by logic.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="unknown" >Input &lt;<arg fmt="%s" index="1">AD&lt;1:0&gt;</arg>&gt; is never used.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">CEi</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="unknown" >Input &lt;<arg fmt="%s" index="1">AD</arg>&gt; is never used.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="unknown" >Input &lt;<arg fmt="%s" index="1">DIN</arg>&gt; is never used.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="unknown" >Input &lt;<arg fmt="%s" index="1">RESET</arg>&gt; is never used.
+</msg>
+
+<msg type="warning" file="Xst" num="1305" delta="unknown" >Output &lt;<arg fmt="%s" index="1">BYTE_ERROR</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">0</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="unknown" >Input &lt;<arg fmt="%s" index="1">OE</arg>&gt; is never used.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="unknown" >Input &lt;<arg fmt="%s" index="1">WE</arg>&gt; is never used.
+</msg>
+
+<msg type="warning" file="Xst" num="646" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sInput</arg>&gt; is assigned but never used.
+</msg>
+
+<msg type="warning" file="Xst" num="646" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sIR&lt;15&gt;</arg>&gt; is assigned but never used.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sNeg</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;15&gt;&lt;13&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;15&gt;&lt;11:9&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;15&gt;&lt;7:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;14&gt;&lt;15&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;14&gt;&lt;12&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;14&gt;&lt;10:8&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;14&gt;&lt;6:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;13&gt;&lt;15:14&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;13&gt;&lt;11&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;13&gt;&lt;9:7&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;13&gt;&lt;5:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;12&gt;&lt;15:13&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;12&gt;&lt;10&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;12&gt;&lt;8:6&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;12&gt;&lt;4:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;11&gt;&lt;15:12&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;11&gt;&lt;9&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;11&gt;&lt;7:5&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;11&gt;&lt;3:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;10&gt;&lt;15:11&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;10&gt;&lt;8&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;10&gt;&lt;6:4&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;10&gt;&lt;2:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;9&gt;&lt;15:10&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;9&gt;&lt;7&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;9&gt;&lt;5:3&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;9&gt;&lt;1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;8&gt;&lt;15:9&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;8&gt;&lt;6&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;8&gt;&lt;4:2&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;7&gt;&lt;15:8&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;7&gt;&lt;5&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;7&gt;&lt;3:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;6&gt;&lt;15:7&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;6&gt;&lt;4&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;6&gt;&lt;2:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;5&gt;&lt;15:6&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;5&gt;&lt;3&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;5&gt;&lt;1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;4&gt;&lt;15:5&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;4&gt;&lt;2&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;3&gt;&lt;15:4&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;3&gt;&lt;1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;2&gt;&lt;15:3&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;1&gt;&lt;15:2&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">G&lt;0&gt;&lt;15:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;15&gt;&lt;13&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;15&gt;&lt;11:9&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;15&gt;&lt;7:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="646" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;15&gt;&lt;0&gt;</arg>&gt; is assigned but never used.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;14&gt;&lt;15&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;14&gt;&lt;12&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;14&gt;&lt;10:8&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;14&gt;&lt;6:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;13&gt;&lt;15:14&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;13&gt;&lt;11&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;13&gt;&lt;9:7&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;13&gt;&lt;5:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;12&gt;&lt;15:13&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;12&gt;&lt;10&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;12&gt;&lt;8:6&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;12&gt;&lt;4:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;11&gt;&lt;15:12&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;11&gt;&lt;9&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;11&gt;&lt;7:5&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;11&gt;&lt;3:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;10&gt;&lt;15:11&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;10&gt;&lt;8&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;10&gt;&lt;6:4&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;10&gt;&lt;2:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;9&gt;&lt;15:10&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;9&gt;&lt;7&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;9&gt;&lt;5:3&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;9&gt;&lt;1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;8&gt;&lt;15:9&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;8&gt;&lt;6&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;8&gt;&lt;4:2&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;7&gt;&lt;15:8&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;7&gt;&lt;5&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;7&gt;&lt;3:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;6&gt;&lt;15:7&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;6&gt;&lt;4&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;6&gt;&lt;2:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;5&gt;&lt;15:6&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;5&gt;&lt;3&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;5&gt;&lt;1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;4&gt;&lt;15:5&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;4&gt;&lt;2&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;3&gt;&lt;15:4&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;3&gt;&lt;1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;2&gt;&lt;15:3&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;1&gt;&lt;15:2&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;0&gt;&lt;15:1&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sCout</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="646" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">Yaux&lt;9&gt;</arg>&gt; is assigned but never used.
+</msg>
+
+<msg type="warning" file="Xst" num="2734" delta="unknown" >Property &quot;<arg fmt="%s" index="1">use_dsp48</arg>&quot; is not applicable for this technology.
+</msg>
+
+<msg type="warning" file="Xst" num="2734" delta="unknown" >Property &quot;<arg fmt="%s" index="1">use_dsp48</arg>&quot; is not applicable for this technology.
+</msg>
+
+<msg type="warning" file="Xst" num="2734" delta="unknown" >Property &quot;<arg fmt="%s" index="1">use_dsp48</arg>&quot; is not applicable for this technology.
+</msg>
+
+<msg type="warning" file="Xst" num="2734" delta="unknown" >Property &quot;<arg fmt="%s" index="1">use_dsp48</arg>&quot; is not applicable for this technology.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="unknown" >Input &lt;<arg fmt="%s" index="1">X&lt;0&gt;</arg>&gt; is never used.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="unknown" >Input &lt;<arg fmt="%s" index="1">Y&lt;0&gt;</arg>&gt; is never used.
+</msg>
+
+<msg type="warning" file="Xst" num="646" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sE&lt;3&gt;</arg>&gt; is assigned but never used.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sRegEnable&lt;2:0&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="737" delta="unknown" >Found <arg fmt="%d" index="1">1</arg>-bit latch for signal &lt;<arg fmt="%s" index="2">TMR_CLK_0</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2734" delta="unknown" >Property &quot;<arg fmt="%s" index="1">use_dsp48</arg>&quot; is not applicable for this technology.
+</msg>
+
+<msg type="warning" file="Xst" num="2734" delta="unknown" >Property &quot;<arg fmt="%s" index="1">use_dsp48</arg>&quot; is not applicable for this technology.
+</msg>
+
+<msg type="warning" file="Xst" num="653" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sCLogic</arg>&gt; is used but never assigned. Tied to value <arg fmt="%s" index="2">0</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sCstore</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sCsave</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="2734" delta="unknown" >Property &quot;<arg fmt="%s" index="1">use_dsp48</arg>&quot; is not applicable for this technology.
+</msg>
+
+<msg type="warning" file="Xst" num="2734" delta="unknown" >Property &quot;<arg fmt="%s" index="1">use_dsp48</arg>&quot; is not applicable for this technology.
+</msg>
+
+<msg type="warning" file="Xst" num="646" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">ADPROG&lt;15:13&gt;</arg>&gt; is assigned but never used.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">s232out</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="646" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">CE232</arg>&gt; is assigned but never used.
+</msg>
+
+<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">ADVGA&lt;15:13&gt;</arg>&gt; is never used or assigned.
+</msg>
+
+<msg type="info" file="Xst" num="2694" delta="unknown" >Unit &lt;<arg fmt="%s" index="1">ROMPROG</arg>&gt; : The ROM &lt;<arg fmt="%s" index="2">Mrom_D_rom0000</arg>&gt; will be implemented as a read-only BLOCK RAM, absorbing the register: &lt;<arg fmt="%s" index="3">D</arg>&gt;.
+</msg>
+
+<msg type="info" file="Xst" num="2691" delta="unknown" >Unit &lt;<arg fmt="%s" index="1">RAMDoublePort</arg>&gt; : The RAM &lt;<arg fmt="%s" index="2">Mram_memoire</arg>&gt; will be implemented as a BLOCK RAM, absorbing the following register(s):</msg>
+
+<msg type="info" file="Xst" num="2663" delta="unknown" >HDL ADVISOR - Unit &lt;<arg fmt="%s" index="1">ROMPROG</arg>&gt; : Register &lt;<arg fmt="%s" index="2">Q</arg>&gt; currently described with an asynchronous reset, could be combined with distributed RAM &lt;<arg fmt="%s" index="3">Mrom_D_rom00001</arg>&gt; for implementation on block RAM resources if you made this reset synchronous instead.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_15</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">BYTE_AVAIL</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPS2</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">sParity</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPS2</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cPS2/sParity</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cPS2/sIdle</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cPS2/BYTE_AVAIL</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2170" delta="unknown" >Unit <arg fmt="%s" index="1">Timer</arg> : the following signal(s) form a combinatorial loop: </msg>
+
+<msg type="warning" file="Xst" num="2170" delta="unknown" >Unit <arg fmt="%s" index="1">Timer</arg> : the following signal(s) form a combinatorial loop: </msg>
+
+<msg type="warning" file="Xst" num="2042" delta="unknown" >Unit <arg fmt="%s" index="1">UAL</arg>: <arg fmt="%d" index="2">33</arg> internal tristates are replaced by logic (pull-up <arg fmt="%s" index="3">yes</arg>): </msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_15</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+</msg>
+
+<msg type="info" file="Xst" num="2260" delta="unknown" >The FF/Latch &lt;<arg fmt="%s" index="1">cIRQ/cIRQVal/Q_4</arg>&gt; in Unit &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt; is equivalent to the following <arg fmt="%s" index="3">11 FFs/Latches</arg> : <arg fmt="%s" index="4">&lt;cIRQ/cIRQVal/Q_5&gt; &lt;cIRQ/cIRQVal/Q_6&gt; &lt;cIRQ/cIRQVal/Q_7&gt; &lt;cIRQ/cIRQVal/Q_8&gt; &lt;cIRQ/cIRQVal/Q_9&gt; &lt;cIRQ/cIRQVal/Q_10&gt; &lt;cIRQ/cIRQVal/Q_11&gt; &lt;cIRQ/cIRQVal/Q_12&gt; &lt;cIRQ/cIRQVal/Q_13&gt; &lt;cIRQ/cIRQVal/Q_14&gt; &lt;cIRQ/cIRQVal/Q_15&gt; </arg>
+</msg>
+
+<msg type="info" file="Xst" num="2169" delta="unknown" >HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+</msg>
+
+</messages>
+
