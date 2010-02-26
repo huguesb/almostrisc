@@ -63,7 +63,7 @@ begin
 		sE(to_integer(unsigned(AD))) <= sW;
 	end process;
 	
-	process (AD, sSens, sMask, IRQin)
+	process (AD, sSens, sMask, sSig, IRQin)
 	begin
 		case AD is
 			when "00" => sOut <= sMask;

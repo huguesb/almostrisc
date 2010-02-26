@@ -138,7 +138,7 @@ architecture Behavioral of PO is
 	signal sigRa, sigRb, sigRd, sRin : std_logic_vector(15 downto 0);
 	
 	signal sUAL : std_logic_vector(15 downto 0);
-	signal sCstore, sCsave, sCin, sCout : std_logic;
+	signal sCstore, sCsave, sCin, sCout, sCarry, sECarry, sCarryInt, sECarryInt : std_logic;
 	
 	signal sEPCprev : std_logic;
 	signal sIR, sPC, sPCin, sPCinc, sPCnext, sPCprev, sPCIR, sPCorg, sPCoff, sPCload, sPCint : std_logic_vector(15 downto 0);
@@ -275,7 +275,7 @@ begin
 	sigRa <= sR(to_integer(sINTo & unsigned(SelRa)));
 	sigRb <= sR(to_integer(sINTo & unsigned(SelRb)));
 	
-	cSelRd : process(SelRd, ERd)
+	cSelRd : process(SelRd, ERd, sINTo)
 	begin
 		sRegE <= (others => '0' );
 		sRegE(to_integer(sINTo & unsigned(SelRd))) <= ERd ;
@@ -289,23 +289,27 @@ begin
 	--	100	: UAL (op)
 	
 	-- prioritize UAL to decrease critical timings
-	cSelRInUAL : mux_2_16
-	port map(
-		Sel=>SelRIn(2),
-		I0=>sRin,
-		I1=>sUAL,
-		S=>sigRd
-	);
+-- 	cSelRInUAL : mux_2_16
+-- 	port map(
+-- 		Sel=>SelRIn(2),
+-- 		I0=>sRin,
+-- 		I1=>sUAL,
+-- 		S=>sigRd
+-- 	);
 	
-	cSelRIn : mux_4_16
-	port map(
-		Sel=>SelRIn(1 downto 0),
-		I0=>DDATAIN,
-		I1=>sPCprev,
-		I2=>PIN,
-		I3=>ImmOff,
-		S=>sRin
-	);
+	sigRd <= sUAL when SelRIn(2)='1' else sRin;
+	
+-- 	cSelRIn : mux_4_16
+-- 	port map(
+-- 		Sel=>SelRIn(1 downto 0),
+-- 		I0=>DDATAIN,
+-- 		I1=>sPCprev,
+-- 		I2=>PIN,
+-- 		I3=>ImmOff,
+-- 		S=>sRin
+-- 	);
+	with SelRIn(1 downto 0) select
+		sRin <= DDATAIN when "00", sPCprev when "01", PIN     when "10", ImmOff  when others;
 	
 	-- UAL and related
 	
@@ -322,27 +326,30 @@ begin
 	cCarry : reg1
 	port map(
 		CLK=>CLK,
-		E=>ECarry,
+		E=>sECarry,
 		R=>RESET,
-		D=>sCstore,
-		Q=>sCin
+		D=>sCout,
+		Q=>sCarry
 	);
 	
-	cCarrySave : reg1
+	cCarryInt : reg1
 	port map(
 		CLK=>CLK,
-		E=>INTi,
+		E=>sECarryInt,
 		R=>RESET,
-		D=>sCin,
-		Q=>sCsave
+		D=>sCout,
+		Q=>sCarryInt
 	);
 	
-	sCstore <= (sCsave and SelReti) or (sCout and not SelReti);
+	sECarry <= ECarry and not sINTo;
+	sECarryInt <= ECarry and sINTo;
+	
+	sCin <= sCarryInt when sINTo='1' else sCarry;
 	
 	-- memory
 	
 	ADPROG <= sPC;
-	ADDATA <= sigRa;
+	ADDATA <= sigRa; -- when OE='1' else (others => 'Z');
 	
 	DDATAOUT <= sR(to_integer(sINTo & unsigned(SelRd)));
 	

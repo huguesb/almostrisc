@@ -17,7 +17,7 @@ entity FSM is
 	Port(
 		CLK : in std_logic;
 		RESET : in std_logic;
-		INT : std_logic;
+		INT : in std_logic;
 		
 		IR, PIR : in std_logic_vector(15 downto 0);
 		COND : in std_logic;
@@ -55,6 +55,8 @@ architecture Behavioral of FSM is
 	);
 	
 	signal sCurState, sNextState : StateType;
+	
+	signal sIR : std_logic_vector(15 downto 0);
 begin
 	-- generic state switching code
 	process (CLK) 
@@ -71,13 +73,10 @@ begin
 	end process;
 	
 	-- state output
-	process (sCurState, IR, COND, INTo)
+	process (sCurState, IR, PIR, COND, INTo)
 	begin
 		
 		--determine outputs
-		
-		SelRa <= IR(5 downto 3);
-		SelRd <= IR(2 downto 0);
 		
 		-- common code to avoid latch inference without bloating state-specific code
 		-- (latch inference is apparently responsible for misinterpretation of some
@@ -181,13 +180,6 @@ begin
 					else
 						sNextState <= SDecode;
 					end if;
-				elsif ( IR(15 downto 6) = "1110010000" ) then
-					-- EXW : Rd <=> (Ra)
-					OE <= '1' ;
-					EIR <= '1' ;
-					EPC <= '0' ;
-					
-					sNextState <= SLoad; --Exchg;
 				elsif ( IR(15 downto 10) = "111000" ) then
 					-- BRcc/BAcc
 					
@@ -239,6 +231,13 @@ begin
 					else
 						sNextState <= SDecode;
 					end if;
+				elsif ( IR(15 downto 6) = "1110010000" ) then
+					-- EXW : Rd <=> (Ra)
+					OE <= '1' ;
+					EIR <= '1' ;
+					EPC <= '0' ;
+					
+					sNextState <= SLoad; --Exchg;
 				else
 					-- prefetching
 					EIR <= '1' ;
@@ -249,23 +248,9 @@ begin
 				-- load delay due to memory synchronicity
 				ERd <= '1' ;
 				
-				if ( PIR(13)='1' ) then
-					WE <= '1' ;
-					SelRa <= PIR(5 downto 3);
-				end if;
-				
-				SelRd <= PIR(2 downto 0);
+				WE <= PIR(13);
 				
 				sNextState <= SDecode;
-				
--- 			when SExchg =>
--- 				ERd <= '1' ;
--- 				SelRa <= PIR(5 downto 3);
--- 				SelRd <= PIR(2 downto 0);
--- 				
--- 				WE <= '1' ;
--- 				
--- 				sNextState <= SDecode;
 				
 			when SInterrupt =>
 				EINT <= '1' ;
@@ -280,11 +265,14 @@ begin
 		end case;
 	end process;
 	
-	-- wire for all cases :
-	op <= IR(14 downto 9);
-	SelRb <= IR(8 downto 6);
+	sIR <= PIR when sCurState = SLoad else IR;
 	
-	SelCond <= IR(2 downto 0);
+	-- wire for all cases :
+	op <= sIR(14 downto 9);
+	SelRb <= sIR(8 downto 6);
+	SelRa <= sIR(5 downto 3);
+	SelRd <= sIR(2 downto 0);
+	SelCond <= sIR(2 downto 0);
 	
 	CE <= '1' ;
 end Behavioral;

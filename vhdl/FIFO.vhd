@@ -37,15 +37,16 @@ end FIFO;
 -- 
 
 architecture Behavioral of FIFO is
-	type vector_array is array (0 to words-1) of std_logic_vector(bits-1 downto 0);
+	type vector_array is array (0 to (2**words)-1) of std_logic_vector(bits-1 downto 0);
 	signal memory : vector_array;
 	signal sEmpty, sFull : std_logic;
+	signal top, queue : unsigned(words-1 downto 0);
 begin
 	process(CLK, RESET)
-		variable top : integer range 0 to words;
 	begin
 		if ( RESET='1' ) then
-			top := 0;
+			top <= (others => '0' );
+			queue <= (others => '0' );
 			
 			DOUT <= (others => 'Z');
 			sFull <= '0' ;
@@ -53,23 +54,23 @@ begin
 		elsif ( CLK'event and CLK='1' ) then
 			DOUT <= (others => 'Z');
 			
-			if ( OE='1' and sEmpty='0' ) then
-				top := top - 1;
-				DOUT <= memory(top);
-			end if;
-			
-			if ( WE='1' and sFull='0' ) then
-				memory(top) <= DIN;
-				top := top + 1;
-			end if;
-			
 			sFull <= '0' ;
 			sEmpty <= '0' ;
 			
-			if ( top = 0 ) then
+			if ( top = queue ) then
 				sEmpty <= '1';
-			elsif ( top = words ) then
+			elsif ( top + 1 = queue ) then
 				sFull <= '1';
+			end if;
+			
+			if ( OE='1' and sEmpty='0' ) then
+				DOUT <= memory(to_integer(queue));
+				queue <= queue + 1;
+			end if;
+			
+			if ( WE='1' and sFull='0' ) then
+				memory(to_integer(top)) <= DIN;
+				top <= top + 1;
 			end if;
 		end if;
 	end process;

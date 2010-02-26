@@ -60,7 +60,7 @@ begin
 				CEps2 <= CE;
 			elsif ( AD(12 downto 3) = "0000000001" ) then
 				CEtmr <= CE;
-			elsif ( AD(12 downto 3) = "00000000100" ) then
+			elsif ( AD(12 downto 2) = "00000000100" ) then
 				CE232 <= CE;
 			else
 				-- raise MMU exception?

@@ -123,7 +123,7 @@ begin
 	cCntRegs : for idx in 2 downto 0 generate
 		sCLK(idx) <= TMR_CLK(to_integer(unsigned(sRegisters(7)(5 * idx + 2 downto 5 * idx))));
 		
-		process(sCLK(idx), ld(idx))
+		process(sCLK(idx), ld(idx), DIN)
 		begin
 			if ( ld(idx)='1' ) then
 				sIRQ(idx) <= '0' ;

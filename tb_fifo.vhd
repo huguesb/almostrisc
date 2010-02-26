@@ -24,7 +24,7 @@ architecture test of tb_fifo is
 	component FIFO is
 		generic (
 			bits  : integer := 16;
-			words : integer := 16
+			words : integer := 4
 		);
 		
 		port (
