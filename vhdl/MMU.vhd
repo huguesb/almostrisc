@@ -50,6 +50,7 @@ begin
 		CEirq <= '0' ;
 		CEps2 <= '0' ;
 		CEtmr <= '0' ;
+		CE232 <= '0' ;
 		
 		if ( AD(15 downto 13) = "000" ) then
 			CEram <= CE;

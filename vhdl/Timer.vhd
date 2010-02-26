@@ -68,7 +68,7 @@ architecture Behavioral of Timer is
 	signal sIRQ, sCLK, ld : std_logic_vector(2 downto 0);
 begin
 	-- clock divider : produce 10MHz timer clock from 50MHz circuit clock
-	base : process (CLK)
+	base : process (CLK, RESET)
 	begin
 		--if ( CLK'event and CLK='1' ) then
 			if ( RESET='1' ) then
