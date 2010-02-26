@@ -57,26 +57,14 @@ int_isr:
 	li	r1, -1
 	sw	r1, r0
 	
+	inc	r3, r3
+	out	r3
+	
 	; resume normal execution
 	reti
 
 .org	0x0100
 start:
-	
-	; set r0 to base pointer of device mappings (IRQ comes first)
-	li	r0, 0x20
-	shl	r0, r0, 7
-	
-	li	r1, 0x100
-	exw	r1, r0
-	exw	r1, r0
-	exw	r1, r0
-	exw	r1, r0
-	
-	nop
-	;reset
-	
-	lw	r1, r0
 	
 test.factorial:
 ; 	li r0, 7
@@ -149,6 +137,41 @@ mult_16_16.loop:
 	
 mult_16_16.end:
 	ba	-, r6
+	
+	
+	
+	; display a 8*8 sprite to VGA buffer
+	; in : r0, r1 => x, y; r2 => sprite data 
+sprite_aligned_8:
+	; r3 will be address in VGA buffer : base at 0x0000
+	; buffer is 320*240pix, 16pix per word
+	; => one buffer line is 20 words
+	
+	; r3 = 16*y
+	shl r3, r1, 3
+	; r1 = 4*y
+	shl	r1, r1, 1
+	; r3 = 20*y
+	add	r3, r3, r1
+	; r1 = x / 16
+	shr	r1, r0, 3
+	; r0 = c ? 0xffff : 0x0000  (shifting requirement)
+	sbc	r0, r0, r0
+	; r3 = 20*y + x/16 : first word for sprite
+	add	r3, r3, r1
+	
+	li	r4, 4
+	
+sprite_aligned_8.loop:
+	; load first sprite word
+	lw	r1, r2
+	
+	
+	dec	r4, r4
+	brine	r4, sprite_aligned_8.loop
+	
+	ba	-, r6
+	
 	
 ; 	li	r0, 0x123
 ; 	li	r2, 456

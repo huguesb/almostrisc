@@ -29,7 +29,15 @@ architecture Behavioral of RAMDoublePort is
  subtype octet is std_logic_vector( 15 downto 0 );
  type zone_memoire is
          array (natural range low_address to high_address) of octet;
- signal memoire: zone_memoire;
+ signal memoire: zone_memoire := (
+ 0=>x"FFFF",
+ 1=>x"FFFF",
+ 2=>x"FFFF",
+ 3=>x"FFFF",
+ 4=>x"FFFF",
+ 5=>x"FFFF",
+ others => x"0000"
+ );
 begin
    process(CLK)
 	begin 

@@ -50,7 +50,6 @@ architecture Behavioral of FSM is
 		SFetch,
 		SDecode,
 		SLoad,
-		--SExchg,
 		SInterrupt
 	);
 	
