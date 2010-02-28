@@ -264,7 +264,7 @@ begin
 		CE=>CEps2,
 		WE=>WE,
 		OE=>OE,
-		IRQ=>sIRQin(0)
+		IRQ=>sIRQin(3)
 	);
 	
 	cTimer : Timer
@@ -277,7 +277,7 @@ begin
 		CE=>CEtmr,
 		WE=>WE,
 		OE=>OE,
-		IRQ=>sIRQin(3 downto 1)
+		IRQ=>sIRQin(2 downto 0)
 	);
 	
 end Behavioral;

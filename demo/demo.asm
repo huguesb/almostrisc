@@ -13,31 +13,22 @@
 int_reset:
 	; do some init here...
 	
-	; set r0 to base pointer of device mappings : 0x2000 (IRQ comes first)
 	li	r0, 0x20
-	shl	r0, r0, 7
-	
-	; interrupts : unmask all
-	li	r1, -1
+	shl	r0, r0, 7	; r0 = 0x2000 : interrupt masking
+	li	r1, 1	; unmask only first timer
 	sw	r1, r0
-	inc	r0, r0
-	
-	; interrupts : sensibility 
+	inc	r0, r0	; r0 = 0x2001 : interrupt sensibility
+	li	r1, -1	; all interrupts sensible to rising edge
 	sw	r1, r0
-	inc	r0, r0
-	
-	; Timer : first timer count : 10
-	li	r2, 10
-	add	r0, r0, r2
+	li	r2, 7
+	add	r0, r0, r2	; r0 = 0x2008 : timers control
+	li	r2, 0x18 ; enable first timer, loop, max speed (1MHz)
+	sw	r2, r0
+	inc	r0, r0	; r0 = 0x2009 : first timer, base count
+	li	r2, 2	; fire every 2+1=3 ms
 	sw	r2, r0
 	
-	li	r2, 3
-	add	r0, r0, r2
-	
-	; Timer : enable first timer, loop, max speed (10MHz)
-	li	r2, 0x18
-	sw	r2, r0
-	
+	; go to program itself
 	li	r0, start - ($+1)
 	br	-, r0
 
@@ -57,7 +48,8 @@ int_isr:
 	li	r1, -1
 	sw	r1, r0
 	
-	inc	r3, r3
+	; visual test
+	not r3, r3
 	out	r3
 	
 	; resume normal execution
@@ -86,7 +78,7 @@ test.div:
 	li	r2, 56
 	li	r3, div_16_16 - ($+1)
 	brl	r6, r3
-	reset
+	bri	-, test.div
 	
 	; r0 = r0 / r2
 	; r1 = r0 % r2

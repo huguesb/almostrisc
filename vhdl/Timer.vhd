@@ -42,12 +42,20 @@ end Timer;
 --
 
 -- 	status, control and counter registers
--- 	0-2 : loop current count [RO]
--- 	3 : unused [RO]
--- 	4-6 : loop base count [RW]
--- 	7 : control (3 MSB unused, groups of 5 bits : enabled | loop | speed(3)) [RW]
+-- 	0 : control (3 MSB unused, groups of 5 bits : enabled | loop | speed(3)) [RW]
+-- 	1-3 : loop base count [RW]
+-- 	4-6 : loop current count [RO]
+-- 	7 : unused [RO]
 
 architecture Behavioral of Timer is
+	component reg1
+		Port(
+			CLK, E, R : in std_logic;
+			D : in std_logic;
+			Q : out std_logic
+		);
+	end component;
+	
 	component reg16
 		Port(
 			CLK, E, R : in std_logic;
@@ -60,29 +68,31 @@ architecture Behavioral of Timer is
 	type reg16array is array (integer range <>) of std_logic_vector(15 downto 0);
 	
 	signal sRegisters : reg16array(7 downto 0);
-	signal sRegEnable : std_logic_vector(7 downto 0);
+	signal sRegEnable : std_logic_vector(3 downto 0);
 	
 	signal TMR_CLK : std_logic_vector(7 downto 0);
 	signal cnt_base : counter4(7 downto 0);
 	
-	signal sIRQ, sCLK, ld : std_logic_vector(2 downto 0);
+	signal sIRQ, sIRQin, sCLK, sResetIRQ, ld : std_logic_vector(2 downto 0);
+	
+	signal dbg : std_logic_vector(15 downto 0);
 begin
-	-- clock divider : produce 10MHz timer clock from 50MHz circuit clock
+	-- clock divider : produce 1MHz timer clock from 50MHz circuit clock
 	base : process (CLK, RESET)
 	begin
-		--if ( CLK'event and CLK='1' ) then
+		if ( CLK'event and CLK='1' ) then
 			if ( RESET='1' ) then
 				cnt_base(0) <= (others => '0' );
 				TMR_CLK(0) <= '1' ;
 			else
 				cnt_base(0) <= cnt_base(0) + 1;
 				
-				if ( cnt_base(0) = 4 ) then
+				if ( cnt_base(0) = 24 ) then
 					cnt_base(0) <= (others => '0' );
 					TMR_CLK(0) <= not TMR_CLK(0);
 				end if;
 			end if;
-		--end if;
+		end if;
 	end process;
 	
 	-- successive dividers by 10
@@ -105,10 +115,8 @@ begin
 		end process;
 	end generate;
 	
-	IRQ <= sIRQ;
-	
-	cGenRegs : for idx in 7 downto 3 generate
-		cCounter : reg16
+	gen_rw : for idx in 0 to 3 generate
+		cReg : reg16
 		port map(
 			CLK=>CLK,
 			D=>DIN,
@@ -120,30 +128,44 @@ begin
 		sRegEnable(idx) <= (CE and WE) when idx = to_integer(unsigned(AD)) else '0' ;
 	end generate;
 	
-	cCntRegs : for idx in 2 downto 0 generate
-		sCLK(idx) <= TMR_CLK(to_integer(unsigned(sRegisters(7)(5 * idx + 2 downto 5 * idx))));
+	gen_ro : for idx in 0 to 2 generate
+		ld(idx) <= (CE and WE) when (1 + idx) = to_integer(unsigned(AD)) else '0' ;
+		sCLK(idx) <= TMR_CLK(to_integer(unsigned(sRegisters(0)(5 * idx + 2 downto 5 * idx))));
+		
+		cIRQ : reg1
+		port map(
+			CLK=>sCLK(idx),
+			D=>sIRQin(idx),
+			Q=>sIRQ(idx),
+			E=>'1',
+			R=>sResetIRQ(idx)
+		);
 		
 		process(sCLK(idx), ld(idx), DIN)
 		begin
 			if ( ld(idx)='1' ) then
-				sIRQ(idx) <= '0' ;
-				sRegisters(idx) <= DIN;
+				sIRQin(idx) <= '0' ;
+				sRegisters(4 + idx) <= std_logic_vector(unsigned(DIN) - 1);
 			elsif ( sCLK(idx)'event and sCLK(idx)='1' ) then
-				sIRQ(idx) <= '0' ;
-				if ( sRegisters(7)(5 * idx + 4)='1' ) then
-					if ( sRegisters(idx) = x"0000" ) then
-						sIRQ(idx) <= '1';
+				sIRQin(idx) <= '0' ;
+				if ( sRegisters(0)(5 * idx + 4)='1' ) then
+					if ( sRegisters(4 + idx) = x"0000" ) then
+						sIRQin(idx) <= '1';
 						
-						if ( sRegisters(7)(5 * idx + 3)='1' ) then
-							sRegisters(idx) <= std_logic_vector(unsigned(sRegisters(4 + idx)) - 1);
+						if ( sRegisters(0)(5 * idx + 3)='1' ) then
+							sRegisters(4 + idx) <= std_logic_vector(unsigned(sRegisters(1 + idx)) - 1);
+						else
+							-- disable timer to avoid multiple emissions... (?)
 						end if;
 					else
-						sRegisters(idx) <= std_logic_vector(unsigned(sRegisters(idx)) - 1);
+						sRegisters(4 + idx) <= std_logic_vector(unsigned(sRegisters(4 + idx)) - 1);
 					end if;
 				end if;
 			end if;
 		end process;
 	end generate;
+	
+	dbg <= sRegisters(4);
 	
 	process(CLK)
 	begin
@@ -155,9 +177,11 @@ begin
 				end if;
 			end if;
 			
-			ld(0) <= CE and WE and (AD(0) nor AD(1));
-			ld(1) <= CE and WE and (AD(0) and not AD(1));
-			ld(2) <= CE and WE and (not AD(0) and AD(1));
+			-- emit IRQ
+			IRQ <= sIRQ;
+			
+			-- avoid multiple emission
+			sResetIRQ <= (2 downto 0 => RESET) or sIRQ;
 			
 			DOUT <= sRegisters(to_integer(unsigned(AD))) and (15 downto 0 => CE and OE);
 		end if;
