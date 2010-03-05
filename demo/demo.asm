@@ -48,15 +48,18 @@ int_isr:
 	li	r1, -1
 	sw	r1, r0
 	
-	; visual test
-	not r3, r3
-	out	r3
-	
 	; resume normal execution
 	reti
 
 .org	0x0100
 start:
+	
+	
+	; visual test
+	in r0
+	out	r0
+	
+	bri -, start
 	
 test.factorial:
 	li r2, 7
