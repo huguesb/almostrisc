@@ -8,7 +8,7 @@ run
 -p xc3s1000-4-ft256
 -top ProcesseurAndCo
 -opt_mode Speed
--opt_level 1
+-opt_level 2
 -iuc NO
 -lso ProcesseurAndCo.lso
 -keep_hierarchy NO

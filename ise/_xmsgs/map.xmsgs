@@ -43,8 +43,5 @@
 <msg type="warning" file="PhysDesignRules" num="372" delta="unknown" >Gated clock. Clock net <arg fmt="%s" index="1">cTimer/sCLK&lt;2&gt;</arg> is sourced by a combinatorial pin. This is not good design practice. Use the CE pin to control the loading of data into the flip-flop.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="372" delta="unknown" >Gated clock. Clock net <arg fmt="%s" index="1">cTimer/TMR_CLK_0_cmp_eq0000</arg> is sourced by a combinatorial pin. This is not good design practice. Use the CE pin to control the loading of data into the flip-flop.
-</msg>
-
 </messages>
 

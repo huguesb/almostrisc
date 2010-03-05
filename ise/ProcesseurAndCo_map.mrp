@@ -5,41 +5,39 @@ Design Information
 ------------------
 Command Line   : map -ise
 /home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise -intstyle ise -p
-xc3s1000-ft256-4 -timing -logic_opt off -ol high -t 1 -cm area -pr b -k 4 -power
-off -o ProcesseurAndCo_map.ncd ProcesseurAndCo.ngd ProcesseurAndCo.pcf 
+xc3s1000-ft256-4 -timing -logic_opt off -ol high -t 1 -cm speed -pr b -k 4
+-power off -o ProcesseurAndCo_map.ncd ProcesseurAndCo.ngd ProcesseurAndCo.pcf 
 Target Device  : xc3s1000
 Target Package : ft256
 Target Speed   : -4
 Mapper Version : spartan3 -- $Revision: 1.36 $
-Mapped Date    : Fri Feb 26 09:35:27 2010
+Mapped Date    : Fri Mar  5 09:31:52 2010
 
 Design Summary
 --------------
 Number of errors:      0
-Number of warnings:    6
+Number of warnings:    5
 Logic Utilization:
-  Total Number Slice Registers:       659 out of  15,360    4%
-    Number used as Flip Flops:                   658
-    Number used as Latches:                        1
-  Number of 4 input LUTs:           1,739 out of  15,360   11%
+  Number of Slice Flip Flops:         654 out of  15,360    4%
+  Number of 4 input LUTs:           1,748 out of  15,360   11%
 Logic Distribution:
-  Number of occupied Slices:                        1,280 out of   7,680   16%
-    Number of Slices containing only related logic:   1,280 out of   1,280  100%
-    Number of Slices containing unrelated logic:          0 out of   1,280    0%
+  Number of occupied Slices:                        1,262 out of   7,680   16%
+    Number of Slices containing only related logic:   1,262 out of   1,262  100%
+    Number of Slices containing unrelated logic:          0 out of   1,262    0%
       *See NOTES below for an explanation of the effects of unrelated logic
-Total Number of 4 input LUTs:          1,782 out of  15,360   11%
-  Number used as logic:              1,739
-  Number used as a route-thru:          43
+Total Number of 4 input LUTs:          1,792 out of  15,360   11%
+  Number used as logic:              1,748
+  Number used as a route-thru:          44
   Number of bonded IOBs:               44 out of     173   25%
     IOB Flip Flops:                    16
   Number of Block RAMs:               16 out of      24   66%
   Number of GCLKs:                     1 out of       8   12%
 
-Total equivalent gate count for design:  1,066,963
+Total equivalent gate count for design:  1,067,055
 Additional JTAG gate count for IOBs:  2,112
-Peak Memory Usage:  192 MB
-Total REAL time to MAP completion:  2 mins 31 secs 
-Total CPU time to MAP completion:   2 mins 21 secs 
+Peak Memory Usage:  195 MB
+Total REAL time to MAP completion:  2 mins 37 secs 
+Total CPU time to MAP completion:   2 mins 18 secs 
 
 Table of Contents
 -----------------
@@ -79,9 +77,6 @@ WARNING:PhysDesignRules:372 - Gated clock. Clock net cTimer/sCLK<1> is sourced
 WARNING:PhysDesignRules:372 - Gated clock. Clock net cTimer/sCLK<2> is sourced
    by a combinatorial pin. This is not good design practice. Use the CE pin to
    control the loading of data into the flip-flop.
-WARNING:PhysDesignRules:372 - Gated clock. Clock net cTimer/TMR_CLK_0_cmp_eq0000
-   is sourced by a combinatorial pin. This is not good design practice. Use the
-   CE pin to control the loading of data into the flip-flop.
 
 Section 3 - Informational
 -------------------------
@@ -208,38 +203,35 @@ Asterisk (*) preceding a constraint indicates it was not met.
   Constraint                                |  Check  | Worst Case |  Best Case | Timing |   Timing   
                                             |         |    Slack   | Achievable | Errors |    Score   
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net CLK | SETUP   |         N/A|    15.918ns|     N/A|     3091361
-  _BUFGP                                    | HOLD    |     0.901ns|            |       0|           0
+  Autotimespec constraint for clock net CLK | SETUP   |         N/A|    16.272ns|     N/A|     2868523
+  _BUFGP                                    | HOLD    |     0.947ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     4.898ns|     N/A|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     4.931ns|     N/A|           0
   mer/TMR_CLK<6>                            | HOLD    |     0.986ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.339ns|     N/A|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     4.898ns|     N/A|           0
   mer/TMR_CLK<4>                            | HOLD    |     0.999ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     4.898ns|     N/A|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     4.931ns|     N/A|           0
   mer/TMR_CLK<5>                            | HOLD    |     0.999ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.324ns|     N/A|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.235ns|     N/A|           0
   mer/TMR_CLK<2>                            | HOLD    |     0.999ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     4.898ns|     N/A|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.235ns|     N/A|           0
   mer/TMR_CLK<3>                            | HOLD    |     0.999ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.323ns|     N/A|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     4.931ns|     N/A|           0
   mer/TMR_CLK<0>                            | HOLD    |     0.999ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.913ns|     N/A|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.441ns|     N/A|           0
   mer/TMR_CLK<1>                            | HOLD    |     0.999ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.529ns|     N/A|           0
-  mer/sCLK<1>                               | HOLD    |     2.712ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.016ns|     N/A|           0
+  mer/sCLK<1>                               | HOLD    |     1.976ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.220ns|     N/A|           0
-  mer/sCLK<2>                               | HOLD    |     2.908ns|            |       0|           0
-------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     1.554ns|     N/A|           0
-  mer/TMR_CLK_0_cmp_eq0000                  | HOLD    |     0.929ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.762ns|     N/A|           0
+  mer/sCLK<2>                               | HOLD    |     1.659ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
 
 

@@ -74,8 +74,6 @@ architecture Behavioral of Timer is
 	signal cnt_base : counter4(7 downto 0);
 	
 	signal sIRQ, sIRQin, sCLK, sResetIRQ, ld : std_logic_vector(2 downto 0);
-	
-	signal dbg : std_logic_vector(15 downto 0);
 begin
 	-- clock divider : produce 1MHz timer clock from 50MHz circuit clock
 	base : process (CLK, RESET)
@@ -165,8 +163,6 @@ begin
 		end process;
 	end generate;
 	
-	dbg <= sRegisters(4);
-	
 	process(CLK)
 	begin
 		if ( CLK'event and CLK='1' ) then
@@ -183,6 +179,7 @@ begin
 			-- avoid multiple emission
 			sResetIRQ <= (2 downto 0 => RESET) or sIRQ;
 			
+			-- send data upon read request
 			DOUT <= sRegisters(to_integer(unsigned(AD))) and (15 downto 0 => CE and OE);
 		end if;
 	end process;

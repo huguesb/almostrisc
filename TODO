@@ -84,6 +84,7 @@ bai[l]cc ra, 0xdead => 0xbaicc
 	* brand new
 		* 11011  prefix : 2^11 = 2048 (from out to brcc)
 		* 111001 prefix : 2^10 = 1024 (from brcc/bacc to ..)
+			# exw : 2^6 = 64
 		* 11101  prefix : 2^11 = 2048 (.. to brl/bal)
 		* 111101 prefix : 2^10 = 1024 (from bal to xx)
 		* 11111  prefix : 2^11-2 = 2046 (from xx to reset)

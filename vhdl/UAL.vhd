@@ -47,7 +47,8 @@ architecture Behavioral of UAL is
 		Port(
 			A : in unsigned(size -1 downto 0);
 			D : in unsigned(level -1 downto 0);
-			R : in std_logic;
+			Right : in std_logic;
+			Rotate : in std_logic;
 			
 			S : out unsigned(size -1 downto 0);
 			COUT : out std_logic
@@ -111,7 +112,8 @@ begin
 	port map(
 		A=>Ai,
 		D=>unsigned(op(3 downto 0)),
-		R=>op(4),
+		Right=>op(4),
+		Rotate=>'0',
 		S=>sSShift,
 		Cout=>sCShift
 	);

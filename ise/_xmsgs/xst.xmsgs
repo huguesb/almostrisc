@@ -371,19 +371,19 @@
 <msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
 </msg>
 
-<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">37</arg>: Index value(s) does not match array range, simulation mismatch.
-</msg>
-
-<msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
-</msg>
-
 <msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">45</arg>: Index value(s) does not match array range, simulation mismatch.
 </msg>
 
 <msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
 </msg>
 
-<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">56</arg>: Index value(s) does not match array range, simulation mismatch.
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">53</arg>: Index value(s) does not match array range, simulation mismatch.
+</msg>
+
+<msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
+</msg>
+
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">64</arg>: Index value(s) does not match array range, simulation mismatch.
 </msg>
 
 <msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
@@ -734,13 +734,7 @@
 <msg type="warning" file="Xst" num="646" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sE&lt;3&gt;</arg>&gt; is assigned but never used.
 </msg>
 
-<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sRegEnable&lt;2:0&gt;</arg>&gt; is never used or assigned.
-</msg>
-
-<msg type="warning" file="Xst" num="737" delta="unknown" >Found <arg fmt="%d" index="1">1</arg>-bit latch for signal &lt;<arg fmt="%s" index="2">TMR_CLK_0</arg>&gt;.
-</msg>
-
-<msg type="warning" file="Xst" num="2734" delta="unknown" >Property &quot;<arg fmt="%s" index="1">use_dsp48</arg>&quot; is not applicable for this technology.
+<msg type="warning" file="Xst" num="653" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sRegisters&lt;7&gt;</arg>&gt; is used but never assigned. Tied to value <arg fmt="%s" index="2">0000000000000000</arg>.
 </msg>
 
 <msg type="warning" file="Xst" num="2734" delta="unknown" >Property &quot;<arg fmt="%s" index="1">use_dsp48</arg>&quot; is not applicable for this technology.
@@ -798,10 +792,6 @@
 
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cPS2/BYTE_AVAIL</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
 </msg>
-
-<msg type="warning" file="Xst" num="2170" delta="unknown" >Unit <arg fmt="%s" index="1">Timer</arg> : the following signal(s) form a combinatorial loop: </msg>
-
-<msg type="warning" file="Xst" num="2170" delta="unknown" >Unit <arg fmt="%s" index="1">Timer</arg> : the following signal(s) form a combinatorial loop: </msg>
 
 <msg type="warning" file="Xst" num="2042" delta="unknown" >Unit <arg fmt="%s" index="1">UAL</arg>: <arg fmt="%d" index="2">33</arg> internal tristates are replaced by logic (pull-up <arg fmt="%s" index="3">yes</arg>): </msg>
 

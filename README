@@ -12,7 +12,7 @@ Quick README for Archi2 project
 		$ ghdl -m --ieee=synopsys -fexplicit testbench
 		
 		# run testbench
-		$ ./testbench --stop-time=1000ns --vcd=testbench.vcd
+		$ ./testbench --stop-time=15us --vcd=testbench.vcd
 		
 	* gtkwave to view simulation results (waveforms)
 		
@@ -28,12 +28,16 @@ Quick README for Archi2 project
 		
 		# ./assembler assembler/opcodes.js demo/demo.asm
 		
+	* simple wrapper script for ghdl and gtkwave (sim) :
+		$ ./sim testbench 15us -d -s testbench.sav
 
  * specs : see cdc2010.pdf
 
  * extensions : see todo
 
  * history : 
+	All recent history (after 16/02/2010) on git logs...
+	
 	16/02/2010 : 
 		* Merged all changes of the last few days into master git branch
 		* Created a public git repo on telesun (not quite public really more of a backup)

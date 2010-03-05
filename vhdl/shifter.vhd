@@ -22,7 +22,8 @@ entity shifter is
 	Port(
 		A : in unsigned(size -1 downto 0);
 		D : in unsigned(level -1 downto 0);
-		R : in std_logic;
+		Right : in std_logic;
+		Rotate : in std_logic;
 		
 		S : out unsigned(size -1 downto 0);
 		COUT : out std_logic
@@ -42,7 +43,7 @@ begin
 		--sD(0)(i) <= A(size - 1 - i) when R='0' else A(i);
 		
 		-- pack reversal with mandatory extra shift :
-		sD(0)(i) <= A((size - 2 - i) mod size) when R='0' else A((i + 1) mod size);
+		sD(0)(i) <= A((size - 2 - i) mod size) when Right='0' else A((i + 1) mod size);
 	end generate;
 	
 	-- mask generation for shift (vs rot)
@@ -53,8 +54,10 @@ begin
 -- 	end generate;
 	
 	-- naive mask gen : could be optimized by manual gate instanciation
+	-- but it does not appear to be a critical timing atm (1 reversal and
+	-- level muxes has more logic depth than a level-bits cmp)...
 	msk_gen : for i in 0 to size-1 generate
-		sMask(size - 1 - i) <= '0' when to_integer(D)>=i else '1';
+		sMask(size - 1 - i) <= '0' when to_integer(D)>=i or Rotate='1' else '1';
 	end generate;
 	
 	-- successive rotate stages
@@ -69,7 +72,7 @@ begin
 	
 	-- output reversal mux
 	rev_out : for i in 0 to size - 1 generate
-		S(i) <= sD(level+1)(size - 1 - i) when R='0' else sD(level+1)(i);
+		S(i) <= sD(level+1)(size - 1 - i) when Right='0' else sD(level+1)(i);
 	end generate;
 	
 end Behavioral;

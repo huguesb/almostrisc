@@ -1,7 +1,7 @@
 #Release 9.2i - par J.36
 #Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
 
-#Thu Feb 25 19:59:00 2010
+#Fri Mar  5 09:37:04 2010
 
 #
 ## NOTE: This file is designed to be imported into a spreadsheet program
@@ -10,7 +10,7 @@
 # to support parsing.
 #
 #INPUT FILE:       ProcesseurAndCo_map.ncd
-#OUTPUT FILE:      /home/k4user/poly-imag/archi2/projet/ise/mppr_result.dir/H_H_2_pad.csv
+#OUTPUT FILE:      ProcesseurAndCo_pad.csv
 #PART TYPE:        xc3s1000
 #SPEED GRADE:      -4
 #PACKAGE:          ft256

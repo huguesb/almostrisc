@@ -22,10 +22,10 @@ int_reset:
 	sw	r1, r0
 	li	r2, 7
 	add	r0, r0, r2	; r0 = 0x2008 : timers control
-	li	r2, 0x18 ; enable first timer, loop, max speed (1MHz)
+	li	r2, 0x1E ; enable first timer, loop, speed = 1MHz / 10**6 = 1Hz
 	sw	r2, r0
 	inc	r0, r0	; r0 = 0x2009 : first timer, base count
-	li	r2, 2	; fire every 2+1=3 ms
+	li	r2, 2	; fire every 2 timer period (so every 2s in this case)
 	sw	r2, r0
 	
 	; go to program itself
@@ -59,19 +59,34 @@ int_isr:
 start:
 	
 test.factorial:
-; 	li r0, 7
+	li r2, 7
 ; 	
 ; 	; r0 = {
 ; 	;	i! if i in [1, 8]
 ; 	;	0 otherwise
 ; 	; }
 ; 	; recursive impl for the fun of it (and to test cpu of course)
-; fact_16:
-; 	
-; 	
-; fact16.end:
-; 
-; 	reset
+	
+	; r0 : r1 = r2 !
+	;
+fact_16:
+	xor	r0, r0, r0
+	xor	r1, r1, r1
+	brieq	r2, fact_16.end
+	inc	r1, r1
+fact_16.loop:
+	mova	r0, r1
+	li	r3, mult_16_16 - ($+1)
+	brl	r6, r3
+	
+	brine	r0, fact_16.overflow
+	dec	r2, r2
+	brine	r2, fact_16.loop
+	
+fact_16.overflow:
+	
+fact_16.end:
+	bri	-, test.factorial
 
 test.div:
 	li	r0, 234

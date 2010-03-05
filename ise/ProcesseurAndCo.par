@@ -1,10 +1,10 @@
 Release 9.2i par J.36
 Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
 
-fmc-laptop::  Fri Feb 26 09:38:02 2010
+fmc-laptop::  Fri Mar 05 09:34:34 2010
 
-par -w -intstyle ise -ol high -xe n -t 1 ProcesseurAndCo_map.ncd
-ProcesseurAndCo.ncd ProcesseurAndCo.pcf 
+par -w -intstyle ise -ol high -t 1 ProcesseurAndCo_map.ncd ProcesseurAndCo.ncd
+ProcesseurAndCo.pcf 
 
 
 Constraints file: ProcesseurAndCo.pcf.
@@ -23,11 +23,7 @@ INFO:Par:282 - No user timing constraints were detected or you have set the opti
 Device speed data version:  "PRODUCTION 1.39 2007-04-13".
 
 
-WARNING:Par:251 - Map -timing was run with a lower effort level setting than you are using for PAR.  Xilinx recommends
-   that you rerun Map -timing with the effort level that you have set in PAR to achieve better design performance.
-
-INFO:Par:252 - The Map -timing placement will be discarded and your design will be placed using the command line options
-   specified in PAR.
+INFO:Par:253 - The Map -timing placement will be retained since it is likely to achieve better performance.
 
 Device Utilization Summary:
 
@@ -36,68 +32,186 @@ Device Utilization Summary:
       Number of LOCed IOBs                  44 out of 44    100%
 
    Number of RAMB16s                        16 out of 24     66%
-   Number of Slices                       1280 out of 7680   16%
+   Number of Slices                       1262 out of 7680   16%
       Number of SLICEMs                     98 out of 3840    2%
 
 
 
 Overall effort level (-ol):   High 
-Placer effort level (-pl):    High 
-Placer cost table entry (-t): 1
 Router effort level (-rl):    High 
-Extra effort level (-xe):     Normal 
-
-
-Starting Placer
-
-Phase 1.1
-Phase 1.1 (Checksum:98c5af) REAL time: 11 secs 
-
-Phase 2.7
-Phase 2.7 (Checksum:1312cfe) REAL time: 11 secs 
-
-Phase 3.31
-Phase 3.31 (Checksum:1c9c37d) REAL time: 11 secs 
-
-Phase 4.2
-.
-Phase 4.2 (Checksum:26259fc) REAL time: 11 secs 
-
-Phase 5.8
-...............
-.....
-......................................................................................................................
-....................
-....................................................
-..........
-Phase 5.8 (Checksum:ad4cd3) REAL time: 35 secs 
-
-Phase 6.5
-Phase 6.5 (Checksum:39386fa) REAL time: 35 secs 
-
-Phase 7.18
-Phase 7.18 (Checksum:42c1d79) REAL time: 53 secs 
-
-Phase 8.5
-Phase 8.5 (Checksum:4c4b3f8) REAL time: 53 secs 
-
-REAL time consumed by placer: 55 secs 
-CPU  time consumed by placer: 54 secs 
-Writing design to file ProcesseurAndCo.ncd
-
-
-Total REAL time to Placer completion: 56 secs 
-Total CPU time to Placer completion: 54 secs 
 
 Starting Router
 
-Phase 1: 8899 unrouted;       REAL time: 56 secs 
+Phase 1: 8939 unrouted;       REAL time: 10 secs 
 
-Phase 2: 8205 unrouted;       REAL time: 59 secs 
+Phase 2: 8242 unrouted;       REAL time: 13 secs 
 
-Phase 3: 2643 unrouted;       REAL time: 1 mins 3 secs 
+Phase 3: 2683 unrouted;       REAL time: 18 secs 
 
-Phase 4: 2643 unrouted; (4993556)      REAL time: 1 mins 4 secs 
+Phase 4: 2683 unrouted; (4667799)      REAL time: 19 secs 
 
-Phase 5: 2855 unrouted; (1)      REAL time: 1 mins 27 secs 
+Phase 5: 2869 unrouted; (1354)      REAL time: 53 secs 
 
+Phase 6: 0 unrouted; (12184)      REAL time: 1 mins 18 secs 
+
+Phase 7: 0 unrouted; (12184)      REAL time: 1 mins 21 secs 
+
+Updating file: ProcesseurAndCo.ncd with current fully routed design.
+
+Phase 8: 0 unrouted; (6457)      REAL time: 1 mins 33 secs 
+
+Phase 9: 0 unrouted; (6308)      REAL time: 1 mins 38 secs 
+
+Phase 10: 0 unrouted; (6266)      REAL time: 1 mins 51 secs 
+
+Phase 11: 0 unrouted; (6221)      REAL time: 1 mins 55 secs 
+
+Phase 12: 0 unrouted; (6221)      REAL time: 2 mins 5 secs 
+
+Phase 13: 0 unrouted; (0)      REAL time: 2 mins 17 secs 
+
+WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<0> may have excessive skew because 
+      0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<2> may have excessive skew because 
+      0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<1> may have excessive skew because 
+      0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<4> may have excessive skew because 
+      0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<3> may have excessive skew because 
+      0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<6> may have excessive skew because 
+      0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<5> may have excessive skew because 
+      0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+
+Total REAL time to Router completion: 2 mins 17 secs 
+Total CPU time to Router completion: 2 mins 3 secs 
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+Generating "PAR" statistics.
+
+**************************
+Generating Clock Report
+**************************
+
++---------------------+--------------+------+------+------------+-------------+
+|        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
++---------------------+--------------+------+------+------------+-------------+
+|           CLK_BUFGP |      BUFGMUX0| No   |  559 |  0.415     |  1.119      |
++---------------------+--------------+------+------+------------+-------------+
+|   cTimer/TMR_CLK<6> |         Local|      |    9 |  0.177     |  3.209      |
++---------------------+--------------+------+------+------------+-------------+
+|   cTimer/TMR_CLK<4> |         Local|      |    8 |  0.005     |  0.936      |
++---------------------+--------------+------+------+------------+-------------+
+|   cTimer/TMR_CLK<5> |         Local|      |    8 |  0.004     |  2.427      |
++---------------------+--------------+------+------+------------+-------------+
+|      cTimer/sCLK<0> |         Local|      |   18 |  0.049     |  2.872      |
++---------------------+--------------+------+------+------------+-------------+
+|   cTimer/TMR_CLK<2> |         Local|      |    8 |  0.000     |  3.182      |
++---------------------+--------------+------+------+------------+-------------+
+|   cTimer/TMR_CLK<3> |         Local|      |    8 |  0.005     |  3.437      |
++---------------------+--------------+------+------+------------+-------------+
+|   cTimer/TMR_CLK<0> |         Local|      |    9 |  0.008     |  3.444      |
++---------------------+--------------+------+------+------------+-------------+
+|   cTimer/TMR_CLK<1> |         Local|      |    9 |  0.009     |  2.295      |
++---------------------+--------------+------+------+------------+-------------+
+|      cTimer/sCLK<1> |         Local|      |   18 |  0.148     |  3.305      |
++---------------------+--------------+------+------+------------+-------------+
+|      cTimer/sCLK<2> |         Local|      |   18 |  0.184     |  2.319      |
++---------------------+--------------+------+------+------------+-------------+
+
+* Net Skew is the difference between the minimum and maximum routing
+only delays for the net. Note this is different from Clock Skew which
+is reported in TRCE timing report. Clock Skew is the difference between
+the minimum and maximum path delays which includes logic delays.
+
+
+   The Delay Summary Report
+
+
+The NUMBER OF SIGNALS NOT COMPLETELY ROUTED for this design is: 0
+
+   The AVERAGE CONNECTION DELAY for this design is:        1.776
+   The MAXIMUM PIN DELAY IS:                              12.350
+   The AVERAGE CONNECTION DELAY on the 10 WORST NETS is:   8.753
+
+   Listing Pin Delays by value: (nsec)
+
+    d < 2.00   < d < 4.00  < d < 6.00  < d < 8.00  < d < 13.00  d >= 13.00
+   ---------   ---------   ---------   ---------   ---------   ---------
+        6299        2119         589         148          31           0
+
+Timing Score: 0
+
+Asterisk (*) preceding a constraint indicates it was not met.
+   This may be due to a setup or hold violation.
+
+------------------------------------------------------------------------------------------------------
+  Constraint                                |  Check  | Worst Case |  Best Case | Timing |   Timing   
+                                            |         |    Slack   | Achievable | Errors |    Score   
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net CLK | SETUP   |         N/A|    16.751ns|     N/A|           0
+  _BUFGP                                    | HOLD    |     0.786ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.726ns|     N/A|           0
+  mer/TMR_CLK<6>                            | HOLD    |     0.413ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.119ns|     N/A|           0
+  mer/TMR_CLK<4>                            | HOLD    |     0.796ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.581ns|     N/A|           0
+  mer/TMR_CLK<5>                            | HOLD    |     0.488ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.020ns|     N/A|           0
+  mer/TMR_CLK<2>                            | HOLD    |     0.323ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.052ns|     N/A|           0
+  mer/TMR_CLK<3>                            | HOLD    |     0.547ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.036ns|     N/A|           0
+  mer/TMR_CLK<0>                            | HOLD    |     0.297ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     7.071ns|     N/A|           0
+  mer/TMR_CLK<1>                            | HOLD    |     0.536ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.885ns|     N/A|           0
+  mer/sCLK<1>                               | HOLD    |     0.962ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.453ns|     N/A|           0
+  mer/sCLK<2>                               | HOLD    |     1.644ns|            |       0|           0
+------------------------------------------------------------------------------------------------------
+
+
+All constraints were met.
+INFO:Timing:2761 - N/A entries in the Constraints list may indicate that the 
+   constraint does not cover any paths or that it has no requested value.
+
+
+Generating Pad Report.
+
+All signals are completely routed.
+
+Total REAL time to PAR completion: 2 mins 30 secs 
+Total CPU time to PAR completion: 2 mins 15 secs 
+
+Peak Memory Usage:  143 MB
+
+Placer: Placement generated during map.
+Routing: Completed - No errors found.
+
+Number of error messages: 0
+Number of warning messages: 7
+Number of info messages: 2
+
+Writing design to file ProcesseurAndCo.ncd
+
+
+
+PAR done!

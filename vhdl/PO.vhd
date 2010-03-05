@@ -288,26 +288,8 @@ begin
 	--	011	: ImmOff (li)
 	--	100	: UAL (op)
 	
-	-- prioritize UAL to decrease critical timings
--- 	cSelRInUAL : mux_2_16
--- 	port map(
--- 		Sel=>SelRIn(2),
--- 		I0=>sRin,
--- 		I1=>sUAL,
--- 		S=>sigRd
--- 	);
-	
 	sigRd <= sUAL when SelRIn(2)='1' else sRin;
 	
--- 	cSelRIn : mux_4_16
--- 	port map(
--- 		Sel=>SelRIn(1 downto 0),
--- 		I0=>DDATAIN,
--- 		I1=>sPCprev,
--- 		I2=>PIN,
--- 		I3=>ImmOff,
--- 		S=>sRin
--- 	);
 	with SelRIn(1 downto 0) select
 		sRin <= DDATAIN when "00", sPCprev when "01", PIN     when "10", ImmOff  when others;
 	
