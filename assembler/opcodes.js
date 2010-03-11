@@ -45,6 +45,11 @@ ops[13] = {name : "xor", value : 0x12};
 ops[14] = {name : "not", value : 0x13};
 ops[15] = {name : "shl", value : 0x20};
 ops[16] = {name : "shr", value : 0x30};
+// extra operations (spec extension)
+ops[17] = {name : "mixhh", value : 0x0C};
+ops[18] = {name : "mixhl", value : 0x0D};
+ops[19] = {name : "mixlh", value : 0x0E};
+ops[20] = {name : "mixll", value : 0x0F};
 
 // condition code fields
 var conds = new Array();
@@ -56,29 +61,52 @@ conds[4] = {name : "ne", value : 4};
 conds[5] = {name : "lt", value : 5};
 conds[6] = {name : "gt", value : 6};
 conds[7] = {name : "no", value : 7};
-// alias
+// alias for "always true" condition
 conds[8] = {name : "", value : 3};
 
 // instruction patterns
 var instr = new Array();
-instr["li\\s+(r[0-7])\\s*,?\\s*(.+)"]		= "0xC000 + reg(\"\\1\") + ((immediate(\"\\2\", 9, 0) << 3) & 0x0FF8)";
-instr["lw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xD000 + reg(\"\\1\") + (reg(\"\\2\") << 3)";
-instr["sw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xD200 + reg(\"\\1\") + (reg(\"\\2\") << 3)";
-instr["exw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xE400 + reg(\"\\1\") + (reg(\"\\2\") << 3)";
-instr["in\\s+(r[0-7])"]						= "0xD400 + reg(\"\\1\")";
-instr["out\\s+(r[0-7])"]					= "0xD600 + (reg(\"\\1\") << 6)";
-instr["bri(|eq|ge|le|ic|ne|lt|gt)?\\s+(-|r[0-7])\\s*,?\\s*(.+)"] = "0x8000 + condition(\"\\1\") + (reg(\"\\2\") << 3) + ((immediate(\"\\3\", 8, 1) << 6) & 0x3FC0)";
-instr["brl\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xF000 + reg(\"\\1\") + (reg(\"\\2\") << 6)";
-instr["bal\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "0xF200 + reg(\"\\1\") + (reg(\"\\2\") << 6)";
-instr["br(|eq|ge|le|ic|ne|lt|gt)?\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])"] = "0xE000 + condition(\"\\1\") + (reg(\"\\2\") << 3) + (reg(\"\\3\") << 6)";
-instr["ba(|eq|ge|le|ic|ne|lt|gt)?\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])"] = "0xE200 + condition(\"\\1\") + (reg(\"\\2\") << 3) + (reg(\"\\3\") << 6)";
-instr["reset"] = "0xFFFF";
-instr["reti"] = "0xFFFE";
-instr["nop"] = "0x0000";
-instr["(inc|dec|mova|nega|not)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3)";
-instr["(movb|negb)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 6)";
-instr["(shl|shr)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"]	= "(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + ((immediate(\"\\4\", 4, 0) << 9) & 0x1F00)";
-instr["(\\w+)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"]	= "(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + (reg(\"\\4\") << 6)";
+
+// load (9bit, sign-extended) immediate
+instr["li\\s+(r[0-7])\\s*,?\\s*(.+)"]		= ["0xC000 + reg(\"\\1\") + ((immediate(\"\\2\", 9, 0) << 3) & 0x0FF8)"];
+
+// memory I/O
+instr["lw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["0xD000 + reg(\"\\1\") + (reg(\"\\2\") << 3)"];
+instr["sw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["0xD200 + reg(\"\\1\") + (reg(\"\\2\") << 3)"];
+// spec extension : direct reg/mem swap
+instr["exw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["0xE400 + reg(\"\\1\") + (reg(\"\\2\") << 3)"];
+
+// port I/O
+instr["in\\s+(r[0-7])"]						= ["0xD400 + reg(\"\\1\")"];
+instr["out\\s+(r[0-7])"]					= ["0xD600 + (reg(\"\\1\") << 6)"];
+
+// branching
+instr["bri(|eq|ge|le|ic|ne|lt|gt)?\\s+(-|r[0-7])\\s*,?\\s*(.+)"] = ["0x8000 + condition(\"\\1\") + (reg(\"\\2\") << 3) + ((immediate(\"\\3\", 8, 1) << 6) & 0x3FC0)"];
+instr["brl\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["0xF000 + reg(\"\\1\") + (reg(\"\\2\") << 6)"];
+instr["bal\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["0xF200 + reg(\"\\1\") + (reg(\"\\2\") << 6)"];
+instr["br(|eq|ge|le|ic|ne|lt|gt)\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])"] = ["0xE000 + condition(\"\\1\") + (reg(\"\\2\") << 3) + (reg(\"\\3\") << 6)"];
+instr["ba(|eq|ge|le|ic|ne|lt|gt)\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])"] = ["0xE200 + condition(\"\\1\") + (reg(\"\\2\") << 3) + (reg(\"\\3\") << 6)"];
+// spec extension : 16 bit immediate absolute conditionnal branch
+instr["bai(|eq|ge|le|ic|ne|lt|gt)\\s+(-|r[0-7])\\s*,?\\s*(.+)"] = ["0xF800 + (condition(\"\\1\") << 6) + (reg(\"\\2\") << 3)", "immediate(\"\\3\", 16, 0)"];
+// spec extension : 16 bit immediate absolute conditionnal branch with link
+instr["bail(|eq|ge|le|ic|ne|lt|gt)\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"] = ["0xFA00 + (condition(\"\\1\") << 6) + (reg(\"\\2\")) + (reg(\"\\3\") << 3)", "immediate(\"\\4\", 16, 0)"];
+
+// spec extension : 16 bit immediate load
+instr["liw\\s+(r[0-7])\\s*,?\\s*(.+)"] = ["0xFFF0 + reg(\"\\1\")", "immediate(\"\\2\", 16, 0)"];
+
+instr["reset"] = ["0xFFFF"];
+
+// spec extension : interrupt exit
+instr["reti"] = ["0xFFFE"];
+
+// spec extension : alias for nop r0, r0, r0
+instr["nop"] = ["0x0000"];
+
+instr["(inc|dec|mova|nega|not)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3)"];
+instr["(movb|negb)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 6)"];
+instr["(shl|shr)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + ((immediate(\"\\4\", 4, 0) << 9) & 0x1F00)"];
+// catch-all for 3 address ops
+instr["(\\w+)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + (reg(\"\\4\") << 6)"];
 
 // internal assembler variables
 var pc = 0;
@@ -181,6 +209,8 @@ function immediate(value, bits, rel)
 	return r;
 }
 
+var opcode_sz;
+
 function opcode(line)
 {
 	for ( pattern in instr )
@@ -191,16 +221,24 @@ function opcode(line)
 		
 		if ( match != null )
 		{
-			var op = instr[pattern];
+			var opc = instr[pattern];
+			var hexcodes = new Array();
 			
-			for ( i = 1; i < match.length; ++i )
+			opcode_sz = opc.length;
+			
+			for ( n in opc )
 			{
-				op = op.replace("\\" + i, match[i]);
+				var op = opc[n];
+				
+				for ( i = 1; i < match.length; ++i )
+				{
+					op = op.replace("\\" + i, match[i]);
+				}
+				
+				hexcodes[n] = eval(op);
 			}
 			
-			var hexcode = eval(op);
-			
-			return hexcode;
+			return hexcodes;
 		}
 	}
 	
@@ -304,7 +342,10 @@ function assemble(text)
 				if ( e == UnknownLabelError )
 				{
 					fwd[fwd.length] = {line : l, pc : pc, instr : line};
-					op = 0x0000;
+					//op = new Array(opcode_sz);
+					
+					for ( i = 0; i < opcode_sz; ++i )
+						op[i] = 0x0000;
 				} else {
 					print("error:" + l + ":" + e.message + "[" + line + "]");
 					return;
@@ -312,12 +353,13 @@ function assemble(text)
 			}
 			
 			// bin file
-			hex[pc] = { op : op, instr : line };
-			
-			// listing file (incorrect in case of fwd ref...)
-			//print(hex16(pc) + "\t" + bin16(op) + "\t" + line);
-			
-			++pc;
+			for ( i in op )
+			{
+				//print(hex16(pc) + "\t" + hex16(op[i]) + "\t\t[" + i + "]");
+				
+				hex[pc] = { op : op[i], instr : (i == 0) ? line : "" };
+				++pc;
+			}
 		}
 	}
 	
@@ -338,7 +380,13 @@ function assemble(text)
 		
 		//print("fwd : " + hex16(ref.pc) + "\t" + bin16(op) + "\t" + ref.instr);
 		
-		hex[ref.pc] = { op : op, instr : ref.instr };
+		var n = 0;
+		
+		for ( i in op )
+		{
+			hex[ref.pc + n] = { op : op[i], instr : (i == 0) ? ref.instr : "" };
+			++n;
+		}
 	}
 	
 	// print final result
