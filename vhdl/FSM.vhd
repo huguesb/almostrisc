@@ -262,7 +262,7 @@ begin
 				
 			when SLoad =>
 				-- load delay due to memory synchronicity
-				-- LW, EXW and LIW
+				-- LW, EXW
 				ERd <= '1' ;
 				
 				WE <= PIR(13);
@@ -270,7 +270,7 @@ begin
 				sNextState <= SDecode;
 				
 			when SLoadImm16 =>
-				
+				-- LIW
 				ERd <= '1' ;
 				EIR <= '1' ;
 				
@@ -281,7 +281,7 @@ begin
 				sNextState <= SDecode;
 				
 			when SBranchImm16 =>
-				
+				-- BAI(L)cc
 				ERd <= COND ;
 				SelRIn <= "001" ;
 				
@@ -313,8 +313,8 @@ begin
 	
 	-- wire for all cases :
 	op <= IR(14 downto 9);
-	SelRb <= sIR(8 downto 6);
-	SelRa <= sIR(5 downto 3);
+	SelRb <= IR(8 downto 6);
+	SelRa <= IR(5 downto 3);
 	SelRd <= sIR(2 downto 0);
 	SelCond <= IR(8 downto 6) when sCurState = SBranchImm16 else PIR(2 downto 0);
 	
