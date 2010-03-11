@@ -4,26 +4,43 @@ extended instruction set :
 	|F|E|D|C|B|A|9|8|7|6|5|4|3|2|1|0| 
 	|-------------------------------|
 
-done
+done (tested)
 	|-------------------------------|
 	|1 1 1 1|1 1 1 1|1 1 1 1|1 1 1 0| reti
 	|-------------------------------|
 	|1 1 1 0|0 1 0 0|0 0|  Ra |  Rd | exw rd, ra <=> ((ra), rd) = (rd, (ra))
 	|-------------------------------|
-
-proposed
-    |-------------------------------|
-	|1 1 1 0|0 1 0 1|bnk|  Ra |  Rd | ex rd, ra <=> (ra, rd) = (rd, ra)   [lotsa wiring...]
+	|1 1 1 1|1 1 1 1|1 1 1 1 0|  Rd |
+	|            imm16              | liw rd, imm16
 	|-------------------------------|
+	|1 1 1 1|1 0 0|  cc |  Ra |x x x|
+	|            imm16              | baicc ra, imm16
+	|-------------------------------|
+	
+proposed (untested)
+	|-------------------------------|
+	|1 1 1 1|1 0 1|  cc |  Ra |  Rd |
+	|            imm16              | bailcc rd, ra, imm16
+    |-------------------------------|
+	|0 0 0 1|1 0 0|  Rb |  Ra |  Rd | mix rd, ra, rb : rd = (ra & 0xff00) | (rb & 0x00ff)
+	|0 0 0 1|1 0 1|  Rb |  Ra |  Rd | mixr rd, ra, rb : rd = (rb & 0x00ff)<<8 | (ra & 0xff00)>>8
+	|-------------------------------|
+
+considered (not implemented)
+    |-------------------------------|
 	|1 1 1 0|0 1 0 0|1 0|  Ra |  Rd | push rd, ra <=> dec ra \ sw rd, ra
 	|1 1 1 0|0 1 0 0|1 1|  Ra |  Rd | pop rd, ra <=> lw rd, ra \ inc ra
 	|-------------------------------|
-	|1 1 1 0|0 1 0 1|bnk|  Ra |  Rd | lih/lil
+	|                               | exx (switch register banks (and disable interrupts?) )
     |-------------------------------|
+	|1 1 1 0|0 1 0 1|bnk|  Ra |  Rd | ex rd, ra <=> (ra, rd) = (rd, ra)   [lotsa wiring...]
+	|-------------------------------|
     
  timings :
+	* bai(l)cc  : 4cc (could be brought down to 3)
 	* branching : 3cc
 	* mem read  : 2cc
+	* liw       : 2cc
 	* others    : 1cc
 
  MUCH needed instructions
@@ -33,26 +50,17 @@ proposed
 	* multiplication/division (op)
 	* streamed
 	* add/sub with immediates?
-	* conditionnal branch with link
-	* 16 bit immediates (2 words instructions)
-
-liw rd, 0xdead => 0xlird
-                 0xdead
-
-bai[l]cc ra, 0xdead => 0xbaicc
-                    0xdead
 
  ROOM for instructions :
  
 	* UAL operations :
-		candidates : scf, ccf, clrf, nand, nor, xnor, swaphi/lo, maskhi/lo
+		candidates : scf, ccf, clrf, nand, nor, xnor
 		
 		* 4 between negb and and
-			001100
-			001101
-			
-			001110
-			001111
+			001100 : mixhh
+			001101 : mixhl
+			001110 : mixlh
+			001111 : mixll
 			
 		* 12 between not and shl
 			010100
@@ -88,5 +96,10 @@ bai[l]cc ra, 0xdead => 0xbaicc
 		* 11101  prefix : 2^11 = 2048 (.. to brl/bal)
 		* 111101 prefix : 2^10 = 1024 (from bal to xx)
 		* 11111  prefix : 2^11-2 = 2046 (from xx to reset)
+			# baicc imm16
+			# bailcc imm16
+			# liw
+			# reti
+			# reset
 		
 		=> 8k instruction slots
