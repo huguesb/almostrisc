@@ -89,6 +89,8 @@ begin
 		SelPCOff <= '0' ;
 		ImmOff <= x"0000";
 		
+		SelCond <= IR(2 downto 0);
+		
 		EIR <= '0' ;
 		EPC <= '1' ;
 		LDPC <= '0' ;
@@ -252,7 +254,14 @@ begin
 					-- BAI(L)cc
 					
 					EIR <= '1' ;
-					sNextState <= SBranchImm16;
+					SelCond <= IR(8 downto 6);
+					
+					-- got to skip next word if not taking the jump
+					sNextState <= SFetch;
+					
+					if ( COND='1' ) then 
+						sNextState <= SBranchImm16;
+					end if;
 				else
 					-- prefetching
 					EIR <= '1' ;
@@ -282,19 +291,16 @@ begin
 				
 			when SBranchImm16 =>
 				-- BAI(L)cc
-				ERd <= COND ;
+				ERd <= PIR(9) ;
 				SelRIn <= "001" ;
 				
-				EIR <= not COND;
-				LDPC <= COND ;
+				EIR <= '0';
+				LDPC <= '1' ;
 				SelPC <= '1' ;
 				
 				ImmOff <= IR;
-				sNextState <= SDecode;
 				
-				if ( COND='1' ) then
-					sNextState <= SStall;
-				end if;
+				sNextState <= SStall;
 				
 			when SInterrupt =>
 				EINT <= '1' ;
@@ -316,7 +322,7 @@ begin
 	SelRb <= IR(8 downto 6);
 	SelRa <= IR(5 downto 3);
 	SelRd <= sIR(2 downto 0);
-	SelCond <= IR(8 downto 6) when sCurState = SBranchImm16 else PIR(2 downto 0);
+-- 	SelCond <= PIR(8 downto 6) when sCurState = SBranchImm16 else IR(2 downto 0);
 	
 	CE <= '1' ;
 end Behavioral;

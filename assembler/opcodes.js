@@ -92,7 +92,7 @@ instr["ba(|eq|ge|le|ic|ne|lt|gt)\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])"] = ["0xE200 + 
 // spec extension : 16 bit immediate absolute conditionnal branch
 instr["bai(|eq|ge|le|ic|ne|lt|gt)\\s+(-|r[0-7])\\s*,?\\s*(.+)"] = ["0xF800 + (condition(\"\\1\") << 6) + (reg(\"\\2\") << 3)", "immediate(\"\\3\", 16, 0)"];
 // spec extension : 16 bit immediate absolute conditionnal branch with link
-instr["bail(|eq|ge|le|ic|ne|lt|gt)\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"] = ["0xFA00 + (condition(\"\\1\") << 6) + reg(\"\\2\") + (reg(\"\\3\") << 3)", "immediate(\"\\4\", 16, 0)"];
+instr["bail(|eq|ge|le|ic|ne|lt|gt)\\s+(-|r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"] = ["0xFA00 + (condition(\"\\1\") << 6) + (reg(\"\\2\") << 3) + reg(\"\\3\")", "immediate(\"\\4\", 16, 0)"];
 
 // spec extension : 16 bit immediate load
 instr["liw\\s+(r[0-7])\\s*,?\\s*(.+)"] = ["0xFFF0 + reg(\"\\1\")", "immediate(\"\\2\", 16, 0)"];
