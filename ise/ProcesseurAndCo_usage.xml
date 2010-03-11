@@ -4,8 +4,8 @@
      changes made to this file may result in unpredictable
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
-<DeviceUsageSummary rev="15">
-<DesignStatistics TimeStamp="Fri Mar  5 10:23:33 2010"><group name="NetStatistics">
+<DeviceUsageSummary rev="24">
+<DesignStatistics TimeStamp="Thu Mar 11 12:54:20 2010"><group name="NetStatistics">
 <item name="NumNets_Active" rev="15">
 <attrib name="value" value="2242"/></item>
 <item name="NumNets_Gnd" rev="15">
@@ -74,143 +74,72 @@
 <attrib name="value" value="40"/></item>
 </group>
 <group name="MiscellaneousStatistics">
-<item name="AVG_LUT_FAN_IN" rev="14">
-<attrib name="value" value="3.199100"/></item>
-<item name="AVG_SIG_FANOUT" rev="14">
-<attrib name="value" value="2.890000"/></item>
-<item name="FOUR_LOAD_SIG" rev="14">
-<attrib name="value" value="22"/></item>
-<item name="LUT" rev="14">
-<attrib name="value" value="1748"/></item>
-<item name="MAX_SIG_FANOUT" rev="14">
-<attrib name="value" value="257"/></item>
-<item name="PK_NUM_4_INPUT_LUTS" rev="14">
-<attrib name="value" value="1748"/></item>
-<item name="PK_NUM_4_INPUT_LUT_RTS" rev="14">
+<item name="AVG_LUT_FAN_IN" rev="24">
+<attrib name="value" value="3.195200"/></item>
+<item name="AVG_SIG_FANOUT" rev="24">
+<attrib name="value" value="2.350000"/></item>
+<item name="FOUR_LOAD_SIG" rev="24">
+<attrib name="value" value="23"/></item>
+<item name="LUT" rev="24">
+<attrib name="value" value="1829"/></item>
+<item name="MAX_SIG_FANOUT" rev="24">
+<attrib name="value" value="268"/></item>
+<item name="PK_NUM_4_INPUT_LUTS" rev="24">
+<attrib name="value" value="1829"/></item>
+<item name="PK_NUM_4_INPUT_LUT_RTS" rev="24">
+<attrib name="value" value="42"/></item>
+<item name="PK_NUM_BONDED_IOBS" rev="24">
 <attrib name="value" value="44"/></item>
-<item name="PK_NUM_BONDED_IOBS" rev="14">
-<attrib name="value" value="44"/></item>
-<item name="PK_NUM_CYINIT" rev="14">
-<attrib name="value" value="83"/></item>
-<item name="PK_NUM_CYMUX" rev="14">
-<attrib name="value" value="154"/></item>
-<item name="PK_NUM_EQUIV_GATES" rev="14">
-<attrib name="value" value="1"/></item>
-<item name="PK_NUM_IOB_FFS" rev="14">
-<attrib name="value" value="16"/></item>
-<item name="PK_NUM_JTAG_GATES" rev="14">
-<attrib name="value" value="44"/></item>
-<item name="PK_NUM_LUTLESS_IOB_FFS" rev="14">
-<attrib name="value" value="16"/></item>
-<item name="PK_NUM_LUTLESS_SLICE_FFS" rev="14">
-<attrib name="value" value="330"/></item>
-<item name="PK_NUM_MULTANDS" rev="14">
-<attrib name="value" value="15"/></item>
-<item name="PK_NUM_MUXF5" rev="14">
-<attrib name="value" value="385"/></item>
-<item name="PK_NUM_MUXF6" rev="14">
-<attrib name="value" value="117"/></item>
-<item name="PK_NUM_MUXF7" rev="14">
-<attrib name="value" value="49"/></item>
-<item name="PK_NUM_MUXFS" rev="14">
-<attrib name="value" value="551"/></item>
-<item name="PK_NUM_SLICELS" rev="14">
-<attrib name="value" value="1164"/></item>
-<item name="PK_NUM_SLICEMS" rev="14">
-<attrib name="value" value="98"/></item>
-<item name="PK_NUM_SLICES" rev="14">
-<attrib name="value" value="1262"/></item>
-<item name="PK_NUM_SLICE_FFS" rev="14">
-<attrib name="value" value="654"/></item>
-<item name="PK_NUM_TOTAL_LUTLESS_REGISTERS" rev="14">
-<attrib name="value" value="346"/></item>
-<item name="PK_NUM_XBZ_BLOCKRAMS" rev="14">
-<attrib name="value" value="16"/></item>
-<item name="PK_NUM_XBZ_GCLKS" rev="14">
-<attrib name="value" value="1"/></item>
-<item name="PK_NUM_XOR" rev="14">
+<item name="PK_NUM_CYINIT" rev="24">
+<attrib name="value" value="87"/></item>
+<item name="PK_NUM_CYMUX" rev="24">
 <attrib name="value" value="161"/></item>
-<item name="SINGLE_LOAD_SIG" rev="14">
-<attrib name="value" value="1346"/></item>
-<item name="THREE_LOAD_SIG" rev="14">
-<attrib name="value" value="35"/></item>
-<item name="TWO_LOAD_SIG" rev="14">
-<attrib name="value" value="197"/></item>
+<item name="PK_NUM_DP_RAMS" rev="24">
+<attrib name="value" value="8"/></item>
+<item name="PK_NUM_EQUIV_GATES" rev="24">
+<attrib name="value" value="1"/></item>
+<item name="PK_NUM_IOB_FFS" rev="24">
+<attrib name="value" value="18"/></item>
+<item name="PK_NUM_JTAG_GATES" rev="24">
+<attrib name="value" value="44"/></item>
+<item name="PK_NUM_LUTLESS_IOB_FFS" rev="24">
+<attrib name="value" value="18"/></item>
+<item name="PK_NUM_LUTLESS_SLICE_FFS" rev="24">
+<attrib name="value" value="324"/></item>
+<item name="PK_NUM_MULTANDS" rev="24">
+<attrib name="value" value="15"/></item>
+<item name="PK_NUM_MUXF5" rev="24">
+<attrib name="value" value="381"/></item>
+<item name="PK_NUM_MUXF6" rev="24">
+<attrib name="value" value="117"/></item>
+<item name="PK_NUM_MUXF7" rev="24">
+<attrib name="value" value="49"/></item>
+<item name="PK_NUM_MUXFS" rev="24">
+<attrib name="value" value="547"/></item>
+<item name="PK_NUM_SLICELS" rev="24">
+<attrib name="value" value="1135"/></item>
+<item name="PK_NUM_SLICEMS" rev="24">
+<attrib name="value" value="106"/></item>
+<item name="PK_NUM_SLICES" rev="24">
+<attrib name="value" value="1241"/></item>
+<item name="PK_NUM_SLICE_FFS" rev="24">
+<attrib name="value" value="697"/></item>
+<item name="PK_NUM_TOTAL_LUTLESS_REGISTERS" rev="24">
+<attrib name="value" value="342"/></item>
+<item name="PK_NUM_XBZ_BLOCKRAMS" rev="24">
+<attrib name="value" value="16"/></item>
+<item name="PK_NUM_XBZ_GCLKS" rev="24">
+<attrib name="value" value="1"/></item>
+<item name="PK_NUM_XOR" rev="24">
+<attrib name="value" value="169"/></item>
+<item name="SINGLE_LOAD_SIG" rev="24">
+<attrib name="value" value="1404"/></item>
+<item name="THREE_LOAD_SIG" rev="24">
+<attrib name="value" value="33"/></item>
+<item name="TWO_LOAD_SIG" rev="24">
+<attrib name="value" value="236"/></item>
 </group>
 </DesignStatistics>
-<DeviceUsage TimeStamp="Fri Mar  5 10:23:33 2010"><group name="SiteSummary">
-<item name="BUFGMUX" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="1"/></item>
-<item name="BUFGMUX_GCLKMUX" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="1"/></item>
-<item name="BUFGMUX_GCLK_BUFFER" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="1"/></item>
-<item name="IOB" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="44"/></item>
-<item name="IOB_INBUF" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="18"/></item>
-<item name="IOB_OFF1" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="16"/></item>
-<item name="IOB_OUTBUF" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="26"/></item>
-<item name="IOB_PAD" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="44"/></item>
-<item name="RAMB16" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="16"/></item>
-<item name="RAMB16_RAMB16" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="16"/></item>
-<item name="RAMB16_RAMB16A" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="16"/></item>
-<item name="RAMB16_RAMB16B" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="8"/></item>
-<item name="SLICEL" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="1164"/></item>
-<item name="SLICEL_C1VDD" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="52"/></item>
-<item name="SLICEL_C2VDD" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="49"/></item>
-<item name="SLICEL_CYMUXF" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="82"/></item>
-<item name="SLICEL_CYMUXG" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="72"/></item>
-<item name="SLICEL_F" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="835"/></item>
-<item name="SLICEL_F5MUX" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="287"/></item>
-<item name="SLICEL_F6MUX" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="68"/></item>
-<item name="SLICEL_FAND" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="8"/></item>
-<item name="SLICEL_FFX" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="158"/></item>
-<item name="SLICEL_FFY" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="480"/></item>
-<item name="SLICEL_G" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="775"/></item>
-<item name="SLICEL_GAND" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="7"/></item>
-<item name="SLICEL_GNDF" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="22"/></item>
-<item name="SLICEL_GNDG" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="16"/></item>
-<item name="SLICEL_XORF" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="79"/></item>
-<item name="SLICEL_XORG" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="82"/></item>
-<item name="SLICEM" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="98"/></item>
-<item name="SLICEM_F" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="98"/></item>
-<item name="SLICEM_F5MUX" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="98"/></item>
-<item name="SLICEM_F6MUX" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="98"/></item>
-<item name="SLICEM_FFY" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="16"/></item>
-<item name="SLICEM_G" rev="15">
-<attrib name="total" value="1000000"/><attrib name="used" value="98"/></item>
-</group>
-</DeviceUsage>
 <ReportConfigData TimeStamp="Fri Mar  5 10:23:33 2010"><group name="SLICEM_F">
 <item name="LUT_OR_MEM" rev="15">
 <attrib name="LUT" value="98"/></item>
@@ -470,6 +399,18 @@
 <item name="WEB" rev="15">
 <attrib name="value" value="8"/></item>
 </group>
+<group name="IOB_OFF1">
+<item name="CE" rev="15">
+<attrib name="value" value="16"/></item>
+<item name="CK" rev="15">
+<attrib name="value" value="16"/></item>
+<item name="D" rev="15">
+<attrib name="value" value="16"/></item>
+<item name="Q" rev="15">
+<attrib name="value" value="16"/></item>
+<item name="SR" rev="15">
+<attrib name="value" value="16"/></item>
+</group>
 <group name="RAMB16_RAMB16">
 <item name="ADDRA" rev="15">
 <attrib name="value" value="16"/></item>
@@ -483,18 +424,6 @@
 <attrib name="value" value="16"/></item>
 <item name="DOB" rev="15">
 <attrib name="value" value="8"/></item>
-</group>
-<group name="IOB_OFF1">
-<item name="CE" rev="15">
-<attrib name="value" value="16"/></item>
-<item name="CK" rev="15">
-<attrib name="value" value="16"/></item>
-<item name="D" rev="15">
-<attrib name="value" value="16"/></item>
-<item name="Q" rev="15">
-<attrib name="value" value="16"/></item>
-<item name="SR" rev="15">
-<attrib name="value" value="16"/></item>
 </group>
 <group name="IOB_OUTBUF">
 <item name="IN" rev="15">
@@ -540,14 +469,6 @@
 <item name="OUT" rev="15">
 <attrib name="value" value="18"/></item>
 </group>
-<group name="SLICEL_XORF">
-<item name="0" rev="15">
-<attrib name="value" value="79"/></item>
-<item name="1" rev="15">
-<attrib name="value" value="79"/></item>
-<item name="O" rev="15">
-<attrib name="value" value="79"/></item>
-</group>
 <group name="SLICEL_FFX">
 <item name="CE" rev="15">
 <attrib name="value" value="98"/></item>
@@ -562,13 +483,13 @@
 <item name="SR" rev="15">
 <attrib name="value" value="153"/></item>
 </group>
-<group name="SLICEL_XORG">
+<group name="SLICEL_XORF">
 <item name="0" rev="15">
-<attrib name="value" value="82"/></item>
+<attrib name="value" value="79"/></item>
 <item name="1" rev="15">
-<attrib name="value" value="82"/></item>
+<attrib name="value" value="79"/></item>
 <item name="O" rev="15">
-<attrib name="value" value="82"/></item>
+<attrib name="value" value="79"/></item>
 </group>
 <group name="SLICEL_FFY">
 <item name="CE" rev="15">
@@ -581,6 +502,14 @@
 <attrib name="value" value="480"/></item>
 <item name="SR" rev="15">
 <attrib name="value" value="473"/></item>
+</group>
+<group name="SLICEL_XORG">
+<item name="0" rev="15">
+<attrib name="value" value="82"/></item>
+<item name="1" rev="15">
+<attrib name="value" value="82"/></item>
+<item name="O" rev="15">
+<attrib name="value" value="82"/></item>
 </group>
 <group name="SLICEL_GAND">
 <item name="0" rev="15">
@@ -599,16 +528,6 @@
 <attrib name="value" value="98"/></item>
 <item name="S0" rev="15">
 <attrib name="value" value="98"/></item>
-</group>
-<group name="SLICEL_F6MUX">
-<item name="0" rev="15">
-<attrib name="value" value="68"/></item>
-<item name="1" rev="15">
-<attrib name="value" value="68"/></item>
-<item name="OUT" rev="15">
-<attrib name="value" value="68"/></item>
-<item name="S0" rev="15">
-<attrib name="value" value="68"/></item>
 </group>
 <group name="RAMB16_RAMB16A">
 <item name="ADDRA" rev="15">
@@ -659,6 +578,16 @@
 <attrib name="value" value="16"/></item>
 <item name="WEA" rev="15">
 <attrib name="value" value="16"/></item>
+</group>
+<group name="SLICEL_F6MUX">
+<item name="0" rev="15">
+<attrib name="value" value="68"/></item>
+<item name="1" rev="15">
+<attrib name="value" value="68"/></item>
+<item name="OUT" rev="15">
+<attrib name="value" value="68"/></item>
+<item name="S0" rev="15">
+<attrib name="value" value="68"/></item>
 </group>
 <group name="RAMB16_RAMB16B">
 <item name="ADDRB" rev="15">
@@ -772,16 +701,6 @@
 <item name="OUT" rev="15">
 <attrib name="value" value="1"/></item>
 </group>
-<group name="SLICEL_F5MUX">
-<item name="F" rev="15">
-<attrib name="value" value="287"/></item>
-<item name="G" rev="15">
-<attrib name="value" value="287"/></item>
-<item name="OUT" rev="15">
-<attrib name="value" value="287"/></item>
-<item name="S0" rev="15">
-<attrib name="value" value="287"/></item>
-</group>
 <group name="SLICEL_F">
 <item name="A1" rev="15">
 <attrib name="value" value="825"/></item>
@@ -793,6 +712,16 @@
 <attrib name="value" value="348"/></item>
 <item name="D" rev="15">
 <attrib name="value" value="835"/></item>
+</group>
+<group name="SLICEL_F5MUX">
+<item name="F" rev="15">
+<attrib name="value" value="287"/></item>
+<item name="G" rev="15">
+<attrib name="value" value="287"/></item>
+<item name="OUT" rev="15">
+<attrib name="value" value="287"/></item>
+<item name="S0" rev="15">
+<attrib name="value" value="287"/></item>
 </group>
 <group name="SLICEL_G">
 <item name="A1" rev="15">

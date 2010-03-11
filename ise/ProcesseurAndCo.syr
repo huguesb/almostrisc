@@ -2,11 +2,11 @@ Release 9.2i - xst J.36
 Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
 --> 
 Parameter TMPDIR set to ./xst/projnav.tmp
-CPU : 0.00 / 0.08 s | Elapsed : 0.00 / 1.00 s
+CPU : 0.00 / 0.06 s | Elapsed : 0.00 / 0.00 s
  
 --> 
 Parameter xsthdpdir set to ./xst
-CPU : 0.00 / 0.08 s | Elapsed : 0.00 / 1.00 s
+CPU : 0.00 / 0.06 s | Elapsed : 0.00 / 0.00 s
  
 --> 
 Reading design: ProcesseurAndCo.prj
@@ -115,19 +115,21 @@ Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/UAL.vhd" in Libra
 Architecture behavioral of Entity ual is up to date.
 Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/cond_checker.vhd" in Library work.
 Architecture behavioral of Entity cond_checker is up to date.
+Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/FIFO.vhd" in Library work.
+Architecture behavioral of Entity fifo is up to date.
 Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/GeneSync.vhd" in Library work.
 Architecture behavioral of Entity genesync is up to date.
 Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/GeneRGB.vhd" in Library work.
 Architecture behavioral of Entity genergb is up to date.
 Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/FSM.vhd" in Library work.
-Architecture behavioral of Entity fsm is up to date.
+Entity <fsm> compiled.
+Entity <fsm> (Architecture <behavioral>) compiled.
 Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/PO.vhd" in Library work.
 Architecture behavioral of Entity po is up to date.
 Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/Processeur.vhd" in Library work.
 Architecture behavioral of Entity processeur is up to date.
 Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/ROMPROG.vhd" in Library work.
-Entity <romprog> compiled.
-Entity <romprog> (Architecture <behavioral>) compiled.
+Architecture behavioral of Entity romprog is up to date.
 Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/MMU.vhd" in Library work.
 Architecture behavioral of Entity mmu is up to date.
 Compiling vhdl file "/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd" in Library work.
@@ -173,6 +175,10 @@ Analyzing hierarchy for entity <reg16> in library <work> (architecture <behavior
 Analyzing hierarchy for entity <GeneSync> in library <work> (architecture <behavioral>).
 
 Analyzing hierarchy for entity <GeneRGB> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <FIFO> in library <work> (architecture <behavioral>) with generics.
+	bits = 8
+	words = 4
 
 Analyzing hierarchy for entity <reg1> in library <work> (architecture <behavioral>).
 
@@ -232,6 +238,7 @@ Analyzing Entity <mux_2_16> in library <work> (Architecture <behavioral>).
 Entity <mux_2_16> analyzed. Unit <mux_2_16> generated.
 
 Analyzing Entity <UAL> in library <work> (Architecture <behavioral>).
+INFO:Xst:1561 - "/home/k4user/poly-imag/archi2/projet/vhdl/UAL.vhd" line 132: Mux is complete : default of case is discarded
 Entity <UAL> analyzed. Unit <UAL> generated.
 
 Analyzing generic Entity <fast_adder> in library <work> (Architecture <structural_ks>).
@@ -358,11 +365,11 @@ Analyzing Entity <MMU> in library <work> (Architecture <behavioral>).
 Entity <MMU> analyzed. Unit <MMU> generated.
 
 Analyzing Entity <RAMDoublePort> in library <work> (Architecture <behavioral>).
-WARNING:Xst:790 - "/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd" line 45: Index value(s) does not match array range, simulation mismatch.
+WARNING:Xst:790 - "/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd" line 40: Index value(s) does not match array range, simulation mismatch.
 INFO:Xst:1607 - Contents of array <memoire> may be accessed with an index that does not cover the full array size.
-WARNING:Xst:790 - "/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd" line 53: Index value(s) does not match array range, simulation mismatch.
+WARNING:Xst:790 - "/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd" line 48: Index value(s) does not match array range, simulation mismatch.
 INFO:Xst:1607 - Contents of array <memoire> may be accessed with an index that does not cover the full array size.
-WARNING:Xst:790 - "/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd" line 64: Index value(s) does not match array range, simulation mismatch.
+WARNING:Xst:790 - "/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd" line 59: Index value(s) does not match array range, simulation mismatch.
 INFO:Xst:1607 - Contents of array <memoire> may be accessed with an index that does not cover the full array size.
 Entity <RAMDoublePort> analyzed. Unit <RAMDoublePort> generated.
 
@@ -379,9 +386,13 @@ Analyzing Entity <GeneRGB> in library <work> (Architecture <behavioral>).
 Entity <GeneRGB> analyzed. Unit <GeneRGB> generated.
 
 Analyzing Entity <PS2> in library <work> (Architecture <behavioral>).
-WARNING:Xst:790 - "/home/k4user/poly-imag/archi2/projet/vhdl/PS2.vhd" line 89: Index value(s) does not match array range, simulation mismatch.
-INFO:Xst:2679 - Register <DOUT> in unit <PS2> has a constant value of 0000000000000000 during circuit operation. The register is replaced by logic.
+WARNING:Xst:790 - "/home/k4user/poly-imag/archi2/projet/vhdl/PS2.vhd" line 120: Index value(s) does not match array range, simulation mismatch.
 Entity <PS2> analyzed. Unit <PS2> generated.
+
+Analyzing generic Entity <FIFO> in library <work> (Architecture <behavioral>).
+	bits = 8
+	words = 4
+Entity <FIFO> analyzed. Unit <FIFO> generated.
 
 Analyzing Entity <Timer> in library <work> (Architecture <behavioral>).
 Entity <Timer> analyzed. Unit <Timer> generated.
@@ -395,7 +406,7 @@ Performing bidirectional port resolution...
 
 Synthesizing Unit <ROMPROG>.
     Related source file is "/home/k4user/poly-imag/archi2/projet/vhdl/ROMPROG.vhd".
-    Found 8192x16-bit ROM for signal <D$rom0000> created at line 122.
+    Found 8192x16-bit ROM for signal <D$rom0000> created at line 121.
     Found 16-bit register for signal <D>.
     Summary:
 	inferred   1 ROM(s).
@@ -421,35 +432,14 @@ Synthesizing Unit <RAMDoublePort>.
 Unit <RAMDoublePort> synthesized.
 
 
-Synthesizing Unit <PS2>.
-    Related source file is "/home/k4user/poly-imag/archi2/projet/vhdl/PS2.vhd".
-WARNING:Xst:647 - Input <AD> is never used.
-WARNING:Xst:647 - Input <DIN> is never used.
-WARNING:Xst:647 - Input <RESET> is never used.
-WARNING:Xst:1305 - Output <BYTE_ERROR> is never assigned. Tied to value 0.
-WARNING:Xst:647 - Input <OE> is never used.
-WARNING:Xst:647 - Input <WE> is never used.
-WARNING:Xst:646 - Signal <sInput> is assigned but never used.
-    Found 1-bit register for signal <IRQ>.
-    Found 1-bit register for signal <BYTE_AVAIL>.
-    Found 4-bit up counter for signal <sBitCount>.
-    Found 1-bit register for signal <sIdle>.
-    Found 1-bit register for signal <sParity>.
-    Found 1-bit xor2 for signal <sParity$xor0000> created at line 90.
-    Summary:
-	inferred   1 Counter(s).
-	inferred   4 D-type flip-flop(s).
-Unit <PS2> synthesized.
-
-
 Synthesizing Unit <FSM>.
     Related source file is "/home/k4user/poly-imag/archi2/projet/vhdl/FSM.vhd".
-WARNING:Xst:646 - Signal <sIR<15>> is assigned but never used.
+WARNING:Xst:646 - Signal <sIR<15:3>> is assigned but never used.
     Using one-hot encoding for signal <sCurState>.
     Using one-hot encoding for signal <sNextState>.
-    Found 6-bit register for signal <sCurState>.
+    Found 8-bit register for signal <sCurState>.
     Summary:
-	inferred   6 D-type flip-flop(s).
+	inferred   8 D-type flip-flop(s).
 Unit <FSM> synthesized.
 
 
@@ -643,6 +633,30 @@ WARNING:Xst:647 - Input <Y<0>> is never used.
 Unit <GeneRGB> synthesized.
 
 
+Synthesizing Unit <FIFO>.
+    Related source file is "/home/k4user/poly-imag/archi2/projet/vhdl/FIFO.vhd".
+    Found 16x8-bit dual-port RAM <Mram_memory> for signal <memory>.
+WARNING:Xst:2734 - Property "use_dsp48" is not applicable for this technology.
+    Found 8-bit tristate buffer for signal <DOUT>.
+    Found 8-bit register for signal <Mtridata_DOUT> created at line 51.
+    Found 1-bit register for signal <Mtrien_DOUT> created at line 51.
+    Found 4-bit up counter for signal <queue>.
+    Found 1-bit register for signal <sEmpty>.
+    Found 4-bit comparator equal for signal <sEmpty$cmp_eq0000> created at line 60.
+    Found 1-bit register for signal <sFull>.
+    Found 4-bit adder for signal <sFull$addsub0000> created at line 61.
+    Found 4-bit comparator equal for signal <sFull$cmp_eq0000> created at line 61.
+    Found 4-bit up counter for signal <top>.
+    Summary:
+	inferred   1 RAM(s).
+	inferred   2 Counter(s).
+	inferred  11 D-type flip-flop(s).
+	inferred   1 Adder/Subtractor(s).
+	inferred   2 Comparator(s).
+	inferred   8 Tristate(s).
+Unit <FIFO> synthesized.
+
+
 Synthesizing Unit <IRQ>.
     Related source file is "/home/k4user/poly-imag/archi2/projet/vhdl/IRQ.vhd".
 WARNING:Xst:646 - Signal <sE<3>> is assigned but never used.
@@ -658,6 +672,37 @@ Unit <IRQ> synthesized.
 Synthesizing Unit <VGA>.
     Related source file is "/home/k4user/poly-imag/archi2/projet/vhdl/VGA.vhd".
 Unit <VGA> synthesized.
+
+
+Synthesizing Unit <PS2>.
+    Related source file is "/home/k4user/poly-imag/archi2/projet/vhdl/PS2.vhd".
+WARNING:Xst:647 - Input <DIN> is never used.
+WARNING:Xst:647 - Input <WE> is never used.
+WARNING:Xst:1305 - Output <BYTE_AVAIL> is never assigned. Tied to value 0.
+WARNING:Xst:646 - Signal <sFull> is assigned but never used.
+WARNING:Xst:646 - Signal <sInput<8>> is assigned but never used.
+    Found 1-bit register for signal <IRQ>.
+    Found 16-bit tristate buffer for signal <DOUT>.
+    Found 16-bit register for signal <Mtridata_DOUT> created at line 149.
+    Found 1-bit register for signal <Mtrien_DOUT> created at line 149.
+    Found 1-bit register for signal <PS2Clast>.
+    Found 1-bit register for signal <PS2Csmooth>.
+    Found 1-bit register for signal <sAvail>.
+    Found 4-bit up counter for signal <sBitCount>.
+    Found 1-bit register for signal <sError>.
+    Found 1-bit register for signal <sIdle>.
+    Found 8-bit register for signal <sInput<7:0>>.
+    Found 8-bit down counter for signal <smooth_counter>.
+    Found 1-bit xor2 for signal <smooth_counter$xor0000> created at line 79.
+    Found 1-bit xor2 for signal <smooth_counter$xor0001> created at line 77.
+    Found 1-bit register for signal <sParity>.
+    Found 1-bit xor2 for signal <sParity$xor0000> created at line 121.
+    Found 1-bit register for signal <sRead>.
+    Summary:
+	inferred   2 Counter(s).
+	inferred  33 D-type flip-flop(s).
+	inferred  16 Tristate(s).
+Unit <PS2> synthesized.
 
 
 Synthesizing Unit <Timer>.
@@ -690,11 +735,11 @@ Synthesizing Unit <UAL>.
 WARNING:Xst:653 - Signal <sCLogic> is used but never assigned. Tied to value 0.
     Found 16-bit tristate buffer for signal <S>.
     Found 1-bit tristate buffer for signal <sCin>.
-    Found 1-bit 4-to-1 multiplexer for signal <sCLoad>.
+    Found 1-bit 8-to-1 multiplexer for signal <sCLoad>.
     Found 16-bit tristate buffer for signal <sMuxB>.
-    Found 16-bit 4-to-1 multiplexer for signal <sSLoad>.
+    Found 16-bit 8-to-1 multiplexer for signal <sSLoad>.
     Found 16-bit 4-to-1 multiplexer for signal <sSLogic>.
-    Found 16-bit xor2 for signal <sSLogic$xor0000> created at line 137.
+    Found 16-bit xor2 for signal <sSLogic$xor0000> created at line 142.
     Summary:
 	inferred  33 Multiplexer(s).
 	inferred  33 Tristate(s).
@@ -705,6 +750,7 @@ Synthesizing Unit <PO>.
     Related source file is "/home/k4user/poly-imag/archi2/projet/vhdl/PO.vhd".
 WARNING:Xst:1780 - Signal <sCstore> is never used or assigned.
 WARNING:Xst:1780 - Signal <sCsave> is never used or assigned.
+WARNING:Xst:1780 - Signal <sRdin> is never used or assigned.
 WARNING:Xst:2734 - Property "use_dsp48" is not applicable for this technology.
 WARNING:Xst:2734 - Property "use_dsp48" is not applicable for this technology.
     Found 16-bit 16-to-1 multiplexer for signal <DDATAOUT>.
@@ -737,42 +783,46 @@ Unit <ProcesseurAndCo> synthesized.
 HDL Synthesis Report
 
 Macro Statistics
-# RAMs                                                 : 1
+# RAMs                                                 : 2
+ 16x8-bit dual-port RAM                                : 1
  8192x16-bit dual-port RAM                             : 1
 # ROMs                                                 : 1
  8192x16-bit ROM                                       : 1
-# Adders/Subtractors                                   : 10
+# Adders/Subtractors                                   : 11
  10-bit subtractor                                     : 4
  16-bit adder                                          : 2
  16-bit subtractor                                     : 4
-# Counters                                             : 14
+ 4-bit adder                                           : 1
+# Counters                                             : 17
  10-bit up counter                                     : 1
  11-bit up counter                                     : 1
  16-bit down counter                                   : 3
- 4-bit up counter                                      : 1
+ 4-bit up counter                                      : 3
  5-bit up counter                                      : 8
-# Registers                                            : 61
- 1-bit register                                        : 21
- 16-bit register                                       : 36
+ 8-bit down counter                                    : 1
+# Registers                                            : 79
+ 1-bit register                                        : 37
+ 16-bit register                                       : 37
  3-bit register                                        : 2
  4-bit register                                        : 1
- 6-bit register                                        : 1
-# Comparators                                          : 23
+ 8-bit register                                        : 2
+# Comparators                                          : 25
  10-bit comparator greatequal                          : 2
  10-bit comparator less                                : 6
+ 4-bit comparator equal                                : 2
  4-bit comparator greatequal                           : 15
 # Multiplexers                                         : 13
  1-bit 16-to-1 multiplexer                             : 1
- 1-bit 4-to-1 multiplexer                              : 1
- 1-bit 8-to-1 multiplexer                              : 3
+ 1-bit 8-to-1 multiplexer                              : 4
  16-bit 16-to-1 multiplexer                            : 3
- 16-bit 4-to-1 multiplexer                             : 4
- 16-bit 8-to-1 multiplexer                             : 1
-# Tristates                                            : 3
+ 16-bit 4-to-1 multiplexer                             : 3
+ 16-bit 8-to-1 multiplexer                             : 2
+# Tristates                                            : 5
  1-bit tristate buffer                                 : 1
- 16-bit tristate buffer                                : 2
-# Xors                                                 : 100
- 1-bit xor2                                            : 98
+ 16-bit tristate buffer                                : 3
+ 8-bit tristate buffer                                 : 1
+# Xors                                                 : 102
+ 1-bit xor2                                            : 100
  16-bit xor2                                           : 2
 
 =========================================================================
@@ -782,6 +832,7 @@ Macro Statistics
 =========================================================================
 
 Loading device for application Rf_Device from file '3s1000.nph' in environment /home/k4user/Xilinx92i.
+WARNING:Xst:2404 -  FFs/Latches <Mtridata_DOUT<15:8>> (without init value) have a constant value of 0 in block <PS2>.
 INFO:Xst:2694 - Unit <ROMPROG> : The ROM <Mrom_D_rom0000> will be implemented as a read-only BLOCK RAM, absorbing the register: <D>.
 INFO:Xst:2691 - Unit <RAMDoublePort> : The RAM <Mram_memoire> will be implemented as a BLOCK RAM, absorbing the following register(s): <DOUT1> <DOUT2>.
     -----------------------------------------------------------------------
@@ -809,6 +860,22 @@ INFO:Xst:2691 - Unit <RAMDoublePort> : The RAM <Mram_memoire> will be implemente
     -----------------------------------------------------------------------
     | optimisation       | speed                               |          |
     -----------------------------------------------------------------------
+INFO:Xst:2452 - Unit <FIFO> : The small RAM <Mram_memory> will be implemented on LUTs in order to maximize performance and save block RAM resources. If you want to force its implementation on block, use option/constraint ram_style.
+    -----------------------------------------------------------------------
+    | ram_type           | Distributed                         |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 16-word x 8-bit                     |          |
+    |     clkA           | connected to signal <CLK>           | rise     |
+    |     weA            | connected to signal <_and0000>      | high     |
+    |     addrA          | connected to signal <top>           |          |
+    |     diA            | connected to signal <DIN>           |          |
+    -----------------------------------------------------------------------
+    | Port B                                                              |
+    |     aspect ratio   | 16-word x 8-bit                     |          |
+    |     addrB          | connected to signal <queue>         |          |
+    |     doB            | connected to internal node          |          |
+    -----------------------------------------------------------------------
 INFO:Xst:2663 - HDL ADVISOR - Unit <ROMPROG> : Register <Q> currently described with an asynchronous reset, could be combined with distributed RAM <Mrom_D_rom00001> for implementation on block RAM resources if you made this reset synchronous instead.
     -----------------------------------------------------------------------
     | ram_type           | Block                               |          |
@@ -824,43 +891,56 @@ INFO:Xst:2663 - HDL ADVISOR - Unit <ROMPROG> : Register <Q> currently described 
     -----------------------------------------------------------------------
     | optimisation       | speed                               |          |
     -----------------------------------------------------------------------
+WARNING:Xst:2677 - Node <Q_3> of sequential type is unconnected in block <cPIR>.
+WARNING:Xst:2677 - Node <Q_4> of sequential type is unconnected in block <cPIR>.
+WARNING:Xst:2677 - Node <Q_5> of sequential type is unconnected in block <cPIR>.
+WARNING:Xst:2677 - Node <Q_6> of sequential type is unconnected in block <cPIR>.
+WARNING:Xst:2677 - Node <Q_7> of sequential type is unconnected in block <cPIR>.
+WARNING:Xst:2677 - Node <Q_8> of sequential type is unconnected in block <cPIR>.
+WARNING:Xst:2677 - Node <Q_9> of sequential type is unconnected in block <cPIR>.
+WARNING:Xst:2677 - Node <Q_10> of sequential type is unconnected in block <cPIR>.
+WARNING:Xst:2677 - Node <Q_11> of sequential type is unconnected in block <cPIR>.
+WARNING:Xst:2677 - Node <Q_12> of sequential type is unconnected in block <cPIR>.
+WARNING:Xst:2677 - Node <Q_14> of sequential type is unconnected in block <cPIR>.
 WARNING:Xst:2677 - Node <Q_15> of sequential type is unconnected in block <cPIR>.
-WARNING:Xst:2677 - Node <BYTE_AVAIL> of sequential type is unconnected in block <cPS2>.
-WARNING:Xst:2677 - Node <sParity> of sequential type is unconnected in block <cPS2>.
+WARNING:Xst:2677 - Node <sError> of sequential type is unconnected in block <cPS2>.
 
 =========================================================================
 Advanced HDL Synthesis Report
 
 Macro Statistics
-# RAMs                                                 : 2
+# RAMs                                                 : 3
+ 16x8-bit dual-port distributed RAM                    : 1
  8192x16-bit dual-port block RAM                       : 1
  8192x16-bit single-port block RAM                     : 1
-# Adders/Subtractors                                   : 10
+# Adders/Subtractors                                   : 11
  10-bit subtractor                                     : 2
  16-bit adder                                          : 2
  16-bit subtractor                                     : 4
+ 4-bit adder                                           : 1
  9-bit subtractor                                      : 2
-# Counters                                             : 14
+# Counters                                             : 17
  10-bit up counter                                     : 1
  11-bit up counter                                     : 1
  16-bit down counter                                   : 3
- 4-bit up counter                                      : 1
+ 4-bit up counter                                      : 3
  5-bit up counter                                      : 8
-# Registers                                            : 565
- Flip-Flops                                            : 565
-# Comparators                                          : 23
+ 8-bit down counter                                    : 1
+# Registers                                            : 599
+ Flip-Flops                                            : 599
+# Comparators                                          : 25
  10-bit comparator greatequal                          : 2
  10-bit comparator less                                : 6
+ 4-bit comparator equal                                : 2
  4-bit comparator greatequal                           : 15
 # Multiplexers                                         : 13
  1-bit 16-to-1 multiplexer                             : 1
- 1-bit 4-to-1 multiplexer                              : 1
- 1-bit 8-to-1 multiplexer                              : 3
+ 1-bit 8-to-1 multiplexer                              : 4
  16-bit 16-to-1 multiplexer                            : 3
- 16-bit 4-to-1 multiplexer                             : 4
- 16-bit 8-to-1 multiplexer                             : 1
-# Xors                                                 : 100
- 1-bit xor2                                            : 98
+ 16-bit 4-to-1 multiplexer                             : 3
+ 16-bit 8-to-1 multiplexer                             : 2
+# Xors                                                 : 102
+ 1-bit xor2                                            : 100
  16-bit xor2                                           : 2
 
 =========================================================================
@@ -868,10 +948,9 @@ Macro Statistics
 =========================================================================
 *                         Low Level Synthesis                           *
 =========================================================================
-WARNING:Xst:2677 - Node <cPS2/sParity> of sequential type is unconnected in block <ProcesseurAndCo>.
-WARNING:Xst:2677 - Node <cPS2/sIdle> of sequential type is unconnected in block <ProcesseurAndCo>.
-WARNING:Xst:2677 - Node <cPS2/BYTE_AVAIL> of sequential type is unconnected in block <ProcesseurAndCo>.
 WARNING:Xst:2042 - Unit UAL: 33 internal tristates are replaced by logic (pull-up yes): S<0>, S<10>, S<11>, S<12>, S<13>, S<14>, S<15>, S<1>, S<2>, S<3>, S<4>, S<5>, S<6>, S<7>, S<8>, S<9>, sCin, sMuxB<0>, sMuxB<10>, sMuxB<11>, sMuxB<12>, sMuxB<13>, sMuxB<14>, sMuxB<15>, sMuxB<1>, sMuxB<2>, sMuxB<3>, sMuxB<4>, sMuxB<5>, sMuxB<6>, sMuxB<7>, sMuxB<8>, sMuxB<9>.
+WARNING:Xst:2042 - Unit PS2: 16 internal tristates are replaced by logic (pull-up yes): DOUT<0>, DOUT<10>, DOUT<11>, DOUT<12>, DOUT<13>, DOUT<14>, DOUT<15>, DOUT<1>, DOUT<2>, DOUT<3>, DOUT<4>, DOUT<5>, DOUT<6>, DOUT<7>, DOUT<8>, DOUT<9>.
+WARNING:Xst:2042 - Unit FIFO: 8 internal tristates are replaced by logic (pull-up yes): DOUT<0>, DOUT<1>, DOUT<2>, DOUT<3>, DOUT<4>, DOUT<5>, DOUT<6>, DOUT<7>.
 
 Optimizing unit <ProcesseurAndCo> ...
 
@@ -883,18 +962,41 @@ Optimizing unit <shifter> ...
 
 Optimizing unit <GeneSync> ...
 
+Optimizing unit <FIFO> ...
+
 Optimizing unit <IRQ> ...
+
+Optimizing unit <PS2> ...
 
 Optimizing unit <UAL> ...
 
 Optimizing unit <Timer> ...
 
 Optimizing unit <PO> ...
+WARNING:Xst - Flatten/CheckKeep (cPS2): Could not change edge sPS2out<14> name to cPS2/Mtrien_DOUT
+WARNING:Xst - Flatten/CheckKeep (cPS2): Could not change edge sPS2out<13> name to cPS2/Mtrien_DOUT
+WARNING:Xst - Flatten/CheckKeep (cPS2): Could not change edge sPS2out<12> name to cPS2/Mtrien_DOUT
+WARNING:Xst - Flatten/CheckKeep (cPS2): Could not change edge sPS2out<11> name to cPS2/Mtrien_DOUT
+WARNING:Xst - Flatten/CheckKeep (cPS2): Could not change edge sPS2out<10> name to cPS2/Mtrien_DOUT
+WARNING:Xst - Flatten/CheckKeep (cPS2): Could not change edge sPS2out<9> name to cPS2/Mtrien_DOUT
+WARNING:Xst - Flatten/CheckKeep (cPS2): Could not change edge sPS2out<8> name to cPS2/Mtrien_DOUT
+WARNING:Xst:2677 - Node <cPS2/sError> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_3> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_4> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_5> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_6> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_7> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_8> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_9> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_10> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_11> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_12> of sequential type is unconnected in block <ProcesseurAndCo>.
+WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_14> of sequential type is unconnected in block <ProcesseurAndCo>.
 WARNING:Xst:2677 - Node <cProcesseur/cDataPath/cPIR/Q_15> of sequential type is unconnected in block <ProcesseurAndCo>.
 
 Mapping all equations...
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 5) on block ProcesseurAndCo, actual ratio is 12.
+Found area constraint ratio of 100 (+ 5) on block ProcesseurAndCo, actual ratio is 13.
 INFO:Xst:2260 - The FF/Latch <cIRQ/cIRQVal/Q_4> in Unit <ProcesseurAndCo> is equivalent to the following 11 FFs/Latches : <cIRQ/cIRQVal/Q_5> <cIRQ/cIRQVal/Q_6> <cIRQ/cIRQVal/Q_7> <cIRQ/cIRQVal/Q_8> <cIRQ/cIRQVal/Q_9> <cIRQ/cIRQVal/Q_10> <cIRQ/cIRQVal/Q_11> <cIRQ/cIRQVal/Q_12> <cIRQ/cIRQVal/Q_13> <cIRQ/cIRQVal/Q_14> <cIRQ/cIRQVal/Q_15> 
 
 Final Macro Processing ...
@@ -903,8 +1005,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 670
- Flip-Flops                                            : 670
+# Registers                                            : 715
+ Flip-Flops                                            : 715
 
 =========================================================================
 
@@ -933,36 +1035,40 @@ Design Statistics
 # IOs                              : 44
 
 Cell Usage :
-# BELS                             : 2691
+# BELS                             : 2785
 #      BUF                         : 1
 #      GND                         : 1
-#      INV                         : 127
+#      INV                         : 129
 #      LUT1                        : 41
-#      LUT2                        : 85
-#      LUT2_D                      : 3
-#      LUT2_L                      : 7
-#      LUT3                        : 842
-#      LUT3_D                      : 18
-#      LUT3_L                      : 24
-#      LUT4                        : 528
-#      LUT4_D                      : 69
-#      LUT4_L                      : 63
+#      LUT2                        : 119
+#      LUT2_D                      : 2
+#      LUT2_L                      : 10
+#      LUT3                        : 821
+#      LUT3_D                      : 30
+#      LUT3_L                      : 34
+#      LUT4                        : 568
+#      LUT4_D                      : 68
+#      LUT4_L                      : 68
 #      MULT_AND                    : 15
-#      MUXCY                       : 154
-#      MUXF5                       : 385
+#      MUXCY                       : 161
+#      MUXF5                       : 381
 #      MUXF6                       : 117
 #      MUXF7                       : 49
 #      VCC                         : 1
-#      XORCY                       : 161
-# FlipFlops/Latches                : 670
-#      FD                          : 12
-#      FDC                         : 3
-#      FDCE                        : 501
+#      XORCY                       : 169
+# FlipFlops/Latches                : 715
+#      FD                          : 23
+#      FDC                         : 5
+#      FDCE                        : 504
 #      FDCPE                       : 48
-#      FDR                         : 88
+#      FDE                         : 8
+#      FDP                         : 2
+#      FDPE                        : 10
+#      FDR                         : 97
 #      FDRE                        : 10
 #      FDSE                        : 8
-# RAMS                             : 16
+# RAMS                             : 24
+#      RAM16X1D                    : 8
 #      RAMB16_S2                   : 8
 #      RAMB16_S2_S2                : 8
 # Clock Buffers                    : 1
@@ -977,9 +1083,11 @@ Device utilization summary:
 
 Selected Device : 3s1000ft256-4 
 
- Number of Slices:                     995  out of   7680    12%  
- Number of Slice Flip Flops:           670  out of  15360     4%  
- Number of 4 input LUTs:              1807  out of  15360    11%  
+ Number of Slices:                    1048  out of   7680    13%  
+ Number of Slice Flip Flops:           715  out of  15360     4%  
+ Number of 4 input LUTs:              1906  out of  15360    12%  
+    Number used as logic:             1890
+    Number used as RAMs:                16
  Number of IOs:                         44
  Number of bonded IOBs:                 44  out of    173    25%  
  Number of BRAMs:                       16  out of     24    66%  
@@ -1006,14 +1114,15 @@ Clock Information:
 ------------------------------------------+--------------------------------+-------+
 Clock Signal                              | Clock buffer(FF name)          | Load  |
 ------------------------------------------+--------------------------------+-------+
-CLK                                       | BUFGP                          | 582   |
-cTimer/sCLK<0>(cTimer/Mmux_sCLK<0>_2_f6:O)| NONE(*)(cTimer/sRegisters_4_4) | 18    |
-cTimer/sCLK<1>(cTimer/Mmux_sCLK<1>_2_f6:O)| NONE(*)(cTimer/sRegisters_5_8) | 18    |
-cTimer/sCLK<2>(cTimer/Mmux_sCLK<2>_2_f6:O)| NONE(*)(cTimer/sRegisters_6_12)| 18    |
-cTimer/TMR_CLK_5                          | NONE(cTimer/TMR_CLK_6)         | 6     |
-cTimer/TMR_CLK_6                          | NONE(cTimer/cnt_base_7_2)      | 6     |
-cTimer/TMR_CLK_4                          | NONE(cTimer/cnt_base_5_0)      | 6     |
-cTimer/TMR_CLK_2                          | NONE(cTimer/cnt_base_3_0)      | 6     |
+CLK                                       | BUFGP                          | 620   |
+cPS2/PS2Csmooth                           | NONE(cPS2/sBitCount_1)         | 15    |
+cTimer/sCLK<0>(cTimer/Mmux_sCLK<0>_2_f6:O)| NONE(*)(cTimer/sRegisters_4_14)| 18    |
+cTimer/sCLK<1>(cTimer/Mmux_sCLK<1>_2_f6:O)| NONE(*)(cTimer/sRegisters_5_7) | 18    |
+cTimer/sCLK<2>(cTimer/Mmux_sCLK<2>_2_f6:O)| NONE(*)(cTimer/sRegisters_6_0) | 18    |
+cTimer/TMR_CLK_5                          | NONE(cTimer/cnt_base_6_2)      | 6     |
+cTimer/TMR_CLK_6                          | NONE(cTimer/cnt_base_7_3)      | 6     |
+cTimer/TMR_CLK_4                          | NONE(cTimer/cnt_base_5_4)      | 6     |
+cTimer/TMR_CLK_2                          | NONE(cTimer/cnt_base_3_4)      | 6     |
 cTimer/TMR_CLK_3                          | NONE(cTimer/cnt_base_4_1)      | 6     |
 cTimer/TMR_CLK_0                          | NONE(cTimer/cnt_base_1_2)      | 6     |
 cTimer/TMR_CLK_1                          | NONE(cTimer/cnt_base_2_2)      | 6     |
@@ -1025,122 +1134,122 @@ INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered
 
 Asynchronous Control Signals Information:
 ----------------------------------------
--------------------------------------------------------------------+--------------------------------------+-------+
-Control Signal                                                     | Buffer(FF name)                      | Load  |
--------------------------------------------------------------------+--------------------------------------+-------+
-RESET                                                              | IBUF                                 | 256   |
-RESET_IBUF_1(RESET_IBUF_1:O)                                       | NONE(cProcesseur/cDataPath/cRout/Q_8)| 226   |
-cProcesseur/cFSM/sCurState_0(cProcesseur/cFSM/sCurState_0:Q)       | NONE(cProcesseur/cDataPath/cPC/Q_13) | 16    |
-cTimer/sRegisters_4_4__and0000(cTimer/sRegisters_4_4__and00001:O)  | NONE(cTimer/sRegisters_4_4)          | 1     |
-cTimer/sRegisters_4_4__and0001(cTimer/sRegisters_4_4__and00011:O)  | NONE(cTimer/sRegisters_4_4)          | 1     |
-cTimer/ld<0>(cTimer/ld<0>1:O)                                      | NONE(cTimer/sIRQin_0)                | 1     |
-cTimer/sRegisters_4_0__and0000(cTimer/sRegisters_4_0__and00001:O)  | NONE(cTimer/sRegisters_4_0)          | 1     |
-cTimer/sRegisters_4_0__and0001(cTimer/sRegisters_4_0__and00011:O)  | NONE(cTimer/sRegisters_4_0)          | 1     |
-cTimer/sRegisters_4_13__and0000(cTimer/sRegisters_4_13__and00001:O)| NONE(cTimer/sRegisters_4_13)         | 1     |
-cTimer/sRegisters_4_13__and0001(cTimer/sRegisters_4_13__and00011:O)| NONE(cTimer/sRegisters_4_13)         | 1     |
-cTimer/sRegisters_4_9__and0000(cTimer/sRegisters_4_9__and00001:O)  | NONE(cTimer/sRegisters_4_9)          | 1     |
-cTimer/sRegisters_4_9__and0001(cTimer/sRegisters_4_9__and00011:O)  | NONE(cTimer/sRegisters_4_9)          | 1     |
-cTimer/sRegisters_4_11__and0000(cTimer/sRegisters_4_11__and00001:O)| NONE(cTimer/sRegisters_4_11)         | 1     |
-cTimer/sRegisters_4_11__and0001(cTimer/sRegisters_4_11__and00011:O)| NONE(cTimer/sRegisters_4_11)         | 1     |
-cTimer/sRegisters_4_15__and0000(cTimer/sRegisters_4_15__and00001:O)| NONE(cTimer/sRegisters_4_15)         | 1     |
-cTimer/sRegisters_4_15__and0001(cTimer/sRegisters_4_15__and00011:O)| NONE(cTimer/sRegisters_4_15)         | 1     |
-cTimer/sRegisters_4_6__and0000(cTimer/sRegisters_4_6__and00001:O)  | NONE(cTimer/sRegisters_4_6)          | 1     |
-cTimer/sRegisters_4_6__and0001(cTimer/sRegisters_4_6__and00011:O)  | NONE(cTimer/sRegisters_4_6)          | 1     |
-cTimer/sRegisters_4_14__and0000(cTimer/sRegisters_4_14__and00001:O)| NONE(cTimer/sRegisters_4_14)         | 1     |
-cTimer/sRegisters_4_14__and0001(cTimer/sRegisters_4_14__and00011:O)| NONE(cTimer/sRegisters_4_14)         | 1     |
-cTimer/sRegisters_4_5__and0000(cTimer/sRegisters_4_5__and00001:O)  | NONE(cTimer/sRegisters_4_5)          | 1     |
-cTimer/sRegisters_4_5__and0001(cTimer/sRegisters_4_5__and00011:O)  | NONE(cTimer/sRegisters_4_5)          | 1     |
-cTimer/sRegisters_4_2__and0000(cTimer/sRegisters_4_2__and00001:O)  | NONE(cTimer/sRegisters_4_2)          | 1     |
-cTimer/sRegisters_4_2__and0001(cTimer/sRegisters_4_2__and00011:O)  | NONE(cTimer/sRegisters_4_2)          | 1     |
-cTimer/sRegisters_4_8__and0000(cTimer/sRegisters_4_8__and00001:O)  | NONE(cTimer/sRegisters_4_8)          | 1     |
-cTimer/sRegisters_4_8__and0001(cTimer/sRegisters_4_8__and00011:O)  | NONE(cTimer/sRegisters_4_8)          | 1     |
-cTimer/sRegisters_4_3__and0000(cTimer/sRegisters_4_3__and00001:O)  | NONE(cTimer/sRegisters_4_3)          | 1     |
-cTimer/sRegisters_4_3__and0001(cTimer/sRegisters_4_3__and00011:O)  | NONE(cTimer/sRegisters_4_3)          | 1     |
-cTimer/sResetIRQ_0(cTimer/sResetIRQ_0:Q)                           | NONE(cTimer/gen_ro[0].cIRQ/Q)        | 1     |
-cTimer/sRegisters_4_12__and0000(cTimer/sRegisters_4_12__and00001:O)| NONE(cTimer/sRegisters_4_12)         | 1     |
-cTimer/sRegisters_4_12__and0001(cTimer/sRegisters_4_12__and00011:O)| NONE(cTimer/sRegisters_4_12)         | 1     |
-cTimer/sRegisters_4_7__and0000(cTimer/sRegisters_4_7__and00001:O)  | NONE(cTimer/sRegisters_4_7)          | 1     |
-cTimer/sRegisters_4_7__and0001(cTimer/sRegisters_4_7__and00011:O)  | NONE(cTimer/sRegisters_4_7)          | 1     |
-cTimer/sRegisters_4_10__and0000(cTimer/sRegisters_4_10__and00001:O)| NONE(cTimer/sRegisters_4_10)         | 1     |
-cTimer/sRegisters_4_10__and0001(cTimer/sRegisters_4_10__and00011:O)| NONE(cTimer/sRegisters_4_10)         | 1     |
-cTimer/sRegisters_4_1__and0000(cTimer/sRegisters_4_1__and00001:O)  | NONE(cTimer/sRegisters_4_1)          | 1     |
-cTimer/sRegisters_4_1__and0001(cTimer/sRegisters_4_1__and00011:O)  | NONE(cTimer/sRegisters_4_1)          | 1     |
-cTimer/sRegisters_5_8__and0000(cTimer/sRegisters_5_8__and00001:O)  | NONE(cTimer/sRegisters_5_8)          | 1     |
-cTimer/sRegisters_5_8__and0001(cTimer/sRegisters_5_8__and00011:O)  | NONE(cTimer/sRegisters_5_8)          | 1     |
-cTimer/sRegisters_5_15__and0000(cTimer/sRegisters_5_15__and00001:O)| NONE(cTimer/sRegisters_5_15)         | 1     |
-cTimer/sRegisters_5_15__and0001(cTimer/sRegisters_5_15__and00011:O)| NONE(cTimer/sRegisters_5_15)         | 1     |
-cTimer/sRegisters_5_6__and0000(cTimer/sRegisters_5_6__and00001:O)  | NONE(cTimer/sRegisters_5_6)          | 1     |
-cTimer/sRegisters_5_6__and0001(cTimer/sRegisters_5_6__and00011:O)  | NONE(cTimer/sRegisters_5_6)          | 1     |
-cTimer/sResetIRQ_1(cTimer/sResetIRQ_1:Q)                           | NONE(cTimer/gen_ro[1].cIRQ/Q)        | 1     |
-cTimer/sRegisters_5_7__and0000(cTimer/sRegisters_5_7__and00001:O)  | NONE(cTimer/sRegisters_5_7)          | 1     |
-cTimer/sRegisters_5_7__and0001(cTimer/sRegisters_5_7__and00011:O)  | NONE(cTimer/sRegisters_5_7)          | 1     |
-cTimer/sRegisters_5_1__and0000(cTimer/sRegisters_5_1__and00001:O)  | NONE(cTimer/sRegisters_5_1)          | 1     |
-cTimer/sRegisters_5_1__and0001(cTimer/sRegisters_5_1__and00011:O)  | NONE(cTimer/sRegisters_5_1)          | 1     |
-cTimer/sRegisters_5_10__and0000(cTimer/sRegisters_5_10__and00001:O)| NONE(cTimer/sRegisters_5_10)         | 1     |
-cTimer/sRegisters_5_10__and0001(cTimer/sRegisters_5_10__and00011:O)| NONE(cTimer/sRegisters_5_10)         | 1     |
-cTimer/sRegisters_5_11__and0000(cTimer/sRegisters_5_11__and00001:O)| NONE(cTimer/sRegisters_5_11)         | 1     |
-cTimer/sRegisters_5_11__and0001(cTimer/sRegisters_5_11__and00011:O)| NONE(cTimer/sRegisters_5_11)         | 1     |
-cTimer/sRegisters_5_14__and0000(cTimer/sRegisters_5_14__and00001:O)| NONE(cTimer/sRegisters_5_14)         | 1     |
-cTimer/sRegisters_5_14__and0001(cTimer/sRegisters_5_14__and00011:O)| NONE(cTimer/sRegisters_5_14)         | 1     |
-cTimer/sRegisters_5_0__and0000(cTimer/sRegisters_5_0__and00001:O)  | NONE(cTimer/sRegisters_5_0)          | 1     |
-cTimer/sRegisters_5_0__and0001(cTimer/sRegisters_5_0__and00011:O)  | NONE(cTimer/sRegisters_5_0)          | 1     |
-cTimer/sRegisters_5_3__and0000(cTimer/sRegisters_5_3__and00001:O)  | NONE(cTimer/sRegisters_5_3)          | 1     |
-cTimer/sRegisters_5_3__and0001(cTimer/sRegisters_5_3__and00011:O)  | NONE(cTimer/sRegisters_5_3)          | 1     |
-cTimer/sRegisters_5_12__and0000(cTimer/sRegisters_5_12__and00001:O)| NONE(cTimer/sRegisters_5_12)         | 1     |
-cTimer/sRegisters_5_12__and0001(cTimer/sRegisters_5_12__and00011:O)| NONE(cTimer/sRegisters_5_12)         | 1     |
-cTimer/sRegisters_5_9__and0000(cTimer/sRegisters_5_9__and00001:O)  | NONE(cTimer/sRegisters_5_9)          | 1     |
-cTimer/sRegisters_5_9__and0001(cTimer/sRegisters_5_9__and00011:O)  | NONE(cTimer/sRegisters_5_9)          | 1     |
-cTimer/sRegisters_5_5__and0000(cTimer/sRegisters_5_5__and00001:O)  | NONE(cTimer/sRegisters_5_5)          | 1     |
-cTimer/sRegisters_5_5__and0001(cTimer/sRegisters_5_5__and00011:O)  | NONE(cTimer/sRegisters_5_5)          | 1     |
-cTimer/sRegisters_5_4__and0000(cTimer/sRegisters_5_4__and00001:O)  | NONE(cTimer/sRegisters_5_4)          | 1     |
-cTimer/sRegisters_5_4__and0001(cTimer/sRegisters_5_4__and00011:O)  | NONE(cTimer/sRegisters_5_4)          | 1     |
-cTimer/sRegisters_5_2__and0000(cTimer/sRegisters_5_2__and00001:O)  | NONE(cTimer/sRegisters_5_2)          | 1     |
-cTimer/sRegisters_5_2__and0001(cTimer/sRegisters_5_2__and00011:O)  | NONE(cTimer/sRegisters_5_2)          | 1     |
-cTimer/sRegisters_5_13__and0000(cTimer/sRegisters_5_13__and00001:O)| NONE(cTimer/sRegisters_5_13)         | 1     |
-cTimer/sRegisters_5_13__and0001(cTimer/sRegisters_5_13__and00011:O)| NONE(cTimer/sRegisters_5_13)         | 1     |
-cTimer/ld<1>(cTimer/ld<1>1:O)                                      | NONE(cTimer/sIRQin_1)                | 1     |
-cTimer/sRegisters_6_12__and0000(cTimer/sRegisters_6_12__and00001:O)| NONE(cTimer/sRegisters_6_12)         | 1     |
-cTimer/sRegisters_6_12__and0001(cTimer/sRegisters_6_12__and00011:O)| NONE(cTimer/sRegisters_6_12)         | 1     |
-cTimer/sRegisters_6_6__and0000(cTimer/sRegisters_6_6__and00001:O)  | NONE(cTimer/sRegisters_6_6)          | 1     |
-cTimer/sRegisters_6_6__and0001(cTimer/sRegisters_6_6__and00011:O)  | NONE(cTimer/sRegisters_6_6)          | 1     |
-cTimer/sRegisters_6_5__and0000(cTimer/sRegisters_6_5__and00001:O)  | NONE(cTimer/sRegisters_6_5)          | 1     |
-cTimer/sRegisters_6_5__and0001(cTimer/sRegisters_6_5__and00011:O)  | NONE(cTimer/sRegisters_6_5)          | 1     |
-cTimer/sRegisters_6_7__and0000(cTimer/sRegisters_6_7__and00001:O)  | NONE(cTimer/sRegisters_6_7)          | 1     |
-cTimer/sRegisters_6_7__and0001(cTimer/sRegisters_6_7__and00011:O)  | NONE(cTimer/sRegisters_6_7)          | 1     |
-cTimer/sRegisters_6_3__and0000(cTimer/sRegisters_6_3__and00001:O)  | NONE(cTimer/sRegisters_6_3)          | 1     |
-cTimer/sRegisters_6_3__and0001(cTimer/sRegisters_6_3__and00011:O)  | NONE(cTimer/sRegisters_6_3)          | 1     |
-cTimer/sRegisters_6_13__and0000(cTimer/sRegisters_6_13__and00001:O)| NONE(cTimer/sRegisters_6_13)         | 1     |
-cTimer/sRegisters_6_13__and0001(cTimer/sRegisters_6_13__and00011:O)| NONE(cTimer/sRegisters_6_13)         | 1     |
-cTimer/sRegisters_6_10__and0000(cTimer/sRegisters_6_10__and00001:O)| NONE(cTimer/sRegisters_6_10)         | 1     |
-cTimer/sRegisters_6_10__and0001(cTimer/sRegisters_6_10__and00011:O)| NONE(cTimer/sRegisters_6_10)         | 1     |
-cTimer/sRegisters_6_15__and0000(cTimer/sRegisters_6_15__and00001:O)| NONE(cTimer/sRegisters_6_15)         | 1     |
-cTimer/sRegisters_6_15__and0001(cTimer/sRegisters_6_15__and00011:O)| NONE(cTimer/sRegisters_6_15)         | 1     |
-cTimer/sResetIRQ_2(cTimer/sResetIRQ_2:Q)                           | NONE(cTimer/gen_ro[2].cIRQ/Q)        | 1     |
-cTimer/sRegisters_6_9__and0000(cTimer/sRegisters_6_9__and00001:O)  | NONE(cTimer/sRegisters_6_9)          | 1     |
-cTimer/sRegisters_6_9__and0001(cTimer/sRegisters_6_9__and00011:O)  | NONE(cTimer/sRegisters_6_9)          | 1     |
-cTimer/sRegisters_6_2__and0000(cTimer/sRegisters_6_2__and00001:O)  | NONE(cTimer/sRegisters_6_2)          | 1     |
-cTimer/sRegisters_6_2__and0001(cTimer/sRegisters_6_2__and00011:O)  | NONE(cTimer/sRegisters_6_2)          | 1     |
-cTimer/sRegisters_6_8__and0000(cTimer/sRegisters_6_8__and00001:O)  | NONE(cTimer/sRegisters_6_8)          | 1     |
-cTimer/sRegisters_6_8__and0001(cTimer/sRegisters_6_8__and00011:O)  | NONE(cTimer/sRegisters_6_8)          | 1     |
-cTimer/ld<2>(cTimer/ld<2>1:O)                                      | NONE(cTimer/sIRQin_2)                | 1     |
-cTimer/sRegisters_6_11__and0000(cTimer/sRegisters_6_11__and00001:O)| NONE(cTimer/sRegisters_6_11)         | 1     |
-cTimer/sRegisters_6_11__and0001(cTimer/sRegisters_6_11__and00011:O)| NONE(cTimer/sRegisters_6_11)         | 1     |
-cTimer/sRegisters_6_0__and0000(cTimer/sRegisters_6_0__and00001:O)  | NONE(cTimer/sRegisters_6_0)          | 1     |
-cTimer/sRegisters_6_0__and0001(cTimer/sRegisters_6_0__and00011:O)  | NONE(cTimer/sRegisters_6_0)          | 1     |
-cTimer/sRegisters_6_14__and0000(cTimer/sRegisters_6_14__and00001:O)| NONE(cTimer/sRegisters_6_14)         | 1     |
-cTimer/sRegisters_6_14__and0001(cTimer/sRegisters_6_14__and00011:O)| NONE(cTimer/sRegisters_6_14)         | 1     |
-cTimer/sRegisters_6_4__and0000(cTimer/sRegisters_6_4__and00001:O)  | NONE(cTimer/sRegisters_6_4)          | 1     |
-cTimer/sRegisters_6_4__and0001(cTimer/sRegisters_6_4__and00011:O)  | NONE(cTimer/sRegisters_6_4)          | 1     |
-cTimer/sRegisters_6_1__and0000(cTimer/sRegisters_6_1__and00001:O)  | NONE(cTimer/sRegisters_6_1)          | 1     |
-cTimer/sRegisters_6_1__and0001(cTimer/sRegisters_6_1__and00011:O)  | NONE(cTimer/sRegisters_6_1)          | 1     |
--------------------------------------------------------------------+--------------------------------------+-------+
+-------------------------------------------------------------------+------------------------------------+-------+
+Control Signal                                                     | Buffer(FF name)                    | Load  |
+-------------------------------------------------------------------+------------------------------------+-------+
+RESET                                                              | IBUF                               | 266   |
+RESET_IBUF_1(RESET_IBUF_1:O)                                       | NONE(cTimer/gen_rw[0].cReg/Q_15)   | 233   |
+cProcesseur/cFSM/sCurState_0(cProcesseur/cFSM/sCurState_0:Q)       | NONE(cProcesseur/cDataPath/cPC/Q_5)| 16    |
+cTimer/sRegisters_4_14__and0000(cTimer/sRegisters_4_14__and00001:O)| NONE(cTimer/sRegisters_4_14)       | 1     |
+cTimer/sRegisters_4_14__and0001(cTimer/sRegisters_4_14__and00011:O)| NONE(cTimer/sRegisters_4_14)       | 1     |
+cTimer/sRegisters_4_9__and0000(cTimer/sRegisters_4_9__and00001:O)  | NONE(cTimer/sRegisters_4_9)        | 1     |
+cTimer/sRegisters_4_9__and0001(cTimer/sRegisters_4_9__and00011:O)  | NONE(cTimer/sRegisters_4_9)        | 1     |
+cTimer/sRegisters_4_6__and0000(cTimer/sRegisters_4_6__and00001:O)  | NONE(cTimer/sRegisters_4_6)        | 1     |
+cTimer/sRegisters_4_6__and0001(cTimer/sRegisters_4_6__and00011:O)  | NONE(cTimer/sRegisters_4_6)        | 1     |
+cTimer/sRegisters_4_15__and0000(cTimer/sRegisters_4_15__and00001:O)| NONE(cTimer/sRegisters_4_15)       | 1     |
+cTimer/sRegisters_4_15__and0001(cTimer/sRegisters_4_15__and00011:O)| NONE(cTimer/sRegisters_4_15)       | 1     |
+cTimer/sRegisters_4_7__and0000(cTimer/sRegisters_4_7__and00001:O)  | NONE(cTimer/sRegisters_4_7)        | 1     |
+cTimer/sRegisters_4_7__and0001(cTimer/sRegisters_4_7__and00011:O)  | NONE(cTimer/sRegisters_4_7)        | 1     |
+cTimer/sRegisters_4_2__and0000(cTimer/sRegisters_4_2__and00001:O)  | NONE(cTimer/sRegisters_4_2)        | 1     |
+cTimer/sRegisters_4_2__and0001(cTimer/sRegisters_4_2__and00011:O)  | NONE(cTimer/sRegisters_4_2)        | 1     |
+cTimer/sRegisters_4_13__and0000(cTimer/sRegisters_4_13__and00001:O)| NONE(cTimer/sRegisters_4_13)       | 1     |
+cTimer/sRegisters_4_13__and0001(cTimer/sRegisters_4_13__and00011:O)| NONE(cTimer/sRegisters_4_13)       | 1     |
+cTimer/sRegisters_4_3__and0000(cTimer/sRegisters_4_3__and00001:O)  | NONE(cTimer/sRegisters_4_3)        | 1     |
+cTimer/sRegisters_4_3__and0001(cTimer/sRegisters_4_3__and00011:O)  | NONE(cTimer/sRegisters_4_3)        | 1     |
+cTimer/sRegisters_4_5__and0000(cTimer/sRegisters_4_5__and00001:O)  | NONE(cTimer/sRegisters_4_5)        | 1     |
+cTimer/sRegisters_4_5__and0001(cTimer/sRegisters_4_5__and00011:O)  | NONE(cTimer/sRegisters_4_5)        | 1     |
+cTimer/sRegisters_4_12__and0000(cTimer/sRegisters_4_12__and00001:O)| NONE(cTimer/sRegisters_4_12)       | 1     |
+cTimer/sRegisters_4_12__and0001(cTimer/sRegisters_4_12__and00011:O)| NONE(cTimer/sRegisters_4_12)       | 1     |
+cTimer/sRegisters_4_4__and0000(cTimer/sRegisters_4_4__and00001:O)  | NONE(cTimer/sRegisters_4_4)        | 1     |
+cTimer/sRegisters_4_4__and0001(cTimer/sRegisters_4_4__and00011:O)  | NONE(cTimer/sRegisters_4_4)        | 1     |
+cTimer/sRegisters_4_1__and0000(cTimer/sRegisters_4_1__and00001:O)  | NONE(cTimer/sRegisters_4_1)        | 1     |
+cTimer/sRegisters_4_1__and0001(cTimer/sRegisters_4_1__and00011:O)  | NONE(cTimer/sRegisters_4_1)        | 1     |
+cTimer/sRegisters_4_11__and0000(cTimer/sRegisters_4_11__and00001:O)| NONE(cTimer/sRegisters_4_11)       | 1     |
+cTimer/sRegisters_4_11__and0001(cTimer/sRegisters_4_11__and00011:O)| NONE(cTimer/sRegisters_4_11)       | 1     |
+cTimer/sResetIRQ_0(cTimer/sResetIRQ_0:Q)                           | NONE(cTimer/gen_ro[0].cIRQ/Q)      | 1     |
+cTimer/sRegisters_4_10__and0000(cTimer/sRegisters_4_10__and00001:O)| NONE(cTimer/sRegisters_4_10)       | 1     |
+cTimer/sRegisters_4_10__and0001(cTimer/sRegisters_4_10__and00011:O)| NONE(cTimer/sRegisters_4_10)       | 1     |
+cTimer/sRegisters_4_0__and0000(cTimer/sRegisters_4_0__and00001:O)  | NONE(cTimer/sRegisters_4_0)        | 1     |
+cTimer/sRegisters_4_0__and0001(cTimer/sRegisters_4_0__and00011:O)  | NONE(cTimer/sRegisters_4_0)        | 1     |
+cTimer/sRegisters_4_8__and0000(cTimer/sRegisters_4_8__and00001:O)  | NONE(cTimer/sRegisters_4_8)        | 1     |
+cTimer/sRegisters_4_8__and0001(cTimer/sRegisters_4_8__and00011:O)  | NONE(cTimer/sRegisters_4_8)        | 1     |
+cTimer/ld<0>(cTimer/ld<0>2:O)                                      | NONE(cTimer/sIRQin_0)              | 1     |
+cTimer/sRegisters_5_7__and0000(cTimer/sRegisters_5_7__and00001:O)  | NONE(cTimer/sRegisters_5_7)        | 1     |
+cTimer/sRegisters_5_7__and0001(cTimer/sRegisters_5_7__and00011:O)  | NONE(cTimer/sRegisters_5_7)        | 1     |
+cTimer/sRegisters_5_1__and0000(cTimer/sRegisters_5_1__and00001:O)  | NONE(cTimer/sRegisters_5_1)        | 1     |
+cTimer/sRegisters_5_1__and0001(cTimer/sRegisters_5_1__and00011:O)  | NONE(cTimer/sRegisters_5_1)        | 1     |
+cTimer/sRegisters_5_2__and0000(cTimer/sRegisters_5_2__and00001:O)  | NONE(cTimer/sRegisters_5_2)        | 1     |
+cTimer/sRegisters_5_2__and0001(cTimer/sRegisters_5_2__and00011:O)  | NONE(cTimer/sRegisters_5_2)        | 1     |
+cTimer/sRegisters_5_4__and0000(cTimer/sRegisters_5_4__and00001:O)  | NONE(cTimer/sRegisters_5_4)        | 1     |
+cTimer/sRegisters_5_4__and0001(cTimer/sRegisters_5_4__and00011:O)  | NONE(cTimer/sRegisters_5_4)        | 1     |
+cTimer/sResetIRQ_1(cTimer/sResetIRQ_1:Q)                           | NONE(cTimer/gen_ro[1].cIRQ/Q)      | 1     |
+cTimer/sRegisters_5_12__and0000(cTimer/sRegisters_5_12__and00001:O)| NONE(cTimer/sRegisters_5_12)       | 1     |
+cTimer/sRegisters_5_12__and0001(cTimer/sRegisters_5_12__and00011:O)| NONE(cTimer/sRegisters_5_12)       | 1     |
+cTimer/sRegisters_5_9__and0000(cTimer/sRegisters_5_9__and00001:O)  | NONE(cTimer/sRegisters_5_9)        | 1     |
+cTimer/sRegisters_5_9__and0001(cTimer/sRegisters_5_9__and00011:O)  | NONE(cTimer/sRegisters_5_9)        | 1     |
+cTimer/sRegisters_5_8__and0000(cTimer/sRegisters_5_8__and00001:O)  | NONE(cTimer/sRegisters_5_8)        | 1     |
+cTimer/sRegisters_5_8__and0001(cTimer/sRegisters_5_8__and00011:O)  | NONE(cTimer/sRegisters_5_8)        | 1     |
+cTimer/sRegisters_5_14__and0000(cTimer/sRegisters_5_14__and00001:O)| NONE(cTimer/sRegisters_5_14)       | 1     |
+cTimer/sRegisters_5_14__and0001(cTimer/sRegisters_5_14__and00011:O)| NONE(cTimer/sRegisters_5_14)       | 1     |
+cTimer/sRegisters_5_11__and0000(cTimer/sRegisters_5_11__and00001:O)| NONE(cTimer/sRegisters_5_11)       | 1     |
+cTimer/sRegisters_5_11__and0001(cTimer/sRegisters_5_11__and00011:O)| NONE(cTimer/sRegisters_5_11)       | 1     |
+cTimer/sRegisters_5_6__and0000(cTimer/sRegisters_5_6__and00001:O)  | NONE(cTimer/sRegisters_5_6)        | 1     |
+cTimer/sRegisters_5_6__and0001(cTimer/sRegisters_5_6__and00011:O)  | NONE(cTimer/sRegisters_5_6)        | 1     |
+cTimer/sRegisters_5_15__and0000(cTimer/sRegisters_5_15__and00001:O)| NONE(cTimer/sRegisters_5_15)       | 1     |
+cTimer/sRegisters_5_15__and0001(cTimer/sRegisters_5_15__and00011:O)| NONE(cTimer/sRegisters_5_15)       | 1     |
+cTimer/sRegisters_5_0__and0000(cTimer/sRegisters_5_0__and00001:O)  | NONE(cTimer/sRegisters_5_0)        | 1     |
+cTimer/sRegisters_5_0__and0001(cTimer/sRegisters_5_0__and00011:O)  | NONE(cTimer/sRegisters_5_0)        | 1     |
+cTimer/sRegisters_5_13__and0000(cTimer/sRegisters_5_13__and00001:O)| NONE(cTimer/sRegisters_5_13)       | 1     |
+cTimer/sRegisters_5_13__and0001(cTimer/sRegisters_5_13__and00011:O)| NONE(cTimer/sRegisters_5_13)       | 1     |
+cTimer/sRegisters_5_10__and0000(cTimer/sRegisters_5_10__and00001:O)| NONE(cTimer/sRegisters_5_10)       | 1     |
+cTimer/sRegisters_5_10__and0001(cTimer/sRegisters_5_10__and00011:O)| NONE(cTimer/sRegisters_5_10)       | 1     |
+cTimer/sRegisters_5_3__and0000(cTimer/sRegisters_5_3__and00001:O)  | NONE(cTimer/sRegisters_5_3)        | 1     |
+cTimer/sRegisters_5_3__and0001(cTimer/sRegisters_5_3__and00011:O)  | NONE(cTimer/sRegisters_5_3)        | 1     |
+cTimer/ld<1>(cTimer/ld<1>2:O)                                      | NONE(cTimer/sIRQin_1)              | 1     |
+cTimer/sRegisters_5_5__and0000(cTimer/sRegisters_5_5__and00001:O)  | NONE(cTimer/sRegisters_5_5)        | 1     |
+cTimer/sRegisters_5_5__and0001(cTimer/sRegisters_5_5__and00011:O)  | NONE(cTimer/sRegisters_5_5)        | 1     |
+cTimer/sRegisters_6_0__and0000(cTimer/sRegisters_6_0__and00001:O)  | NONE(cTimer/sRegisters_6_0)        | 1     |
+cTimer/sRegisters_6_0__and0001(cTimer/sRegisters_6_0__and00011:O)  | NONE(cTimer/sRegisters_6_0)        | 1     |
+cTimer/ld<2>(cTimer/ld<2>1:O)                                      | NONE(cTimer/sIRQin_2)              | 1     |
+cTimer/sRegisters_6_9__and0000(cTimer/sRegisters_6_9__and00001:O)  | NONE(cTimer/sRegisters_6_9)        | 1     |
+cTimer/sRegisters_6_9__and0001(cTimer/sRegisters_6_9__and00011:O)  | NONE(cTimer/sRegisters_6_9)        | 1     |
+cTimer/sRegisters_6_2__and0000(cTimer/sRegisters_6_2__and00001:O)  | NONE(cTimer/sRegisters_6_2)        | 1     |
+cTimer/sRegisters_6_2__and0001(cTimer/sRegisters_6_2__and00011:O)  | NONE(cTimer/sRegisters_6_2)        | 1     |
+cTimer/sRegisters_6_4__and0000(cTimer/sRegisters_6_4__and00001:O)  | NONE(cTimer/sRegisters_6_4)        | 1     |
+cTimer/sRegisters_6_4__and0001(cTimer/sRegisters_6_4__and00011:O)  | NONE(cTimer/sRegisters_6_4)        | 1     |
+cTimer/sRegisters_6_12__and0000(cTimer/sRegisters_6_12__and00001:O)| NONE(cTimer/sRegisters_6_12)       | 1     |
+cTimer/sRegisters_6_12__and0001(cTimer/sRegisters_6_12__and00011:O)| NONE(cTimer/sRegisters_6_12)       | 1     |
+cTimer/sRegisters_6_10__and0000(cTimer/sRegisters_6_10__and00001:O)| NONE(cTimer/sRegisters_6_10)       | 1     |
+cTimer/sRegisters_6_10__and0001(cTimer/sRegisters_6_10__and00011:O)| NONE(cTimer/sRegisters_6_10)       | 1     |
+cTimer/sRegisters_6_3__and0000(cTimer/sRegisters_6_3__and00001:O)  | NONE(cTimer/sRegisters_6_3)        | 1     |
+cTimer/sRegisters_6_3__and0001(cTimer/sRegisters_6_3__and00011:O)  | NONE(cTimer/sRegisters_6_3)        | 1     |
+cTimer/sRegisters_6_6__and0000(cTimer/sRegisters_6_6__and00001:O)  | NONE(cTimer/sRegisters_6_6)        | 1     |
+cTimer/sRegisters_6_6__and0001(cTimer/sRegisters_6_6__and00011:O)  | NONE(cTimer/sRegisters_6_6)        | 1     |
+cTimer/sRegisters_6_11__and0000(cTimer/sRegisters_6_11__and00001:O)| NONE(cTimer/sRegisters_6_11)       | 1     |
+cTimer/sRegisters_6_11__and0001(cTimer/sRegisters_6_11__and00011:O)| NONE(cTimer/sRegisters_6_11)       | 1     |
+cTimer/sRegisters_6_13__and0000(cTimer/sRegisters_6_13__and00001:O)| NONE(cTimer/sRegisters_6_13)       | 1     |
+cTimer/sRegisters_6_13__and0001(cTimer/sRegisters_6_13__and00011:O)| NONE(cTimer/sRegisters_6_13)       | 1     |
+cTimer/sRegisters_6_5__and0000(cTimer/sRegisters_6_5__and00001:O)  | NONE(cTimer/sRegisters_6_5)        | 1     |
+cTimer/sRegisters_6_5__and0001(cTimer/sRegisters_6_5__and00011:O)  | NONE(cTimer/sRegisters_6_5)        | 1     |
+cTimer/sRegisters_6_7__and0000(cTimer/sRegisters_6_7__and00001:O)  | NONE(cTimer/sRegisters_6_7)        | 1     |
+cTimer/sRegisters_6_7__and0001(cTimer/sRegisters_6_7__and00011:O)  | NONE(cTimer/sRegisters_6_7)        | 1     |
+cTimer/sRegisters_6_14__and0000(cTimer/sRegisters_6_14__and00001:O)| NONE(cTimer/sRegisters_6_14)       | 1     |
+cTimer/sRegisters_6_14__and0001(cTimer/sRegisters_6_14__and00011:O)| NONE(cTimer/sRegisters_6_14)       | 1     |
+cTimer/sRegisters_6_15__and0000(cTimer/sRegisters_6_15__and00001:O)| NONE(cTimer/sRegisters_6_15)       | 1     |
+cTimer/sRegisters_6_15__and0001(cTimer/sRegisters_6_15__and00011:O)| NONE(cTimer/sRegisters_6_15)       | 1     |
+cTimer/sRegisters_6_1__and0000(cTimer/sRegisters_6_1__and00001:O)  | NONE(cTimer/sRegisters_6_1)        | 1     |
+cTimer/sRegisters_6_1__and0001(cTimer/sRegisters_6_1__and00011:O)  | NONE(cTimer/sRegisters_6_1)        | 1     |
+cTimer/sRegisters_6_8__and0000(cTimer/sRegisters_6_8__and00001:O)  | NONE(cTimer/sRegisters_6_8)        | 1     |
+cTimer/sRegisters_6_8__and0001(cTimer/sRegisters_6_8__and00011:O)  | NONE(cTimer/sRegisters_6_8)        | 1     |
+cTimer/sResetIRQ_2(cTimer/sResetIRQ_2:Q)                           | NONE(cTimer/gen_ro[2].cIRQ/Q)      | 1     |
+-------------------------------------------------------------------+------------------------------------+-------+
 
 Timing Summary:
 ---------------
 Speed Grade: -4
 
-   Minimum period: 17.981ns (Maximum Frequency: 55.615MHz)
-   Minimum input arrival time before clock: 10.493ns
+   Minimum period: 17.018ns (Maximum Frequency: 58.761MHz)
+   Minimum input arrival time before clock: 11.771ns
    Maximum output required time after clock: 15.337ns
    Maximum combinational path delay: No path found
 
@@ -1150,37 +1259,59 @@ All values displayed in nanoseconds (ns)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'CLK'
-  Clock period: 17.981ns (frequency: 55.615MHz)
-  Total number of paths / destination ports: 2230382 / 1315
+  Clock period: 17.018ns (frequency: 58.761MHz)
+  Total number of paths / destination ports: 1254096 / 1432
 -------------------------------------------------------------------------
-Delay:               17.981ns (Levels of Logic = 13)
-  Source:            cProcesseur/cFSM/sCurState_4 (FF)
-  Destination:       cProcesseur/cDataPath/cRegs[15].cReg/Q_12 (FF)
+Delay:               17.018ns (Levels of Logic = 12)
+  Source:            cProcesseur/cDataPath/cIR/Q_3 (FF)
+  Destination:       cProcesseur/cDataPath/cRegs[15].cReg/Q_4 (FF)
   Source Clock:      CLK rising
   Destination Clock: CLK rising
 
-  Data Path: cProcesseur/cFSM/sCurState_4 to cProcesseur/cDataPath/cRegs[15].cReg/Q_12
+  Data Path: cProcesseur/cDataPath/cIR/Q_3 to cProcesseur/cDataPath/cRegs[15].cReg/Q_4
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FD:C->Q              44   0.720   1.990  cProcesseur/cFSM/sCurState_4 (cProcesseur/cFSM/sCurState_4)
-     LUT3:I2->O            8   0.551   1.151  cProcesseur/cFSM/sIR<3>1_4 (cProcesseur/cFSM/sIR<3>1_1)
+     FDCE:C->Q           134   0.720   2.505  cProcesseur/cDataPath/cIR/Q_3 (cProcesseur/cDataPath/cIR/Q_3)
      LUT3:I2->O            1   0.551   0.000  cProcesseur/cDataPath/Mmux_sigRa_57 (cProcesseur/cDataPath/N58)
      MUXF5:I1->O           1   0.360   0.000  cProcesseur/cDataPath/Mmux_sigRa_4_f5_6 (cProcesseur/cDataPath/Mmux_sigRa_4_f57)
      MUXF6:I1->O           1   0.342   0.000  cProcesseur/cDataPath/Mmux_sigRa_3_f6_6 (cProcesseur/cDataPath/Mmux_sigRa_3_f67)
-     MUXF7:I1->O         272   0.342   3.296  cProcesseur/cDataPath/Mmux_sigRa_2_f7_6 (ADDATA<1>)
-     LUT3:I2->O            1   0.551   0.000  cProcesseur/cDataPath/cUAL/cShifter/_mux00281_G (N4299)
-     MUXF5:I1->O           5   0.360   0.989  cProcesseur/cDataPath/cUAL/cShifter/_mux00281 (cProcesseur/cDataPath/cUAL/cShifter/N6)
-     LUT4:I2->O            1   0.551   0.000  cProcesseur/cDataPath/cUAL/cShifter/S_12_mux000021_F (N4302)
-     MUXF5:I0->O           2   0.360   0.903  cProcesseur/cDataPath/cUAL/cShifter/S_12_mux000021 (cProcesseur/cDataPath/cUAL/cShifter/N28)
-     LUT4:I3->O            2   0.551   0.903  cProcesseur/cDataPath/sigRd<12>2 (cProcesseur/cDataPath/sigRd<12>_map1)
-     LUT4:I3->O            1   0.551   0.827  cProcesseur/cDataPath/sigRd<12>86 (cProcesseur/cDataPath/sigRd<12>_map19)
-     LUT4:I3->O            1   0.551   0.827  cProcesseur/cDataPath/sigRd<12>213_SW0 (N3916)
-     LUT4:I3->O           16   0.551   0.000  cProcesseur/cDataPath/sigRd<12>258 (cProcesseur/cDataPath/sigRd<12>)
-     FDCE:D                    0.203          cProcesseur/cDataPath/cRegs[0].cReg/Q_12
+     MUXF7:I1->O         277   0.342   3.325  cProcesseur/cDataPath/Mmux_sigRa_2_f7_6 (ADDATA<1>)
+     LUT3:I2->O            1   0.551   0.869  cProcesseur/cDataPath/cUAL/cShifter/_mux003421 (cProcesseur/cDataPath/cUAL/cShifter/N24)
+     LUT3:I2->O            1   0.551   0.000  cProcesseur/cDataPath/cUAL/cShifter/_mux0032_f5_F (N4914)
+     MUXF5:I0->O           2   0.360   0.945  cProcesseur/cDataPath/cUAL/cShifter/_mux0032_f5 (cProcesseur/cDataPath/cUAL/cShifter/sD<2><12>)
+     LUT3:I2->O            7   0.551   1.134  cProcesseur/cDataPath/cUAL/cShifter/S_8_mux000021 (cProcesseur/cDataPath/cUAL/cShifter/N67)
+     LUT3_D:I2->O          1   0.551   0.869  cProcesseur/cDataPath/cUAL/cShifter/S_0_mux000011 (cProcesseur/cDataPath/sigRd<11>_map7)
+     LUT4:I2->O            1   0.551   0.000  cProcesseur/cDataPath/sigRd<4>43_F (N4986)
+     MUXF5:I0->O           1   0.360   0.827  cProcesseur/cDataPath/sigRd<4>43 (cProcesseur/cDataPath/sigRd<4>_map13)
+     LUT4:I3->O           16   0.551   0.000  cProcesseur/cDataPath/sigRd<4>193 (cProcesseur/cDataPath/sigRd<4>)
+     FDCE:D                    0.203          cProcesseur/cDataPath/cRegs[0].cReg/Q_4
     ----------------------------------------
-    Total                     17.981ns (7.095ns logic, 10.886ns route)
-                                       (39.5% logic, 60.5% route)
+    Total                     17.018ns (6.544ns logic, 10.474ns route)
+                                       (38.5% logic, 61.5% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'cPS2/PS2Csmooth'
+  Clock period: 6.054ns (frequency: 165.180MHz)
+  Total number of paths / destination ports: 92 / 20
+-------------------------------------------------------------------------
+Delay:               6.054ns (Levels of Logic = 2)
+  Source:            cPS2/sBitCount_1 (FF)
+  Destination:       cPS2/sBitCount_3 (FF)
+  Source Clock:      cPS2/PS2Csmooth rising
+  Destination Clock: cPS2/PS2Csmooth rising
+
+  Data Path: cPS2/sBitCount_1 to cPS2/sBitCount_3
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q            12   0.720   1.457  cPS2/sBitCount_1 (cPS2/sBitCount_1)
+     LUT4:I0->O            4   0.551   1.256  cPS2/sBitCount_cmp_eq00001 (cPS2/sBitCount_cmp_eq0000)
+     LUT2:I0->O            4   0.551   0.917  cPS2/sBitCount_not00011 (cPS2/sBitCount_not0001)
+     FDCE:CE                   0.602          cPS2/sBitCount_0
+    ----------------------------------------
+    Total                      6.054ns (2.424ns logic, 3.630ns route)
+                                       (40.0% logic, 60.0% route)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'cTimer/sCLK<0>'
@@ -1270,7 +1401,7 @@ Delay:               6.462ns (Levels of Logic = 3)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDR:C->Q              7   0.720   1.261  cTimer/cnt_base_6_0 (cTimer/cnt_base_6_0)
-     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_6_cmp_eq00001 (N4633)
+     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_6_cmp_eq00001 (N5209)
      MUXF5:I0->O           2   0.360   1.072  cTimer/TMR_CLK_6_cmp_eq0000_f5 (cTimer/TMR_CLK_6_cmp_eq0000)
      LUT2:I1->O            5   0.551   0.921  cTimer/cnt_base_6_or00001 (cTimer/cnt_base_6_or0000)
      FDR:R                     1.026          cTimer/cnt_base_6_0
@@ -1294,7 +1425,7 @@ Delay:               6.462ns (Levels of Logic = 3)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDR:C->Q              7   0.720   1.261  cTimer/cnt_base_7_0 (cTimer/cnt_base_7_0)
-     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_7_cmp_eq00001 (N4632)
+     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_7_cmp_eq00001 (N5208)
      MUXF5:I0->O           2   0.360   1.072  cTimer/TMR_CLK_7_cmp_eq0000_f5 (cTimer/TMR_CLK_7_cmp_eq0000)
      LUT2:I1->O            5   0.551   0.921  cTimer/cnt_base_7_or00001 (cTimer/cnt_base_7_or0000)
      FDR:R                     1.026          cTimer/cnt_base_7_0
@@ -1318,7 +1449,7 @@ Delay:               6.462ns (Levels of Logic = 3)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDR:C->Q              7   0.720   1.261  cTimer/cnt_base_5_0 (cTimer/cnt_base_5_0)
-     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_5_cmp_eq00001 (N4634)
+     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_5_cmp_eq00001 (N5210)
      MUXF5:I0->O           2   0.360   1.072  cTimer/TMR_CLK_5_cmp_eq0000_f5 (cTimer/TMR_CLK_5_cmp_eq0000)
      LUT2:I1->O            5   0.551   0.921  cTimer/cnt_base_5_or00001 (cTimer/cnt_base_5_or0000)
      FDR:R                     1.026          cTimer/cnt_base_5_0
@@ -1342,7 +1473,7 @@ Delay:               6.462ns (Levels of Logic = 3)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDR:C->Q              7   0.720   1.261  cTimer/cnt_base_3_0 (cTimer/cnt_base_3_0)
-     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_3_cmp_eq00001 (N4636)
+     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_3_cmp_eq00001 (N5212)
      MUXF5:I0->O           2   0.360   1.072  cTimer/TMR_CLK_3_cmp_eq0000_f5 (cTimer/TMR_CLK_3_cmp_eq0000)
      LUT2:I1->O            5   0.551   0.921  cTimer/cnt_base_3_or00001 (cTimer/cnt_base_3_or0000)
      FDR:R                     1.026          cTimer/cnt_base_3_0
@@ -1366,7 +1497,7 @@ Delay:               6.462ns (Levels of Logic = 3)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDR:C->Q              7   0.720   1.261  cTimer/cnt_base_4_0 (cTimer/cnt_base_4_0)
-     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_4_cmp_eq00001 (N4635)
+     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_4_cmp_eq00001 (N5211)
      MUXF5:I0->O           2   0.360   1.072  cTimer/TMR_CLK_4_cmp_eq0000_f5 (cTimer/TMR_CLK_4_cmp_eq0000)
      LUT2:I1->O            5   0.551   0.921  cTimer/cnt_base_4_or00001 (cTimer/cnt_base_4_or0000)
      FDR:R                     1.026          cTimer/cnt_base_4_0
@@ -1390,7 +1521,7 @@ Delay:               6.462ns (Levels of Logic = 3)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDR:C->Q              7   0.720   1.261  cTimer/cnt_base_1_0 (cTimer/cnt_base_1_0)
-     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_1_cmp_eq00001 (N4638)
+     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_1_cmp_eq00001 (N5214)
      MUXF5:I0->O           2   0.360   1.072  cTimer/TMR_CLK_1_cmp_eq0000_f5 (cTimer/TMR_CLK_1_cmp_eq0000)
      LUT2:I1->O            5   0.551   0.921  cTimer/cnt_base_1_or00001 (cTimer/cnt_base_1_or0000)
      FDR:R                     1.026          cTimer/cnt_base_1_0
@@ -1414,7 +1545,7 @@ Delay:               6.462ns (Levels of Logic = 3)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDR:C->Q              7   0.720   1.261  cTimer/cnt_base_2_0 (cTimer/cnt_base_2_0)
-     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_2_cmp_eq00001 (N4637)
+     LUT4:I1->O            1   0.551   0.000  cTimer/TMR_CLK_2_cmp_eq00001 (N5213)
      MUXF5:I0->O           2   0.360   1.072  cTimer/TMR_CLK_2_cmp_eq0000_f5 (cTimer/TMR_CLK_2_cmp_eq0000)
      LUT2:I1->O            5   0.551   0.921  cTimer/cnt_base_2_or00001 (cTimer/cnt_base_2_or0000)
      FDR:R                     1.026          cTimer/cnt_base_2_0
@@ -1424,9 +1555,9 @@ Delay:               6.462ns (Levels of Logic = 3)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLK'
-  Total number of paths / destination ports: 488 / 296
+  Total number of paths / destination ports: 394 / 325
 -------------------------------------------------------------------------
-Offset:              10.493ns (Levels of Logic = 3)
+Offset:              10.613ns (Levels of Logic = 3)
   Source:            RESET (PAD)
   Destination:       cTimer/cnt_base_0_4 (FF)
   Destination Clock: CLK rising
@@ -1435,19 +1566,41 @@ Offset:              10.493ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           257   0.821   3.142  RESET_IBUF (RESET_IBUF)
-     BUF:I->O            257   0.551   3.481  RESET_IBUF_1 (RESET_IBUF_1)
+     IBUF:I->O           267   0.821   3.199  RESET_IBUF (RESET_IBUF)
+     BUF:I->O            268   0.551   3.544  RESET_IBUF_1 (RESET_IBUF_1)
      LUT2:I0->O            5   0.551   0.921  cTimer/cnt_base_0_or00001 (cTimer/cnt_base_0_or0000)
      FDR:R                     1.026          cTimer/cnt_base_0_0
     ----------------------------------------
-    Total                     10.493ns (2.949ns logic, 7.544ns route)
-                                       (28.1% logic, 71.9% route)
+    Total                     10.613ns (2.949ns logic, 7.664ns route)
+                                       (27.8% logic, 72.2% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'cPS2/PS2Csmooth'
+  Total number of paths / destination ports: 19 / 19
+-------------------------------------------------------------------------
+Offset:              11.771ns (Levels of Logic = 4)
+  Source:            RESET (PAD)
+  Destination:       cPS2/sInput_0 (FF)
+  Destination Clock: cPS2/PS2Csmooth rising
+
+  Data Path: RESET to cPS2/sInput_0
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O           267   0.821   3.199  RESET_IBUF (RESET_IBUF)
+     BUF:I->O            268   0.551   3.273  RESET_IBUF_1 (RESET_IBUF_1)
+     LUT3:I2->O            8   0.551   1.422  cPS2/sInput_0_and000011 (cPS2/N0)
+     LUT4:I0->O            1   0.551   0.801  cPS2/sInput_0_and00001 (cPS2/sInput_0_not0001_inv)
+     FDE:CE                    0.602          cPS2/sInput_0
+    ----------------------------------------
+    Total                     11.771ns (3.076ns logic, 8.695ns route)
+                                       (26.1% logic, 73.9% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'cTimer/TMR_CLK_5'
   Total number of paths / destination ports: 6 / 6
 -------------------------------------------------------------------------
-Offset:              10.493ns (Levels of Logic = 3)
+Offset:              10.613ns (Levels of Logic = 3)
   Source:            RESET (PAD)
   Destination:       cTimer/cnt_base_6_4 (FF)
   Destination Clock: cTimer/TMR_CLK_5 rising
@@ -1456,19 +1609,19 @@ Offset:              10.493ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           257   0.821   3.142  RESET_IBUF (RESET_IBUF)
-     BUF:I->O            257   0.551   3.481  RESET_IBUF_1 (RESET_IBUF_1)
+     IBUF:I->O           267   0.821   3.199  RESET_IBUF (RESET_IBUF)
+     BUF:I->O            268   0.551   3.544  RESET_IBUF_1 (RESET_IBUF_1)
      LUT2:I0->O            5   0.551   0.921  cTimer/cnt_base_6_or00001 (cTimer/cnt_base_6_or0000)
      FDR:R                     1.026          cTimer/cnt_base_6_0
     ----------------------------------------
-    Total                     10.493ns (2.949ns logic, 7.544ns route)
-                                       (28.1% logic, 71.9% route)
+    Total                     10.613ns (2.949ns logic, 7.664ns route)
+                                       (27.8% logic, 72.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'cTimer/TMR_CLK_6'
   Total number of paths / destination ports: 6 / 6
 -------------------------------------------------------------------------
-Offset:              10.493ns (Levels of Logic = 3)
+Offset:              10.613ns (Levels of Logic = 3)
   Source:            RESET (PAD)
   Destination:       cTimer/cnt_base_7_4 (FF)
   Destination Clock: cTimer/TMR_CLK_6 rising
@@ -1477,19 +1630,19 @@ Offset:              10.493ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           257   0.821   3.142  RESET_IBUF (RESET_IBUF)
-     BUF:I->O            257   0.551   3.481  RESET_IBUF_1 (RESET_IBUF_1)
+     IBUF:I->O           267   0.821   3.199  RESET_IBUF (RESET_IBUF)
+     BUF:I->O            268   0.551   3.544  RESET_IBUF_1 (RESET_IBUF_1)
      LUT2:I0->O            5   0.551   0.921  cTimer/cnt_base_7_or00001 (cTimer/cnt_base_7_or0000)
      FDR:R                     1.026          cTimer/cnt_base_7_0
     ----------------------------------------
-    Total                     10.493ns (2.949ns logic, 7.544ns route)
-                                       (28.1% logic, 71.9% route)
+    Total                     10.613ns (2.949ns logic, 7.664ns route)
+                                       (27.8% logic, 72.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'cTimer/TMR_CLK_4'
   Total number of paths / destination ports: 6 / 6
 -------------------------------------------------------------------------
-Offset:              10.493ns (Levels of Logic = 3)
+Offset:              10.613ns (Levels of Logic = 3)
   Source:            RESET (PAD)
   Destination:       cTimer/cnt_base_5_4 (FF)
   Destination Clock: cTimer/TMR_CLK_4 rising
@@ -1498,19 +1651,19 @@ Offset:              10.493ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           257   0.821   3.142  RESET_IBUF (RESET_IBUF)
-     BUF:I->O            257   0.551   3.481  RESET_IBUF_1 (RESET_IBUF_1)
+     IBUF:I->O           267   0.821   3.199  RESET_IBUF (RESET_IBUF)
+     BUF:I->O            268   0.551   3.544  RESET_IBUF_1 (RESET_IBUF_1)
      LUT2:I0->O            5   0.551   0.921  cTimer/cnt_base_5_or00001 (cTimer/cnt_base_5_or0000)
      FDR:R                     1.026          cTimer/cnt_base_5_0
     ----------------------------------------
-    Total                     10.493ns (2.949ns logic, 7.544ns route)
-                                       (28.1% logic, 71.9% route)
+    Total                     10.613ns (2.949ns logic, 7.664ns route)
+                                       (27.8% logic, 72.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'cTimer/TMR_CLK_2'
   Total number of paths / destination ports: 6 / 6
 -------------------------------------------------------------------------
-Offset:              10.493ns (Levels of Logic = 3)
+Offset:              10.613ns (Levels of Logic = 3)
   Source:            RESET (PAD)
   Destination:       cTimer/cnt_base_3_4 (FF)
   Destination Clock: cTimer/TMR_CLK_2 rising
@@ -1519,19 +1672,19 @@ Offset:              10.493ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           257   0.821   3.142  RESET_IBUF (RESET_IBUF)
-     BUF:I->O            257   0.551   3.481  RESET_IBUF_1 (RESET_IBUF_1)
+     IBUF:I->O           267   0.821   3.199  RESET_IBUF (RESET_IBUF)
+     BUF:I->O            268   0.551   3.544  RESET_IBUF_1 (RESET_IBUF_1)
      LUT2:I0->O            5   0.551   0.921  cTimer/cnt_base_3_or00001 (cTimer/cnt_base_3_or0000)
      FDR:R                     1.026          cTimer/cnt_base_3_0
     ----------------------------------------
-    Total                     10.493ns (2.949ns logic, 7.544ns route)
-                                       (28.1% logic, 71.9% route)
+    Total                     10.613ns (2.949ns logic, 7.664ns route)
+                                       (27.8% logic, 72.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'cTimer/TMR_CLK_3'
   Total number of paths / destination ports: 6 / 6
 -------------------------------------------------------------------------
-Offset:              10.493ns (Levels of Logic = 3)
+Offset:              10.613ns (Levels of Logic = 3)
   Source:            RESET (PAD)
   Destination:       cTimer/cnt_base_4_4 (FF)
   Destination Clock: cTimer/TMR_CLK_3 rising
@@ -1540,19 +1693,19 @@ Offset:              10.493ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           257   0.821   3.142  RESET_IBUF (RESET_IBUF)
-     BUF:I->O            257   0.551   3.481  RESET_IBUF_1 (RESET_IBUF_1)
+     IBUF:I->O           267   0.821   3.199  RESET_IBUF (RESET_IBUF)
+     BUF:I->O            268   0.551   3.544  RESET_IBUF_1 (RESET_IBUF_1)
      LUT2:I0->O            5   0.551   0.921  cTimer/cnt_base_4_or00001 (cTimer/cnt_base_4_or0000)
      FDR:R                     1.026          cTimer/cnt_base_4_0
     ----------------------------------------
-    Total                     10.493ns (2.949ns logic, 7.544ns route)
-                                       (28.1% logic, 71.9% route)
+    Total                     10.613ns (2.949ns logic, 7.664ns route)
+                                       (27.8% logic, 72.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'cTimer/TMR_CLK_0'
   Total number of paths / destination ports: 6 / 6
 -------------------------------------------------------------------------
-Offset:              10.493ns (Levels of Logic = 3)
+Offset:              10.613ns (Levels of Logic = 3)
   Source:            RESET (PAD)
   Destination:       cTimer/cnt_base_1_4 (FF)
   Destination Clock: cTimer/TMR_CLK_0 rising
@@ -1561,19 +1714,19 @@ Offset:              10.493ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           257   0.821   3.142  RESET_IBUF (RESET_IBUF)
-     BUF:I->O            257   0.551   3.481  RESET_IBUF_1 (RESET_IBUF_1)
+     IBUF:I->O           267   0.821   3.199  RESET_IBUF (RESET_IBUF)
+     BUF:I->O            268   0.551   3.544  RESET_IBUF_1 (RESET_IBUF_1)
      LUT2:I0->O            5   0.551   0.921  cTimer/cnt_base_1_or00001 (cTimer/cnt_base_1_or0000)
      FDR:R                     1.026          cTimer/cnt_base_1_0
     ----------------------------------------
-    Total                     10.493ns (2.949ns logic, 7.544ns route)
-                                       (28.1% logic, 71.9% route)
+    Total                     10.613ns (2.949ns logic, 7.664ns route)
+                                       (27.8% logic, 72.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'cTimer/TMR_CLK_1'
   Total number of paths / destination ports: 6 / 6
 -------------------------------------------------------------------------
-Offset:              10.493ns (Levels of Logic = 3)
+Offset:              10.613ns (Levels of Logic = 3)
   Source:            RESET (PAD)
   Destination:       cTimer/cnt_base_2_4 (FF)
   Destination Clock: cTimer/TMR_CLK_1 rising
@@ -1582,13 +1735,13 @@ Offset:              10.493ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           257   0.821   3.142  RESET_IBUF (RESET_IBUF)
-     BUF:I->O            257   0.551   3.481  RESET_IBUF_1 (RESET_IBUF_1)
+     IBUF:I->O           267   0.821   3.199  RESET_IBUF (RESET_IBUF)
+     BUF:I->O            268   0.551   3.544  RESET_IBUF_1 (RESET_IBUF_1)
      LUT2:I0->O            5   0.551   0.921  cTimer/cnt_base_2_or00001 (cTimer/cnt_base_2_or0000)
      FDR:R                     1.026          cTimer/cnt_base_2_0
     ----------------------------------------
-    Total                     10.493ns (2.949ns logic, 7.544ns route)
-                                       (28.1% logic, 71.9% route)
+    Total                     10.613ns (2.949ns logic, 7.664ns route)
+                                       (27.8% logic, 72.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK'
@@ -1605,8 +1758,8 @@ Offset:              15.337ns (Levels of Logic = 6)
     ----------------------------------------  ------------
      FDRE:C->Q             6   0.720   1.342  cVGA/cSync/comptY_6 (cVGA/cSync/comptY_6)
      LUT4:I0->O            7   0.551   1.405  cVGA/cSync/Yaux<3>11 (cVGA/cSync/N01)
-     LUT2:I0->O            1   0.551   1.140  cVGA/cSync/Yaux<5>132_SW0 (N4382)
-     LUT4_D:I0->LO         1   0.551   0.168  cVGA/cSync/Yaux<5>132 (N4739)
+     LUT2:I0->O            1   0.551   1.140  cVGA/cSync/Yaux<5>132_SW0 (N4930)
+     LUT4_D:I0->LO         1   0.551   0.168  cVGA/cSync/Yaux<5>132 (N5348)
      LUT3:I2->O            4   0.551   1.256  cVGA/cSync/Yaux<5>145 (cVGA/cSync/N18)
      LUT3:I0->O            3   0.551   0.907  cVGA/cRGB/G (B_OBUF)
      OBUF:I->O                 5.644          B_OBUF (B)
@@ -1615,14 +1768,14 @@ Offset:              15.337ns (Levels of Logic = 6)
                                        (59.5% logic, 40.5% route)
 
 =========================================================================
-CPU : 77.44 / 77.54 s | Elapsed : 86.00 / 87.00 s
+CPU : 38.16 / 38.23 s | Elapsed : 42.00 / 42.00 s
  
 --> 
 
 
-Total memory usage is 169596 kilobytes
+Total memory usage is 170436 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :  258 (   0 filtered)
-Number of infos    :    9 (   0 filtered)
+Number of warnings :  287 (   0 filtered)
+Number of infos    :   10 (   0 filtered)
 
