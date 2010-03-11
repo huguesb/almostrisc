@@ -15,8 +15,8 @@ use ieee.numeric_std.all;
 
 entity FIFO is
 	generic (
-		bits  : integer;
-		words : integer
+		bits  : integer := 8;
+		words : integer := 4
 	);
 	
 	port (

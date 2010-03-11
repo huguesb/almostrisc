@@ -40,7 +40,7 @@ architecture Behavioral of PS2 is
 	component FIFO is
 		generic (
 			bits  : integer := 8;
-			words : integer := 16
+			words : integer := 4 -- 2^4 = 16 elements in FIFO
 		);
 		
 		port (
@@ -56,18 +56,49 @@ architecture Behavioral of PS2 is
 		);
 	end component;
 	
-	signal sIdle : std_logic;
+	signal PS2Csmooth, PS2Clast : std_logic;
 	
+	signal sRead : std_logic;
+	signal sIdle : std_logic;
+	signal sAvail, sError : std_logic;
+	signal sFull, sEmpty : std_logic;
 	signal sParity : std_logic;
 	signal sBitCount : unsigned(3 downto 0);
 	signal sInput : std_logic_vector(8 downto 0);
+	signal sOutput : std_logic_vector(7 downto 0);
+	signal smooth_counter : unsigned(7 downto 0);
 begin
-	-- receive
-	process(PS2C)
+	-- smooth PS2C
+	process(CLK, RESET)
 	begin
-		if ( PS2C'event and PS2C='0' ) then
-			BYTE_AVAIL <= '0' ;
-			
+		if ( RESET='1' ) then 
+			PS2Clast <= '1';
+			PS2Csmooth <= '1';
+			smooth_counter <= x"FF";
+		elsif ( CLK'event and CLK='1' and (PS2C xor PS2Csmooth)='1' ) then
+			if ( (PS2Clast xor PS2C)='1' ) then
+				PS2Clast <= PS2C;
+				smooth_counter <= x"FF";
+			else
+				smooth_counter <= smooth_counter - 1;
+				
+				if ( smooth_counter = x"00" ) then
+					PS2Csmooth <= PS2Clast;
+				end if;
+			end if;
+		end if;
+	end process;
+	
+	-- receive
+	process(PS2Csmooth, RESET)
+	begin
+		if ( RESET='1' ) then
+			sIdle <= '0';
+			sAvail <= '0';
+			sError <= '0';
+			sParity <= '0';
+			sBitCount <= x"0";
+		elsif ( PS2Csmooth'event and PS2Csmooth='1' ) then
 			if ( sIdle='1' ) then
 				sIdle <= PS2D ;
 				sParity <= '0';
@@ -76,10 +107,10 @@ begin
 				if ( PS2D='1' and sParity='1' ) then
 					-- received a byte, proper parity
 					
-					BYTE_AVAIL <= '1' ;
+					sAvail <= '1' ;
 				else
 					-- transmission error...
-					
+					sError <= '1';
 				end if;
 				
 				sIdle <= '1' ;
@@ -92,14 +123,32 @@ begin
 		end if;
 	end process;
 	
+	BYTE_ERROR <= sError;
+	
+	cFIFO : FIFO
+	port map(
+		CLK=>CLK,
+		RESET=>RESET,
+		OE=>sRead,
+		WE=>sAvail,
+		DIN=>sInput(7 downto 0),
+		DOUT=>sOutput,
+		full=>sFull,
+		empty=>sEmpty
+	);
+	
 	process (CLK)
 	begin
 		if ( CLK'event and CLK='1' ) then
-			IRQ <= '0' ;
 			DOUT <= x"0000";
+			sRead <= CE and OE and (AD(0) nor AD(1));
+			IRQ <= not sEmpty;
 			
-			if ( CE='1' ) then
-				IRQ <= '1' ;
+			if ( (CE and OE)='1' ) then
+				case AD is
+					when "00" => DOUT <= x"00" & sOutput;
+					when others => DOUT <= (others => 'Z');
+				end case;
 			end if;
 		end if;
 	end process;
