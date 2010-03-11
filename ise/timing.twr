@@ -5,38 +5,38 @@ Asterisk (*) preceding a constraint indicates it was not met.
   Constraint                                |  Check  | Worst Case |  Best Case | Timing |   Timing   
                                             |         |    Slack   | Achievable | Errors |    Score   
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net CLK | SETUP   |         N/A|    15.842ns|     N/A|       30581
-  _BUFGP                                    | HOLD    |     0.813ns|            |       0|           0
+  Autotimespec constraint for clock net CLK | SETUP   |         N/A|    15.724ns|     N/A|       47166
+  _BUFGP                                    | HOLD    |     0.777ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.521ns|     N/A|           0
-  mer/TMR_CLK<6>                            | HOLD    |     0.380ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.070ns|     N/A|         503
+  mer/TMR_CLK<6>                            | HOLD    |     0.663ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.192ns|     N/A|        1224
-  mer/TMR_CLK<4>                            | HOLD    |     0.470ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.849ns|     N/A|           0
+  mer/TMR_CLK<4>                            | HOLD    |     0.535ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.388ns|     N/A|           0
-  mer/TMR_CLK<5>                            | HOLD    |     0.572ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.876ns|     N/A|           0
+  mer/TMR_CLK<5>                            | HOLD    |     0.697ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.408ns|     N/A|           0
-  mer/TMR_CLK<2>                            | HOLD    |     0.352ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.081ns|     N/A|           0
+  mer/TMR_CLK<2>                            | HOLD    |     0.322ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.926ns|     N/A|           0
-  mer/TMR_CLK<3>                            | HOLD    |     0.372ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.003ns|     N/A|           0
+  mer/TMR_CLK<3>                            | HOLD    |     0.557ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.554ns|     N/A|           0
-  mer/TMR_CLK<0>                            | HOLD    |     0.409ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.301ns|     N/A|        2523
+  mer/TMR_CLK<0>                            | HOLD    |     0.575ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.738ns|     N/A|        2087
-  mer/TMR_CLK<1>                            | HOLD    |     0.516ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     7.047ns|     N/A|         607
+  mer/TMR_CLK<1>                            | HOLD    |     0.574ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.956ns|     N/A|         545
-  mer/sCLK<1>                               | HOLD    |     0.925ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.507ns|     N/A|          89
+  mer/sCLK<1>                               | HOLD    |     1.019ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     7.154ns|     N/A|        3216
-  mer/sCLK<2>                               | HOLD    |     0.211ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.855ns|     N/A|        1577
+  mer/sCLK<2>                               | HOLD    |     0.686ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cPS | SETUP   |         N/A|     5.538ns|     N/A|          77
-  2/PS2Csmooth                              | HOLD    |     0.556ns|            |       0|           0
+  Autotimespec constraint for clock net cPS | SETUP   |         N/A|     5.609ns|     N/A|           0
+  2/PS2Csmooth                              | HOLD    |     0.403ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
 
 

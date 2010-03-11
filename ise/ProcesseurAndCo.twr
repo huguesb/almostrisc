@@ -37,23 +37,23 @@ Setup/Hold to clock CLK
              |  Setup to  |  Hold to   |                  | Clock  |
 Source       | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 -------------+------------+------------+------------------+--------+
-OSCILLATOR   |    4.033(R)|   -1.319(R)|CLK_BUFGP         |   0.000|
-PS2C         |    8.794(R)|    0.592(R)|CLK_BUFGP         |   0.000|
-PS2D         |   12.394(R)|   -7.309(R)|CLK_BUFGP         |   0.000|
-PUSHBUTTON<0>|    8.485(R)|   -4.843(R)|CLK_BUFGP         |   0.000|
-PUSHBUTTON<1>|    8.486(R)|   -4.898(R)|CLK_BUFGP         |   0.000|
-PUSHBUTTON<2>|    8.977(R)|   -4.788(R)|CLK_BUFGP         |   0.000|
-RESET        |   11.985(R)|   -3.335(R)|CLK_BUFGP         |   0.000|
-RXD          |    8.967(R)|   -5.042(R)|CLK_BUFGP         |   0.000|
-RXDA         |    7.522(R)|   -3.915(R)|CLK_BUFGP         |   0.000|
-SLIDER<0>    |    5.475(R)|   -1.926(R)|CLK_BUFGP         |   0.000|
-SLIDER<1>    |    5.226(R)|   -1.775(R)|CLK_BUFGP         |   0.000|
-SLIDER<2>    |    6.697(R)|   -3.077(R)|CLK_BUFGP         |   0.000|
-SLIDER<3>    |    7.009(R)|   -3.158(R)|CLK_BUFGP         |   0.000|
-SLIDER<4>    |    5.420(R)|   -1.934(R)|CLK_BUFGP         |   0.000|
-SLIDER<5>    |    7.767(R)|   -3.788(R)|CLK_BUFGP         |   0.000|
-SLIDER<6>    |    8.715(R)|   -4.442(R)|CLK_BUFGP         |   0.000|
-SLIDER<7>    |    8.018(R)|   -4.024(R)|CLK_BUFGP         |   0.000|
+OSCILLATOR   |    5.557(R)|   -2.317(R)|CLK_BUFGP         |   0.000|
+PS2C         |    9.851(R)|    0.607(R)|CLK_BUFGP         |   0.000|
+PS2D         |    7.814(R)|   -4.361(R)|CLK_BUFGP         |   0.000|
+PUSHBUTTON<0>|    7.623(R)|   -4.087(R)|CLK_BUFGP         |   0.000|
+PUSHBUTTON<1>|    9.276(R)|   -5.446(R)|CLK_BUFGP         |   0.000|
+PUSHBUTTON<2>|    7.465(R)|   -3.855(R)|CLK_BUFGP         |   0.000|
+RESET        |   10.262(R)|   -2.191(R)|CLK_BUFGP         |   0.000|
+RXD          |   10.453(R)|   -5.623(R)|CLK_BUFGP         |   0.000|
+RXDA         |    9.059(R)|   -4.658(R)|CLK_BUFGP         |   0.000|
+SLIDER<0>    |    5.574(R)|   -1.765(R)|CLK_BUFGP         |   0.000|
+SLIDER<1>    |    5.627(R)|   -1.970(R)|CLK_BUFGP         |   0.000|
+SLIDER<2>    |    7.140(R)|   -3.009(R)|CLK_BUFGP         |   0.000|
+SLIDER<3>    |    5.782(R)|   -2.208(R)|CLK_BUFGP         |   0.000|
+SLIDER<4>    |    6.781(R)|   -2.815(R)|CLK_BUFGP         |   0.000|
+SLIDER<5>    |    6.555(R)|   -2.838(R)|CLK_BUFGP         |   0.000|
+SLIDER<6>    |    7.079(R)|   -3.682(R)|CLK_BUFGP         |   0.000|
+SLIDER<7>    |    8.342(R)|   -4.120(R)|CLK_BUFGP         |   0.000|
 -------------+------------+------------+------------------+--------+
 
 Clock CLK to Pad
@@ -62,9 +62,9 @@ Clock CLK to Pad
 Destination |   to PAD   |Internal Clock(s) | Phase  |
 ------------+------------+------------------+--------+
 ANODE<0>    |    7.254(R)|CLK_BUFGP         |   0.000|
-B           |   19.251(R)|CLK_BUFGP         |   0.000|
-G           |   19.597(R)|CLK_BUFGP         |   0.000|
-HS          |   13.859(R)|CLK_BUFGP         |   0.000|
+B           |   18.669(R)|CLK_BUFGP         |   0.000|
+G           |   18.670(R)|CLK_BUFGP         |   0.000|
+HS          |   12.506(R)|CLK_BUFGP         |   0.000|
 LED<0>      |    7.454(R)|CLK_BUFGP         |   0.000|
 LED<1>      |    7.257(R)|CLK_BUFGP         |   0.000|
 LED<2>      |    7.454(R)|CLK_BUFGP         |   0.000|
@@ -73,7 +73,7 @@ LED<4>      |    7.341(R)|CLK_BUFGP         |   0.000|
 LED<5>      |    7.201(R)|CLK_BUFGP         |   0.000|
 LED<6>      |    7.235(R)|CLK_BUFGP         |   0.000|
 LED<7>      |    7.250(R)|CLK_BUFGP         |   0.000|
-R           |   19.932(R)|CLK_BUFGP         |   0.000|
+R           |   19.011(R)|CLK_BUFGP         |   0.000|
 SEGMENT<0>  |    7.298(R)|CLK_BUFGP         |   0.000|
 SEGMENT<1>  |    7.454(R)|CLK_BUFGP         |   0.000|
 SEGMENT<2>  |    7.285(R)|CLK_BUFGP         |   0.000|
@@ -81,7 +81,7 @@ SEGMENT<3>  |    7.257(R)|CLK_BUFGP         |   0.000|
 SEGMENT<4>  |    7.331(R)|CLK_BUFGP         |   0.000|
 SEGMENT<5>  |    7.488(R)|CLK_BUFGP         |   0.000|
 SEGMENT<6>  |    7.285(R)|CLK_BUFGP         |   0.000|
-VS          |   14.032(R)|CLK_BUFGP         |   0.000|
+VS          |   13.310(R)|CLK_BUFGP         |   0.000|
 ------------+------------+------------------+--------+
 
 Clock to Setup on destination clock CLK
@@ -89,18 +89,18 @@ Clock to Setup on destination clock CLK
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-CLK            |   15.785|         |         |         |
+CLK            |   15.711|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Thu Mar 11 12:57:00 2010 
+Analysis completed Thu Mar 11 14:51:10 2010 
 --------------------------------------------------------------------------------
 
 Trace Settings:
 -------------------------
 Trace Settings 
 
-Peak Memory Usage: 104 MB
+Peak Memory Usage: 105 MB
 
 
 

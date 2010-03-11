@@ -686,9 +686,6 @@
 <msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">P&lt;0&gt;&lt;15:1&gt;</arg>&gt; is never used or assigned.
 </msg>
 
-<msg type="warning" file="Xst" num="1780" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">sCout</arg>&gt; is never used or assigned.
-</msg>
-
 <msg type="warning" file="Xst" num="646" delta="unknown" >Signal &lt;<arg fmt="%s" index="1">Yaux&lt;9&gt;</arg>&gt; is assigned but never used.
 </msg>
 
@@ -799,9 +796,6 @@
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_8</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
 </msg>
 
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_9</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
-</msg>
-
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_10</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
 </msg>
 
@@ -866,9 +860,6 @@
 </msg>
 
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_8</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
-</msg>
-
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_9</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
 </msg>
 
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_10</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
