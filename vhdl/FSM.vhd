@@ -50,6 +50,8 @@ architecture Behavioral of FSM is
 		SFetch,
 		SDecode,
 		SLoad,
+		SLoadImm16,
+		SBranchImm16,
 		SInterrupt
 	);
 	
@@ -174,10 +176,10 @@ begin
 					EIR <= '1' ;
 					EPC <= IR(9) or IR(10);
 					
-					if ( IR(9)='0' and IR(10)='0' ) then
+					sNextState <= SDecode;
+					
+					if ( (IR(9) nor IR(10))='1' ) then
 						sNextState <= SLoad;
-					else
-						sNextState <= SDecode;
 					end if;
 				elsif ( IR(15 downto 10) = "111000" ) then
 					-- BRcc/BAcc
@@ -188,10 +190,10 @@ begin
 					SelPC <= IR(9);
 					SelPCOff <= '1' ;
 					
+					sNextState <= SDecode;
+					
 					if ( COND='1' ) then
 						sNextState <= SStall;
-					else
-						sNextState <= SDecode;
 					end if;
 				elsif ( IR(15 downto 10) = "111100" ) then
 					-- BRL/BAL
@@ -225,31 +227,74 @@ begin
 					EIR <= not COND;
 					LDPC <= COND ;
 					
+					sNextState <= SDecode;
+					
 					if ( COND='1' ) then
 						sNextState <= SStall;
-					else
-						sNextState <= SDecode;
 					end if;
+-- 					if ( COND='1' ) then
+-- 						sNextState <= SStall;
+-- 					else
+-- 						sNextState <= SDecode;
+-- 					end if;
 				elsif ( IR(15 downto 6) = "1110010000" ) then
 					-- EXW : Rd <=> (Ra)
 					OE <= '1' ;
 					EIR <= '1' ;
 					EPC <= '0' ;
 					
-					sNextState <= SLoad; --Exchg;
+					sNextState <= SLoad;
+				elsif ( IR(15 downto 4) = x"FFF" and IR(3) = '0' ) then
+					-- LIW
+					EIR <= '1' ;
+					sNextState <= SLoadImm16;
+				elsif ( IR(15 downto 10) = "111110" ) then
+					-- BAI(L)cc
+					
+					EIR <= '1' ;
+					sNextState <= SBranchImm16;
 				else
 					-- prefetching
 					EIR <= '1' ;
-					sNextState <= SDecode;
+					--sNextState <= SDecode;
+					sNextState <= SReset;
 				end if;
 				
 			when SLoad =>
 				-- load delay due to memory synchronicity
+				-- LW, EXW and LIW
 				ERd <= '1' ;
 				
 				WE <= PIR(13);
 				
 				sNextState <= SDecode;
+				
+			when SLoadImm16 =>
+				
+				ERd <= '1' ;
+				EIR <= '1' ;
+				
+				-- for LIW...
+				SelRin <= "011";
+				ImmOff <= IR;
+				
+				sNextState <= SDecode;
+				
+			when SBranchImm16 =>
+				
+				ERd <= COND ;
+				SelRIn <= "001" ;
+				
+				EIR <= not COND;
+				LDPC <= COND ;
+				SelPC <= '1' ;
+				
+				ImmOff <= IR;
+				sNextState <= SDecode;
+				
+				if ( COND='1' ) then
+					sNextState <= SStall;
+				end if;
 				
 			when SInterrupt =>
 				EINT <= '1' ;
@@ -264,14 +309,14 @@ begin
 		end case;
 	end process;
 	
-	sIR <= PIR when sCurState = SLoad else IR;
+	sIR <= PIR when (sCurState = SLoad or sCurState = SLoadImm16 or sCurState = SBranchImm16) else IR;
 	
 	-- wire for all cases :
-	op <= sIR(14 downto 9);
+	op <= IR(14 downto 9);
 	SelRb <= sIR(8 downto 6);
 	SelRa <= sIR(5 downto 3);
 	SelRd <= sIR(2 downto 0);
-	SelCond <= sIR(2 downto 0);
+	SelCond <= IR(8 downto 6) when sCurState = SBranchImm16 else PIR(2 downto 0);
 	
 	CE <= '1' ;
 end Behavioral;
