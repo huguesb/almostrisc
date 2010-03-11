@@ -121,11 +121,16 @@ begin
 	process(op, Ai, Bi, SNegA, SNegB, sCNegA, sCNegB, Cin)
 	begin
 		sCLoad <= Cin;
-		case op(1 downto 0) is
-			when "00" => sSLoad <= Ai;
-			when "01" => sSLoad <= Bi;
-			when "10" => sSLoad <= SNegA; sCLoad <= sCNegA;
-			when others => sSLoad <= SNegB; sCLoad <= sCNegB;
+		case op(2 downto 0) is
+			when "000" => sSLoad <= Ai;
+			when "001" => sSLoad <= Bi;
+			when "010" => sSLoad <= SNegA; sCLoad <= sCNegA;
+			when "011" => sSLoad <= SNegB; sCLoad <= sCNegB;
+			when "100" => sSLoad <= Ai(15 downto 8) & Bi(15 downto 8);
+			when "101" => sSLoad <= Ai(15 downto 8) & Bi(7 downto 0);
+			when "110" => sSLoad <= Ai(7 downto 0) & Bi(15 downto 8);
+			when "111" => sSLoad <= Ai(7 downto 0) & Bi(7 downto 0);
+			when others => sSLoad <= x"0000";
 		end case;
 	end process;
 -- 	
