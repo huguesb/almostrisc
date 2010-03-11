@@ -80,8 +80,14 @@ start:
 test.extra:
 	liw	r0, 0x8421
 	liw	r1, 0x1234
+	
 	exw	r0, r1
 	exw	r0, r1
+	
+	mixhh	r2, r0, r1
+	mixhl	r3, r0, r1
+	mixlh	r4, r0, r1
+	mixll	r5, r0, r1
 	
 test.div:
 	li	r0, 234
