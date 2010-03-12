@@ -130,7 +130,7 @@ begin
 			when "101" => sSLoad <= Ai(15 downto 8) & Bi(7 downto 0);
 			when "110" => sSLoad <= Ai(7 downto 0) & Bi(15 downto 8);
 			when "111" => sSLoad <= Ai(7 downto 0) & Bi(7 downto 0);
-			when others => sSLoad <= x"0000";
+			when others => sSLoad <= (others => 'Z' );
 		end case;
 	end process;
 -- 	

@@ -9,6 +9,18 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+.equ	VGA_buff		0x0000
+
+.equ	font_map		0x12C0
+
+.equ	hello_str		0x16C0
+
+.equ	IRQ_mask		0x2000
+.equ	IRQ_sens		0x2001
+.equ	IRQ_ack 		0x2002
+.equ	IRQ_stat		0x2003
+
+
 .org	0x0000
 int_reset:
 	; do some low level init here
@@ -26,15 +38,8 @@ int_isr:
 	; in this context we are using a different register bank
 	; so there is no need to manually save register values
 	
-	; set r0 to base pointer of device mappings (IRQ comes first)
-	li	r0, 0x20
-	shl	r0, r0, 7
-	
-	; base + 2 : ACK
-	li	r2, 2
-	add	r0, r0, r2
-	
-	; acknowledge all
+	; acknowledge all interrupts
+	liw	r0, IRQ_ack
 	li	r1, -1
 	sw	r1, r0
 	
@@ -52,7 +57,7 @@ int_isr:
 os_init:
 	; higher level init here
 	
-	liw	r0, 0x2000	; r0 = 0x2000 : interrupt masking
+	liw	r0, IRQ_mask	; r0 = 0x2000 : interrupt masking
 	
 	li	r1, 1		; unmask only first timer
 	sw	r1, r0
@@ -65,7 +70,7 @@ os_init:
 	li	r2, 7
 	add	r0, r0, r2	; r0 = 0x2008 : timers control
 	
-	li	r2, 0x18 	; 0x1E ; enable first timer, loop, speed = 1MHz / 10**6 = 1Hz
+	li	r2, 0x1E 	; 0x1E ; enable first timer, loop, speed = 1MHz / 10**6 = 1Hz
 	sw	r2, r0
 	
 	inc	r0, r0		; r0 = 0x2009 : first timer, base count
@@ -89,22 +94,31 @@ test.extra:
 	mixlh	r4, r0, r1
 	mixll	r5, r0, r1
 	
+test.puts:
+	li	r0, 0
+	li	r1, 0
+	liw	r2, hello_str
+	
+	bail	-, r6, puts
+	
 test.div:
 	li	r0, 234
 	li	r2, 56
 	bail	-, r6, div_16_16
-	reset
 	
 test.mult:
 	li	r0, 137
 	li	r2, 142
 	bail	-, r6, mult_16_16
-	reset
+	
 	
 test.factorial:
 	li r2, 7
 	bail	-, r6, fact_16
-	reset
+	
+	li	r1, 15
+	and	r0, r1, r0
+	bri	-, test.puts + 1
 
 	; r0 : r1 = r0 * r2
 	; destroys : r3, r4, r5
@@ -171,6 +185,120 @@ fact_16.overflow:
 fact_16.end:
 	ba	-, r6
 
+	; write a zero-terminated string to screen
+	; inputs :
+	;	* (r0, r1) = (x / 8, y)
+	;	* r2 = text
+	;	* r6 = return address 
+puts:
+	
+puts.loop:
+	; fetch char
+	lw	r3, r2
+	shr	r3, r3, 7
+	
+	; check for null
+	baeq	r3, r6
+	
+	; push	r6
+	dec	r7, r7
+	sw	r6, r7
+	
+	; push	r0
+	dec	r7, r7
+	sw	r0, r7
+	
+	; push	r1
+	dec	r7, r7
+	sw	r1, r7
+	
+	; push	r2
+	dec	r7, r7
+	sw	r2, r7
+	
+	; find proper sprite for char
+	liw	r4, font_map
+	add	r2, r3, r4
+	
+	; sprite height
+	li	r3, 8
+	
+	; draw sprite at proper position
+	bail	-, r6, put_sprite_8_aligned
+	
+	; pop	r2
+	lw	r2, r7
+	inc	r7, r7
+	
+	; pop	r1
+	lw	r1, r7
+	inc	r7, r7
+	
+	; pop	r0
+	lw	r0, r7
+	inc	r7, r7
+	
+	; next column
+	inc	r0, r0
+	
+	; todo : newline if needed...
+	
+	; fetch char
+	lw	r3, r2
+	shl	r3, r3, 7
+	shr	r3, r3, 7
+	
+	; check for null
+	baeq	r3, r6
+	
+	; push	r0
+	dec	r7, r7
+	sw	r0, r7
+	
+	; push	r1
+	dec	r7, r7
+	sw	r1, r7
+	
+	; push	r2
+	dec	r7, r7
+	sw	r2, r7
+	
+	; find proper sprite for char
+	liw	r4, font_map
+	add	r2, r3, r4
+	
+	; sprite height
+	li	r3, 8
+	
+	; draw sprite at proper position
+	bail	-, r6, put_sprite_8_aligned
+	
+	; pop	r2
+	lw	r2, r7
+	inc	r7, r7
+	
+	; pop	r1
+	lw	r1, r7
+	inc	r7, r7
+	
+	; pop	r0
+	lw	r0, r7
+	inc	r7, r7
+	
+	; next column
+	inc	r0, r0
+	
+	
+	; pop	r6
+	lw	r6, r7
+	inc	r7, r7
+	
+	
+	; next char
+	inc	r2, r2
+	
+	bri	-, puts.loop
+	
 	
 	; inputs : 
 	;	* (r0, r1) = (x / 16, y)
@@ -178,6 +306,8 @@ fact_16.end:
 	;	* r3 = sprite height
 	;	
 	;	* r6 = return address 
+	;
+	; destroys : r0, r1, r2, r3, r4, r5
 put_sprite_16_aligned:
 	; r4 will be address in VGA buffer : base at 0x0000
 	; buffer is 320*240pix, 16pix per word

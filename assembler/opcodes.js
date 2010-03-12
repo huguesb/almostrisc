@@ -18,6 +18,17 @@
 		=> regexps and eval() rock
 	* reduced redudancy : directly take advantage of instructions bit patterns
 	* optimized for size and simplicity
+	
+	What's missing :
+	* support for "modules"/includes (doable with pure JS ???)
+	* support for data embedding (not really useful since our CPU is a "Harvard machine")
+	* better label system (with advanced scoping and unnamed labels) 
+	
+	Thoughts about module assembling :
+	* do separate assembly pass for each module and keep results around
+	* iteratively resolve remaining references with as many passes as required (unless
+	we run into an unsolvable deps-chain : one pass without any new resolution)
+	* merge back the different fragments (check for address range overlaps)
 */
 
 // register code fields
