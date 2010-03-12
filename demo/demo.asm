@@ -25,8 +25,8 @@
 int_reset:
 	; do some low level init here
 	
-	; reset stack pointer
-	xor	r7, r7, r7
+	; reset stack pointer (grows downward from end of available RAM)
+	liw	r7, IRQ_mask
 	
 	; go to program itself
 	bai	-, os_init
@@ -100,6 +100,8 @@ test.puts:
 	liw	r2, hello_str
 	
 	bail	-, r6, puts
+	
+	bri	-, $
 	
 test.div:
 	li	r0, 234
@@ -203,15 +205,12 @@ puts.loop:
 	; push	r6
 	dec	r7, r7
 	sw	r6, r7
-	
 	; push	r0
 	dec	r7, r7
 	sw	r0, r7
-	
 	; push	r1
 	dec	r7, r7
 	sw	r1, r7
-	
 	; push	r2
 	dec	r7, r7
 	sw	r2, r7
@@ -229,13 +228,14 @@ puts.loop:
 	; pop	r2
 	lw	r2, r7
 	inc	r7, r7
-	
 	; pop	r1
 	lw	r1, r7
 	inc	r7, r7
-	
 	; pop	r0
 	lw	r0, r7
+	inc	r7, r7
+	; pop	r6
+	lw	r6, r7
 	inc	r7, r7
 	
 	; next column
@@ -251,14 +251,15 @@ puts.loop:
 	; check for null
 	baeq	r3, r6
 	
+	; push	r6
+	dec	r7, r7
+	sw	r6, r7
 	; push	r0
 	dec	r7, r7
 	sw	r0, r7
-	
 	; push	r1
 	dec	r7, r7
 	sw	r1, r7
-	
 	; push	r2
 	dec	r7, r7
 	sw	r2, r7
@@ -276,23 +277,18 @@ puts.loop:
 	; pop	r2
 	lw	r2, r7
 	inc	r7, r7
-	
 	; pop	r1
 	lw	r1, r7
 	inc	r7, r7
-	
 	; pop	r0
 	lw	r0, r7
 	inc	r7, r7
-	
-	; next column
-	inc	r0, r0
-	
-	
 	; pop	r6
 	lw	r6, r7
 	inc	r7, r7
 	
+	; next column
+	inc	r0, r0
 	
 	; next char
 	inc	r2, r2
@@ -378,7 +374,7 @@ put_sprite_8_aligned.loop0:
 	sw	r1, r4
 	
 	dec	r3, r3
-	brieq	r3, put_sprite_8_aligned.end
+	baeq	r3, r6
 	
 	; move to next buffer line
 	add	r4, r4, r5
@@ -395,12 +391,9 @@ put_sprite_8_aligned.loop0:
 	
 	; loop...
 	dec	r3, r3
-	brine	r3, put_sprite_8_aligned.loop0
+	baeq	r3, r6
+	bri	-, put_sprite_8_aligned.loop0
 	
-put_sprite_8_aligned.end:
-	; return to caller
-	ba	-, r6
-
 put_sprite_8_aligned.loop1:
 	; sshift = 8, inmask = 0xff00
 	
@@ -415,7 +408,7 @@ put_sprite_8_aligned.loop1:
 	sw	r1, r4
 	
 	dec	r3, r3
-	brieq	r3, put_sprite_8_aligned.end
+	baeq	r3, r6
 	
 	; move to next buffer line
 	add	r4, r4, r5
@@ -432,7 +425,6 @@ put_sprite_8_aligned.loop1:
 	
 	; loop...
 	dec	r3, r3
-	brine	r3, put_sprite_8_aligned.loop1
+	baeq	r3, r6
 	
-	; return to caller
-	ba	-, r6
+	bri	-, put_sprite_8_aligned.loop1
