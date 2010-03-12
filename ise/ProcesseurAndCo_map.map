@@ -11,7 +11,7 @@ Target Device  : xc3s1000
 Target Package : ft256
 Target Speed   : -4
 Mapper Version : spartan3 -- $Revision: 1.36 $
-Mapped Date    : Fri Mar 12 11:07:38 2010
+Mapped Date    : Fri Mar 12 11:17:36 2010
 
 Mapping design into LUTs...
 Running directed packing...
@@ -33,7 +33,7 @@ Phase 4.2 (Checksum:26259fc) REAL time: 3 secs
 
 Phase 5.4
 ..............................
-Phase 5.4 (Checksum:2faf07b) REAL time: 6 secs 
+Phase 5.4 (Checksum:2faf07b) REAL time: 5 secs 
 
 Phase 6.28
 Phase 6.28 (Checksum:39386fa) REAL time: 6 secs 
@@ -59,7 +59,7 @@ Phase 10.18 (Checksum:5f5e0f6) REAL time: 1 mins 13 secs
 Phase 11.5
 Phase 11.5 (Checksum:68e7775) REAL time: 1 mins 13 secs 
 
-REAL time consumed by placer: 1 mins 14 secs 
+REAL time consumed by placer: 1 mins 13 secs 
 CPU  time consumed by placer: 1 mins 13 secs 
 Inspecting route info ...
 Route info done.

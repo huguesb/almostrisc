@@ -1,7 +1,7 @@
 Release 9.2.04i par J.40
 Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
 
-fmc-laptop::  Fri Mar 12 11:09:05 2010
+fmc-laptop::  Fri Mar 12 11:19:03 2010
 
 par -w -intstyle ise -ol high -t 1 ProcesseurAndCo_map.ncd ProcesseurAndCo.ncd
 ProcesseurAndCo.pcf 
@@ -48,7 +48,7 @@ Phase 2: 8677 unrouted;       REAL time: 6 secs
 
 Phase 3: 2778 unrouted;       REAL time: 8 secs 
 
-Phase 4: 2778 unrouted; (3338055)      REAL time: 9 secs 
+Phase 4: 2778 unrouted; (3338055)      REAL time: 8 secs 
 
 Phase 5: 3133 unrouted; (119)      REAL time: 31 secs 
 
@@ -64,7 +64,7 @@ Phase 9: 0 unrouted; (42650)      REAL time: 1 mins 27 secs
 
 Phase 10: 0 unrouted; (42650)      REAL time: 2 mins 1 secs 
 
-Phase 11: 0 unrouted; (0)      REAL time: 2 mins 7 secs 
+Phase 11: 0 unrouted; (0)      REAL time: 2 mins 6 secs 
 
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<0> may have excessive skew because 
       0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
@@ -83,7 +83,7 @@ WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<1> may have excessive skew because
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<3> may have excessive skew because 
       1 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
 
-Total REAL time to Router completion: 2 mins 7 secs 
+Total REAL time to Router completion: 2 mins 6 secs 
 Total CPU time to Router completion: 2 mins 6 secs 
 
 Partition Implementation Status
@@ -201,7 +201,7 @@ Generating Pad Report.
 
 All signals are completely routed.
 
-Total REAL time to PAR completion: 2 mins 13 secs 
+Total REAL time to PAR completion: 2 mins 12 secs 
 Total CPU time to PAR completion: 2 mins 11 secs 
 
 Peak Memory Usage:  156 MB
