@@ -374,19 +374,19 @@
 <msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
 </msg>
 
-<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">2111</arg>: Index value(s) does not match array range, simulation mismatch.
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">2115</arg>: Index value(s) does not match array range, simulation mismatch.
 </msg>
 
 <msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
 </msg>
 
-<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">2119</arg>: Index value(s) does not match array range, simulation mismatch.
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">2123</arg>: Index value(s) does not match array range, simulation mismatch.
 </msg>
 
 <msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
 </msg>
 
-<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">2130</arg>: Index value(s) does not match array range, simulation mismatch.
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">2134</arg>: Index value(s) does not match array range, simulation mismatch.
 </msg>
 
 <msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.

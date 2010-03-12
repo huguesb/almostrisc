@@ -36,7 +36,11 @@ architecture Behavioral of RAMDoublePort is
          array (natural range low_address to high_address) of octet;
  signal memoire: zone_memoire := (
  -- 0 - 4799 : VGA-mapped RAM
- 
+      0=> "0011000110001100",
+     20=> "1100111001110011",
+     40=> "1100111001110011",
+     60=> "1100111001110011",
+     80=> "0011000110001100",
  -- 4800 - 5823  : font map (8*8 : 4 words per character, 256 chars => 1024 words)
    4800=> "00000000"
         & "00000000",
