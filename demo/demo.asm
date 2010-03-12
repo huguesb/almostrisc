@@ -95,8 +95,14 @@ test.extra:
 	mixll	r5, r0, r1
 	
 test.puts:
+	li	r0, 5
+	li	r1, 2
+	liw	r2, font_map + 0x23
+	li	r3, 8
+	bail	-, r6, put_sprite_8_aligned
+	
 	li	r0, 0
-	li	r1, 0
+	li	r1, 20
 	liw	r2, hello_str
 	
 	bail	-, r6, puts
@@ -350,7 +356,7 @@ put_sprite_8_aligned:
 	; r4 = 20*y
 	add	r4, r4, r1
 	; r1 = x/16
-	shl	r1, r0, 0
+	shr	r1, r0, 0
 	; r0 = c ? 0xffff : 0
 	sbc	r0, r0, r0
 	; r4 = 20*y + x/16 : first word for sprite
@@ -373,11 +379,11 @@ put_sprite_8_aligned.loop0:
 	; write it to buffer
 	sw	r1, r4
 	
-	dec	r3, r3
-	baeq	r3, r6
-	
 	; move to next buffer line
 	add	r4, r4, r5
+	
+	dec	r3, r3
+	baeq	r3, r6
 	
 	; load buffer value
 	lw	r1, r4
@@ -385,6 +391,9 @@ put_sprite_8_aligned.loop0:
 	mixll	r1, r0, r1
 	; write it to buffer
 	sw	r1, r4
+	
+	; move to next buffer line
+	add	r4, r4, r5
 	
 	; move to next sprite word
 	inc	r2, r2
@@ -407,11 +416,11 @@ put_sprite_8_aligned.loop1:
 	; write it to buffer
 	sw	r1, r4
 	
-	dec	r3, r3
-	baeq	r3, r6
-	
 	; move to next buffer line
 	add	r4, r4, r5
+	
+	dec	r3, r3
+	baeq	r3, r6
 	
 	; load buffer value
 	lw	r1, r4
@@ -419,6 +428,9 @@ put_sprite_8_aligned.loop1:
 	mixhl	r1, r1, r0
 	; write it to buffer
 	sw	r1, r4
+	
+	; move to next buffer line
+	add	r4, r4, r5
 	
 	; move to next sprite word
 	inc	r2, r2
