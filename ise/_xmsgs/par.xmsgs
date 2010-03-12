@@ -22,10 +22,14 @@
 </msg>
 
 <msg type="warning" file="Route" num="455" delta="unknown" >CLK Net:<arg fmt="%s" index="1">cTimer/TMR_CLK&lt;2&gt;</arg> may have excessive skew because 
-   <arg fmt="%d" index="2">4</arg> CLK pins and <arg fmt="%d" index="3">4</arg> NON_CLK pins failed to route using a CLK template.
+   <arg fmt="%d" index="2">0</arg> CLK pins and <arg fmt="%d" index="3">4</arg> NON_CLK pins failed to route using a CLK template.
 </msg>
 
-<msg type="warning" file="Route" num="455" delta="unknown" >CLK Net:<arg fmt="%s" index="1">cTimer/TMR_CLK&lt;4&gt;</arg> may have excessive skew because 
+<msg type="warning" file="Route" num="455" delta="unknown" >CLK Net:<arg fmt="%s" index="1">cTimer/TMR_CLK&lt;3&gt;</arg> may have excessive skew because 
+   <arg fmt="%d" index="2">0</arg> CLK pins and <arg fmt="%d" index="3">4</arg> NON_CLK pins failed to route using a CLK template.
+</msg>
+
+<msg type="warning" file="Route" num="455" delta="unknown" >CLK Net:<arg fmt="%s" index="1">cTimer/TMR_CLK&lt;5&gt;</arg> may have excessive skew because 
    <arg fmt="%d" index="2">0</arg> CLK pins and <arg fmt="%d" index="3">4</arg> NON_CLK pins failed to route using a CLK template.
 </msg>
 
@@ -33,16 +37,12 @@
    <arg fmt="%d" index="2">0</arg> CLK pins and <arg fmt="%d" index="3">4</arg> NON_CLK pins failed to route using a CLK template.
 </msg>
 
-<msg type="warning" file="Route" num="455" delta="unknown" >CLK Net:<arg fmt="%s" index="1">cTimer/TMR_CLK&lt;5&gt;</arg> may have excessive skew because 
-   <arg fmt="%d" index="2">4</arg> CLK pins and <arg fmt="%d" index="3">4</arg> NON_CLK pins failed to route using a CLK template.
-</msg>
-
 <msg type="warning" file="Route" num="455" delta="unknown" >CLK Net:<arg fmt="%s" index="1">cTimer/TMR_CLK&lt;1&gt;</arg> may have excessive skew because 
    <arg fmt="%d" index="2">0</arg> CLK pins and <arg fmt="%d" index="3">4</arg> NON_CLK pins failed to route using a CLK template.
 </msg>
 
-<msg type="warning" file="Route" num="455" delta="unknown" >CLK Net:<arg fmt="%s" index="1">cTimer/TMR_CLK&lt;3&gt;</arg> may have excessive skew because 
-   <arg fmt="%d" index="2">1</arg> CLK pins and <arg fmt="%d" index="3">4</arg> NON_CLK pins failed to route using a CLK template.
+<msg type="warning" file="Route" num="455" delta="unknown" >CLK Net:<arg fmt="%s" index="1">cTimer/TMR_CLK&lt;4&gt;</arg> may have excessive skew because 
+   <arg fmt="%d" index="2">0</arg> CLK pins and <arg fmt="%d" index="3">4</arg> NON_CLK pins failed to route using a CLK template.
 </msg>
 
 <msg type="info" file="Timing" num="2761" delta="unknown" >N/A entries in the Constraints list may indicate that the constraint does not cover any paths or that it has no requested value.</msg>
