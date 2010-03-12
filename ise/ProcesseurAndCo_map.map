@@ -11,7 +11,7 @@ Target Device  : xc3s1000
 Target Package : ft256
 Target Speed   : -4
 Mapper Version : spartan3 -- $Revision: 1.36 $
-Mapped Date    : Thu Mar 11 14:47:13 2010
+Mapped Date    : Fri Mar 12 09:28:28 2010
 
 Mapping design into LUTs...
 Running directed packing...
@@ -19,13 +19,13 @@ Running delay-based LUT packing...
 Running timing-driven packing...
 
 Phase 1.1
-Phase 1.1 (Checksum:98fcd4) REAL time: 2 secs 
+Phase 1.1 (Checksum:98fcd4) REAL time: 3 secs 
 
 Phase 2.7
-Phase 2.7 (Checksum:1312cfe) REAL time: 2 secs 
+Phase 2.7 (Checksum:1312cfe) REAL time: 3 secs 
 
 Phase 3.31
-Phase 3.31 (Checksum:1c9c37d) REAL time: 2 secs 
+Phase 3.31 (Checksum:1c9c37d) REAL time: 3 secs 
 
 Phase 4.2
 .
@@ -45,22 +45,22 @@ Phase 7.8
 ...............
 ...............
 ...............
-Phase 7.8 (Checksum:f60a8c) REAL time: 44 secs 
+Phase 7.8 (Checksum:f60a8c) REAL time: 42 secs 
 
 Phase 8.29
-Phase 8.29 (Checksum:4c4b3f8) REAL time: 44 secs 
+Phase 8.29 (Checksum:4c4b3f8) REAL time: 42 secs 
 
 Phase 9.5
-Phase 9.5 (Checksum:55d4a77) REAL time: 44 secs 
+Phase 9.5 (Checksum:55d4a77) REAL time: 42 secs 
 
 Phase 10.18
-Phase 10.18 (Checksum:5f5e0f6) REAL time: 1 mins 15 secs 
+Phase 10.18 (Checksum:5f5e0f6) REAL time: 1 mins 14 secs 
 
 Phase 11.5
-Phase 11.5 (Checksum:68e7775) REAL time: 1 mins 15 secs 
+Phase 11.5 (Checksum:68e7775) REAL time: 1 mins 14 secs 
 
-REAL time consumed by placer: 1 mins 16 secs 
-CPU  time consumed by placer: 1 mins 14 secs 
+REAL time consumed by placer: 1 mins 14 secs 
+CPU  time consumed by placer: 1 mins 13 secs 
 Inspecting route info ...
 Route info done.
 
@@ -91,8 +91,8 @@ Total Number of 4 input LUTs:          1,904 out of  15,360   12%
 Total equivalent gate count for design:  1,069,053
 Additional JTAG gate count for IOBs:  2,112
 Peak Memory Usage:  197 MB
-Total REAL time to MAP completion:  1 mins 28 secs 
-Total CPU time to MAP completion:   1 mins 26 secs 
+Total REAL time to MAP completion:  1 mins 27 secs 
+Total CPU time to MAP completion:   1 mins 24 secs 
 
 Mapping completed.
 See MAP report file "ProcesseurAndCo_map.mrp" for details.
