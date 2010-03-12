@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
-Release 9.2i Trace 
+Release 9.2.04i Trace 
 Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
 
 trce -ise /home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise
@@ -9,7 +9,7 @@ ProcesseurAndCo.twr ProcesseurAndCo.pcf -ucf
 
 Design file:              ProcesseurAndCo.ncd
 Physical constraint file: ProcesseurAndCo.pcf
-Device,package,speed:     xc3s1000,ft256,-4 (PRODUCTION 1.39 2007-04-13)
+Device,package,speed:     xc3s1000,ft256,-4 (PRODUCTION 1.39 2007-10-19)
 Report level:             error report
 
 Environment Variable      Effect 
@@ -93,7 +93,7 @@ CLK            |   15.711|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Fri Mar 12 09:32:21 2010 
+Analysis completed Fri Mar 12 10:25:33 2010 
 --------------------------------------------------------------------------------
 
 Trace Settings:

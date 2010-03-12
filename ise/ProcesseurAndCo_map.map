@@ -1,4 +1,4 @@
-Release 9.2i Map J.36
+Release 9.2.04i Map J.40
 Xilinx Map Application Log File for Design 'ProcesseurAndCo'
 
 Design Information
@@ -11,7 +11,7 @@ Target Device  : xc3s1000
 Target Package : ft256
 Target Speed   : -4
 Mapper Version : spartan3 -- $Revision: 1.36 $
-Mapped Date    : Fri Mar 12 09:28:28 2010
+Mapped Date    : Fri Mar 12 10:21:45 2010
 
 Mapping design into LUTs...
 Running directed packing...
@@ -54,10 +54,10 @@ Phase 9.5
 Phase 9.5 (Checksum:55d4a77) REAL time: 42 secs 
 
 Phase 10.18
-Phase 10.18 (Checksum:5f5e0f6) REAL time: 1 mins 14 secs 
+Phase 10.18 (Checksum:5f5e0f6) REAL time: 1 mins 13 secs 
 
 Phase 11.5
-Phase 11.5 (Checksum:68e7775) REAL time: 1 mins 14 secs 
+Phase 11.5 (Checksum:68e7775) REAL time: 1 mins 13 secs 
 
 REAL time consumed by placer: 1 mins 14 secs 
 CPU  time consumed by placer: 1 mins 13 secs 
