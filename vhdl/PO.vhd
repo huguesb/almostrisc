@@ -104,10 +104,18 @@ architecture Behavioral of PO is
 		);
 	end component;
 	
-	component add16
+	component fast_adder
+		generic(
+			size : natural := 16
+		);
+		
 		Port(
-			A, B : in std_logic_vector(15 downto 0);
-			S : out std_logic_vector(15 downto 0)
+			A : in unsigned(size -1 downto 0);
+			B : in unsigned(size -1 downto 0);
+			CIN : in std_logic;
+			
+			S : out unsigned(size -1 downto 0);
+			COUT : out std_logic
 		);
 	end component;
 	
@@ -133,6 +141,7 @@ architecture Behavioral of PO is
 	type reg16array is array (integer range <>) of std_logic_vector(15 downto 0);
 	-- use 16 regs instead of 8 : alternate register bank for interrupts
 	signal sR : reg16array(15 downto 0);
+	signal sRdin : reg16array(3 downto 0);
 	signal sRegE : std_logic_vector(15 downto 0);
 	
 	signal sigRa, sigRb, sigRd, sRin : std_logic_vector(15 downto 0);
@@ -287,6 +296,18 @@ begin
 	--	010	: PIN (in)
 	--	011	: ImmOff (li)
 	--	100	: UAL (op)
+	
+	-- looks rude but helps XST infer muxes which makes the design faster...
+-- 	sRdin(0) <= DDATAIN;
+-- 	sRdin(1) <= sPCprev;
+-- 	sRdin(2) <= PIN;
+-- 	sRdin(3) <= ImmOff;
+-- 	sRdin(4) <= sUAL;
+-- 	sRdin(5) <= (others => 'Z' );
+-- 	sRdin(6) <= (others => 'Z' );
+-- 	sRdin(7) <= (others => 'Z' );
+	
+	--sigRd <= sRdin(to_integer(unsigned(SelRIn(2 downto 0))));
 	
 	sigRd <= sUAL when SelRIn(2)='1' else sRin;
 	

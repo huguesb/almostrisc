@@ -30,14 +30,22 @@ entity GeneRGB is
 end GeneRGB;
 
 architecture Behavioral of GeneRGB is
-	component mux_16_1 is
+	component fast_adder
+		generic(
+			size : natural := 13
+		);
+		
 		Port(
-			Sel : in std_logic_vector(3 downto 0);
-			I0, I1, I2 , I3 , I4 , I5 , I6 , I7  : in std_logic;
-			I8, I9, I10, I11, I12, I13, I14, I15 : in std_logic;
-			S : out std_logic
+			A : in unsigned(size -1 downto 0);
+			B : in unsigned(size -1 downto 0);
+			CIN : in std_logic;
+			
+			S : out unsigned(size -1 downto 0);
+			COUT : out std_logic
 		);
 	end component;
+	
+	signal Yx16, Yx4, Yx20, Xpad, sAD : unsigned(12 downto 0);
 	
 	signal S : std_logic_vector(3 downto 0);
 	signal sPixel : std_logic;
@@ -70,7 +78,34 @@ begin
 	-- sPixel <= DATA(TO_INTEGER(unsigned(15 - S))); -- clearer
 	sPixel <= DATA(TO_INTEGER(unsigned(not S)));  -- potentially more synthesis-friendly
 	
-	AD <= Y(8 downto 1) & X(9 downto 5);
+	-- simple but STUPID : wastes 12 out of 32 words => take the whole 8kw of mem...
+	--AD <= Y(8 downto 1) & X(9 downto 5);
+	
+	-- more complicated but does not waste space...
+	-- AD = 20 * Y(8 downto 1) + X(9 downto 5)
+	
+	Yx16 <=  "0" & unsigned(Y(8 downto 1)) & "0000";
+	Yx4 <= "000" & unsigned(Y(8 downto 1)) & "00";
+	
+	cAdd20Y : fast_adder
+	port map(
+		A=>Yx16,
+		B=>Yx4,
+		cin=>'0',
+		S=>Yx20
+	);
+	
+	Xpad <= "00000000" & unsigned(X(9 downto 5));
+	
+	cAddYX : fast_adder
+	port map(
+		A=>Yx20,
+		B=>Xpad,
+		cin=>'0',
+		S=>sAD
+	);
+	
+	AD <=std_logic_vector(sAD);
 	
 	R <= IMG and sPixel;
 	G <= IMG and sPixel;
