@@ -263,24 +263,24 @@ function opcode(line)
 	throw UnknownInstructionError;
 }
 
+
+
+function pad_str(s, n, c)
+{
+	while ( s.length < n )
+		s = c + s;
+		
+	return s;
+}
+
 function hex16(i)
 {
-	var s = i.toString(16).toUpperCase();
-	
-	while ( s.length < 4 )
-		s = "0" + s;
-	
-	return s;
+	return pad_str(i.toString(16).toUpperCase(), 4, '0');
 }
 
 function bin16(i)
 {
-	var s = i.toString(2);
-	
-	while ( s.length < 16 )
-		s = "0" + s;
-	
-	return s;
+	return pad_str(i.toString(2), 16, '0');
 }
 
 function assemble(text)
@@ -414,6 +414,6 @@ function assemble(text)
 		
 		// vhdl-friendly representation (for copy/paste into ROMPROG)
 		if ( hex[h].op != filler )
-			print(h + "=>x\"" + hex16(hex[h].op) + "\",\t-- " + bin16(hex[h].op) + "  " + hex[h].instr);
+			print(pad_str(h, 5, ' ') + "=>x\"" + hex16(hex[h].op) + "\",\t-- " + bin16(hex[h].op) + "  " + hex[h].instr);
 	}
 }
