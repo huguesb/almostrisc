@@ -1,0 +1,3 @@
+#!/bin/bash
+
+printf "%s\n%s\n%s\n" "$(head -n 26 <vhdl/ROMPROG.vhd)" "$(./asrisc assembler/opcodes.js demo/demo.asm 2>&1)" "$(tail -n 10 < vhdl/ROMPROG.vhd)" > vhdl/ROMPROG.vhd
