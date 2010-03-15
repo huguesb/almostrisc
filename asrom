@@ -1,3 +1,7 @@
 #!/bin/bash
 
+# compiles demo code into ROMPROG
 printf "%s\n%s\n%s\n" "$(head -n 26 <vhdl/ROMPROG.vhd)" "$(./asrisc assembler/opcodes.js demo/demo.asm 2>&1)" "$(tail -n 10 < vhdl/ROMPROG.vhd)" > vhdl/ROMPROG.vhd
+
+# compiles demo data into RAMDoublePort
+printf "%s\n%s\n%s\n" "$(head -n 37 <vhdl/RAMDoublePort.vhd)" "$(./asrisc assembler/data.js demo/data.asm 2>&1)" "$(tail -n 31 < vhdl/RAMDoublePort.vhd)" > vhdl/RAMDoublePort.vhd
