@@ -64,6 +64,10 @@ ops[17] = {name : "mixhh", value : 0x0C};
 ops[18] = {name : "mixhl", value : 0x0D};
 ops[19] = {name : "mixlh", value : 0x0E};
 ops[20] = {name : "mixll", value : 0x0F};
+ops[21] = {name : "rrr", value : 0x1C};
+ops[22] = {name : "rrl", value : 0x1D};
+ops[23] = {name : "rsr", value : 0x1E};
+ops[24] = {name : "rsl", value : 0x1F};
 
 // condition code fields
 var conds = new Array();
@@ -116,8 +120,10 @@ instr["reti"] = ["0xFFFE"];
 // spec extension : alias for nop r0, r0, r0
 instr["nop"] = ["0x0000"];
 
+// 2 address ops
 instr["(inc|dec|mova|nega|not)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3)"];
 instr["(movb|negb)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 6)"];
+// 2 address + 1 immediate ops
 instr["(shl|shr)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + ((immediate(\"\\4\", 4, 0) << 9) & 0x1F00)"];
 // catch-all for 3 address ops
 instr["(\\w+)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + (reg(\"\\4\") << 6)"];

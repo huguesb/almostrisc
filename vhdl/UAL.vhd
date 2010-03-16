@@ -55,10 +55,13 @@ architecture Behavioral of UAL is
 		);
 	end component;
 	
+	signal sRight, sRotate : std_logic;
+	signal sDcl : std_logic_vector(3 downto 0);
 	signal sCin, sCarith, sCLogic, sCShift, sCLoad, sCnegA, sCnegB : std_logic;
 	signal SnegA, SnegB, sMuxB : unsigned(15 downto 0);
 	signal Ai, Bi, nAi, nBi, sSArith, sSLogic, sSShift, sSLoad : unsigned(15 downto 0);
 begin
+	-- negation in 2's complement is the same as adding one to bitwise not
 	cNegA : fast_adder
 	port map(
 		A=>nAi,
@@ -92,8 +95,8 @@ begin
 	nAi <= not Ai;
 	nBi <= not Bi;
 	
-	-- A sub B = A + ((not B) + 1
-	-- A sbc B = A + ((not B) + not cin)
+	-- A sub B = A + (not B) + 1
+	-- A sbc B = A + (not B) + not cin
 	
 	process(op, Bi, nBi, CIN)
 	begin
@@ -111,12 +114,16 @@ begin
 	cShifter : shifter
 	port map(
 		A=>Ai,
-		D=>unsigned(op(3 downto 0)),
-		Right=>op(4),
-		Rotate=>'0',
+		D=>unsigned(sDcl),
+		Right=>sRight,
+		Rotate=>sRotate,
 		S=>sSShift,
 		Cout=>sCShift
 	);
+	
+	sRight <= (op(5) and op(4)) or (op(5) nor op(0));
+	sRotate <= op(5) nor op(1);
+	sDcl <= op(3 downto 0) when op(5)='1' else B(3 downto 0);
 	
 	process(op, Ai, Bi, SNegA, SNegB, sCNegA, sCNegB, Cin)
 	begin
@@ -133,9 +140,11 @@ begin
 			when others => sSLoad <= (others => 'Z' );
 		end case;
 	end process;
--- 	
+	
 	process(op, Ai, Bi)
 	begin
+		-- todo : clear carry for bitwises ala z80???
+		sCLogic <= Cin;
 		case op(1 downto 0) is
 			when "00" => sSLogic <= Ai and Bi;
 			when "01" => sSLogic <= Ai or  Bi;
@@ -148,7 +157,7 @@ begin
 	begin
 		Cout <= Cin;
 		
-		if ( op(5)='1' ) then
+		if ( (op(5) or (op(4) and op(3) and op(2)))='1'  ) then
 			S <= std_logic_vector(sSShift);
 			Cout <= sCShift;
 		else

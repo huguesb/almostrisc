@@ -42,7 +42,7 @@ begin
 		
 		-- pack reversal with mandatory extra shift :
 		sD(0)(i) <= A((size - 2 - i) mod size) when Right='0' else A((i + 1) mod size);
-		sCout(0) <= A(size - 1) when Right='0' else A(0);
+		--sCout(0) <= A(size - 1) when Right='0' else A(0);
 	end generate;
 	
 	-- mask generation for shift (vs rot)
@@ -57,7 +57,7 @@ begin
 	-- level muxes has more logic depth than a level-bits cmp) and area is
 	-- not a primary concern ...
 	msk_gen : for i in 0 to size-1 generate
-		sMask(size - 1 - i) <= '0' when to_integer(D)>=i or Rotate='1' else '1';
+		sMask(size - 1 - i) <= Rotate when to_integer(D)>=i else '1';
 	end generate;
 	
 	-- successive rotate stages
@@ -65,7 +65,7 @@ begin
 		bit_gen : for j in 0 to size - 1 generate
 			sD(i + 1)(j) <= sD(i)((j + 2**i) mod size) when D(i)='1' else sD(i)(j);
 		end generate;
-		sCout(i + 1) <= sD(i)(2**i-1) when D(i)='1' else sCout(i);
+		--sCout(i + 1) <= sD(i)(2**i-1) when D(i)='1' else sCout(i);
 	end generate;
 	
 	-- apply mask
@@ -76,6 +76,7 @@ begin
 		S(i) <= sD(level+1)(size - 1 - i) when Right='0' else sD(level+1)(i);
 	end generate;
 	
-	--COUT <= sD(level)(0);
-	COUT <= sCout(level);
+	-- carry is last bit "rotated out" so bit 15 of unmasked/unreversed result
+	COUT <= sD(level)(15);
+	--COUT <= sCout(level);
 end Behavioral;

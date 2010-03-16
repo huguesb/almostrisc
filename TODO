@@ -21,6 +21,8 @@ done (tested)
     |-------------------------------|
 	|0 0 0 1|1 H H|  Rb |  Ra |  Rd | mix(h|l)(h|l) rd, ra, rb
 	|-------------------------------|
+	|0 0 1 1|1 S L|  Rb |  Ra |  Rd | r(r|s)(r|l) rd, ra, rb
+	|-------------------------------|
 
 considered (not implemented)
     |-------------------------------|
@@ -46,6 +48,22 @@ considered (not implemented)
 	* multiplication/division (op)
 	* streamed
 	* add/sub with immediates?
+	* bit test/set/reset
+		li	rb, 0x??? : .|....|iiii : i=bit index
+		bit	rd, ra, rb
+		set	rd, ra, rb
+		res	rd, ra, rb
+	* bit mask/spill
+		bmsk	rd, ra, imm4
+		bspl	rd, ra, imm4
+
+ ALIASES :
+	
+	movh rx, ry = mixhl rx, ry, rx
+	movl rx, ry = mixhl rx, rx, ry
+	
+	swaphl rx, ry = mixlh rx, ry, ry
+	
 
  ROOM for instructions :
  
@@ -71,11 +89,10 @@ considered (not implemented)
 			011010
 			011011
 			
-			011100
-			011101
-			
-			011110
-			011111
+			011100 : rrr = Register(Indexed)RotateRight
+			011101 : rrl = Register(Indexed)RotateLeft
+			011110 : rsr = Register(Indexed)ShiftRight
+			011111 : rsl = Register(Indexed)ShiftLeft
 
 	* "variants" (assuming fixed value for 'x' bits) [spec apparently does not allow this...]
 		* 63 "variants" of in
