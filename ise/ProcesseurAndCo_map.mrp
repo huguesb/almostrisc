@@ -11,7 +11,7 @@ Target Device  : xc3s1000
 Target Package : ft256
 Target Speed   : -4
 Mapper Version : spartan3 -- $Revision: 1.36 $
-Mapped Date    : Fri Mar 19 08:45:28 2010
+Mapped Date    : Fri Mar 19 09:05:44 2010
 
 Design Summary
 --------------
@@ -39,8 +39,8 @@ Total Number of 4 input LUTs:          2,016 out of  15,360   13%
 Total equivalent gate count for design:  1,073,966
 Additional JTAG gate count for IOBs:  2,112
 Peak Memory Usage:  209 MB
-Total REAL time to MAP completion:  1 mins 41 secs 
-Total CPU time to MAP completion:   1 mins 37 secs 
+Total REAL time to MAP completion:  1 mins 40 secs 
+Total CPU time to MAP completion:   1 mins 38 secs 
 
 Table of Contents
 -----------------
