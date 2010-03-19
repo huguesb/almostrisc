@@ -1,7 +1,7 @@
 Release 9.2.04i par J.40
 Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
 
-fmc-laptop::  Fri Mar 19 09:48:38 2010
+fmc-laptop::  Fri Mar 19 10:04:06 2010
 
 par -w -intstyle ise -ol high -t 1 ProcesseurAndCo_map.ncd ProcesseurAndCo.ncd
 ProcesseurAndCo.pcf 
@@ -31,9 +31,8 @@ Device Utilization Summary:
    Number of External IOBs                  44 out of 173    25%
       Number of LOCed IOBs                  44 out of 44    100%
 
-   Number of MULT18X18s                      1 out of 24      4%
    Number of RAMB16s                        16 out of 24     66%
-   Number of Slices                       1259 out of 7680   16%
+   Number of Slices                       1362 out of 7680   17%
       Number of SLICEMs                    106 out of 3840    2%
 
 
@@ -43,55 +42,53 @@ Router effort level (-rl):    High
 
 Starting Router
 
-Phase 1: 10003 unrouted;       REAL time: 5 secs 
+Phase 1: 9897 unrouted;       REAL time: 5 secs 
 
-Phase 2: 9293 unrouted;       REAL time: 6 secs 
+Phase 2: 9163 unrouted;       REAL time: 6 secs 
 
-Phase 3: 3400 unrouted;       REAL time: 8 secs 
+Phase 3: 2901 unrouted;       REAL time: 9 secs 
 
-Phase 4: 3400 unrouted; (4406259)      REAL time: 9 secs 
+Phase 4: 2901 unrouted; (4110828)      REAL time: 9 secs 
 
-Phase 5: 3373 unrouted; (145)      REAL time: 17 secs 
+Phase 5: 2983 unrouted; (812)      REAL time: 15 secs 
 
-Phase 6: 0 unrouted; (1327)      REAL time: 29 secs 
+Phase 6: 0 unrouted; (1494)      REAL time: 22 secs 
 
-Phase 7: 0 unrouted; (1327)      REAL time: 31 secs 
+Phase 7: 0 unrouted; (1494)      REAL time: 24 secs 
 
 Updating file: ProcesseurAndCo.ncd with current fully routed design.
 
-Phase 8: 0 unrouted; (811)      REAL time: 37 secs 
+Phase 8: 0 unrouted; (1466)      REAL time: 29 secs 
 
-Phase 9: 0 unrouted; (594)      REAL time: 39 secs 
+Phase 9: 0 unrouted; (1418)      REAL time: 35 secs 
 
-Phase 10: 0 unrouted; (371)      REAL time: 48 secs 
+Phase 10: 0 unrouted; (482)      REAL time: 42 secs 
 
-Phase 11: 0 unrouted; (368)      REAL time: 51 secs 
+Phase 11: 0 unrouted; (482)      REAL time: 43 secs 
 
-Phase 12: 0 unrouted; (368)      REAL time: 53 secs 
+Phase 12: 0 unrouted; (482)      REAL time: 45 secs 
 
-Phase 13: 0 unrouted; (368)      REAL time: 54 secs 
-
-Phase 14: 0 unrouted; (0)      REAL time: 1 mins 
+Phase 13: 0 unrouted; (0)      REAL time: 50 secs 
 
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<0> may have excessive skew because 
-      4 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+      0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:cPS2/PS2Csmooth may have excessive skew because 
       0 CLK pins and 2 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<2> may have excessive skew because 
       0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<6> may have excessive skew because 
       0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
-WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<4> may have excessive skew because 
-      4 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<1> may have excessive skew because 
-      5 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+      0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<5> may have excessive skew because 
       0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<4> may have excessive skew because 
+      5 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<3> may have excessive skew because 
-      0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
+      4 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
 
-Total REAL time to Router completion: 1 mins 
-Total CPU time to Router completion: 59 secs 
+Total REAL time to Router completion: 50 secs 
+Total CPU time to Router completion: 49 secs 
 
 Partition Implementation Status
 -------------------------------
@@ -109,29 +106,29 @@ Generating Clock Report
 +---------------------+--------------+------+------+------------+-------------+
 |        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
 +---------------------+--------------+------+------+------------+-------------+
-|           CLK_BUFGP |      BUFGMUX0| No   |  569 |  0.520     |  1.222      |
+|           CLK_BUFGP |      BUFGMUX0| No   |  589 |  0.424     |  1.126      |
 +---------------------+--------------+------+------+------------+-------------+
-|   cTimer/TMR_CLK<6> |         Local|      |    8 |  0.009     |  3.369      |
+|   cTimer/TMR_CLK<6> |         Local|      |    8 |  0.036     |  2.952      |
 +---------------------+--------------+------+------+------------+-------------+
-|   cTimer/TMR_CLK<4> |         Local|      |    8 |  0.049     |  1.160      |
+|   cTimer/TMR_CLK<4> |         Local|      |    9 |  0.540     |  1.815      |
 +---------------------+--------------+------+------+------------+-------------+
-|   cTimer/TMR_CLK<5> |         Local|      |    9 |  0.056     |  2.427      |
+|   cTimer/TMR_CLK<5> |         Local|      |    8 |  0.106     |  2.957      |
 +---------------------+--------------+------+------+------------+-------------+
-|      cTimer/sCLK<0> |         Local|      |   18 |  0.133     |  3.241      |
+|      cTimer/sCLK<0> |         Local|      |   18 |  0.113     |  3.207      |
 +---------------------+--------------+------+------+------------+-------------+
-|   cTimer/TMR_CLK<2> |         Local|      |    8 |  0.004     |  2.391      |
+|   cTimer/TMR_CLK<2> |         Local|      |    8 |  0.011     |  0.924      |
 +---------------------+--------------+------+------+------------+-------------+
-|   cTimer/TMR_CLK<3> |         Local|      |    9 |  0.038     |  2.346      |
+|   cTimer/TMR_CLK<3> |         Local|      |    8 |  0.168     |  1.277      |
 +---------------------+--------------+------+------+------------+-------------+
-|   cTimer/TMR_CLK<0> |         Local|      |    9 |  0.549     |  1.451      |
+|   cTimer/TMR_CLK<0> |         Local|      |    9 |  0.021     |  2.300      |
 +---------------------+--------------+------+------+------------+-------------+
-|   cTimer/TMR_CLK<1> |         Local|      |    9 |  1.026     |  2.110      |
+|   cTimer/TMR_CLK<1> |         Local|      |    9 |  0.094     |  3.001      |
 +---------------------+--------------+------+------+------------+-------------+
-|      cTimer/sCLK<1> |         Local|      |   18 |  0.542     |  3.336      |
+|      cTimer/sCLK<1> |         Local|      |   18 |  0.619     |  3.507      |
 +---------------------+--------------+------+------+------------+-------------+
-|      cTimer/sCLK<2> |         Local|      |   18 |  0.104     |  3.127      |
+|      cTimer/sCLK<2> |         Local|      |   18 |  0.023     |  3.518      |
 +---------------------+--------------+------+------+------------+-------------+
-|     cPS2/PS2Csmooth |         Local|      |   16 |  0.337     |  3.204      |
+|     cPS2/PS2Csmooth |         Local|      |   17 |  0.594     |  3.488      |
 +---------------------+--------------+------+------+------------+-------------+
 
 * Net Skew is the difference between the minimum and maximum routing
@@ -145,15 +142,15 @@ the minimum and maximum path delays which includes logic delays.
 
 The NUMBER OF SIGNALS NOT COMPLETELY ROUTED for this design is: 0
 
-   The AVERAGE CONNECTION DELAY for this design is:        1.747
-   The MAXIMUM PIN DELAY IS:                              10.357
-   The AVERAGE CONNECTION DELAY on the 10 WORST NETS is:   9.000
+   The AVERAGE CONNECTION DELAY for this design is:        1.654
+   The MAXIMUM PIN DELAY IS:                              11.844
+   The AVERAGE CONNECTION DELAY on the 10 WORST NETS is:   8.676
 
    Listing Pin Delays by value: (nsec)
 
-    d < 2.00   < d < 4.00  < d < 6.00  < d < 8.00  < d < 11.00  d >= 11.00
+    d < 2.00   < d < 4.00  < d < 6.00  < d < 8.00  < d < 12.00  d >= 12.00
    ---------   ---------   ---------   ---------   ---------   ---------
-        7081        2511         378         252          22           0
+        7364        1939         741          89          10           0
 
 Timing Score: 0
 
@@ -164,38 +161,38 @@ Asterisk (*) preceding a constraint indicates it was not met.
   Constraint                                |  Check  | Worst Case |  Best Case | Timing |   Timing   
                                             |         |    Slack   | Achievable | Errors |    Score   
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net CLK | SETUP   |         N/A|    17.555ns|     N/A|           0
-  _BUFGP                                    | HOLD    |     0.828ns|            |       0|           0
+  Autotimespec constraint for clock net CLK | SETUP   |         N/A|    16.561ns|     N/A|           0
+  _BUFGP                                    | HOLD    |     0.496ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.566ns|     N/A|           0
-  mer/TMR_CLK<6>                            | HOLD    |     0.391ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.509ns|     N/A|           0
+  mer/TMR_CLK<6>                            | HOLD    |     0.451ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.959ns|     N/A|           0
-  mer/TMR_CLK<4>                            | HOLD    |     0.896ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.781ns|     N/A|           0
+  mer/TMR_CLK<4>                            | HOLD    |     0.644ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.200ns|     N/A|           0
-  mer/TMR_CLK<5>                            | HOLD    |     0.478ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.226ns|     N/A|           0
+  mer/TMR_CLK<5>                            | HOLD    |     0.540ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.160ns|     N/A|           0
-  mer/TMR_CLK<2>                            | HOLD    |     0.536ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.125ns|     N/A|           0
+  mer/TMR_CLK<2>                            | HOLD    |     0.909ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.050ns|     N/A|           0
-  mer/TMR_CLK<3>                            | HOLD    |     0.909ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.202ns|     N/A|           0
+  mer/TMR_CLK<3>                            | HOLD    |     1.167ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.156ns|     N/A|           0
-  mer/TMR_CLK<0>                            | HOLD    |     0.400ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     5.683ns|     N/A|           0
+  mer/TMR_CLK<0>                            | HOLD    |     0.494ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.926ns|     N/A|           0
-  mer/TMR_CLK<1>                            | HOLD    |     0.088ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.624ns|     N/A|           0
+  mer/TMR_CLK<1>                            | HOLD    |     0.354ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.695ns|     N/A|           0
-  mer/sCLK<1>                               | HOLD    |     0.634ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     7.603ns|     N/A|           0
+  mer/sCLK<1>                               | HOLD    |     0.717ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.654ns|     N/A|           0
-  mer/sCLK<2>                               | HOLD    |     0.897ns|            |       0|           0
+  Autotimespec constraint for clock net cTi | SETUP   |         N/A|     6.758ns|     N/A|           0
+  mer/sCLK<2>                               | HOLD    |     0.410ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net cPS | SETUP   |         N/A|     5.684ns|     N/A|           0
-  2/PS2Csmooth                              | HOLD    |     0.354ns|            |       0|           0
+  Autotimespec constraint for clock net cPS | SETUP   |         N/A|     5.903ns|     N/A|           0
+  2/PS2Csmooth                              | HOLD    |     0.416ns|            |       0|           0
 ------------------------------------------------------------------------------------------------------
 
 
@@ -208,10 +205,10 @@ Generating Pad Report.
 
 All signals are completely routed.
 
-Total REAL time to PAR completion: 1 mins 6 secs 
-Total CPU time to PAR completion: 1 mins 5 secs 
+Total REAL time to PAR completion: 56 secs 
+Total CPU time to PAR completion: 55 secs 
 
-Peak Memory Usage:  154 MB
+Peak Memory Usage:  145 MB
 
 Placer: Placement generated during map.
 Routing: Completed - No errors found.

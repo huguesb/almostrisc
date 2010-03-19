@@ -9,6 +9,7 @@ run
 -top ProcesseurAndCo
 -opt_mode Speed
 -opt_level 2
+-uc "/home/k4user/poly-imag/archi2/projet/ProcesseurAndCo.xcf"
 -iuc NO
 -lso ProcesseurAndCo.lso
 -keep_hierarchy NO

@@ -86,6 +86,9 @@
 <msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
 </msg>
 
+<msg type="warning" file="Xst" num="2549" delta="unknown" >Found &apos;<arg fmt="%s" index="1">incremental_synthesis</arg>&apos; constraints in XCF file (at least one on module &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;). &apos;<arg fmt="%s" index="3">incremental_synthesis</arg>&apos; constraint is being deprecated in a future release and is being replaced with Partitions. Please remove the &apos;<arg fmt="%s" index="4">incremental_synthesis</arg>&apos; constraints from design modules and create Partitions for the corresponding module instance(s). Refer to application note XAPP918 for more details on how to convert your design.
+</msg>
+
 <msg type="warning" file="Xst" num="753" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/ProcesseurAndCo.vhd</arg>&quot; line <arg fmt="%d" index="2">255</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">BYTE_ERROR</arg>&apos; of component &apos;<arg fmt="%s" index="4">PS2</arg>&apos;.
 </msg>
 
@@ -414,19 +417,19 @@
 <msg type="warning" file="Xst" num="821" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/fast_adder.vhd</arg>&quot; line <arg fmt="%d" index="2">51</arg>: Loop body will iterate zero times
 </msg>
 
-<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">974</arg>: Index value(s) does not match array range, simulation mismatch.
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">975</arg>: Index value(s) does not match array range, simulation mismatch.
 </msg>
 
 <msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
 </msg>
 
-<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">982</arg>: Index value(s) does not match array range, simulation mismatch.
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">983</arg>: Index value(s) does not match array range, simulation mismatch.
 </msg>
 
 <msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
 </msg>
 
-<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">993</arg>: Index value(s) does not match array range, simulation mismatch.
+<msg type="warning" file="Xst" num="790" delta="unknown" >&quot;<arg fmt="%s" index="1">/home/k4user/poly-imag/archi2/projet/vhdl/RAMDoublePort.vhd</arg>&quot; line <arg fmt="%d" index="2">994</arg>: Index value(s) does not match array range, simulation mismatch.
 </msg>
 
 <msg type="info" file="Xst" num="1607" delta="unknown" >Contents of array &lt;<arg fmt="%s" index="1">memoire</arg>&gt; may be accessed with an index that does not cover the full array size.
@@ -1275,9 +1278,82 @@
 <msg type="info" file="Xst" num="2694" delta="unknown" >Unit &lt;<arg fmt="%s" index="1">ROMPROG</arg>&gt; : The ROM &lt;<arg fmt="%s" index="2">Mrom_D_rom0000</arg>&gt; will be implemented as a read-only BLOCK RAM, absorbing the register: &lt;<arg fmt="%s" index="3">D</arg>&gt;.
 </msg>
 
-<msg type="info" file="Xst" num="2691" delta="unknown" >Unit &lt;<arg fmt="%s" index="1">RAMDoublePort</arg>&gt; : The RAM &lt;<arg fmt="%s" index="2">Mram_memoire</arg>&gt; will be implemented as a BLOCK RAM, absorbing the following register(s):</msg>
-
 <msg type="info" file="Xst" num="2452" delta="unknown" >Unit &lt;<arg fmt="%s" index="1">FIFO</arg>&gt; : The small RAM &lt;<arg fmt="%s" index="2">Mram_memory</arg>&gt; will be implemented on LUTs in order to maximize performance and save block RAM resources. If you want to force its implementation on block, use option/constraint ram_style.
+</msg>
+
+<msg type="info" file="Xst" num="2664" delta="unknown" >HDL ADVISOR - Unit &lt;<arg fmt="%s" index="1">RAMDoublePort</arg>&gt; : The RAM &lt;<arg fmt="%s" index="2">Mram_memoire</arg>&gt; will be implemented on LUTs either because you have described an asynchronous read or because of currently unsupported block RAM features. If you have described an asynchronous read, making it synchronous would allow you to take advantage of available block RAM resources, for optimized device usage and improved timings. Please refer to your documentation for coding guidelines.
+</msg>
+
+<msg type="info" file="Xst" num="2386" delta="unknown" >HDL ADVISOR - The <arg fmt="%s" index="1">KEEP</arg> property attached to signal <arg fmt="%s" index="2">AD1</arg> may hinder XST clustering optimizations.
+</msg>
+
+<msg type="info" file="Xst" num="2386" delta="unknown" >HDL ADVISOR - The <arg fmt="%s" index="1">KEEP</arg> property attached to signal <arg fmt="%s" index="2">AD2</arg> may hinder XST clustering optimizations.
+</msg>
+
+<msg type="info" file="Xst" num="2386" delta="unknown" >HDL ADVISOR - The <arg fmt="%s" index="1">KEEP</arg> property attached to signal <arg fmt="%s" index="2">AD</arg> may hinder XST clustering optimizations.
+</msg>
+
+<msg type="info" file="Xst" num="2386" delta="unknown" >HDL ADVISOR - The <arg fmt="%s" index="1">KEEP</arg> property attached to signal <arg fmt="%s" index="2">D</arg> may hinder XST clustering optimizations.
+</msg>
+
+<msg type="warning" file="Xst" num="1293" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">sCurState_7</arg>&gt; has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">FSM</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_0</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_1</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_2</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_3</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_4</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_5</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_6</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_7</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_8</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_9</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_10</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_11</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_12</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_13</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_14</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">Q_15</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProdH</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_3</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_4</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_5</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
 </msg>
 
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_6</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
@@ -1305,6 +1381,10 @@
 </msg>
 
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">sError</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPS2</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1290" delta="unknown" >Hierarchical block &lt;<arg fmt="%s" index="1">cProdH</arg>&gt; is unconnected in block &lt;<arg fmt="%s" index="2">cDataPath</arg>&gt;.
+It will be removed from the design.
 </msg>
 
 <msg type="warning" file="Xst" num="2042" delta="unknown" >Unit <arg fmt="%s" index="1">PO</arg>: <arg fmt="%d" index="2">16</arg> internal tristates are replaced by logic (pull-up <arg fmt="%s" index="3">yes</arg>): </msg>
@@ -1336,38 +1416,136 @@
 <msg type="warning" file="Xst" num="0" delta="unknown" >Flatten/CheckKeep (<arg fmt="%s" index="1">cPS2</arg>): Could not change edge <arg fmt="%s" index="2">sPS2out&lt;8&gt;</arg> name to <arg fmt="%s" index="3">cPS2/Mtrien_DOUT</arg>
 </msg>
 
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_0</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_1</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_2</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_3</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_4</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_5</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_6</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_7</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_8</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_9</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_10</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_11</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_12</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_13</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_14</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="1710" delta="unknown" >FF/Latch  &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_15</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">cProcesseur</arg>&gt;.
+</msg>
+
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cPS2/sError</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
 </msg>
 
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_6</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_3</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
 </msg>
 
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_7</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_4</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
 </msg>
 
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_8</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_5</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
 </msg>
 
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_10</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_6</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
 </msg>
 
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_11</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_7</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
 </msg>
 
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_12</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_8</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
 </msg>
 
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_14</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_10</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
 </msg>
 
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_15</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_11</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
 </msg>
 
-<msg type="info" file="Xst" num="2260" delta="unknown" >The FF/Latch &lt;<arg fmt="%s" index="1">cIRQ/cIRQVal/Q_4</arg>&gt; in Unit &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt; is equivalent to the following <arg fmt="%s" index="3">11 FFs/Latches</arg> : <arg fmt="%s" index="4">&lt;cIRQ/cIRQVal/Q_5&gt; &lt;cIRQ/cIRQVal/Q_6&gt; &lt;cIRQ/cIRQVal/Q_7&gt; &lt;cIRQ/cIRQVal/Q_8&gt; &lt;cIRQ/cIRQVal/Q_9&gt; &lt;cIRQ/cIRQVal/Q_10&gt; &lt;cIRQ/cIRQVal/Q_11&gt; &lt;cIRQ/cIRQVal/Q_12&gt; &lt;cIRQ/cIRQVal/Q_13&gt; &lt;cIRQ/cIRQVal/Q_14&gt; &lt;cIRQ/cIRQVal/Q_15&gt; </arg>
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_12</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
 </msg>
 
-<msg type="info" file="Xst" num="2169" delta="unknown" >HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_14</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cPIR/Q_15</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_0</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_1</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_2</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_3</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_4</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_5</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_6</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_7</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_8</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_9</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_10</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_11</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_12</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_13</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_14</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cDataPath/cProdH/Q_15</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cProcesseur</arg>&gt;.
 </msg>
 
 </messages>
-

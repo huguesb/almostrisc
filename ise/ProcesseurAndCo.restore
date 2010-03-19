@@ -1108,7 +1108,7 @@ proc restore { { project_dir "" } } {
       "B" "" "" "" "PROP_MapRegDuplication" "false" 
       "B" "" "" "" "PROP_SimModelRenTopLevInstTo" "UUT" 
       "B" "" "" "" "PROP_Simulator" "ISE Simulator (VHDL/Verilog)" 
-      "B" "" "" "" "PROP_SynthConstraintsFile" "" 
+      "B" "" "" "" "PROP_SynthConstraintsFile" "/home/k4user/poly-imag/archi2/projet/ProcesseurAndCo.xcf" 
       "B" "" "" "" "PROP_SynthMuxStyle" "Auto" 
       "B" "" "" "" "PROP_SynthRAMStyle" "Auto" 
       "B" "" "" "" "PROP_XPowerOptAdvancedVerboseRpt" "false" 

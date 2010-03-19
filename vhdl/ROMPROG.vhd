@@ -4,6 +4,7 @@
 -- http://sebastien-viardot.imag.fr/Enseignements/Archi1A2s/sources/ROMPROG.vhd
 --
 -- Slightly altered to get rid of vendor-specific packages and adjust formatting
+-- Automatically filled with new content from assembler output
 --
 ----------------------------------------------------------------------------------
 
