@@ -116,6 +116,10 @@ instr["reti"] = ["0xFFFE"];
 // spec extension : alias for nop r0, r0, r0
 instr["nop"] = ["0x0000"];
 
+// spec extension : multiplication, outside ALU for performance reasons
+instr["mul\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"] = ["0xFC00 + reg(\"\\1\") + (reg(\"\\2\") << 3) + (reg(\"\\3\") << 6)"];
+
+// 2 address ops
 instr["(inc|dec|mova|nega|not)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3)"];
 instr["(movb|negb)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 6)"];
 instr["(shl|shr)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + ((immediate(\"\\4\", 4, 0) << 9) & 0x1F00)"];

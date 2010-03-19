@@ -29,7 +29,7 @@ entity PO is
 		
 		SelRIn, SelRa, SelRb, SelRd : in std_logic_vector(2 downto 0);
 		
-		EIR, EPC, LDPC, ERd, ECarry, EOut : in std_logic;
+		EIR, EPC, LDPC, ERd, ECarry, EMUL, EOut : in std_logic;
 		
 		SelReti : in std_logic;
 		EINT : in std_logic;
@@ -61,46 +61,6 @@ architecture Behavioral of PO is
 			CLK, E, R : in std_logic;
 			D : in std_logic_vector(15 downto 0);
 			Q : out std_logic_vector(15 downto 0)
-		);
-	end component;
-	
-	component reg16inc
-		Port(
-			CLK, E, L, I, R : in std_logic;
-			D : in std_logic_vector(15 downto 0);
-			Q : out std_logic_vector(15 downto 0)
-		);
-	end component;
-	
-	component mux_2_16
-		Port(
-			Sel : in std_logic;
-			I0, I1 : in std_logic_vector(15 downto 0);
-			S : out std_logic_vector(15 downto 0)
-		);
-	end component;
-	
-	component mux_4_16
-		Port(
-			Sel : in std_logic_vector(1 downto 0);
-			I0, I1, I2, I3 : in std_logic_vector(15 downto 0);
-			S : out std_logic_vector(15 downto 0)
-		);
-	end component;
-	
-	component mux_8_16
-		Port(
-			Sel : in std_logic_vector(2 downto 0);
-			I0, I1, I2, I3, I4, I5, I6, I7 : in std_logic_vector(15 downto 0);
-			S : out std_logic_vector(15 downto 0)
-		);
-	end component;
-	
-	component demux_8_1
-		Port(
-			Sel : in std_logic_vector(2 downto 0);
-			I : in std_logic;
-			S0, S1, S2, S3, S4, S5, S6, S7 : out std_logic
 		);
 	end component;
 	
@@ -146,7 +106,11 @@ architecture Behavioral of PO is
 	
 	signal sigRa, sigRb, sigRd, sRin : std_logic_vector(15 downto 0);
 	
-	signal sUAL : std_logic_vector(15 downto 0);
+	signal sMulSelRin : std_logic_vector(2 downto 0);
+	
+	signal sProd : unsigned(31 downto 0);
+	
+	signal sUAL, sProdH, sProdL, sProdHin : std_logic_vector(15 downto 0);
 	signal sCstore, sCsave, sCin, sCout, sCarry, sECarry, sCarryInt, sECarryInt : std_logic;
 	
 	signal sEPCprev : std_logic;
@@ -239,34 +203,13 @@ begin
 	-- mux and adders to select value to load into pc
 	
 	sPCinc <= std_logic_vector(unsigned(sPC) + 1);
+	sPCnext <= sPCint when SelReti='1' else sPCinc;
 	
-	cMuxPCnext : mux_2_16
-	port map(
-		Sel=>SelReti,
-		I0=>sPCinc,
-		I1=>sPCint,
-		S=>sPCnext
-	);
-	
-	cMuxPCin : mux_2_16
-	port map(
-		Sel=>LDPC,
-		I0=>sPCnext,
-		I1=>sPCload,
-		S=>sPCin
-	);
-	
+	sPCoff <= sigRb when SelPCOff='1' else ImmOff;
 	sPCorg <= sPCIR and (15 downto 0 => not SelPC);
-	
-	cMuxPCoff : mux_2_16
-	port map(
-		Sel=>SelPCOff,
-		I0=>ImmOff,
-		I1=>sigRb,
-		S=>sPCoff
-	);
-	
 	sPCload <= std_logic_vector(unsigned(sPCorg) + unsigned(sPCoff));
+	
+	sPCin <= sPCload when LDPC='1' else sPCnext;
 	
 	-- gp registers and related
 	
@@ -297,22 +240,21 @@ begin
 	--	011	: ImmOff (li)
 	--	100	: UAL (op)
 	
-	-- looks rude but helps XST infer muxes which makes the design faster...
--- 	sRdin(0) <= DDATAIN;
--- 	sRdin(1) <= sPCprev;
--- 	sRdin(2) <= PIN;
--- 	sRdin(3) <= ImmOff;
--- 	sRdin(4) <= sUAL;
--- 	sRdin(5) <= (others => 'Z' );
--- 	sRdin(6) <= (others => 'Z' );
--- 	sRdin(7) <= (others => 'Z' );
-	
-	--sigRd <= sRdin(to_integer(unsigned(SelRIn(2 downto 0))));
-	
+	-- with SelRIn(2 downto 1) select
+	--	sigRd <= sUAL when "10", std_logic_vector(sProd(31 downto 16)) when "11", sRin when others; 
 	sigRd <= sUAL when SelRIn(2)='1' else sRin;
 	
-	with SelRIn(1 downto 0) select
-		sRin <= DDATAIN when "00", sPCprev when "01", PIN     when "10", ImmOff  when others;
+	sMulSelRin <= std_logic_vector(EMUL & unsigned(SelRIn(1 downto 0)));
+	
+	with sMulSelRin select
+		sRin <=
+			DDATAIN when "000",
+			sPCprev when "001",
+			PIN     when "010",
+			ImmOff  when "011",
+			sProdL  when "100",
+			sProdH  when "101",
+			(others => 'Z') when others;
 	
 	-- UAL and related
 	
@@ -349,10 +291,24 @@ begin
 	
 	sCin <= sCarryInt when sINTo='1' else sCarry;
 	
+	sProd <= unsigned(sigRa) * unsigned(sigRb);
+	
+	sProdHin <= std_logic_vector(sProd(31 downto 16));
+	sProdL <= std_logic_vector(sProd(15 downto  0));
+	
+	cProdH : reg16
+	port map(
+		CLK=>CLK,
+		R=>RESET,
+		E=>EMUL,
+		D=>sProdHin,
+		Q=>sProdH
+	);
+	
 	-- memory
 	
 	ADPROG <= sPC;
-	ADDATA <= sigRa; -- when OE='1' else (others => 'Z');
+	ADDATA <= sigRa;
 	
 	DDATAOUT <= sR(to_integer(sINTo & unsigned(SelRd)));
 	
