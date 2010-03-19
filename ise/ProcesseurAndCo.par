@@ -1,7 +1,7 @@
 Release 9.2.04i par J.40
 Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
 
-fmc-laptop::  Fri Mar 12 12:29:18 2010
+fmc-laptop::  Fri Mar 19 11:04:38 2010
 
 par -w -intstyle ise -ol high -t 1 ProcesseurAndCo_map.ncd ProcesseurAndCo.ncd
 ProcesseurAndCo.pcf 
@@ -42,7 +42,7 @@ Router effort level (-rl):    High
 
 Starting Router
 
-Phase 1: 9622 unrouted;       REAL time: 5 secs 
+Phase 1: 9622 unrouted;       REAL time: 4 secs 
 
 Phase 2: 8891 unrouted;       REAL time: 6 secs 
 
@@ -50,19 +50,19 @@ Phase 3: 2955 unrouted;       REAL time: 8 secs
 
 Phase 4: 2955 unrouted; (3471969)      REAL time: 9 secs 
 
-Phase 5: 3399 unrouted; (31)      REAL time: 34 secs 
+Phase 5: 3399 unrouted; (31)      REAL time: 33 secs 
 
-Phase 6: 0 unrouted; (25756)      REAL time: 1 mins 8 secs 
+Phase 6: 0 unrouted; (25756)      REAL time: 1 mins 6 secs 
 
-Phase 7: 0 unrouted; (25756)      REAL time: 1 mins 10 secs 
+Phase 7: 0 unrouted; (25756)      REAL time: 1 mins 7 secs 
 
 Updating file: ProcesseurAndCo.ncd with current fully routed design.
 
-Phase 8: 0 unrouted; (16407)      REAL time: 1 mins 36 secs 
+Phase 8: 0 unrouted; (16407)      REAL time: 1 mins 32 secs 
 
-Phase 9: 0 unrouted; (16407)      REAL time: 2 mins 36 secs 
+Phase 9: 0 unrouted; (16407)      REAL time: 2 mins 32 secs 
 
-Phase 10: 0 unrouted; (0)      REAL time: 2 mins 42 secs 
+Phase 10: 0 unrouted; (0)      REAL time: 2 mins 37 secs 
 
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<0> may have excessive skew because 
       0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
@@ -81,8 +81,8 @@ WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<1> may have excessive skew because
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<4> may have excessive skew because 
       0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
 
-Total REAL time to Router completion: 2 mins 43 secs 
-Total CPU time to Router completion: 2 mins 40 secs 
+Total REAL time to Router completion: 2 mins 37 secs 
+Total CPU time to Router completion: 2 mins 35 secs 
 
 Partition Implementation Status
 -------------------------------
@@ -199,8 +199,8 @@ Generating Pad Report.
 
 All signals are completely routed.
 
-Total REAL time to PAR completion: 2 mins 50 secs 
-Total CPU time to PAR completion: 2 mins 46 secs 
+Total REAL time to PAR completion: 2 mins 43 secs 
+Total CPU time to PAR completion: 2 mins 41 secs 
 
 Peak Memory Usage:  158 MB
 
