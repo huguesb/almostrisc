@@ -1,7 +1,7 @@
 Release 9.2.04i par J.40
 Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
 
-fmc-laptop::  Fri Mar 19 09:22:24 2010
+fmc-laptop::  Fri Mar 19 09:29:38 2010
 
 par -w -intstyle ise -ol high -t 1 ProcesseurAndCo_map.ncd ProcesseurAndCo.ncd
 ProcesseurAndCo.pcf 
@@ -90,7 +90,7 @@ WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<5> may have excessive skew because
 WARNING:Route:455 - CLK Net:cTimer/TMR_CLK<3> may have excessive skew because 
       0 CLK pins and 4 NON_CLK pins failed to route using a CLK template.
 
-Total REAL time to Router completion: 59 secs 
+Total REAL time to Router completion: 1 mins 
 Total CPU time to Router completion: 59 secs 
 
 Partition Implementation Status

@@ -109,17 +109,17 @@ test.extra:
 	mul	r6, r1, r0 ; r1:r6 = r1 * r0
 	
 test.puts:
-	li	r0, 5
-	li	r1, 42
-	liw	r2, font_map + 0x23 * 4
-	li	r3, 8
-	bail	-, r6, put_sprite_8_aligned
-	
-	li	r0, 0
-	li	r1, 20
-	liw	r2, hello_str
-	
-	bail	-, r6, puts
+; 	li	r0, 5
+; 	li	r1, 42
+; 	liw	r2, font_map + 0x23 * 4
+; 	li	r3, 8
+; 	bail	-, r6, put_sprite_8_aligned
+; 	
+; 	li	r0, 0
+; 	li	r1, 20
+; 	liw	r2, hello_str
+; 	
+; 	bail	-, r6, puts
 	
 	; stop there but leave room for interrupts...
 	reset
