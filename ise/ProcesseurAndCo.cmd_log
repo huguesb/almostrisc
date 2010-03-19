@@ -444,3 +444,10 @@ map -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -intstyl
 par -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -w -intstyle ise -ol high -t 1 ProcesseurAndCo_map.ncd ProcesseurAndCo.ncd ProcesseurAndCo.pcf
 trce -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -intstyle ise -e 3 -s 4 -xml ProcesseurAndCo ProcesseurAndCo.ncd -o ProcesseurAndCo.twr ProcesseurAndCo.pcf -ucf /home/k4user/poly-imag/archi2/projet/ProcesseurAndCo.ucf
 bitgen -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -intstyle ise -f ProcesseurAndCo.ut ProcesseurAndCo.ncd
+xst -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -intstyle ise -ifn ProcesseurAndCo.xst -ofn ProcesseurAndCo.syr
+xst -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -intstyle ise -ifn ProcesseurAndCo.xst -ofn ProcesseurAndCo.syr
+ngdbuild -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -intstyle ise -dd _ngo -nt timestamp -uc "/home/k4user/poly-imag/archi2/projet/ProcesseurAndCo.ucf" -p xc3s1000-ft256-4 "ProcesseurAndCo.ngc" ProcesseurAndCo.ngd
+map -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -intstyle ise -p xc3s1000-ft256-4 -timing -logic_opt off -ol high -t 1 -cm speed -pr b -k 4 -power off -o ProcesseurAndCo_map.ncd ProcesseurAndCo.ngd ProcesseurAndCo.pcf
+par -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -w -intstyle ise -ol high -t 1 ProcesseurAndCo_map.ncd ProcesseurAndCo.ncd ProcesseurAndCo.pcf
+trce -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -intstyle ise -e 3 -s 4 -xml ProcesseurAndCo ProcesseurAndCo.ncd -o ProcesseurAndCo.twr ProcesseurAndCo.pcf -ucf /home/k4user/poly-imag/archi2/projet/ProcesseurAndCo.ucf
+bitgen -ise "/home/k4user/poly-imag/archi2/projet/ise/ProcesseurAndCo.ise" -intstyle ise -f ProcesseurAndCo.ut ProcesseurAndCo.ncd

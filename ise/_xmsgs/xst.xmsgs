@@ -1276,15 +1276,6 @@
 <msg type="info" file="Xst" num="2452" delta="unknown" >Unit &lt;<arg fmt="%s" index="1">FIFO</arg>&gt; : The small RAM &lt;<arg fmt="%s" index="2">Mram_memory</arg>&gt; will be implemented on LUTs in order to maximize performance and save block RAM resources. If you want to force its implementation on block, use option/constraint ram_style.
 </msg>
 
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_3</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
-</msg>
-
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_4</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
-</msg>
-
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_5</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
-</msg>
-
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">Q_6</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPIR</arg>&gt;.
 </msg>
 
@@ -1311,6 +1302,8 @@
 
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">sError</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">cPS2</arg>&gt;.
 </msg>
+
+<msg type="warning" file="Xst" num="2042" delta="unknown" >Unit <arg fmt="%s" index="1">PO</arg>: <arg fmt="%d" index="2">16</arg> internal tristates are replaced by logic (pull-up <arg fmt="%s" index="3">yes</arg>): </msg>
 
 <msg type="warning" file="Xst" num="2042" delta="unknown" >Unit <arg fmt="%s" index="1">UAL</arg>: <arg fmt="%d" index="2">33</arg> internal tristates are replaced by logic (pull-up <arg fmt="%s" index="3">yes</arg>): </msg>
 
@@ -1340,15 +1333,6 @@
 </msg>
 
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cPS2/sError</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
-</msg>
-
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_3</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
-</msg>
-
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_4</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
-</msg>
-
-<msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_5</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
 </msg>
 
 <msg type="warning" file="Xst" num="2677" delta="unknown" >Node &lt;<arg fmt="%s" index="1">cProcesseur/cDataPath/cPIR/Q_6</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">ProcesseurAndCo</arg>&gt;.
