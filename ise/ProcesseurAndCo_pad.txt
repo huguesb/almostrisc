@@ -1,7 +1,7 @@
 Release 9.2.04i - par J.40
 Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
 
-Fri Mar 12 12:32:08 2010
+Fri Mar 19 08:48:17 2010
 
 
 INFO: The IO information is provided in three file formats as part of the Place and Route (PAR) process.  These formats are:
