@@ -83,51 +83,67 @@ start:
 	; "userspace" starts here
 	
 test.extra:
+	; test imm16 loading
 	liw	r0, 0x8421
 	liw	r1, 0x1234
 	
+	; test reg-mem swap instruction
 	exw	r0, r1
 	exw	r0, r1
 	
+	; test mixing instructions
 	mixhh	r2, r0, r1
 	mixhl	r3, r0, r1
 	mixlh	r4, r0, r1
 	mixll	r5, r0, r1
 	
+	; test register-indexed shift/rotates
+	li	r6, 3
+	
+	rrr	r5, r0, r6
+	rrl	r5, r1, r6
+	rsr	r5, r2, r6
+	rsl	r5, r3, r6
+	
+	; test hw multiplication
+	mul	r6, r1, r0 ; r1:r6 = r1 * r0
+	
 test.puts:
-	li	r0, 5
-	li	r1, 2
-	liw	r2, font_map + 0x23
-	li	r3, 8
-	bail	-, r6, put_sprite_8_aligned
+; 	li	r0, 5
+; 	li	r1, 42
+; 	liw	r2, font_map + 0x23
+; 	li	r3, 8
+; 	bail	-, r6, put_sprite_8_aligned
+; 	
+; 	li	r0, 0
+; 	li	r1, 20
+; 	liw	r2, hello_str
+; 	
+; 	bail	-, r6, puts
 	
-	li	r0, 0
-	li	r1, 20
-	liw	r2, hello_str
-	
-	bail	-, r6, puts
-	
+	; stop there
 	bri	-, $
 	
+	; test division
 test.div:
 	li	r0, 234
 	li	r2, 56
 	bail	-, r6, div_16_16
 	
+	; test multiplication
 test.mult:
 	li	r0, 137
 	li	r2, 142
 	bail	-, r6, mult_16_16
 	
-	
+	; test factorial
 test.factorial:
 	li r2, 7
 	bail	-, r6, fact_16
 	
-	li	r1, 15
-	and	r0, r1, r0
-	bri	-, test.puts + 1
-
+	; go back to start
+	reset
+	
 	; r0 : r1 = r0 * r2
 	; destroys : r3, r4, r5
 mult_16_16:

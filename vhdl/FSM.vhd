@@ -32,7 +32,7 @@ entity FSM is
 		
 		SelRIn, SelRa, SelRb, SelRd : out std_logic_vector(2 downto 0);
 		
-		ERd, ECarry, EOut : out std_logic;
+		ERd, ECarry, EMUL, EOut : out std_logic;
 		
 		CE, WE, OE : out std_logic;
 		
@@ -52,6 +52,7 @@ architecture Behavioral of FSM is
 		SLoad,
 		SLoadImm16,
 		SBranchImm16,
+		SMult,
 		SInterrupt
 	);
 	
@@ -106,6 +107,7 @@ begin
 		-- no register change unless otherwise notified
 		ERd <= '0' ;
 		ECarry <= '0' ;
+		EMUL <= '0' ;
 		
 		EINT <= '0' ;
 		INTi <= '0' ;
@@ -262,6 +264,16 @@ begin
 					if ( COND='1' ) then 
 						sNextState <= SBranchImm16;
 					end if;
+				elsif ( IR(15 downto 9) = "1111110" ) then
+					-- MUL (2cc)
+					
+					EIR <= '1' ;
+					EPC <= '0' ;
+					
+					ERd <= '1' ;
+					EMUL <= '1' ;
+					
+					sNextState <= SMult;
 				else
 					-- prefetching
 					EIR <= '1' ;
@@ -302,6 +314,13 @@ begin
 				
 				sNextState <= SStall;
 				
+			when SMult =>
+				-- load higher word into ra
+				ERd <= '1' ;
+				EMUL <= '1' ;
+				SelRIn(0) <= '1' ;
+				sNextState <= SDecode;
+				
 			when SInterrupt =>
 				EINT <= '1' ;
 				INTi <= '1' ;
@@ -321,8 +340,7 @@ begin
 	op <= IR(14 downto 9);
 	SelRb <= IR(8 downto 6);
 	SelRa <= IR(5 downto 3);
-	SelRd <= sIR(2 downto 0);
--- 	SelCond <= PIR(8 downto 6) when sCurState = SBranchImm16 else IR(2 downto 0);
+	SelRd <= PIR(5 downto 3) when sCurState = SMult else sIR(2 downto 0);
 	
 	CE <= '1' ;
 end Behavioral;

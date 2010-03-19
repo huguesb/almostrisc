@@ -56,7 +56,7 @@ architecture Behavioral of Processeur is
 			
 			SelRIn ,SelRa, SelRb, SelRd : in std_logic_vector(2 downto 0);
 			
-			ERd, ECarry, EOut : in std_logic;
+			ERd, ECarry, EMUL, EOut : in std_logic;
 			
 			SelReti : in std_logic;
 			EINT : in std_logic;
@@ -85,7 +85,7 @@ architecture Behavioral of Processeur is
 			
 			SelRIn, SelRa, SelRb, SelRd : out std_logic_vector(2 downto 0);
 			
-			ERd, ECarry, EOut : out std_logic;
+			ERd, ECarry, EMUL, EOut : out std_logic;
 			
 			CE, WE, OE : out std_logic;
 			
@@ -100,7 +100,7 @@ architecture Behavioral of Processeur is
 	signal SelCond : std_logic_vector(2 downto 0);
 	signal ImmOff : std_logic_vector(15 downto 0);
 	signal op : std_logic_vector(5 downto 0);
-	signal EIR, EPC, CLRPC, LDPC, ERd, ECarry, EOut, COND : std_logic;
+	signal EIR, EPC, CLRPC, LDPC, ERd, ECarry, EMUL, EOut, COND : std_logic;
 	signal SelPC, SelPCOff : std_logic;
 	signal SelRIn, SelRa, SelRb, SelRd : std_logic_vector(2 downto 0);
 	signal SelReti, EINT, INTi, INTo : std_logic;
@@ -118,6 +118,7 @@ begin
 		LDPC=>LDPC,
 		ERd=>ERd,
 		ECarry=>ECarry,
+		EMUL=>EMUL,
 		EOut=>EOut,
 		SelPC=>SelPC,
 		SelPCOff=>SelPCOff,
@@ -157,6 +158,7 @@ begin
 		LDPC=>LDPC,
 		ERd=>ERd,
 		ECarry=>ECarry,
+		EMUL=>EMUL,
 		EOut=>EOut,
 		SelPC=>SelPC,
 		SelPCOff=>SelPCOff,

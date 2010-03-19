@@ -23,9 +23,11 @@ done (tested)
 	|-------------------------------|
 	|0 0 1 1|1 S L|  Rb |  Ra |  Rd | r(r|s)(r|l) rd, ra, rb
 	|-------------------------------|
+	|1 1 1 1|1 1 0|  Rb |  Ra |  Rd | mul rd, ra, rb => ra:rd = ra * rb
+	|-------------------------------|
 
 considered (not implemented)
-    |-------------------------------|
+	|-------------------------------|
 	|1 1 1 0|0 1 0 0|1 0|     |  Rd | push rd <=> dec r7 \ sw rd, r7
 	|1 1 1 0|0 1 0 0|1 1|     |  Rd | pop rd <=> lw rd, r7 \ inc r7
 	|-------------------------------|
@@ -41,7 +43,7 @@ considered (not implemented)
 	* liw       : 2cc
 	* others    : 1cc
 
- MUCH needed instructions
+ possible extensions
 	* register swap (gnl)
 	* stack manipulation (gnl) : no special purpose reg??? UAL hack???
 	* interrupts-related (gnl)
@@ -56,13 +58,18 @@ considered (not implemented)
 	* bit mask/spill
 		bmsk	rd, ra, imm4
 		bspl	rd, ra, imm4
+	* indexed memory access :
+		lw	rd, ra, rb
+		lw	rd, ra, imm?
 
  ALIASES :
 	
 	movh rx, ry = mixhl rx, ry, rx
 	movl rx, ry = mixhl rx, rx, ry
 	
-	swaphl rx, ry = mixlh rx, ry, ry
+	exhl rx, ry = mixlh rx, ry, ry
+	            = li rx, 7 \ rrr rx, ry, rx
+	            = li rx, 7 \ rrl rx, ry, rx
 	
 
  ROOM for instructions :
@@ -111,6 +118,7 @@ considered (not implemented)
 		* 11111  prefix : 2^11-2 = 2046 (from xx to reset)
 			# baicc imm16
 			# bailcc imm16
+			# mul
 			# liw
 			# reti
 			# reset
