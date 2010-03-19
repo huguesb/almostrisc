@@ -70,12 +70,12 @@ os_init:
 	li	r2, 7
 	add	r0, r0, r2	; r0 = 0x2008 : timers control
 	
-	li	r2, 0x1E 	; 0x1E ; enable first timer, loop, speed = 1MHz / 10**6 = 1Hz
+	li	r2, 0x1D 	; 0x1E ; enable first timer, loop, speed = 1MHz / 10**6 = 1Hz
 	sw	r2, r0
 	
 	inc	r0, r0		; r0 = 0x2009 : first timer, base count
 	
-	li	r2, 2		; fire every 2 timer period (so every 2s in this case)
+	li	r2, 5		; fire every 2 timer period (so every 2s in this case)
 	sw	r2, r0
 	
 	
@@ -122,11 +122,7 @@ test.puts:
 	bail	-, r6, puts
 	
 	; stop there but leave room for interrupts...
-	nop
-	nop
-	nop
-	nop
-	bri	-, $-4
+	reset
 	
 	; test division
 test.div:
