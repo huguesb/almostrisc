@@ -111,7 +111,7 @@ test.extra:
 test.puts:
 	li	r0, 5
 	li	r1, 42
-	liw	r2, font_map + 0x23
+	liw	r2, font_map + 0x23 * 4
 	li	r3, 8
 	bail	-, r6, put_sprite_8_aligned
 	
@@ -121,8 +121,12 @@ test.puts:
 	
 	bail	-, r6, puts
 	
-	; stop there
-	bri	-, $
+	; stop there but leave room for interrupts...
+	nop
+	nop
+	nop
+	nop
+	bri	-, $-4
 	
 	; test division
 test.div:
@@ -239,6 +243,7 @@ puts.loop:
 	
 	; find proper sprite for char
 	liw	r4, font_map
+	shl	r3, r3, 1
 	add	r2, r3, r4
 	
 	; sprite height
@@ -268,7 +273,7 @@ puts.loop:
 	; fetch char
 	lw	r3, r2
 	shl	r3, r3, 7
-	shr	r3, r3, 7
+	shr	r3, r3, 5
 	
 	; check for null
 	baeq	r3, r6
