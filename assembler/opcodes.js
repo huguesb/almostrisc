@@ -64,6 +64,10 @@ ops[17] = {name : "mixhh", value : 0x0C};
 ops[18] = {name : "mixhl", value : 0x0D};
 ops[19] = {name : "mixlh", value : 0x0E};
 ops[20] = {name : "mixll", value : 0x0F};
+ops[21] = {name : "rrr", value : 0x1C};
+ops[22] = {name : "rrl", value : 0x1D};
+ops[23] = {name : "rsr", value : 0x1E};
+ops[24] = {name : "rsl", value : 0x1F};
 
 // condition code fields
 var conds = new Array();

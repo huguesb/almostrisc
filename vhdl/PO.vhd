@@ -101,7 +101,6 @@ architecture Behavioral of PO is
 	type reg16array is array (integer range <>) of std_logic_vector(15 downto 0);
 	-- use 16 regs instead of 8 : alternate register bank for interrupts
 	signal sR : reg16array(15 downto 0);
-	signal sRdin : reg16array(3 downto 0);
 	signal sRegE : std_logic_vector(15 downto 0);
 	
 	signal sigRa, sigRb, sigRd, sRin : std_logic_vector(15 downto 0);
@@ -111,7 +110,7 @@ architecture Behavioral of PO is
 	signal sProd : unsigned(31 downto 0);
 	
 	signal sUAL, sProdH, sProdL, sProdHin : std_logic_vector(15 downto 0);
-	signal sCstore, sCsave, sCin, sCout, sCarry, sECarry, sCarryInt, sECarryInt : std_logic;
+	signal sCin, sCout, sCarry, sECarry, sCarryInt, sECarryInt : std_logic;
 	
 	signal sEPCprev : std_logic;
 	signal sIR, sPC, sPCin, sPCinc, sPCnext, sPCprev, sPCIR, sPCorg, sPCoff, sPCload, sPCint : std_logic_vector(15 downto 0);

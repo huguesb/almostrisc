@@ -92,14 +92,13 @@ considered (not implemented)
 			011000
 			011001
 			
-			011010
-			011011
+			011010 ?
+			011011 ?
 			
-			011100
-			011101
-			
-			011110
-			011111
+			011100 : rrr
+			011101 : rrl
+			011110 : rsr
+			011111 : rsl
 
 	* "variants" (assuming fixed value for 'x' bits) [spec apparently does not allow this...]
 		* 63 "variants" of in
