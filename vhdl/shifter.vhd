@@ -33,7 +33,7 @@ end shifter;
 architecture Behavioral of shifter is
 	type tr is array (level+1 downto 0) of unsigned (size -1 downto 0) ;
 	signal sD : tr;
-	signal sCout : unsigned(level downto 0);
+	--signal sCout : unsigned(level downto 0);
 	signal sMask : unsigned(size - 1 downto 0);
 begin
 	-- input reversal mux
@@ -57,7 +57,7 @@ begin
 	-- level muxes has more logic depth than a level-bits cmp) and area is
 	-- not a primary concern ...
 	msk_gen : for i in 0 to size-1 generate
-		sMask(size - 1 - i) <= Rotate when to_integer(D)>=i else '1';
+		sMask(size - 1 - i) <= '0' when to_integer(D)>=i or Rotate='1' else '1';
 	end generate;
 	
 	-- successive rotate stages
@@ -76,7 +76,6 @@ begin
 		S(i) <= sD(level+1)(size - 1 - i) when Right='0' else sD(level+1)(i);
 	end generate;
 	
-	-- carry is last bit "rotated out" so bit 15 of unmasked/unreversed result
 	COUT <= sD(level)(15);
-	--COUT <= sCout(level);
+	-- COUT <= sCout(level);
 end Behavioral;

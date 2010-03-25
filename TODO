@@ -70,7 +70,6 @@ considered (not implemented)
 	exhl rx, ry = mixlh rx, ry, ry
 	            = li rx, 7 \ rrr rx, ry, rx
 	            = li rx, 7 \ rrl rx, ry, rx
-	
 
  ROOM for instructions :
  
@@ -96,10 +95,11 @@ considered (not implemented)
 			011010
 			011011
 			
-			011100 : rrr = Register(Indexed)RotateRight
-			011101 : rrl = Register(Indexed)RotateLeft
-			011110 : rsr = Register(Indexed)ShiftRight
-			011111 : rsl = Register(Indexed)ShiftLeft
+			011100
+			011101
+			
+			011110
+			011111
 
 	* "variants" (assuming fixed value for 'x' bits) [spec apparently does not allow this...]
 		* 63 "variants" of in

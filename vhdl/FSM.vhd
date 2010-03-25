@@ -264,16 +264,16 @@ begin
 					if ( COND='1' ) then 
 						sNextState <= SBranchImm16;
 					end if;
--- 				elsif ( IR(15 downto 9) = "1111110" ) then
--- 					-- MUL (2cc)
--- 					
--- 					EIR <= '1' ;
--- 					EPC <= '0' ;
--- 					
--- 					ERd <= '1' ;
--- 					EMUL <= '1' ;
--- 					
--- 					sNextState <= SMult;
+				elsif ( IR(15 downto 9) = "1111110" ) then
+					-- MUL (2cc)
+					
+					EIR <= '1' ;
+					EPC <= '0' ;
+					
+					ERd <= '1' ;
+					EMUL <= '1' ;
+					
+					sNextState <= SMult;
 				else
 					-- prefetching
 					EIR <= '1' ;

@@ -157,7 +157,7 @@ begin
 	begin
 		Cout <= Cin;
 		
-		if ( (op(5) or (op(4) and op(3) and op(2)))='1'  ) then
+		if ( op(5)='1' ) then
 			S <= std_logic_vector(sSShift);
 			Cout <= sCShift;
 		else

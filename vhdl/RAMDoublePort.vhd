@@ -4,7 +4,7 @@
 -- http://sebastien-viardot.imag.fr/Enseignements/Archi1A2s/sources/RAMDoublePort.vhd
 --
 -- Slightly altered to get rid of vendor-specific packages and adjust formatting
--- Automatically filled with new content from assembler output
+-- Now auto-filled by asrom script
 --
 ----------------------------------------------------------------------------------
 
@@ -966,7 +966,7 @@ architecture Behavioral of RAMDoublePort is
   5834 => x"2074",
   5835 => x"6573",
   5836 => x"7400",
- others => x"0000"
+  others => x"0000"
  );
 begin
    process(CLK)

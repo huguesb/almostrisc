@@ -64,10 +64,6 @@ ops[17] = {name : "mixhh", value : 0x0C};
 ops[18] = {name : "mixhl", value : 0x0D};
 ops[19] = {name : "mixlh", value : 0x0E};
 ops[20] = {name : "mixll", value : 0x0F};
-ops[21] = {name : "rrr", value : 0x1C};
-ops[22] = {name : "rrl", value : 0x1D};
-ops[23] = {name : "rsr", value : 0x1E};
-ops[24] = {name : "rsl", value : 0x1F};
 
 // condition code fields
 var conds = new Array();
@@ -126,7 +122,6 @@ instr["mul\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"] = ["0xFC00 + reg(\"
 // 2 address ops
 instr["(inc|dec|mova|nega|not)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3)"];
 instr["(movb|negb)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 6)"];
-// 2 address + 1 immediate ops
 instr["(shl|shr)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + ((immediate(\"\\4\", 4, 0) << 9) & 0x1F00)"];
 // catch-all for 3 address ops
 instr["(\\w+)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + (reg(\"\\4\") << 6)"];
@@ -137,6 +132,15 @@ var filler = 0;
 var labels = new Array();
 var hex = new Array();
 var fwd = new Array();
+
+function as_init()
+{
+	pc = 0;
+	filler = 0;
+	labels = new Array();
+	hex = new Array();
+	fwd = new Array();
+}
 
 // Exceptions
 ImmediateSizeError = new Error("Immediate too large");
@@ -370,8 +374,7 @@ function assemble(text)
 					for ( i = 0; i < opcode_sz; ++i )
 						op[i] = 0x0000;
 				} else {
-					print("error:" + l + ":" + e.message + "[" + line + "]");
-					return;
+					return "error:" + l + ":" + e.message + "[" + line + "]";
 				}
 			}
 			
@@ -397,8 +400,7 @@ function assemble(text)
 			// retry to compute opcode
 			op = opcode(ref.instr);
 		} catch ( e ) {
-			print("error:" + ref.line + ":" + e.message + "[" + ref.instr + "]");
-			return;
+			return "error:" + ref.line + ":" + e.message + "[" + ref.instr + "]";
 		}
 		
 		//print("fwd : " + hex16(ref.pc) + "\t" + bin16(op) + "\t" + ref.instr);
@@ -412,6 +414,8 @@ function assemble(text)
 		}
 	}
 	
+	var output_str="";
+	
 	// print final result
 	for ( h in hex )
 	{
@@ -419,6 +423,17 @@ function assemble(text)
 		
 		// vhdl-friendly representation (for copy/paste into ROMPROG)
 		if ( hex[h].op != filler )
-			print(pad_str(h, 5, ' ') + "=>x\"" + hex16(hex[h].op) + "\",\t-- " + bin16(hex[h].op) + "  " + hex[h].instr);
+		{
+			output_str += pad_str(h, 5, ' ');
+			output_str += "=>x\"";
+			output_str += hex16(hex[h].op);
+			output_str += "\",\t-- ";
+			output_str += bin16(hex[h].op);
+			output_str += "  ";
+			output_str += hex[h].instr;
+			output_str += "\n";
+		}
 	}
+	
+	return output_str;
 }

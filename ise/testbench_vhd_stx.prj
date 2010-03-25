@@ -1,2 +1,0 @@
-vhdl isim_temp "../vhdl/FSM.vhd"
-vhdl isim_temp "testbench.vhd"

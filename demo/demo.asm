@@ -70,12 +70,12 @@ os_init:
 	li	r2, 7
 	add	r0, r0, r2	; r0 = 0x2008 : timers control
 	
-	li	r2, 0x1D 	; 0x1E ; enable first timer, loop, speed = 1MHz / 10**6 = 1Hz
+	li	r2, 0x1E 	; 0x1E ; enable first timer, loop, speed = 1MHz / 10**6 = 1Hz
 	sw	r2, r0
 	
 	inc	r0, r0		; r0 = 0x2009 : first timer, base count
 	
-	li	r2, 5		; fire every 2 timer period (so every 2s in this case)
+	li	r2, 2		; fire every 2 timer period (so every 2s in this case)
 	sw	r2, r0
 	
 	
@@ -105,24 +105,24 @@ test.extra:
 ; 	rsr	r5, r2, r6
 ; 	rsl	r5, r3, r6
 ; 	
-; 	; test hw multiplication
-; 	mul	r6, r1, r0 ; r1:r6 = r1 * r0
+	; test hw multiplication
+	mul	r6, r1, r0 ; r1:r6 = r1 * r0
 	
 test.puts:
-; 	li	r0, 5
-; 	li	r1, 42
-; 	liw	r2, font_map + 0x23 * 4
-; 	li	r3, 8
-; 	bail	-, r6, put_sprite_8_aligned
-; 	
-; 	li	r0, 0
-; 	li	r1, 20
-; 	liw	r2, hello_str
-; 	
-; 	bail	-, r6, puts
+	li	r0, 5
+	li	r1, 42
+	liw	r2, font_map + 4 * 0x23
+	li	r3, 8
+	bail	-, r6, put_sprite_8_aligned
 	
-	; stop there but leave room for interrupts...
-	reset
+	li	r0, 0
+	li	r1, 20
+	liw	r2, hello_str
+	
+	bail	-, r6, puts
+	
+	; stop there
+	bri	-, $
 	
 	; test division
 test.div:

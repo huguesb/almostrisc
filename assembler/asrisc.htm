@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Assembleur Archi2</title>
+  <style type="text/css">
+   .cmd_left
+   {
+     position:absolute;
+     top:1%;
+     left:1%;
+     height:auto;
+   }
+   .cmd_right
+   {
+     position:absolute;
+     top:1%;
+     right:1%;
+     height:auto;
+   }
+   textarea.source
+   {
+     position:absolute;
+     left:1%;
+     top:8%;
+     width:48%;
+     height:80%;
+     outline:green solid thick;
+     margin-top:20px;
+     margin-bottom:20px;
+   }
+   textarea.output
+   {
+     position:absolute;
+     right:1%;
+     top:8%;
+     width:48%;
+     height:80%;
+     outline:blue solid thick;
+     margin-top:20px;
+     margin-bottom:20px;
+   }
+   .footer
+   {
+     position:absolute;
+     bottom:1%;
+     width:98%;
+     text-align:center;
+   }
+  </style>
+  <script src="opcodes.js" type="text/javascript" ></script>
+  <script type="text/javascript" >
+   function as()
+   {
+    as_init();
+    document.getElementById("output").value = assemble(document.getElementById("source").value);
+   }
+   function help()
+   {
+    out = document.getElementById("output");
+    
+    out.value  = "Un assembleur simple pour le projet d'archi2.\n\n";
+    out.value += "La sortie de l'assembleur est un \"fragment\" de VHDL qui être directement copié dans ROMPROG.vhd \n\n";
+    out.value += "Directives supportées : \n";
+    out.value += "  .org valeur : change l'adresse courante\n";
+    out.value += "  .filler valeur : définit la valeur utilisé pour remplir les espaces laissés vides (par une directive .org)\n";
+    out.value += "  .equ étiquette valeur : assigne la valeur donné à l'étiquette donné\n\n";
+    out.value += "Instructions supportées : \n";
+    out.value += "  toutes les instructions du cahier des charges\n";
+    out.value += "  |-------------------------------|\n";
+    out.value += "  |1 1 1 1|1 1 1 1|1 1 1 1|1 1 1 0| reti\n";
+    out.value += "  |-------------------------------|\n";
+    out.value += "  |1 1 1 0|0 1 0 0|0 0|  Ra |  Rd | exw rd, ra\n";
+    out.value += "  |-------------------------------|\n";
+    out.value += "  |1 1 1 1|1 1 1 1|1 1 1 1 0|  Rd |\n";
+    out.value += "  |            imm16              | liw rd, imm16\n";
+    out.value += "  |-------------------------------|\n";
+    out.value += "  |1 1 1 1|1 0 0|  cc |  Ra |x x x|\n";
+    out.value += "  |            imm16              | baicc ra, imm16\n";
+    out.value += "  |-------------------------------|\n";
+    out.value += "  |1 1 1 1|1 0 1|  cc |  Ra |  Rd |\n";
+    out.value += "  |            imm16              | bailcc rd, ra, imm16\n";
+    out.value += "  |-------------------------------|\n";
+    out.value += "  |0 0 0 1|1 H H|  Rb |  Ra |  Rd | mix(h|l)² rd, ra, rb\n";
+    out.value += "  |-------------------------------|\n";
+    out.value += "  |0 0 1 1|1 S L|  Rb |  Ra |  Rd | r(r|s)(r|l) rd, ra, rb\n";
+    out.value += "  |-------------------------------|\n";
+    out.value += "  |1 1 1 1|1 1 0|  Rb |  Ra |  Rd | mul rd, ra, rb\n";
+    out.value += "  |-------------------------------|\n";
+   }
+  </script>
+ </head>
+ <body>
+   <button type="button" class="cmd_left" onclick="as()" >Assemble</button>
+   <button type="button" class="cmd_right" onclick="help()" >Aide</button>
+   <textarea id="source" class="source"></textarea>
+   <textarea id="output" class="output" readonly="readonly"></textarea>
+  <p class="footer"><small>Copyright &copy; 2010 Hugues Bruant. All rights reserved.</small></p>
+ </body>
+</html>
