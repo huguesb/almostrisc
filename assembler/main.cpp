@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 	
 	engine.globalObject().setProperty("source", engine.newVariant(QString::fromLocal8Bit(f.readAll())));
 	
-	engine.evaluate("assemble(source)");
+	QScriptValue r = engine.evaluate("assemble(source)");
 	
 	if ( engine.hasUncaughtException() )
 	{
@@ -68,6 +68,8 @@ int main(int argc, char **argv)
 		
 		return 3;
 	}
+	
+	qDebug("%s", qPrintable(r.toString()));
 	
 	return 0;
 }

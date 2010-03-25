@@ -133,6 +133,15 @@ var labels = new Array();
 var hex = new Array();
 var fwd = new Array();
 
+function as_init()
+{
+	pc = 0;
+	filler = 0;
+	labels = new Array();
+	hex = new Array();
+	fwd = new Array();
+}
+
 // Exceptions
 ImmediateSizeError = new Error("Immediate too large");
 UnknownLabelError = new Error("Unknown label");
@@ -365,8 +374,7 @@ function assemble(text)
 					for ( i = 0; i < opcode_sz; ++i )
 						op[i] = 0x0000;
 				} else {
-					print("error:" + l + ":" + e.message + "[" + line + "]");
-					return;
+					return "error:" + l + ":" + e.message + "[" + line + "]";
 				}
 			}
 			
@@ -392,8 +400,7 @@ function assemble(text)
 			// retry to compute opcode
 			op = opcode(ref.instr);
 		} catch ( e ) {
-			print("error:" + ref.line + ":" + e.message + "[" + ref.instr + "]");
-			return;
+			return "error:" + ref.line + ":" + e.message + "[" + ref.instr + "]";
 		}
 		
 		//print("fwd : " + hex16(ref.pc) + "\t" + bin16(op) + "\t" + ref.instr);
@@ -407,6 +414,8 @@ function assemble(text)
 		}
 	}
 	
+	var output_str="";
+	
 	// print final result
 	for ( h in hex )
 	{
@@ -414,6 +423,17 @@ function assemble(text)
 		
 		// vhdl-friendly representation (for copy/paste into ROMPROG)
 		if ( hex[h].op != filler )
-			print(pad_str(h, 5, ' ') + "=>x\"" + hex16(hex[h].op) + "\",\t-- " + bin16(hex[h].op) + "  " + hex[h].instr);
+		{
+			output_str += pad_str(h, 5, ' ');
+			output_str += "=>x\"";
+			output_str += hex16(hex[h].op);
+			output_str += "\",\t-- ";
+			output_str += bin16(hex[h].op);
+			output_str += "  ";
+			output_str += hex[h].instr;
+			output_str += "\n";
+		}
 	}
+	
+	return output_str;
 }
