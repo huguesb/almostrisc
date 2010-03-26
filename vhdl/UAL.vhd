@@ -164,7 +164,7 @@ begin
 				when "00" => S <= std_logic_vector(sSArith); Cout <= sCArith;
 				when "01" => S <= std_logic_vector(sSLoad);  Cout <= sCLoad;
 				when "10" => S <= std_logic_vector(sSLogic); Cout <= sCLogic;
-				when others => S <= (others => 'Z' ); 
+				when others => S <= std_logic_vector(sSShift); Cout <= sCShift;
 			end case;
 		end if;
 	end process;

@@ -42,7 +42,6 @@ end MMU;
 --
 
 architecture Behavioral of MMU is
-	signal CEi : unsigned(2 downto 0);
 begin
 	process(AD, CE)
 	begin

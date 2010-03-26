@@ -9,6 +9,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; memory addresses
 .equ	VGA_buff		0x0000
 
 .equ	font_map		0x12C0
@@ -20,6 +21,31 @@
 .equ	IRQ_ack 		0x2002
 .equ	IRQ_stat		0x2003
 
+.equ	PS2_a		0x2004
+.equ	PS2_b		0x2005
+.equ	PS2_c		0x2006
+.equ	PS2_d		0x2007
+
+.equ	TMR_ctrl		0x2008
+.equ	TMR_base0		0x2009
+.equ	TMR_base1		0x200A
+.equ	TMR_base2		0x200B
+.equ	TMR_cur0		0x200C
+.equ	TMR_cur1		0x200D
+.equ	TMR_cur2		0x200E
+.equ	TMR_unused		0x200F
+
+.equ	RS232_a		0x2010
+.equ	RS232_b		0x2011
+.equ	RS232_c		0x2012
+.equ	RS232_d		0x2013
+
+; interrupts mask identifiers
+.equ	IRQ_tmr0		0x0001
+.equ	IRQ_tmr1		0x0002
+.equ	IRQ_tmr2		0x0004
+.equ	IRQ_ps2in		0x0008
+
 
 .org	0x0000
 int_reset:
@@ -28,7 +54,7 @@ int_reset:
 	; reset stack pointer (grows downward from end of available RAM)
 	liw	r7, IRQ_mask
 	
-	; go to program itself
+	; continue init
 	bai	-, os_init
 
 .org	0x0010
@@ -70,12 +96,12 @@ os_init:
 	li	r2, 7
 	add	r0, r0, r2	; r0 = 0x2008 : timers control
 	
-	li	r2, 0x1E 	; 0x1E ; enable first timer, loop, speed = 1MHz / 10**6 = 1Hz
+	li	r2, 0x1D 	; enable first timer, loop, speed = 1MHz / 10**6 = 1Hz
 	sw	r2, r0
 	
 	inc	r0, r0		; r0 = 0x2009 : first timer, base count
 	
-	li	r2, 2		; fire every 2 timer period (so every 2s in this case)
+	li	r2, 5		; fire every 2 timer period (so every 2s in this case)
 	sw	r2, r0
 	
 	
@@ -100,11 +126,11 @@ test.extra:
 	; test register-indexed shift/rotates
 	li	r6, 3
 	
-; 	rrr	r5, r0, r6
-; 	rrl	r5, r1, r6
-; 	rsr	r5, r2, r6
-; 	rsl	r5, r3, r6
-; 	
+	rrr	r5, r0, r6
+	rrl	r5, r1, r6
+	rsr	r5, r2, r6
+	rsl	r5, r3, r6
+	
 	; test hw multiplication
 	mul	r6, r1, r0 ; r1:r6 = r1 * r0
 	

@@ -57,7 +57,7 @@ begin
 	-- level muxes has more logic depth than a level-bits cmp) and area is
 	-- not a primary concern ...
 	msk_gen : for i in 0 to size-1 generate
-		sMask(size - 1 - i) <= '0' when to_integer(D)>=i or Rotate='1' else '1';
+		sMask(size - 1 - i) <= Rotate when to_integer(D)>=i else '1';
 	end generate;
 	
 	-- successive rotate stages
