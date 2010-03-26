@@ -123,13 +123,13 @@ test.extra:
 	mixlh	r4, r0, r1
 	mixll	r5, r0, r1
 	
-	; test register-indexed shift/rotates
-	li	r6, 3
-	
-	rrr	r5, r0, r6
-	rrl	r5, r1, r6
-	rsr	r5, r2, r6
-	rsl	r5, r3, r6
+; 	; test register-indexed shift/rotates
+; 	li	r6, 3
+; 	
+; 	rrr	r5, r0, r6
+; 	rrl	r5, r1, r6
+; 	rsr	r5, r2, r6
+; 	rsl	r5, r3, r6
 	
 	; test hw multiplication
 	mul	r6, r1, r0 ; r1:r6 = r1 * r0

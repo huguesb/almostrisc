@@ -164,7 +164,11 @@ begin
 				when "00" => S <= std_logic_vector(sSArith); Cout <= sCArith;
 				when "01" => S <= std_logic_vector(sSLoad);  Cout <= sCLoad;
 				when "10" => S <= std_logic_vector(sSLogic); Cout <= sCLogic;
-				when others => S <= std_logic_vector(sSShift); Cout <= sCShift;
+				-- enabling RegisterIndexed Shift/Rotate somehow breaks other part
+				-- of the design, most notably timer or interrupts (anyway the
+				-- combination of both no longer works...) (yay Xilinx (9.2)!)
+				--when others => S <= std_logic_vector(sSShift); Cout <= sCShift;
+				when others => S <= (others => 'Z');
 			end case;
 		end if;
 	end process;
