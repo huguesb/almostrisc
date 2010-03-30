@@ -16,6 +16,10 @@ printf "%s\n%s\n%s\n" "$(head -n 38 <vhdl/RAMDoublePort.vhd)" "$(./asrisc assemb
 # data2mem -bm bitmagic/brom.bmm  -bd bitmagic/brom.mem -o h bitmagic/brom_data.vhd
 # data2mem -bm bitmagic/dram.bmm  -bd bitmagic/dram.mem -o h bitmagic/dram_data.vhd
 
+# construct separate bd files from merged one (xilinx can only use one...)
+cat bitmagic/blocks_bd.bmm | head -n 44 | tail -n 29 > bitmagic/dram_bd.bmm
+cat bitmagic/blocks_bd.bmm              | tail -n 29 > bitmagic/brom_bd.bmm
+
 # final bitfile update
 data2mem -bd bitmagic/brom.mem -bm bitmagic/brom_bd.bmm -bt ise9/ProcesseurAndCo.bit -o b cpu-prog.bit
 data2mem -bd bitmagic/dram.mem -bm bitmagic/dram_bd.bmm -bt cpu-prog.bit -o b cpu-prog-data.bit
