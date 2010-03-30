@@ -133,7 +133,7 @@ architecture Behavioral of ProcesseurAndCo is
 			
 			CE, OE, WE : in std_logic;
 			
-			IRQ : out std_logic
+			IRQ : out std_logic_vector(2 downto 0)
 		);
 	end component;
 	
@@ -221,7 +221,7 @@ begin
 		OE1=>OE
 	);
 	
-	sIRQin(15 downto 4) <= (others => '1' );
+	sIRQin(15 downto 6) <= (others => '1' );
 	
 	cIRQ : IRQ
 	port map(
@@ -264,7 +264,7 @@ begin
 		CE=>CEps2,
 		WE=>WE,
 		OE=>OE,
-		IRQ=>sIRQin(3)
+		IRQ=>sIRQin(5 downto 3)
 	);
 	
 	cTimer : Timer

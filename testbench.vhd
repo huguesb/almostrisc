@@ -45,9 +45,6 @@ architecture test of testbench is
 			
 			HS, VS, R, G, B : out std_logic;
 			
-			--PIN : in std_logic_vector(15 downto 0);
-			--POUT : out std_logic_vector(15 downto 0);
-			
 			PS2C, PS2D : inout std_logic;
 			
 			RXD, RXDA : in std_logic;
@@ -112,20 +109,100 @@ begin
 	begin
 		RESET <= '1' ;
 		PIN <= x"0000";
-		
-		wait for clk_period * 2;
+		wait for clk_period;
 		
 		RESET <= '0' ;
 		
-		PIN <= x"FFFF";
+		PS2C <= '1' ;
+		PS2D <= '1' ;
 		
-		wait for clk_period * 20;
+		wait for 50 us;
 		
-		PIN <= x"0000";
 		
-		wait for clk_period * 20;
 		
-		PIN <= x"FFFF";
+		-- keyboard stimuli : 33 = H
+		
+		-- start
+		PS2D <= '0' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
+		-- data
+		PS2D <= '1' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
+		PS2D <= '1' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
+		PS2D <= '0' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
+		PS2D <= '0' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
+		PS2D <= '1' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
+		PS2D <= '1' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
+		PS2D <= '0' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
+		PS2D <= '0' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
+		-- parity
+		PS2D <= '1' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
+		-- stop
+		PS2D <= '1' ;
+		
+		PS2C <= '0' ;
+		wait for 40 us;
+		PS2C <= '1' ;
+		wait for 40 us;
+		
 		
 		wait;
 	end process;
