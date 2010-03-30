@@ -1,0 +1,29 @@
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Address space 'archi2_ram' 0x00000000:0x00001FFF (8 K word == 16 Kb).
+//
+///////////////////////////////////////////////////////////////////////////////
+
+ADDRESS_SPACE archi2_ram RAMB16 [0x00000000:0x00003FFF]
+    // first 2k words
+    BUS_BLOCK
+        cRAMDoublePort/XLXI_1 [15:8];
+        cRAMDoublePort/XLXI_0 [7:0];
+    END_BUS_BLOCK;
+    // next 2k words
+    BUS_BLOCK
+        cRAMDoublePort/XLXI_3 [15:8];
+        cRAMDoublePort/XLXI_2 [7:0];
+    END_BUS_BLOCK;
+    // next 2k words
+    BUS_BLOCK
+        cRAMDoublePort/XLXI_5 [15:8];
+        cRAMDoublePort/XLXI_4 [7:0];
+    END_BUS_BLOCK;
+    // last 2k words
+    BUS_BLOCK
+        cRAMDoublePort/XLXI_7 [15:8];
+        cRAMDoublePort/XLXI_6 [7:0];
+    END_BUS_BLOCK;
+END_ADDRESS_SPACE;

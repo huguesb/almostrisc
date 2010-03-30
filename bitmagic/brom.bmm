@@ -1,0 +1,29 @@
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Address space 'archi2_rom' 0x00000000:0x00001FFF (8 K word == 16 Kb).
+//
+///////////////////////////////////////////////////////////////////////////////
+
+ADDRESS_SPACE archi2_rom RAMB16 [0x00000000:0x00003FFF]
+    // first 2k words
+    BUS_BLOCK
+        cROMPROG/XLXI_1 [15:8];
+        cROMPROG/XLXI_0 [7:0];
+    END_BUS_BLOCK;
+    // next 2k words
+    BUS_BLOCK
+        cROMPROG/XLXI_3 [15:8];
+        cROMPROG/XLXI_2 [7:0];
+    END_BUS_BLOCK;
+    // next 2k words
+    BUS_BLOCK
+        cROMPROG/XLXI_5 [15:8];
+        cROMPROG/XLXI_4 [7:0];
+    END_BUS_BLOCK;
+    // last 2k words
+    BUS_BLOCK
+        cROMPROG/XLXI_7 [15:8];
+        cROMPROG/XLXI_6 [7:0];
+    END_BUS_BLOCK;
+END_ADDRESS_SPACE;
