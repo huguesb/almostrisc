@@ -5,7 +5,7 @@
 --
 -- Command: data2mem -bm bitmagic/dram.bmm -bd bitmagic/dram.mem -o h bitmagic/dram_data.vhd
 --
--- Created on 03/30/10 00:16 am, from:
+-- Created on 03/30/10 01:48 pm, from:
 --
 --     Map file     - bitmagic/dram.bmm
 --     Data file(s) - bitmagic/dram.mem
@@ -261,7 +261,7 @@ package dram_data_pkg is
 	constant cRAMDoublePort_XLXI_2_INIT_28  : bit_vector(0 to 255) := x"90500088F08000A0202800F8F8880040F08800909C900090FC500070A020B088";
 	constant cRAMDoublePort_XLXI_2_INIT_29  : bit_vector(0 to 255) := x"A8A80008788800F88888004848480098C8200088A8880088308800A8A8A800F8";
 	constant cRAMDoublePort_XLXI_2_INIT_2A  : bit_vector(0 to 255) := x"6C650088788800A8E8A8008878880088F0800098E8880048704000F8A8A800A8";
-	constant cRAMDoublePort_XLXI_2_INIT_2B  : bit_vector(0 to 255) := x"00000000000000000000000000000000000000000000737472686F41216C6F20";
+	constant cRAMDoublePort_XLXI_2_INIT_2B  : bit_vector(0 to 255) := x"00000000000000000000000000000000000000000000737472686F413F6C6F20";
 	constant cRAMDoublePort_XLXI_2_INIT_2C  : bit_vector(0 to 255) := x"0000000000000000000000000000000000000000000000000000000000000000";
 	constant cRAMDoublePort_XLXI_2_INIT_2D  : bit_vector(0 to 255) := x"0000000000000000000000000000000000000000000000000000000000000000";
 	constant cRAMDoublePort_XLXI_2_INIT_2E  : bit_vector(0 to 255) := x"0000000000000000000000000000000000000000000000000000000000000000";

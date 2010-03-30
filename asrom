@@ -13,8 +13,8 @@ printf "%s\n%s\n%s\n" "$(head -n 38 <vhdl/RAMDoublePort.vhd)" "$(./asrisc assemb
 ./asrisc assembler/data.js demo/data.asm 2>&1 | awk "$awk_script" > bitmagic/dram.mem
 
 # # update HDL (for simulation in Xilinx)
-# data2mem -bm bitmagic/brom.bmm  -bd bitmagic/brom.mem -o h bitmagic/brom_data.vhd
-# data2mem -bm bitmagic/dram.bmm  -bd bitmagic/dram.mem -o h bitmagic/dram_data.vhd
+data2mem -bm bitmagic/brom.bmm  -bd bitmagic/brom.mem -o h bitmagic/brom_data.vhd
+data2mem -bm bitmagic/dram.bmm  -bd bitmagic/dram.mem -o h bitmagic/dram_data.vhd
 
 # construct separate bd files from merged one (xilinx can only use one...)
 cat bitmagic/blocks_bd.bmm | head -n 44 | tail -n 29 > bitmagic/dram_bd.bmm
