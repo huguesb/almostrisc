@@ -21,10 +21,10 @@
 .equ	IRQ_ack 		0x2002
 .equ	IRQ_stat		0x2003
 
-.equ	PS2_a		0x2004
-.equ	PS2_b		0x2005
-.equ	PS2_c		0x2006
-.equ	PS2_d		0x2007
+.equ	PS2_rx		0x2004
+.equ	PS2_tx		0x2005
+.equ	PS2_stat		0x2006
+.equ	PS2_ctrl		0x2007
 
 .equ	TMR_ctrl		0x2008
 .equ	TMR_base0		0x2009
@@ -35,10 +35,10 @@
 .equ	TMR_cur2		0x200E
 .equ	TMR_unused		0x200F
 
-.equ	RS232_a		0x2010
-.equ	RS232_b		0x2011
-.equ	RS232_c		0x2012
-.equ	RS232_d		0x2013
+.equ	RS232_rx		0x2010
+.equ	RS232_tx		0x2011
+.equ	RS232_stat		0x2012
+.equ	RS232_ctrl		0x2013
 
 ; interrupts mask identifiers
 .equ	IRQ_tmr0		0x0001
@@ -85,7 +85,7 @@ os_init:
 	
 	liw	r0, IRQ_mask	; r0 = 0x2000 : interrupt masking
 	
-	li	r1, 1		; unmask only first timer
+	li	r1, 9		; unmask only first timer and PS2 input
 	sw	r1, r0
 	
 	inc	r0, r0		; r0 = 0x2001 : interrupt sensibility
@@ -96,12 +96,12 @@ os_init:
 	li	r2, 7
 	add	r0, r0, r2	; r0 = 0x2008 : timers control
 	
-	li	r2, 0x1D 	; enable first timer, loop, speed = 1MHz / 10**6 = 1Hz
+	li	r2, 0x1D 	; enable first timer, loop, speed = 1MHz / 10**5 = 10Hz
 	sw	r2, r0
 	
 	inc	r0, r0		; r0 = 0x2009 : first timer, base count
 	
-	li	r2, 5		; fire every 2 timer period (so every 2s in this case)
+	li	r2, 5		; fire every 5 timer period (so every 0.5s in this case)
 	sw	r2, r0
 	
 	
@@ -241,6 +241,9 @@ fact_16.end:
 	;	* r2 = text
 	;	* r6 = return address 
 puts:
+	; push	r6
+	dec	r7, r7
+	sw	r6, r7
 	
 puts.loop:
 	; fetch char
@@ -248,11 +251,8 @@ puts.loop:
 	shr	r3, r3, 7
 	
 	; check for null
-	baeq	r3, r6
+	brieq	r3, puts.end
 	
-	; push	r6
-	dec	r7, r7
-	sw	r6, r7
 	; push	r0
 	dec	r7, r7
 	sw	r0, r7
@@ -283,9 +283,6 @@ puts.loop:
 	; pop	r0
 	lw	r0, r7
 	inc	r7, r7
-	; pop	r6
-	lw	r6, r7
-	inc	r7, r7
 	
 	; next column
 	inc	r0, r0
@@ -298,11 +295,8 @@ puts.loop:
 	shr	r3, r3, 5
 	
 	; check for null
-	baeq	r3, r6
+	brieq	r3, puts.end
 	
-	; push	r6
-	dec	r7, r7
-	sw	r6, r7
 	; push	r0
 	dec	r7, r7
 	sw	r0, r7
@@ -332,9 +326,6 @@ puts.loop:
 	; pop	r0
 	lw	r0, r7
 	inc	r7, r7
-	; pop	r6
-	lw	r6, r7
-	inc	r7, r7
 	
 	; next column
 	inc	r0, r0
@@ -344,6 +335,14 @@ puts.loop:
 	
 	bri	-, puts.loop
 	
+puts.end:
+	; pop	r6
+	lw	r6, r7
+	inc	r7, r7
+	
+	; exit routine
+	ba	-, r6
+
 	
 	; inputs : 
 	;	* (r0, r1) = (x / 16, y)
