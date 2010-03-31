@@ -1,6 +1,6 @@
 #!/bin/bash
 
-awk_script='BEGIN { FS = "\"| *=> *x\""; pc=-1; } /[0-9]+ *=> *x"[0-9A-F]+"/ { if ( $1 != pc ) { if ( pc < 0 ) { pc = $1 } else { while ( $1 != pc ) { print "0000 // fill"; pc = pc + 1; }  printf "// "; } printf "@%x\n", $1 } print $2; pc = pc + 1; }'
+awk_script='BEGIN { FS = "\"| *=> *x\""; pc=-1; } /[0-9]+ *=> *x"[0-9A-F]+"/ { if ( $1 != pc ) { if ( pc < 0 ) { pc = $1 } else { while ( $1 != pc ) { print "0000 // fill"; pc = pc + 1; }  printf "// "; } printf "@%x\n", 2*$1 } print $2; pc = pc + 1; }'
 
 # compiles demo code into ROMPROG (for simulation using GHDL)
 printf "%s\n%s\n%s\n" "$(head -n 27 <vhdl/ROMPROG.vhd)" "$(./asrisc assembler/opcodes.js demo/demo.asm 2>&1)" "$(tail -n 10 < vhdl/ROMPROG.vhd)" > vhdl/ROMPROG.vhd
