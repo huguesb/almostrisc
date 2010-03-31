@@ -21,9 +21,11 @@ done (tested)
     |-------------------------------|
 	|0 0 0 1|1 H H|  Rb |  Ra |  Rd | mix(h|l)(h|l) rd, ra, rb
 	|-------------------------------|
-	|0 0 1 1|1 S L|  Rb |  Ra |  Rd | r(r|s)(r|l) rd, ra, rb
+	|0 0 1 1|1 S L|  Rb |  Ra |  Rd | r(r|s)(r|l) rd, ra, rb  [trouble source...]
 	|-------------------------------|
 	|1 1 1 1|1 1 0|  Rb |  Ra |  Rd | mul rd, ra, rb => ra:rd = ra * rb
+	|-------------------------------|
+	|1 1 1 1|0 1|i i i i|  Ra |  Rd | bspl rd, ra, imm4
 	|-------------------------------|
 
 considered (not implemented)
