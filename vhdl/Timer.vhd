@@ -64,55 +64,27 @@ architecture Behavioral of Timer is
 		);
 	end component;
 	
-	type counter4 is array(integer range<>) of unsigned(4 downto 0);
+	type counter is array(integer range<>) of unsigned(31 downto 0);
 	type reg16array is array (integer range <>) of std_logic_vector(15 downto 0);
 	
 	signal sRegisters : reg16array(7 downto 0);
 	signal sRegEnable : std_logic_vector(3 downto 0);
 	
-	signal TMR_CLK : std_logic_vector(7 downto 0);
-	signal cnt_base : counter4(7 downto 0);
+	signal cnt_base : counter(2 downto 0);
 	
-	signal sIRQ, sIRQin, sCLK, sResetIRQ, ld : std_logic_vector(2 downto 0);
+	signal sIRQ, sIRQin, sResetIRQ, ld : std_logic_vector(2 downto 0);
+	
+	constant cnt_orig : counter(7 downto 0) := (
+		0=>x"00000031", -- 50 * 10^0 - 1
+		1=>x"000001F3", -- 50 * 10^1 - 1
+		2=>x"00001387", -- 50 * 10^2 - 1
+		3=>x"0000C34F", -- 50 * 10^3 - 1
+		4=>x"0007A11F", -- 50 * 10^4 - 1
+		5=>x"004C4B3F", -- 50 * 10^5 - 1
+		6=>x"02FAF07F", -- 50 * 10^6 - 1
+		7=>x"1DCD64FF"  -- 50 * 10^7 - 1
+	);
 begin
-	-- clock divider : produce 1MHz timer clock from 50MHz circuit clock
-	base : process (CLK, RESET)
-	begin
-		if ( CLK'event and CLK='1' ) then
-			if ( RESET='1' ) then
-				cnt_base(0) <= (others => '0' );
-				TMR_CLK(0) <= '1' ;
-			else
-				cnt_base(0) <= cnt_base(0) + 1;
-				
-				if ( cnt_base(0) = 24 ) then
-					cnt_base(0) <= (others => '0' );
-					TMR_CLK(0) <= not TMR_CLK(0);
-				end if;
-			end if;
-		end if;
-	end process;
-	
-	-- successive dividers by 10
-	deriv : for idx in 1 to 7 generate
-	process (TMR_CLK(idx - 1))
-		begin
-			if ( TMR_CLK(idx - 1)'event and TMR_CLK(idx - 1)='1' ) then
-				if ( RESET='1' ) then
-					cnt_base(idx) <= (others => '0' );
-					TMR_CLK(idx) <= '1' ;
-				else
-					cnt_base(idx) <= cnt_base(idx) + 1;
-					
-					if ( cnt_base(idx) = 4 ) then
-						cnt_base(idx) <= (others => '0' );
-						TMR_CLK(idx) <= not TMR_CLK(idx);
-					end if;
-				end if;
-			end if;
-		end process;
-	end generate;
-	
 	gen_rw : for idx in 0 to 3 generate
 		cReg : reg16
 		port map(
@@ -128,35 +100,48 @@ begin
 	
 	gen_ro : for idx in 0 to 2 generate
 		ld(idx) <= (CE and WE) when (1 + idx) = to_integer(unsigned(AD)) else '0' ;
-		sCLK(idx) <= TMR_CLK(to_integer(unsigned(sRegisters(0)(5 * idx + 2 downto 5 * idx))));
 		
 		cIRQ : reg1
 		port map(
-			CLK=>sCLK(idx),
+			CLK=>CLK,
 			D=>sIRQin(idx),
 			Q=>sIRQ(idx),
 			E=>'1',
 			R=>sResetIRQ(idx)
 		);
 		
-		process(sCLK(idx), ld(idx), DIN)
+		process(CLK, RESET)
 		begin
-			if ( ld(idx)='1' ) then
+			if ( RESET='1' ) then
 				sIRQin(idx) <= '0' ;
+			elsif ( ld(idx)='1' ) then
+				cnt_base(idx) <= cnt_orig(to_integer(unsigned(sRegisters(0)(5 * idx + 2 downto 5 * idx))));
 				sRegisters(4 + idx) <= std_logic_vector(unsigned(DIN) - 1);
-			elsif ( sCLK(idx)'event and sCLK(idx)='1' ) then
+			elsif ( CLK'event and CLK='1' and sRegisters(0)(5 * idx + 4)='1' ) then
 				sIRQin(idx) <= '0' ;
-				if ( sRegisters(0)(5 * idx + 4)='1' ) then
-					if ( sRegisters(4 + idx) = x"0000" ) then
-						sIRQin(idx) <= '1';
-						
-						if ( sRegisters(0)(5 * idx + 3)='1' ) then
-							sRegisters(4 + idx) <= std_logic_vector(unsigned(sRegisters(1 + idx)) - 1);
+				
+				-- decrement frequency divider counter
+				cnt_base(idx) <= cnt_base(idx) - 1;
+				
+				if ( cnt_base(idx) = x"00000000" ) then
+					-- reset frequency divider counter
+					cnt_base(idx) <= cnt_orig(to_integer(unsigned(sRegisters(0)(5 * idx + 2 downto 5 * idx))));
+					
+					if ( sRegisters(0)(5 * idx + 4)='1' ) then
+						if ( sRegisters(4 + idx) = x"0000" ) then
+							-- interrupt
+							sIRQin(idx) <= '1';
+							
+							if ( sRegisters(0)(5 * idx + 3)='1' ) then
+								-- loop : reset counter
+								sRegisters(4 + idx) <= std_logic_vector(unsigned(sRegisters(1 + idx)) - 1);
+							else
+								-- disable timer to avoid multiple emissions... (?)
+							end if;
 						else
-							-- disable timer to avoid multiple emissions... (?)
+							-- decrement counter
+							sRegisters(4 + idx) <= std_logic_vector(unsigned(sRegisters(4 + idx)) - 1);
 						end if;
-					else
-						sRegisters(4 + idx) <= std_logic_vector(unsigned(sRegisters(4 + idx)) - 1);
 					end if;
 				end if;
 			end if;
