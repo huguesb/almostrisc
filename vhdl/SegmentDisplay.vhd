@@ -29,24 +29,23 @@ architecture Behavioral of SegmentDisplay is
 	signal seg_counter : unsigned(1 downto 0);
 	signal delay_counter : unsigned(16 downto 0);
 begin
-	cSegValue : for idx in 0 to 3 generate
-		seg_value(idx) <= VALUE(4*idx + 3 downto 4*idx);
-	end generate;
+	seg_value(0) <= VALUE(3 downto 0);
+	seg_value(1) <= VALUE(7 downto 4);
+	seg_value(2) <= VALUE(11 downto 8);
+	seg_value(3) <= VALUE(15 downto 12);
 	
 	process(CLK, RESET)
 	begin
 		if ( RESET='1' ) then
 			ANODE <= x"F";
 			SEGMENT <= (others => '1' );
-			seg_counter <= "11";
+			seg_counter <= "00";
 			delay_counter <= (others => '1' );
 		elsif ( CLK'event and CLK='1' ) then
 			delay_counter <= delay_counter - 1;
 			
 			if ( delay_counter = (16 downto 0 => '0' ) ) then
 				delay_counter <= (others => '1' );
-				
-				seg_counter <= seg_counter + 1;
 				
 				ANODE <= x"F";
 				ANODE(to_integer(seg_counter)) <= '0' ;
@@ -71,6 +70,8 @@ begin
 					when x"E" => SEGMENT <= "0000110";
 					when others => SEGMENT <= "0001110";
 				end case;
+				
+				seg_counter <= seg_counter + 1;
 			end if;
 		end if;
 	end process;

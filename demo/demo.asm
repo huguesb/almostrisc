@@ -71,6 +71,10 @@ int_isr:
 	lw	r1, r0
 	
 	; handle kbd interrupt
+	bspl	r2, r1, 5
+	bailne	r2, r6, int_error
+	
+	; handle kbd interrupt
 	bspl	r2, r1, 3
 	bailne	r2, r6, int_kbd
 	
@@ -87,9 +91,9 @@ int_isr:
 
 .org	0x0080
 int_tmr:
-	; simple visual test for timer
-	not r3, r3
-	out	r3
+	;simple visual test for timer
+	not r4, r4
+	out	r4
 	
 	ba	-, r6
 
@@ -101,9 +105,21 @@ int_kbd:
 	liw	r2, PS2_rx
 	lw	r3, r2
 	
-	; ...
+	; "scroll" scan codes
+	mixll	r4, r4, r3
+	out	r4
 	
 	ba	-, r6
+
+.org	0x00A0
+int_error:
+	; simple visual test for kbd error
+	
+	xor	r4, r4, r4
+	out	r4
+	
+	ba	-, r6
+
 
 .org	0x0100
 os_init:
@@ -111,7 +127,7 @@ os_init:
 	
 	liw	r0, IRQ_mask	; r0 = 0x2000 : interrupt masking
 	
-	li	r1, 0x0F		; unmask only first timer and PS2 input
+	li	r1, 0x19		; unmask only first timer and PS2 input
 	sw	r1, r0
 	
 	inc	r0, r0		; r0 = 0x2001 : interrupt sensibility
@@ -122,12 +138,12 @@ os_init:
 	li	r2, 7
 	add	r0, r0, r2	; r0 = 0x2008 : timers control
 	
-	li	r2, 0x1D 	; enable first timer, loop, speed = 1MHz / 10**1 = 100kHz
+	li	r2, 0x1D 	; enable first timer, loop, speed = 1MHz / 10**1 = 10Hz
 	sw	r2, r0
 	
 	inc	r0, r0		; r0 = 0x2009 : first timer, base count
 	
-	li	r2, 2		; fire every 2 timer period (so every 0.00002s in this case)
+	li	r2, 15		; fire every 15 timer period (so every 1.5s in this case)
 	sw	r2, r0
 	
 ; 	inc	r0, r0		; r0 = 0x200A : second timer, frequency
@@ -171,13 +187,13 @@ test.extra:
 	mixlh	r4, r0, r1
 	mixll	r5, r0, r1
 	
-; 	; test register-indexed shift/rotates
-; 	li	r6, 3
-; 	
-; 	rrr	r5, r0, r6
-; 	rrl	r5, r1, r6
-; 	rsr	r5, r2, r6
-; 	rsl	r5, r3, r6
+	; test register-indexed shift/rotates
+	li	r6, 3
+	
+	rrr	r5, r0, r6
+	rrl	r5, r1, r6
+	rsr	r5, r2, r6
+	rsl	r5, r3, r6
 	
 	; test hw multiplication
 	mul	r6, r1, r0 ; r1:r6 = r1 * r0
@@ -195,8 +211,38 @@ test.puts:
 	
 	bail	-, r6, puts
 	
+	
+	xor	r0, r0, r0
+	li	r1, 20
+	
+	liw	r2, 0x2020
+	sw	r2, r0
+	add	r0, r0, r1
+	liw	r2, 0x7070
+	sw	r2, r0
+	add	r0, r0, r1
+	liw	r2, 0xF8F8 ; 
+	sw	r2, r0
+	add	r0, r0, r1
+	liw	r2, 0xF8F8 ; 
+	sw	r2, r0
+	add	r0, r0, r1
+	liw	r2, 0xF870 ; 
+	sw	r2, r0
+	add	r0, r0, r1
+	liw	r2, 0x7020 ; 
+	sw	r2, r0
+	add	r0, r0, r1
+	liw	r2, 0x2070 ; 
+	sw	r2, r0
+	add	r0, r0, r1
+	liw	r2, 0x0000 ; 
+	sw	r2, r0
+	add	r0, r0, r1
+	
 	; stop there
 	bri	-, $
+	
 	
 	; test division
 test.div:

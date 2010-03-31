@@ -17,7 +17,7 @@ architecture BEHAVIORAL of ROMPROG is
 		(
 			INIT : bit_vector := X"000";
 			SRVAL : bit_vector := X"000";
-			WRITE_MODE : string := "WRITE_FIRST";
+			WRITE_MODE : string := "READ_FIRST";
 			INIT_00 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
 			INIT_01 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
 			INIT_02 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
@@ -177,12 +177,12 @@ begin
 		ADDR=>AD(10 downto 0),
 		CLK=>CLK,
 		DI=>(others=>'0'),
-		DIP(0)=>'0',
+		DIP(0)=>'Z',
 		EN=>'1',
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(0)(7 downto 0),
-		DOP(0)=>pout(0)
+		DOP=>open
 	);
 	
 	XLXI_1 : RAMB16_S9
@@ -256,12 +256,12 @@ begin
 		ADDR=>AD(10 downto 0),
 		CLK=>CLK,
 		DI=>(others=>'0'),
-		DIP(0)=>'0',
+		DIP(0)=>'Z',
 		EN=>'1',
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(0)(15 downto 8),
-		DOP(0)=>pout(1)
+		DOP=>open
 	);
 	
 	XLXI_2 : RAMB16_S9
@@ -335,12 +335,12 @@ begin
 		ADDR=>AD(10 downto 0),
 		CLK=>CLK,
 		DI=>(others=>'0'),
-		DIP(0)=>'0',
+		DIP(0)=>'Z',
 		EN=>'1',
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(1)(7 downto 0),
-		DOP(0)=>pout(2)
+		DOP=>open
 	);
 	
 	XLXI_3 : RAMB16_S9
@@ -414,12 +414,12 @@ begin
 		ADDR=>AD(10 downto 0),
 		CLK=>CLK,
 		DI=>(others=>'0'),
-		DIP(0)=>'0',
+		DIP(0)=>'Z',
 		EN=>'1',
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(1)(15 downto 8),
-		DOP(0)=>pout(3)
+		DOP=>open
 	);
 	
 	XLXI_4 : RAMB16_S9
@@ -493,12 +493,12 @@ begin
 		ADDR=>AD(10 downto 0),
 		CLK=>CLK,
 		DI=>(others=>'0'),
-		DIP(0)=>'0',
+		DIP(0)=>'Z',
 		EN=>'1',
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(2)(7 downto 0),
-		DOP(0)=>pout(4)
+		DOP=>open
 	);
 	
 	XLXI_5 : RAMB16_S9
@@ -572,12 +572,12 @@ begin
 		ADDR=>AD(10 downto 0),
 		CLK=>CLK,
 		DI=>(others=>'0'),
-		DIP(0)=>'0',
+		DIP(0)=>'Z',
 		EN=>'1',
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(2)(15 downto 8),
-		DOP(0)=>pout(5)
+		DOP=>open
 	);
 	
 	XLXI_6 : RAMB16_S9
@@ -651,12 +651,12 @@ begin
 		ADDR=>AD(10 downto 0),
 		CLK=>CLK,
 		DI=>(others=>'0'),
-		DIP(0)=>'0',
+		DIP(0)=>'Z',
 		EN=>'1',
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(3)(7 downto 0),
-		DOP(0)=>pout(6)
+		DOP=>open
 	);
 	
 	XLXI_7 : RAMB16_S9
@@ -730,12 +730,12 @@ begin
 		ADDR=>AD(10 downto 0),
 		CLK=>CLK,
 		DI=>(others=>'0'),
-		DIP(0)=>'0',
+		DIP(0)=>'Z',
 		EN=>'1',
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(3)(15 downto 8),
-		DOP(0)=>pout(7)
+		DOP=>open
 	);
 	
 	D <= dout(to_integer(unsigned(AD(12 downto 11))));

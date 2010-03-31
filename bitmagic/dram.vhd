@@ -99,7 +99,7 @@ architecture BEHAVIORAL of RAMDoublePort is
 			SIM_COLLISION_CHECK : string := "ALL";
 			SRVAL_A : bit_vector := X"000";
 			SRVAL_B : bit_vector := X"000";
-			WRITE_MODE_A : string := "WRITE_FIRST";
+			WRITE_MODE_A : string := "READ_FIRST";
 			WRITE_MODE_B : string := "READ_FIRST"
 		);
 		port
@@ -127,11 +127,16 @@ architecture BEHAVIORAL of RAMDoublePort is
 	
 	type vmb is array (3 downto 0) of std_logic_vector(15 downto 0);
 	signal douta, doutb : vmb;
-	signal phigh, plow : std_logic;
-	signal pout : std_logic_vector(15 downto 0);
+	signal WE : std_logic_vector(3 downto 0);
 begin
-	plow <= ((DIN1(7) xor DIN1(6)) xor (DIN1(5) xor DIN1(4))) xor ((DIN1(3) xor DIN1(2)) xor (DIN1(1) xor DIN1(0)));
-	phigh <= ((DIN1(15) xor DIN1(14)) xor (DIN1(13) xor DIN1(12))) xor ((DIN1(11) xor DIN1(10)) xor (DIN1(9) xor DIN1(8)));
+	process (AD1, WE)
+	begin
+		WE <= (others => '0' );
+		WE(to_integer(unsigned(AD1(12 downto 11)))) <= WE1;
+	end process;
+	
+	DOUT1 <= douta(to_integer(unsigned(AD1(12 downto 11))));
+	DOUT2 <= doutb(to_integer(unsigned(AD2(12 downto 11))));
 	
 	XLXI_0 : RAMB16_S9_S9
 	generic map (
@@ -202,14 +207,14 @@ begin
 	)
 	port map (
 		CLKA=>CLK,
-		ENA=>CE1,
-		WEA=>WE1,
+		ENA=>'1',
+		WEA=>WE(0),
 		SSRA=>'0',
 		ADDRA=>AD1(10 downto 0),
 		DIA=>DIN1(7 downto 0),
-		DIPA(0)=>plow,
+		DIPA(0)=>'Z',
 		DOA=>douta(0)(7 downto 0),
-		DOPA(0)=>pout(0),
+		DOPA(0)=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -217,9 +222,9 @@ begin
 		SSRB=>'0',
 		ADDRB=>AD2(10 downto 0),
 		DIB=>(others=>'0'),
-		DIPB(0)=>'0',
+		DIPB(0)=>'Z',
 		DOB=>doutb(0)(7 downto 0),
-		DOPB(0)=>pout(1)
+		DOPB(0)=>open
 	);
 	
 	XLXI_1 : RAMB16_S9_S9
@@ -291,14 +296,14 @@ begin
 	)
 	port map (
 		CLKA=>CLK,
-		ENA=>CE1,
-		WEA=>WE1,
+		ENA=>'1',
+		WEA=>WE(0),
 		SSRA=>'0',
 		ADDRA=>AD1(10 downto 0),
-		DIA=>DIN1(7 downto 0),
-		DIPA(0)=>phigh,
+		DIA=>DIN1(15 downto 8),
+		DIPA(0)=>'Z',
 		DOA=>douta(0)(15 downto 8),
-		DOPA(0)=>pout(2),
+		DOPA(0)=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -306,9 +311,9 @@ begin
 		SSRB=>'0',
 		ADDRB=>AD2(10 downto 0),
 		DIB=>(others=>'0'),
-		DIPB(0)=>'0',
+		DIPB(0)=>'Z',
 		DOB=>doutb(0)(15 downto 8),
-		DOPB(0)=>pout(3)
+		DOPB(0)=>open
 	);
 	
 	XLXI_2 : RAMB16_S9_S9
@@ -380,14 +385,14 @@ begin
 	)
 	port map (
 		CLKA=>CLK,
-		ENA=>CE1,
-		WEA=>WE1,
+		ENA=>'1',
+		WEA=>WE(1),
 		SSRA=>'0',
 		ADDRA=>AD1(10 downto 0),
 		DIA=>DIN1(7 downto 0),
-		DIPA(0)=>plow,
+		DIPA(0)=>'Z',
 		DOA=>douta(1)(7 downto 0),
-		DOPA(0)=>pout(4),
+		DOPA(0)=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -395,9 +400,9 @@ begin
 		SSRB=>'0',
 		ADDRB=>AD2(10 downto 0),
 		DIB=>(others=>'0'),
-		DIPB(0)=>'0',
+		DIPB(0)=>'Z',
 		DOB=>doutb(1)(7 downto 0),
-		DOPB(0)=>pout(5)
+		DOPB(0)=>open
 	);
 	
 	XLXI_3 : RAMB16_S9_S9
@@ -469,14 +474,14 @@ begin
 	)
 	port map (
 		CLKA=>CLK,
-		ENA=>CE1,
-		WEA=>WE1,
+		ENA=>'1',
+		WEA=>WE(1),
 		SSRA=>'0',
 		ADDRA=>AD1(10 downto 0),
 		DIA=>DIN1(15 downto 8),
-		DIPA(0)=>phigh,
+		DIPA(0)=>'Z',
 		DOA=>douta(1)(15 downto 8),
-		DOPA(0)=>pout(6),
+		DOPA(0)=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -484,9 +489,9 @@ begin
 		SSRB=>'0',
 		ADDRB=>AD2(10 downto 0),
 		DIB=>(others=>'0'),
-		DIPB(0)=>'0',
+		DIPB(0)=>'Z',
 		DOB=>doutb(1)(15 downto 8),
-		DOPB(0)=>pout(7)
+		DOPB(0)=>open
 	);
 	
 	XLXI_4 : RAMB16_S9_S9
@@ -558,14 +563,14 @@ begin
 	)
 	port map (
 		CLKA=>CLK,
-		ENA=>CE1,
-		WEA=>WE1,
+		ENA=>'1',
+		WEA=>WE(2),
 		SSRA=>'0',
 		ADDRA=>AD1(10 downto 0),
 		DIA=>DIN1(7 downto 0),
-		DIPA(0)=>plow,
+		DIPA(0)=>'Z',
 		DOA=>douta(2)(7 downto 0),
-		DOPA(0)=>pout(8),
+		DOPA(0)=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -573,9 +578,9 @@ begin
 		SSRB=>'0',
 		ADDRB=>AD2(10 downto 0),
 		DIB=>(others=>'0'),
-		DIPB(0)=>'0',
+		DIPB(0)=>'Z',
 		DOB=>doutb(2)(7 downto 0),
-		DOPB(0)=>pout(9)
+		DOPB(0)=>open
 	);
 	
 	XLXI_5 : RAMB16_S9_S9
@@ -647,14 +652,14 @@ begin
 	)
 	port map (
 		CLKA=>CLK,
-		ENA=>CE1,
-		WEA=>WE1,
+		ENA=>'1',
+		WEA=>WE(2),
 		SSRA=>'0',
 		ADDRA=>AD1(10 downto 0),
 		DIA=>DIN1(15 downto 8),
-		DIPA(0)=>phigh,
+		DIPA(0)=>'Z',
 		DOA=>douta(2)(15 downto 8),
-		DOPA(0)=>pout(10),
+		DOPA(0)=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -662,9 +667,9 @@ begin
 		SSRB=>'0',
 		ADDRB=>AD2(10 downto 0),
 		DIB=>(others=>'0'),
-		DIPB(0)=>'0',
+		DIPB(0)=>'Z',
 		DOB=>doutb(2)(15 downto 8),
-		DOPB(0)=>pout(11)
+		DOPB(0)=>open
 	);
 	
 	XLXI_6 : RAMB16_S9_S9
@@ -736,14 +741,14 @@ begin
 	)
 	port map (
 		CLKA=>CLK,
-		ENA=>CE1,
-		WEA=>WE1,
+		ENA=>'1',
+		WEA=>WE(3),
 		SSRA=>'0',
 		ADDRA=>AD1(10 downto 0),
 		DIA=>DIN1(7 downto 0),
-		DIPA(0)=>plow,
+		DIPA(0)=>'Z',
 		DOA=>douta(3)(7 downto 0),
-		DOPA(0)=>pout(12),
+		DOPA(0)=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -751,9 +756,9 @@ begin
 		SSRB=>'0',
 		ADDRB=>AD2(10 downto 0),
 		DIB=>(others=>'0'),
-		DIPB(0)=>'0',
+		DIPB(0)=>'Z',
 		DOB=>doutb(3)(7 downto 0),
-		DOPB(0)=>pout(13)
+		DOPB(0)=>open
 	);
 	
 	XLXI_7 : RAMB16_S9_S9
@@ -825,14 +830,14 @@ begin
 	)
 	port map (
 		CLKA=>CLK,
-		ENA=>CE1,
-		WEA=>WE1,
+		ENA=>'1',
+		WEA=>WE(3),
 		SSRA=>'0',
 		ADDRA=>AD1(10 downto 0),
 		DIA=>DIN1(15 downto 8),
-		DIPA(0)=>phigh,
+		DIPA(0)=>'Z',
 		DOA=>douta(3)(15 downto 8),
-		DOPA(0)=>pout(14),
+		DOPA(0)=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -840,11 +845,8 @@ begin
 		SSRB=>'0',
 		ADDRB=>AD2(10 downto 0),
 		DIB=>(others=>'0'),
-		DIPB(0)=>'0',
+		DIPB(0)=>'Z',
 		DOB=>doutb(3)(15 downto 8),
-		DOPB(0)=>pout(15)
+		DOPB(0)=>open
 	);
-	
-	DOUT1 <= douta(to_integer(unsigned(AD1(12 downto 11))));
-	DOUT2 <= doutb(to_integer(unsigned(AD2(12 downto 11))));
 end BEHAVIORAL;

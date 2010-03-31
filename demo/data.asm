@@ -4,7 +4,7 @@
 
 ; user data
 .org	5824
-.db "Hello World?", 0
+.db "Hello World!", 0
 .db "Another test", 0
 
 ; font map
