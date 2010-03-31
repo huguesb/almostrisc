@@ -66,6 +66,15 @@ architecture Behavioral of ProcesseurAndCo is
 		);
 	end component;
 	
+	component SegmentDisplay
+		Port(
+			CLK, RESET : in std_logic;
+			VALUE : in std_logic_vector(15 downto 0);
+			ANODE : out std_logic_vector(3 downto 0);
+			SEGMENT : out std_logic_vector(6 downto 0)
+		);
+	end component;
+	
 	component MMU
 		Port(
 			AD : in std_logic_vector(15 downto 0);
@@ -160,13 +169,13 @@ architecture Behavioral of ProcesseurAndCo is
 	signal CEram, CEirq, CEps2, CEtmr, CE232 : std_logic;
 begin
 	-- map pin/pout for backward compat with original ucf file...
-	ANODE(0) <= POUT(15);
-	ANODE(1) <= '1' ;
-	ANODE(2) <= '1' ;
-	ANODE(3) <= '1' ;
-	
-	SEGMENT <= POUT(14 downto 8);
-	LED <= POUT(7 downto 0);
+-- 	ANODE(0) <= POUT(15);
+-- 	ANODE(1) <= '1' ;
+-- 	ANODE(2) <= '1' ;
+-- 	ANODE(3) <= '1' ;
+-- 	
+-- 	SEGMENT <= POUT(14 downto 8);
+	LED <= SLIDER;
 	
 	TXD  <= '0' ; 
 	TXDA <= '0' ;
@@ -188,6 +197,15 @@ begin
 		WE=>WE,
 		CE=>CE,
 		OE=>OE
+	);
+	
+	cSegmentDisplay : SegmentDisplay
+	port map(
+		CLK=>CLK,
+		RESET=>RESET,
+		VALUE=>POUT,
+		ANODE=>ANODE,
+		SEGMENT=>SEGMENT
 	);
 	
 	cROMPROG : ROMPROG
