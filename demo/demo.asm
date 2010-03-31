@@ -18,8 +18,8 @@
 
 .equ	IRQ_mask		0x2000
 .equ	IRQ_sens		0x2001
-.equ	IRQ_ack 		0x2002
-.equ	IRQ_stat		0x2003
+.equ	IRQ_ack 		0x2002 ; Write : ack, Read : triggered
+.equ	IRQ_stat		0x2003 ; instant status
 
 .equ	PS2_rx		0x2004
 .equ	PS2_tx		0x2005
@@ -45,6 +45,8 @@
 .equ	IRQ_tmr1		0x0002
 .equ	IRQ_tmr2		0x0004
 .equ	IRQ_ps2in		0x0008
+.equ	IRQ_ps2out		0x0010
+.equ	IRQ_ps2err		0x0020
 
 
 .org	0x0000
@@ -64,20 +66,44 @@ int_isr:
 	; in this context we are using a different register bank
 	; so there is no need to manually save register values
 	
-	; acknowledge all interrupts
+	; check which interrupt(s) fired
 	liw	r0, IRQ_ack
+	lw	r1, r0
+	
+	; handle kbd interrupt
+	bspl	r2, r1, 3
+	bailne	r2, r6, int_kbd
+	
+	; handle first timer interrupt
+	bspl	r2, r1, 0
+	bailne	r2, r6, int_tmr
+	
+	; acknowledge all interrupts
 	li	r1, -1
 	sw	r1, r0
-	
-	; visual test
-	not r3, r3
-	out	r3
 	
 	; resume normal execution (and switch back register bank)
 	reti
 
-.org	0x0020
+.org	0x0080
+int_tmr:
+	; simple visual test for timer
+	not r3, r3
+	out	r3
+	
+	ba	-, r6
 
+.org	0x0090
+int_kbd:
+	; simple visual test for kbd
+	; display scan code value on 7segments
+	
+	liw	r2, PS2_rx
+	lw	r3, r2
+	
+	; ...
+	
+	ba	-, r6
 
 .org	0x0100
 os_init:
@@ -85,7 +111,7 @@ os_init:
 	
 	liw	r0, IRQ_mask	; r0 = 0x2000 : interrupt masking
 	
-	li	r1, 9		; unmask only first timer and PS2 input
+	li	r1, 0x0F		; unmask only first timer and PS2 input
 	sw	r1, r0
 	
 	inc	r0, r0		; r0 = 0x2001 : interrupt sensibility
@@ -96,13 +122,33 @@ os_init:
 	li	r2, 7
 	add	r0, r0, r2	; r0 = 0x2008 : timers control
 	
-	li	r2, 0x1D 	; enable first timer, loop, speed = 1MHz / 10**5 = 10Hz
+	li	r2, 0x1D 	; enable first timer, loop, speed = 1MHz / 10**1 = 100kHz
 	sw	r2, r0
 	
 	inc	r0, r0		; r0 = 0x2009 : first timer, base count
 	
-	li	r2, 5		; fire every 5 timer period (so every 0.5s in this case)
+	li	r2, 2		; fire every 2 timer period (so every 0.00002s in this case)
 	sw	r2, r0
+	
+; 	inc	r0, r0		; r0 = 0x200A : second timer, frequency
+; 	
+; 	li	r2, 0x1B 	; enable second timer, loop, speed = 1MHz / 10**3 = 1kHz
+; 	sw	r2, r0
+; 	
+; 	inc	r0, r0		; r0 = 0x200B : second timer, base count
+; 	
+; 	li	r2, 3		; fire every 3 timer period (so every 0.003s in this case)
+; 	sw	r2, r0
+; 	
+; 	inc	r0, r0		; r0 = 0x200C : third timer, frequency
+; 	
+; 	li	r2, 0x1D 	; enable second timer, loop, speed = 1MHz / 10**5 = 10Hz
+; 	sw	r2, r0
+; 	
+; 	inc	r0, r0		; r0 = 0x200D : third timer, base count
+; 	
+; 	li	r2, 5		; fire every 5 timer period (so every 0.5s in this case)
+; 	sw	r2, r0
 	
 	
 start:
@@ -112,6 +158,8 @@ test.extra:
 	; test imm16 loading
 	liw	r0, 0x8421
 	liw	r1, 0x1234
+	
+	out	r1
 	
 	; test reg-mem swap instruction
 	exw	r0, r1
