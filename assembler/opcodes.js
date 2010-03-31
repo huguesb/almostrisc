@@ -94,7 +94,7 @@ instr["sw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["0xD200 + reg(\"\\1\") + (reg(\"\\2
 // spec extension : direct reg/mem swap
 instr["exw\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["0xE400 + reg(\"\\1\") + (reg(\"\\2\") << 3)"];
 
-// port I/O
+// port I/O (useless but part of the spec...)
 instr["in\\s+(r[0-7])"]						= ["0xD400 + reg(\"\\1\")"];
 instr["out\\s+(r[0-7])"]					= ["0xD600 + (reg(\"\\1\") << 6)"];
 
@@ -123,10 +123,13 @@ instr["nop"] = ["0x0000"];
 // spec extension : multiplication, outside ALU for performance reasons
 instr["mul\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"] = ["0xFC00 + reg(\"\\1\") + (reg(\"\\2\") << 3) + (reg(\"\\3\") << 6)"];
 
+// spec extension : bit spill
+instr["bspl\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"] = ["0xF400 + reg(\"\\1\") + (reg(\"\\2\") << 3) + ((immediate(\"\\3\", 4, 0) << 6) & 0x03C0)"]
+
 // 2 address ops
 instr["(inc|dec|mova|nega|not)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3)"];
 instr["(movb|negb)\\s+(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 6)"];
-instr["(shl|shr)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + ((immediate(\"\\4\", 4, 0) << 9) & 0x1F00)"];
+instr["(shl|shr)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(.+)"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + ((immediate(\"\\4\", 4, 0) << 9) & 0x1E00)"];
 // catch-all for 3 address ops
 instr["(\\w+)\\s+(r[0-7])\\s*,?\\s*(r[0-7])\\s*,?\\s*(r[0-7])"]	= ["(operation(\"\\1\") << 9) + reg(\"\\2\") + (reg(\"\\3\") << 3) + (reg(\"\\4\") << 6)"];
 

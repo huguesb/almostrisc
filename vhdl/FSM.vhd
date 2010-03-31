@@ -274,6 +274,17 @@ begin
 					EMUL <= '1' ;
 					
 					sNextState <= SMult;
+				elsif ( IR(15 downto 10) = "111101" ) then
+					-- BSPL
+					
+					ImmOff(3 downto 0) <= IR(8 downto 5);
+					
+					ERd <= '1' ;
+					SelRIn <= "101";
+					
+					-- prefetching
+					EIR <= '1' ;
+					sNextState <= SDecode;
 				else
 					-- prefetching
 					EIR <= '1' ;

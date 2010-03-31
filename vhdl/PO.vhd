@@ -103,9 +103,7 @@ architecture Behavioral of PO is
 	signal sR : reg16array(15 downto 0);
 	signal sRegE : std_logic_vector(15 downto 0);
 	
-	signal sigRa, sigRb, sigRd, sRin : std_logic_vector(15 downto 0);
-	
-	signal sMulSelRin : std_logic_vector(2 downto 0);
+	signal sigRa, sigRb, sigRd, sRin, sMult, sRegular : std_logic_vector(15 downto 0);
 	
 	signal sProd : unsigned(31 downto 0);
 	
@@ -232,28 +230,32 @@ begin
 		sRegE(to_integer(sINTo & unsigned(SelRd))) <= ERd ;
 	end process;
 	
-	-- SelRin coding :
-	--	000	: DDATAIN (lw)
-	--	001	: PCIR + 1 = PCprev (brl, bal)
-	--	010	: PIN (in)
-	--	011	: ImmOff (li)
-	--	100	: UAL (op)
+	-- SelRin coding (when not EMUL) :
+	--	000 : DDATAIN (lw)
+	--	001 : PCIR + 1 = PCprev (brl, bal)
+	--	010 : PIN (in)
+	--	011 : ImmOff (li)
+	--	100 : UAL (op)
+	--	101 : bspl
+	--	110 : 
 	
 	-- with SelRIn(2 downto 1) select
 	--	sigRd <= sUAL when "10", std_logic_vector(sProd(31 downto 16)) when "11", sRin when others; 
-	sigRd <= sUAL when SelRIn(2)='1' else sRin;
+	sigRd <= sUAL when SelRIn="100" else sRin;
 	
-	sMulSelRin <= std_logic_vector(EMUL & unsigned(SelRIn(1 downto 0)));
+	sRin <= sMult when EMUL='1' else sRegular;
 	
-	with sMulSelRin select
-		sRin <=
+	sMult <= sProdH when SelRIn(0)='1' else sProdL;
+	
+	with SelRIn select
+	sRegular <=
 			DDATAIN when "000",
 			sPCprev when "001",
 			PIN     when "010",
 			ImmOff  when "011",
-			sProdL  when "100",
-			sProdH  when "101",
-			(others => 'Z') when others;
+			(15 downto 0 => sigRa(to_integer(unsigned(ImmOff(3 downto 0)))))  when "101",
+			(others => 'Z') when others
+			;
 	
 	-- UAL and related
 	
