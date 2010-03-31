@@ -5,7 +5,7 @@
 --
 -- Command: data2mem -bm bitmagic/dram.bmm -bd bitmagic/dram.mem -o h bitmagic/dram_data.vhd
 --
--- Created on 03/30/10 01:48 pm, from:
+-- Created on 03/31/10 04:11 pm, from:
 --
 --     Map file     - bitmagic/dram.bmm
 --     Data file(s) - bitmagic/dram.mem

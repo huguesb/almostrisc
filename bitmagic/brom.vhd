@@ -104,6 +104,7 @@ architecture BEHAVIORAL of ROMPROG is
 	
 	type vmb is array (3 downto 0) of std_logic_vector(15 downto 0);
 	signal dout : vmb;
+	signal pout : std_logic_vector(7 downto 0);
 begin
 	XLXI_0 : RAMB16_S9
 	generic map (
@@ -181,7 +182,7 @@ begin
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(0)(7 downto 0),
-		DOP=>open
+		DOP(0)=>pout(0)
 	);
 	
 	XLXI_1 : RAMB16_S9
@@ -260,7 +261,7 @@ begin
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(0)(15 downto 8),
-		DOP=>open
+		DOP(0)=>pout(1)
 	);
 	
 	XLXI_2 : RAMB16_S9
@@ -339,7 +340,7 @@ begin
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(1)(7 downto 0),
-		DOP=>open
+		DOP(0)=>pout(2)
 	);
 	
 	XLXI_3 : RAMB16_S9
@@ -418,7 +419,7 @@ begin
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(1)(15 downto 8),
-		DOP=>open
+		DOP(0)=>pout(3)
 	);
 	
 	XLXI_4 : RAMB16_S9
@@ -497,7 +498,7 @@ begin
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(2)(7 downto 0),
-		DOP=>open
+		DOP(0)=>pout(4)
 	);
 	
 	XLXI_5 : RAMB16_S9
@@ -576,7 +577,7 @@ begin
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(2)(15 downto 8),
-		DOP=>open
+		DOP(0)=>pout(5)
 	);
 	
 	XLXI_6 : RAMB16_S9
@@ -655,7 +656,7 @@ begin
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(3)(7 downto 0),
-		DOP=>open
+		DOP(0)=>pout(6)
 	);
 	
 	XLXI_7 : RAMB16_S9
@@ -734,7 +735,7 @@ begin
 		SSR=>'0',
 		WE=>'0',
 		DO=>dout(3)(15 downto 8),
-		DOP=>open
+		DOP(0)=>pout(7)
 	);
 	
 	D <= dout(to_integer(unsigned(AD(12 downto 11))));
