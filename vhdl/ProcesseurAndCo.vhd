@@ -30,13 +30,15 @@ entity ProcesseurAndCo is
 		
 		HS, VS, R, G, B : out std_logic;
 		
-		--PIN : in std_logic_vector(15 downto 0);
-		--POUT : out std_logic_vector(15 downto 0);
-		
 		PS2C, PS2D : inout std_logic;
 		
 		RXD, RXDA : in std_logic;
 		TXD, TXDA : out std_logic
+-- 		
+-- 		RAD : out std_logic_vector(17 downto 0);
+-- 		ROE, RWE : out std_logic;
+-- 		RCE, RUB, RLB : out std_logic_vector(1 downto 0);
+-- 		RIO : inout std_logic_vector(31 downto 0)
 	);
 end ProcesseurAndCo;
 
@@ -167,14 +169,8 @@ architecture Behavioral of ProcesseurAndCo is
 	signal sRAMout, sIRQout, sPS2out, sTMRout, s232out, sIRQin : std_logic_vector(15 downto 0);
 	signal WE, CE, OE : std_logic;
 	signal CEram, CEirq, CEps2, CEtmr, CE232 : std_logic;
+	signal pCEram, pCEirq, pCEps2, pCEtmr, pCE232 : std_logic;
 begin
-	-- map pin/pout for backward compat with original ucf file...
--- 	ANODE(0) <= POUT(15);
--- 	ANODE(1) <= '1' ;
--- 	ANODE(2) <= '1' ;
--- 	ANODE(3) <= '1' ;
--- 	
--- 	SEGMENT <= POUT(14 downto 8);
 	LED <= SLIDER;
 	
 	TXD  <= '0' ; 
@@ -255,7 +251,25 @@ begin
 		IRQout=>INT
 	);
 	
-	DDATAIN <= sRAMout or sIRQout or sPS2out or sTMRout;
+	process(CLK, RESET)
+	begin
+		if ( RESET='1' ) then
+			pCEram <= '0' ;
+			pCEirq <= '0' ;
+			pCEps2 <= '0' ;
+			pCEtmr <= '0' ;
+		elsif ( CLK'event and CLK='1' ) then
+			pCEram <= CEram and OE;
+			pCEirq <= CEirq and OE;
+			pCEps2 <= CEps2 and OE;
+			pCEtmr <= CEtmr and OE;
+		end if;
+	end process;
+	
+	DDATAIN <= (sRAMout and (15 downto 0 => pCEram))
+	          or (sIRQout and (15 downto 0 => pCEirq))
+	          or (sPS2out and (15 downto 0 => pCEps2))
+	          or (sTMRout and (15 downto 0 => pCEtmr));
 	
 	cVGA : VGA
 	port map(
