@@ -72,7 +72,7 @@ architecture Behavioral of PS2 is
 	signal sParity : std_logic;
 	signal sBitCount : unsigned(3 downto 0);
 	signal sInput : std_logic_vector(8 downto 0);
-	signal sOutput : std_logic_vector(7 downto 0);
+	signal sOutput, sOutVal, sStatus : std_logic_vector(7 downto 0);
 	signal smooth_counter : unsigned(8 downto 0);
 begin
 	-- smooth PS2C
@@ -154,20 +154,15 @@ begin
 	IRQ <= sError & '0' & sAvail;
 	sRead <= CE and OE and (AD(0) nor AD(1));
 	
+	sOutVal <= sStatus when AD(1)='1' else sOutput;
+	DOUT <= x"00" & sOutVal;
+	
 	process (CLK)
 	begin
 		if ( CLK'event and CLK='1' ) then
-			DOUT <= x"0000";
-			
 			ACK <= sAvail or sError;
 			
-			if ( (CE and OE)='1' ) then
-				case AD is
-					when "00" => DOUT <= x"00" & sOutput;
-					when "10" => DOUT <= x"00" & "00" & sIdle & sParity & sError & sAvail & sFull & sEmpty;
-					when others => DOUT <= (others => 'Z');
-				end case;
-			end if;
+			sStatus <= "00" & sIdle & sParity & sError & sAvail & sFull & sEmpty;
 		end if;
 	end process;
 end Behavioral;
