@@ -104,7 +104,6 @@ architecture BEHAVIORAL of ROMPROG is
 	
 	type vmb is array (3 downto 0) of std_logic_vector(15 downto 0);
 	signal dout : vmb;
-	signal pout : std_logic_vector(7 downto 0);
 begin
 	XLXI_0 : RAMB16_S9
 	generic map (

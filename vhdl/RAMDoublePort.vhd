@@ -958,7 +958,7 @@ architecture Behavioral of RAMDoublePort is
   5826 => x"6F20",
   5827 => x"576F",
   5828 => x"726C",
-  5829 => x"643F",
+  5829 => x"6421",
   5830 => x"0041",
   5831 => x"6E6F",
   5832 => x"7468",

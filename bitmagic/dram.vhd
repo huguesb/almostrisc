@@ -129,7 +129,7 @@ architecture BEHAVIORAL of RAMDoublePort is
 	signal douta, doutb : vmb;
 	signal WE : std_logic_vector(3 downto 0);
 begin
-	process (AD1, WE)
+	process (AD1, WE1)
 	begin
 		WE <= (others => '0' );
 		WE(to_integer(unsigned(AD1(12 downto 11)))) <= WE1;
@@ -214,7 +214,7 @@ begin
 		DIA=>DIN1(7 downto 0),
 		DIPA(0)=>'Z',
 		DOA=>douta(0)(7 downto 0),
-		DOPA(0)=>open,
+		DOPA=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -224,7 +224,7 @@ begin
 		DIB=>(others=>'0'),
 		DIPB(0)=>'Z',
 		DOB=>doutb(0)(7 downto 0),
-		DOPB(0)=>open
+		DOPB=>open
 	);
 	
 	XLXI_1 : RAMB16_S9_S9
@@ -303,7 +303,7 @@ begin
 		DIA=>DIN1(15 downto 8),
 		DIPA(0)=>'Z',
 		DOA=>douta(0)(15 downto 8),
-		DOPA(0)=>open,
+		DOPA=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -313,7 +313,7 @@ begin
 		DIB=>(others=>'0'),
 		DIPB(0)=>'Z',
 		DOB=>doutb(0)(15 downto 8),
-		DOPB(0)=>open
+		DOPB=>open
 	);
 	
 	XLXI_2 : RAMB16_S9_S9
@@ -392,7 +392,7 @@ begin
 		DIA=>DIN1(7 downto 0),
 		DIPA(0)=>'Z',
 		DOA=>douta(1)(7 downto 0),
-		DOPA(0)=>open,
+		DOPA=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -402,7 +402,7 @@ begin
 		DIB=>(others=>'0'),
 		DIPB(0)=>'Z',
 		DOB=>doutb(1)(7 downto 0),
-		DOPB(0)=>open
+		DOPB=>open
 	);
 	
 	XLXI_3 : RAMB16_S9_S9
@@ -481,7 +481,7 @@ begin
 		DIA=>DIN1(15 downto 8),
 		DIPA(0)=>'Z',
 		DOA=>douta(1)(15 downto 8),
-		DOPA(0)=>open,
+		DOPA=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -491,7 +491,7 @@ begin
 		DIB=>(others=>'0'),
 		DIPB(0)=>'Z',
 		DOB=>doutb(1)(15 downto 8),
-		DOPB(0)=>open
+		DOPB=>open
 	);
 	
 	XLXI_4 : RAMB16_S9_S9
@@ -570,7 +570,7 @@ begin
 		DIA=>DIN1(7 downto 0),
 		DIPA(0)=>'Z',
 		DOA=>douta(2)(7 downto 0),
-		DOPA(0)=>open,
+		DOPA=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -580,7 +580,7 @@ begin
 		DIB=>(others=>'0'),
 		DIPB(0)=>'Z',
 		DOB=>doutb(2)(7 downto 0),
-		DOPB(0)=>open
+		DOPB=>open
 	);
 	
 	XLXI_5 : RAMB16_S9_S9
@@ -659,7 +659,7 @@ begin
 		DIA=>DIN1(15 downto 8),
 		DIPA(0)=>'Z',
 		DOA=>douta(2)(15 downto 8),
-		DOPA(0)=>open,
+		DOPA=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -669,7 +669,7 @@ begin
 		DIB=>(others=>'0'),
 		DIPB(0)=>'Z',
 		DOB=>doutb(2)(15 downto 8),
-		DOPB(0)=>open
+		DOPB=>open
 	);
 	
 	XLXI_6 : RAMB16_S9_S9
@@ -748,7 +748,7 @@ begin
 		DIA=>DIN1(7 downto 0),
 		DIPA(0)=>'Z',
 		DOA=>douta(3)(7 downto 0),
-		DOPA(0)=>open,
+		DOPA=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -758,7 +758,7 @@ begin
 		DIB=>(others=>'0'),
 		DIPB(0)=>'Z',
 		DOB=>doutb(3)(7 downto 0),
-		DOPB(0)=>open
+		DOPB=>open
 	);
 	
 	XLXI_7 : RAMB16_S9_S9
@@ -837,7 +837,7 @@ begin
 		DIA=>DIN1(15 downto 8),
 		DIPA(0)=>'Z',
 		DOA=>douta(3)(15 downto 8),
-		DOPA(0)=>open,
+		DOPA=>open,
 		
 		CLKB=>CLK,
 		ENB=>'1',
@@ -847,6 +847,6 @@ begin
 		DIB=>(others=>'0'),
 		DIPB(0)=>'Z',
 		DOB=>doutb(3)(15 downto 8),
-		DOPB(0)=>open
+		DOPB=>open
 	);
 end BEHAVIORAL;
