@@ -34,14 +34,9 @@ begin
 	seg_value(2) <= VALUE(11 downto 8);
 	seg_value(3) <= VALUE(15 downto 12);
 	
-	process(CLK, RESET)
+	process(CLK, RESET, VALUE)
 	begin
-		if ( RESET='1' ) then
-			ANODE <= x"F";
-			SEGMENT <= (others => '1' );
-			seg_counter <= "00";
-			delay_counter <= (others => '1' );
-		elsif ( CLK'event and CLK='1' ) then
+		if ( CLK'event and CLK='1' ) then
 			delay_counter <= delay_counter - 1;
 			
 			if ( delay_counter = (16 downto 0 => '0' ) ) then
@@ -72,6 +67,11 @@ begin
 				end case;
 				
 				seg_counter <= seg_counter + 1;
+			else
+				ANODE <= x"F";
+				SEGMENT <= (others => '1' );
+				seg_counter <= "00";
+				delay_counter <= x"0000" & '1';
 			end if;
 		end if;
 	end process;
