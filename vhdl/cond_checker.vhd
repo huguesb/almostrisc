@@ -21,7 +21,7 @@ entity cond_checker is
 end cond_checker;
 
 architecture Behavioral of cond_checker is
-	signal sNnull, sNeg : std_logic;
+	signal sNnull : std_logic;
 begin
 	sNnull <=
 		I(15) or I(14) or I(13) or I(12) or I(11) or I(10) or I(9) or I(8) or

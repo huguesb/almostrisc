@@ -110,7 +110,7 @@ begin
 			R=>sResetIRQ(idx)
 		);
 		
-		process(CLK, RESET)
+		process(CLK, RESET, ld(idx), DIN)
 		begin
 			if ( RESET='1' ) then
 				sIRQin(idx) <= '0' ;
