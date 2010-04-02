@@ -431,7 +431,7 @@ function assemble(text, base)
 		// vhdl-friendly representation (for copy/paste into ROMPROG)
 		if ( hex[h].op != filler )
 		{
-			output_str += pad_str((Number(base) + Number(h)), 5, ' ');
+			output_str += pad_str((Number(base) + Number(h)).toString(10), 5, ' ');
 			output_str += "=>x\"";
 			output_str += hex16(hex[h].op);
 			output_str += "\",\t-- ";
