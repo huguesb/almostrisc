@@ -56,8 +56,9 @@ int main(int argc, char **argv)
 	}
 	
 	engine.globalObject().setProperty("source", engine.newVariant(QString::fromLocal8Bit(f.readAll())));
+	engine.globalObject().setProperty("reloc", engine.newVariant(argc > 3 ? QString::fromLocal8Bit(argv[3]) : "0x0000"));
 	
-	QScriptValue r = engine.evaluate("assemble(source)");
+	QScriptValue r = engine.evaluate("assemble(source, reloc)");
 	
 	if ( engine.hasUncaughtException() )
 	{

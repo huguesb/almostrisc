@@ -299,7 +299,7 @@ function bin16(i)
 	return pad_str(i.toString(2), 16, '0');
 }
 
-function assemble(text)
+function assemble(text, base)
 {
 	var lines = String(text).split("\n");
 	
@@ -431,7 +431,7 @@ function assemble(text)
 		// vhdl-friendly representation (for copy/paste into ROMPROG)
 		if ( hex[h].op != filler )
 		{
-			output_str += pad_str(h, 5, ' ');
+			output_str += pad_str((Number(base) + Number(h)), 5, ' ');
 			output_str += "=>x\"";
 			output_str += hex16(hex[h].op);
 			output_str += "\",\t-- ";

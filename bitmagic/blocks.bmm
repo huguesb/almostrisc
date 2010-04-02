@@ -6,25 +6,16 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 ADDRESS_SPACE archi2_rom RAMB16 [0x00000000:0x00003FFF]
-    // first 2k words
+    // 8k words
     BUS_BLOCK
-        cROMPROG/XLXI_1 [15:8];
-        cROMPROG/XLXI_0 [7:0];
-    END_BUS_BLOCK;
-    // next 2k words
-    BUS_BLOCK
-        cROMPROG/XLXI_3 [15:8];
-        cROMPROG/XLXI_2 [7:0];
-    END_BUS_BLOCK;
-    // next 2k words
-    BUS_BLOCK
-        cROMPROG/XLXI_5 [15:8];
-        cROMPROG/XLXI_4 [7:0];
-    END_BUS_BLOCK;
-    // last 2k words
-    BUS_BLOCK
-        cROMPROG/XLXI_7 [15:8];
-        cROMPROG/XLXI_6 [7:0];
+        cROMPROG/XLXI_7 [15:14];
+        cROMPROG/XLXI_6 [13:12];
+        cROMPROG/XLXI_5 [11:10];
+        cROMPROG/XLXI_4 [9:8];
+        cROMPROG/XLXI_3 [7:6];
+        cROMPROG/XLXI_2 [5:4];
+        cROMPROG/XLXI_1 [3:2];
+        cROMPROG/XLXI_0 [1:0];
     END_BUS_BLOCK;
 END_ADDRESS_SPACE;
 
@@ -35,24 +26,15 @@ END_ADDRESS_SPACE;
 ///////////////////////////////////////////////////////////////////////////////
 
 ADDRESS_SPACE archi2_ram RAMB16 [0x00000000:0x00003FFF]
-    // first 2k words
+    // 8k words
     BUS_BLOCK
-        cRAMDoublePort/XLXI_1 [15:8];
-        cRAMDoublePort/XLXI_0 [7:0];
-    END_BUS_BLOCK;
-    // next 2k words
-    BUS_BLOCK
-        cRAMDoublePort/XLXI_3 [15:8];
-        cRAMDoublePort/XLXI_2 [7:0];
-    END_BUS_BLOCK;
-    // next 2k words
-    BUS_BLOCK
-        cRAMDoublePort/XLXI_5 [15:8];
-        cRAMDoublePort/XLXI_4 [7:0];
-    END_BUS_BLOCK;
-    // last 2k words
-    BUS_BLOCK
-        cRAMDoublePort/XLXI_7 [15:8];
-        cRAMDoublePort/XLXI_6 [7:0];
+        cRAMDoublePort/XLXI_7 [15:14];
+        cRAMDoublePort/XLXI_6 [13:12];
+        cRAMDoublePort/XLXI_5 [11:10];
+        cRAMDoublePort/XLXI_4 [9:8];
+        cRAMDoublePort/XLXI_3 [7:6];
+        cRAMDoublePort/XLXI_2 [5:4];
+        cRAMDoublePort/XLXI_1 [3:2];
+        cRAMDoublePort/XLXI_0 [1:0];
     END_BUS_BLOCK;
 END_ADDRESS_SPACE;

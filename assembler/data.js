@@ -82,7 +82,7 @@ function eval_num(str, bits)
 	return n;
 }
 
-function assemble(text)
+function assemble(text, base)
 {
 	/*
 		turns a list of .db / .dw statements into xxxx=>x"", statements for VHDL embedding
@@ -166,7 +166,7 @@ function assemble(text)
 		var n = (hex[i + i] << 8) + hex[i + i + 1];
 		
 		if ( n != 0 )
-			out_str += " " + pad_str(i.toString(10), 5, ' ') + " => x\"" + hex16(n) + "\",\n";
+			out_str += " " + pad_str((i + Number(base)).toString(10), 5, ' ') + " => x\"" + hex16(n) + "\",\n";
 		
 // 		print(
 // 			(n & 1 ? "        & " : " " + pad_str((i - n / 2).toString(10), 6, " ") + "=> ")
