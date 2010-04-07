@@ -273,7 +273,6 @@ event_kbd:
 	li	r3, 8
 	bail	-, r6, put_sprite_8_aligned
 	
-	
 	lw	r1, r7
 	inc	r7, r7
 	lw	r0, r7
@@ -289,7 +288,8 @@ event_kbd:
 	li	r2, 233
 	sub	r2, r1, r2
 	brilt	r2, event_kbd_end
-	li	r1, 30
+	li	r1, 8
+	li	r0, 0
 event_kbd_end:
 	lw	r2, r7
 	inc	r7, r7

@@ -32,8 +32,8 @@ architecture Behavioral of GeneSync is
 	signal IMGY : std_logic;
 begin
 	Y<=std_logic_vector(Yaux(8 downto 0));
-	HSYNC<=pulseX;
-	VSYNC<=pulseY;
+	--HSYNC<=pulseX;
+	--VSYNC<=pulseY;
 	IMG<=IMGX AND IMGY;
 	
 	process (CLK)
@@ -42,6 +42,8 @@ begin
 			if ( RESET='1' ) then
 				comptX <= (others => '0' );
 				comptY <= (others => '0' );
+				HSYNC <= '0' ;
+				VSYNC <= '0' ;
 			else
 				if ( comptX(10 downto 1) < 800 ) then 
 					comptX <= comptX+1;
@@ -56,6 +58,9 @@ begin
 						comptY <= (others => '0' );
 					end if;
 				end if;
+				
+				HSYNC <= pulseX;
+				VSYNC <= pulseY;
 			end if;
 		end if;
 	end process;

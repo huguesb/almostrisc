@@ -261,7 +261,7 @@ begin
 					-- got to skip next word if not taking the jump
 					sNextState <= SFetch;
 					
-					if ( COND='1' ) then 
+					if ( COND='1' ) then
 						sNextState <= SBranchImm16;
 					end if;
 				elsif ( IR(15 downto 9) = "1111110" ) then
