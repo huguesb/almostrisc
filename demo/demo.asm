@@ -398,6 +398,12 @@ event_kbd:
 	lw	r2, r2
 	brieq	r2, event_not_kbd
 	
+	; clear previous char
+	li	r3, 0
+	bail	-, r6, putchar
+	; compensate putchar-induced increase of x coordinate
+	dec	r0, r0
+	
 	; up
 	bspl	r3, r2, 1
 	brieq	r3, event_kbd_no_up
@@ -444,22 +450,12 @@ event_kbd_no_clip_right:
 	
 event_kbd_no_right:
 
-	dec	r7, r7
-	sw	r0, r7
-	dec	r7, r7
-	sw	r1, r7
-	
-	liw	r2, font_map + 4 * 0x23
-	
-	li	r3, 8
-	bail	-, r6, put_sprite_8_aligned
-	
-	lw	r1, r7
-	inc	r7, r7
-	lw	r0, r7
-	inc	r7, r7
-	
 event_not_kbd:
+	; display char
+	li	r3, 0x23
+	bail	-, r6, putchar
+	; compensate putchar-induced increase of x coordinate
+	dec	r0, r0
 	
 	bri	-, event_loop
 	
@@ -567,82 +563,36 @@ puts.loop:
 	; check for null
 	brieq	r3, puts.end
 	
-	; push	r0
-	dec	r7, r7
-	sw	r0, r7
-	; push	r1
-	dec	r7, r7
-	sw	r1, r7
 	; push	r2
 	dec	r7, r7
 	sw	r2, r7
 	
-	; find proper sprite for char
-	liw	r4, font_map
-	shl	r3, r3, 1
-	add	r2, r3, r4
-	
-	; sprite height
-	li	r3, 8
-	
-	; draw sprite at proper position
-	bail	-, r6, put_sprite_8_aligned
+	bail	-, r6, putchar
 	
 	; pop	r2
 	lw	r2, r7
 	inc	r7, r7
-	; pop	r1
-	lw	r1, r7
-	inc	r7, r7
-	; pop	r0
-	lw	r0, r7
-	inc	r7, r7
-	
-	; next column
-	inc	r0, r0
 	
 	; todo : newline if needed...
 	
 	; fetch char
 	lw	r3, r2
 	shl	r3, r3, 7
-	shr	r3, r3, 5
+	shr	r3, r3, 7
 	
 	; check for null
 	brieq	r3, puts.end
 	
-	; push	r0
-	dec	r7, r7
-	sw	r0, r7
-	; push	r1
-	dec	r7, r7
-	sw	r1, r7
 	; push	r2
 	dec	r7, r7
 	sw	r2, r7
 	
-	; find proper sprite for char
-	liw	r4, font_map
-	add	r2, r3, r4
-	
-	; sprite height
-	li	r3, 8
-	
 	; draw sprite at proper position
-	bail	-, r6, put_sprite_8_aligned
+	bail	-, r6, putchar
 	
 	; pop	r2
 	lw	r2, r7
 	inc	r7, r7
-	; pop	r1
-	lw	r1, r7
-	inc	r7, r7
-	; pop	r0
-	lw	r0, r7
-	inc	r7, r7
-	
-	; next column
-	inc	r0, r0
 	
 	; next char
 	inc	r2, r2
@@ -657,6 +607,28 @@ puts.end:
 	; exit routine
 	ba	-, r6
 
+; brief : display the 8*8 char in r3 at pos (r0, r1)
+putchar:
+	dec	r7, r7
+	sw	r0, r7
+	dec	r7, r7
+	sw	r1, r7
+	
+	liw	r2, font_map ; + 4 * 0x23
+	shl	r3, r3, 1
+	add	r2, r2, r3
+	
+	li	r3, 8
+	bail	-, r6, put_sprite_8_aligned
+	
+	lw	r1, r7
+	inc	r7, r7
+	lw	r0, r7
+	inc	r7, r7
+	
+	inc	r0, r0
+	
+	ba	-, r6
 	
 	; inputs : 
 	;	* (r0, r1) = (x / 16, y)
