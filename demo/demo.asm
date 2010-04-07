@@ -199,14 +199,14 @@ test.extra:
 	mul	r6, r1, r0 ; r1:r6 = r1 * r0
 	
 test.puts:
-	li	r0, 5
-	li	r1, 42
+	li	r0, 39
+	li	r1, 0
 	liw	r2, font_map + 4 * 0x23
 	li	r3, 8
 	bail	-, r6, put_sprite_8_aligned
 	
-	li	r0, 0
-	li	r1, 20
+	li	r0, 4
+	li	r1, 0
 	liw	r2, hello_str
 	
 	bail	-, r6, puts
@@ -243,8 +243,8 @@ test.puts:
 	; stop there
 	;bri	-, $
 	
-	li	r0, 0
-	li	r1, 30
+	li	r0, 1
+	li	r1, 8
 	liw	r2, font_map
 	
 event_loop:
@@ -283,6 +283,7 @@ event_kbd:
 	li	r2, 40
 	sub	r2, r0, r2
 	brilt	r2, event_kbd_end
+	shr	r0, r1, 2
 	li	r2, 8
 	add	r1, r1, r2
 	li	r2, 233
