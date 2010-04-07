@@ -16,6 +16,9 @@
 
 .equ	hello_str		0x16C0
 
+.equ	scan_code_map	0x1700
+.equ	key_press_map	0x1900
+
 .equ	IRQ_mask		0x2000
 .equ	IRQ_sens		0x2001
 .equ	IRQ_ack 		0x2002 ; Write : ack, Read : triggered
@@ -89,7 +92,7 @@ int_isr:
 	; resume normal execution (and switch back register bank)
 	reti
 
-.org	0x0080
+.org	0x0040
 int_tmr:
 	;simple visual test for timer
 	not r4, r4
@@ -97,27 +100,99 @@ int_tmr:
 	
 	ba	-, r6
 
-.org	0x0090
-int_kbd:
-	; simple visual test for kbd
-	; display scan code value on 7segments
-	
-; 	liw	r2, PS2_rx
-; 	lw	r3, r2
-; 	
-; 	; "scroll" scan codes
-; 	mixll	r4, r4, r3
-; 	out	r4
-	
-	ba	-, r6
-
-.org	0x00A0
+.org	0x0050
 int_error:
 	; simple visual test for kbd error
 	
 	xor	r4, r4, r4
 	out	r4
 	
+	ba	-, r6
+
+.org	0x0060
+int_kbd:
+	; simple visual test for kbd
+	; display scan code value on 7segments
+	
+	; r0, r1, r6, r7 : reserved for IRQ dispatcher
+	; r2 : last byte from PS2 peripheral
+	; r3 : status = {0 | nothing, 1 | release, 2 | extended, 3 | both} 
+	
+	liw	r2, PS2_rx
+	lw	r2, r2
+	
+	li	r4, 0xF0
+	sub	r4, r2, r4
+	brieq	r4, int_kbd.release
+	li	r4, 0xE0
+	sub	r4, r2, r4
+	brieq	r4, int_kbd.extended
+	
+int_kbd.process:
+	; convert useless scan code representation
+	; into more usable 7bit representation
+	
+	; select proper keymap
+	liw	r4, scan_code_map
+	shr	r5, r3, 0
+	shl	r5, r5, 7
+	add	r4, r4, r5
+	
+	shr	r5, r2, 0
+	sbc	r2, r2, r2
+	
+	add	r4, r4, r5
+	lw	r4, r4
+	
+	brine	r2, int_kbd.process_low
+	mixhl	r2, r2, r4
+	bri	-, int_kbd.processed
+int_kbd.process_low:
+	mixhh	r2, r2, r4
+	
+int_kbd.processed:
+	
+	; notify
+	
+	; compute address of keybit in keypress_map
+	liw	r4, key_press_map
+	shr	r5, r2, 3
+	shl	r2, r2, 11
+	shr	r2, r2, 11
+	add	r4, r4, r5
+	
+	; create bit mask
+	li	r5, 1
+	rrr	r5, r5, r2
+	
+	lw	r2, r4
+	
+	bspl	r3, r3, 0
+	brine	r3, int_kbd.notify_release
+	
+	; notify keypress
+	or	r2, r2, r5
+	bri	-, int_kbd.notified
+	
+int_kbd.notify_release:
+	not	r5, r5
+	and	r2, r2, r5
+	
+int_kbd.notified:
+	sw	r2, r4
+	
+	; clear status
+	li	r3, 0
+	ba	-, r6
+	
+int_kbd.extended:
+	li	r4, 2
+	or	r3, r3, r4
+	ba	-, r6
+	
+int_kbd.release:
+	li	r4, 1
+	or	r3, r3, r4
 	ba	-, r6
 
 
@@ -166,6 +241,26 @@ os_init:
 ; 	li	r2, 5		; fire every 5 timer period (so every 0.5s in this case)
 ; 	sw	r2, r0
 	
+	; clear kbd memory
+	liw	r0, key_press_map
+	li	r1, 0
+	sw	r1, r0
+	inc	r0, r0
+	sw	r1, r0
+	inc	r0, r0
+	sw	r1, r0
+	inc	r0, r0
+	sw	r1, r0
+	inc	r0, r0
+	sw	r1, r0
+	inc	r0, r0
+	sw	r1, r0
+	inc	r0, r0
+	sw	r1, r0
+	inc	r0, r0
+	sw	r1, r0
+	inc	r0, r0
+	sw	r1, r0
 	
 start:
 	; "userspace" starts here
@@ -251,24 +346,110 @@ event_loop:
 	
 	
 event_kbd:
-	liw	r3, PS2_stat
-	lw	r3, r3
 	
-	bspl	r4, r3, 0
-	brine	r4, event_not_kbd
+	; keyboard polling...
 	
-	dec	r7, r7
-	sw	r2, r7
+; 	liw	r3, PS2_stat
+; 	lw	r3, r3
+; 	
+; 	bspl	r4, r3, 0
+; 	brine	r4, event_not_kbd
+; 	
+; 	dec	r7, r7
+; 	sw	r2, r7
+; 	dec	r7, r7
+; 	sw	r0, r7
+; 	dec	r7, r7
+; 	sw	r1, r7
+; 	
+; 	liw	r3, PS2_rx
+; 	lw	r3, r3
+; 	
+; 	shl	r3, r3, 1
+; 	add	r2, r2, r3
+; 	
+; 	li	r3, 8
+; 	bail	-, r6, put_sprite_8_aligned
+; 	
+; 	lw	r1, r7
+; 	inc	r7, r7
+; 	lw	r0, r7
+; 	inc	r7, r7
+; 	
+; 	inc	r0, r0
+; 	li	r2, 40
+; 	sub	r2, r0, r2
+; 	brilt	r2, event_kbd_end
+; 	shr	r0, r1, 2
+; 	li	r2, 8
+; 	add	r1, r1, r2
+; 	li	r2, 233
+; 	sub	r2, r1, r2
+; 	brilt	r2, event_kbd_end
+; 	li	r1, 8
+; 	li	r0, 0
+; event_kbd_end:
+; 	lw	r2, r7
+; 	inc	r7, r7
+	
+	; interrupt-based conversion, only use key codes
+	
+	liw	r2, key_press_map
+	lw	r2, r2
+	brieq	r2, event_not_kbd
+	
+	; up
+	bspl	r3, r2, 1
+	brieq	r3, event_kbd_no_up
+	
+	shr	r3, r1, 2
+	brine	r3, event_kbd_no_clip_up
+	li	r0, 240
+event_kbd_no_clip_up:
+	li	r3, 8
+	sub	r1, r1, r3
+	
+event_kbd_no_up:
+	; left
+	bspl	r3, r2, 2
+	brieq	r3, event_kbd_no_left
+	
+	brine	r0, event_kbd_no_clip_left
+	li	r0, 40
+event_kbd_no_clip_left:
+	dec	r0, r0
+	
+event_kbd_no_left:
+	; down
+	bspl	r3, r2, 3
+	brieq	r3, event_kbd_no_up
+	li	r3, 232
+	sub	r3, r1, r3
+	brilt	r3, event_kbd_no_clip_down
+	li	r0, 0
+event_kbd_no_clip_down:
+	li	r3, 8
+	add	r1, r1, r3
+	
+event_kbd_no_down:
+	; right
+	bspl	r3, r2, 4
+	brieq	r3, event_kbd_no_right
+	li	r3, 39
+	sub	r3, r0, r3
+	brilt	r3, event_kbd_no_clip_right
+	li	r0, -1
+event_kbd_no_clip_right:
+	inc	r0, r0
+	
+event_kbd_no_right:
+
 	dec	r7, r7
 	sw	r0, r7
 	dec	r7, r7
 	sw	r1, r7
 	
-	liw	r3, PS2_rx
-	lw	r3, r3
-	
-	shl	r3, r3, 1
-	add	r2, r2, r3
+	liw	r2, font_map + 4 * 0x23
 	
 	li	r3, 8
 	bail	-, r6, put_sprite_8_aligned
@@ -276,22 +457,6 @@ event_kbd:
 	lw	r1, r7
 	inc	r7, r7
 	lw	r0, r7
-	inc	r7, r7
-	
-	inc	r0, r0
-	li	r2, 40
-	sub	r2, r0, r2
-	brilt	r2, event_kbd_end
-	shr	r0, r1, 2
-	li	r2, 8
-	add	r1, r1, r2
-	li	r2, 233
-	sub	r2, r1, r2
-	brilt	r2, event_kbd_end
-	li	r1, 8
-	li	r0, 0
-event_kbd_end:
-	lw	r2, r7
 	inc	r7, r7
 	
 event_not_kbd:
