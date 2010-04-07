@@ -121,80 +121,80 @@ int_kbd:
 	liw	r2, PS2_rx
 	lw	r2, r2
 	
-	li	r4, 0xF0
-	sub	r4, r2, r4
-	brieq	r4, int_kbd.release
-	
-	li	r4, 0xE0
-	sub	r4, r2, r4
-	brieq	r4, int_kbd.extended
-	
-int_kbd.process:
-	; convert useless scan code representation
-	; into more usable 7bit representation
-	
-	; select proper keymap
-	liw	r4, scan_code_map
-	shr	r5, r3, 0
-	shl	r5, r5, 7
-	add	r4, r4, r5
-	
-	shr	r5, r2, 0
-	sbc	r2, r2, r2
-	
-	add	r4, r4, r5
-	lw	r4, r4
-	
-	brine	r2, int_kbd.process_low
-	mixhl	r2, r2, r4
-	bri	-, int_kbd.processed
-int_kbd.process_low:
-	mixhh	r2, r2, r4
-	
-int_kbd.processed:
-	mova	r7, r2
-	
-	; notify
-	
-	; compute address of keybit in keypress_map
-	liw	r4, key_press_map
-	shr	r5, r2, 3
-	shl	r2, r2, 11
-	shr	r2, r2, 11
-	add	r4, r4, r5
-	
-	; create bit mask
-	li	r5, 1
-	rrr	r5, r5, r2
-	
-	lw	r2, r4
-	
-	bspl	r3, r3, 0
-	brine	r3, int_kbd.notify_release
-	
-	; notify keypress
-	or	r2, r2, r5
-	bri	-, int_kbd.notified
-	
-int_kbd.notify_release:
-	not	r5, r5
-	and	r2, r2, r5
-	
-int_kbd.notified:
-	;sw	r2, r4
-	
-	; clear status
-	li	r3, 0
-	ba	-, r6
-	
-int_kbd.extended:
-	li	r4, 2
-	or	r3, r3, r4
-	ba	-, r6
-	
-int_kbd.release:
-	li	r4, 1
-	or	r3, r3, r4
+; 	li	r4, 0xF0
+; 	sub	r4, r2, r4
+; 	brieq	r4, int_kbd.release
+; 	
+; 	li	r4, 0xE0
+; 	sub	r4, r2, r4
+; 	brieq	r4, int_kbd.extended
+; 	
+; int_kbd.process:
+; 	; convert useless scan code representation
+; 	; into more usable 7bit representation
+; 	
+; 	; select proper keymap
+; 	liw	r4, scan_code_map
+; 	shr	r5, r3, 0
+; 	shl	r5, r5, 7
+; 	add	r4, r4, r5
+; 	
+; 	shr	r5, r2, 0
+; 	sbc	r2, r2, r2
+; 	
+; 	add	r4, r4, r5
+; 	lw	r4, r4
+; 	
+; 	brine	r2, int_kbd.process_low
+; 	mixhl	r2, r2, r4
+; 	bri	-, int_kbd.processed
+; int_kbd.process_low:
+; 	mixhh	r2, r2, r4
+; 	
+; int_kbd.processed:
+; 	mova	r7, r2
+; 	
+; 	; notify
+; 	
+; 	; compute address of keybit in keypress_map
+; 	liw	r4, key_press_map
+; 	shr	r5, r2, 3
+; 	shl	r2, r2, 11
+; 	shr	r2, r2, 11
+; 	add	r4, r4, r5
+; 	
+; 	; create bit mask
+; 	li	r5, 1
+; 	rrr	r5, r5, r2
+; 	
+; 	lw	r2, r4
+; 	
+; 	bspl	r3, r3, 0
+; 	brine	r3, int_kbd.notify_release
+; 	
+; 	; notify keypress
+; 	or	r2, r2, r5
+; 	bri	-, int_kbd.notified
+; 	
+; int_kbd.notify_release:
+; 	not	r5, r5
+; 	and	r2, r2, r5
+; 	
+; int_kbd.notified:
+; 	sw	r2, r4
+; 	
+; 	; clear status
+; 	li	r3, 0
+; 	ba	-, r6
+; 	
+; int_kbd.extended:
+; 	li	r4, 2
+; 	or	r3, r3, r4
+; 	ba	-, r6
+; 	
+; int_kbd.release:
+; 	li	r4, 1
+; 	or	r3, r3, r4
 	ba	-, r6
 
 
