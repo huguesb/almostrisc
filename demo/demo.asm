@@ -102,12 +102,12 @@ int_kbd:
 	; simple visual test for kbd
 	; display scan code value on 7segments
 	
-	liw	r2, PS2_rx
-	lw	r3, r2
-	
-	; "scroll" scan codes
-	mixll	r4, r4, r3
-	out	r4
+; 	liw	r2, PS2_rx
+; 	lw	r3, r2
+; 	
+; 	; "scroll" scan codes
+; 	mixll	r4, r4, r3
+; 	out	r4
 	
 	ba	-, r6
 
@@ -241,7 +241,61 @@ test.puts:
 	add	r0, r0, r1
 	
 	; stop there
-	bri	-, $
+	;bri	-, $
+	
+	li	r0, 0
+	li	r1, 30
+	liw	r2, font_map
+	
+event_loop:
+	
+	
+event_kbd:
+	liw	r3, PS2_stat
+	lw	r3, r3
+	
+	bspl	r4, r3, 0
+	brine	r4, event_not_kbd
+	
+	dec	r7, r7
+	sw	r2, r7
+	dec	r7, r7
+	sw	r0, r7
+	dec	r7, r7
+	sw	r1, r7
+	
+	liw	r3, PS2_rx
+	lw	r3, r3
+	
+	shl	r3, r3, 1
+	add	r2, r2, r3
+	
+	li	r3, 8
+	bail	-, r6, put_sprite_8_aligned
+	
+	
+	lw	r1, r7
+	inc	r7, r7
+	lw	r0, r7
+	inc	r7, r7
+	
+	inc	r0, r0
+	li	r2, 40
+	sub	r2, r0, r2
+	brilt	r2, event_kbd_end
+	li	r2, 8
+	add	r1, r1, r2
+	li	r2, 233
+	sub	r2, r1, r2
+	brilt	r2, event_kbd_end
+	li	r1, 30
+event_kbd_end:
+	lw	r2, r7
+	inc	r7, r7
+	
+event_not_kbd:
+	
+	bri	-, event_loop
 	
 	
 	; test division
