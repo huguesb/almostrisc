@@ -145,15 +145,17 @@ int_kbd.process:
 	add	r4, r4, r5
 	lw	r4, r4
 	
+	mova	r7, r4
+	
 	brine	r2, int_kbd.process_low
-	mixhl	r2, r2, r4
+	mixhh	r2, r2, r4
 	bri	-, int_kbd.processed
 int_kbd.process_low:
 	li	r2, 0
 	mixhl	r2, r2, r4
 	
 int_kbd.processed:
-	mova	r7, r2
+	
 	
 ; 	; notify
 ; 	
