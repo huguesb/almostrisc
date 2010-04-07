@@ -65,7 +65,7 @@ architecture Behavioral of ROMPROG is
   108=>x"0E92",	-- 0000111010010010  sbc	r2, r2, r2
   109=>x"0964",	-- 0000100101100100  add	r4, r4, r5
   110=>x"D024",	-- 1101000000100100  lw	r4, r4
-  111=>x"1027",	-- 0001000000100111  mova	r7, r4
+  111=>x"1EBF",	-- 0001111010111111  mixll	r7, r7, r2
   112=>x"80D4",	-- 1000000011010100  brine	r2, int_kbd.process_low
   113=>x"1912",	-- 0001100100010010  mixhh	r2, r2, r4
   114=>x"80C3",	-- 1000000011000011  bri	-, int_kbd.processed

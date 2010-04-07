@@ -145,7 +145,7 @@ int_kbd.process:
 	add	r4, r4, r5
 	lw	r4, r4
 	
-	mova	r7, r4
+	mixll	r7, r7, r2
 	
 	brine	r2, int_kbd.process_low
 	mixhh	r2, r2, r4
