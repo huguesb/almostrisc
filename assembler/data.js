@@ -131,9 +131,9 @@ function assemble(text, base)
 				{
 					arg = /\s*(.+)\s*/.exec(args[arg])[1];
 					
-					if ( arg.charAt(0) == '\"' )
+					if ( arg.charAt(0) == '\"' || arg.charAt(0) == '\'' )
 					{
-						arg = arg.substr(1, arg.length - 2);
+						arg = eval(arg); //arg.substr(1, arg.length - 2);
 						
 						for ( c in arg )
 						{
