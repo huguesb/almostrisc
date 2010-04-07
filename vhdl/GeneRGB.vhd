@@ -64,8 +64,7 @@ begin
 	
 	process (CLK)
 	begin
-		if ( CLK'event and CLK='1' )
-		then 
+		if ( CLK'event and CLK='1' ) then 
 			if ( RESET='1' ) then
 				S <= (others => '0');
 			else
