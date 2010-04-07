@@ -135,9 +135,9 @@ int_kbd.process:
 	
 	; select proper keymap
 	liw	r4, scan_code_map
-	shr	r5, r3, 0
-	shl	r5, r5, 6
-	add	r4, r4, r5
+	;shr	r5, r3, 0
+	;shl	r5, r5, 6
+	;add	r4, r4, r5
 	
 	shr	r5, r2, 0
 	sbc	r2, r2, r2
@@ -149,7 +149,8 @@ int_kbd.process:
 	mixhl	r2, r2, r4
 	bri	-, int_kbd.processed
 int_kbd.process_low:
-	mixhh	r2, r2, r4
+	li	r2, 0
+	mixhl	r2, r2, r4
 	
 int_kbd.processed:
 	mova	r7, r2
