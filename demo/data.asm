@@ -51,7 +51,7 @@
 ; arrows : up = 1, left = 2, down = 3, right = 4
 ;
 ;
-.org 0x1900
+.org 0x1800
 .dw	0, 0, 0, 0
 
 
