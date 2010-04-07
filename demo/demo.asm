@@ -124,6 +124,7 @@ int_kbd:
 	li	r4, 0xF0
 	sub	r4, r2, r4
 	brieq	r4, int_kbd.release
+	
 	li	r4, 0xE0
 	sub	r4, r2, r4
 	brieq	r4, int_kbd.extended
@@ -180,7 +181,7 @@ int_kbd.notify_release:
 	and	r2, r2, r5
 	
 int_kbd.notified:
-	sw	r2, r4
+	;sw	r2, r4
 	
 	; clear status
 	li	r3, 0
