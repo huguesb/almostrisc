@@ -345,6 +345,11 @@ test.puts:
 	liw	r2, font_map
 	
 event_loop:
+	; display char
+	li	r3, 0x23
+	bail	-, r6, putchar
+	; compensate putchar-induced increase of x coordinate
+	dec	r0, r0
 	
 	
 event_kbd:
@@ -453,11 +458,6 @@ event_kbd:
 event_kbd_no_right:
 
 event_not_kbd:
-	; display char
-	li	r3, 0x23
-	bail	-, r6, putchar
-	; compensate putchar-induced increase of x coordinate
-	dec	r0, r0
 	
 	bri	-, event_loop
 	
@@ -610,7 +610,12 @@ puts.end:
 	ba	-, r6
 
 ; brief : display the 8*8 char in r3 at pos (r0, r1)
+; destroys r2, r3, r4
 putchar:
+	; push	r6
+	dec	r7, r7
+	sw	r6, r7
+	
 	dec	r7, r7
 	sw	r0, r7
 	dec	r7, r7
@@ -629,6 +634,10 @@ putchar:
 	inc	r7, r7
 	
 	inc	r0, r0
+	
+	; pop	r6
+	lw	r6, r7
+	inc	r7, r7
 	
 	ba	-, r6
 	
