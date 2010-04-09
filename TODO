@@ -21,7 +21,7 @@ done (tested)
     |-------------------------------|
 	|0 0 0 1|1 H H|  Rb |  Ra |  Rd | mix(h|l)(h|l) rd, ra, rb
 	|-------------------------------|
-	|0 0 1 1|1 S L|  Rb |  Ra |  Rd | r(r|s)(r|l) rd, ra, rb  [trouble source...]
+	|0 0 1 1|1 S L|  Rb |  Ra |  Rd | r(r|s)(r|l) rd, ra, rb
 	|-------------------------------|
 	|1 1 1 1|1 1 0|  Rb |  Ra |  Rd | mul rd, ra, rb => ra:rd = ra * rb
 	|-------------------------------|
@@ -30,10 +30,16 @@ done (tested)
 
 considered (not implemented)
 	|-------------------------------|
+	|1 1 1 1|1 1 1 1|1 1 1 1|1 0 0 0| exx : switch register banks
+	|-------------------------------|
+	|1 1 1 1|1 1 1 1|1 1 1 1|1 1 0 0| di : disable interrupts
+	|1 1 1 1|1 1 1 1|1 1 1 1|1 1 0 1| ei : enable interrupts
+	|-------------------------------|
+	|1 1 1 1|1 1 1 1|1 1 1 1|1 1 0 0| call : push pc+1, ba....
+	|1 1 1 1|1 1 1 1|1 1 1 1|1 1 0 1| ret : pop	pc
+	|-------------------------------|
 	|1 1 1 0|0 1 0 0|1 0|     |  Rd | push rd <=> dec r7 \ sw rd, r7
 	|1 1 1 0|0 1 0 0|1 1|     |  Rd | pop rd <=> lw rd, r7 \ inc r7
-	|-------------------------------|
-	|                               | exx (switch register banks (and disable interrupts?) )
     |-------------------------------|
 	|1 1 1 0|0 1 0 1|bnk|  Ra |  Rd | ex rd, ra <=> (ra, rd) = (rd, ra)   [lotsa wiring...]
 	|-------------------------------|
@@ -101,14 +107,6 @@ considered (not implemented)
 			011101 : rrl
 			011110 : rsr
 			011111 : rsl
-
-	* "variants" (assuming fixed value for 'x' bits) [spec apparently does not allow this...]
-		* 63 "variants" of in
-		* 63 "variants" of out
-		* 7 "variants" of lw (conditionals?)
-		* 7 "variants" of sw (conditionals?)
-		* 7 "variants" of brl (conditionals?)
-		* 7 "variants" of bal (conditionals?)
 		
 	* brand new
 		* 11011  prefix : 2^11 = 2048 (from out to brcc)
@@ -116,11 +114,15 @@ considered (not implemented)
 			# exw : 2^6 = 64
 		* 11101  prefix : 2^11 = 2048 (.. to brl/bal)
 		* 111101 prefix : 2^10 = 1024 (from bal to xx)
-		* 11111  prefix : 2^11-2 = 2046 (from xx to reset)
+			# bspl
+		* 11111  prefix : 2^11 = 2048 (from xx to reset)
 			# baicc imm16
 			# bailcc imm16
 			# mul
 			# liw
+			# exx
+			# di
+			# ei
 			# reti
 			# reset
 		

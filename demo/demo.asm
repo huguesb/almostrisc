@@ -86,7 +86,7 @@ int_isr:
 	bailne	r2, r6, int_tmr
 	
 	; acknowledge all interrupts
-	li	r1, -1
+	;li	r1, -1
 	sw	r1, r0
 	
 	; resume normal execution (and switch back register bank)
@@ -129,6 +129,8 @@ int_kbd:
 	sub	r4, r2, r4
 	brieq	r4, int_kbd.extended
 	
+	mixll	r7, r7, r2
+	
 int_kbd.process:
 	; convert useless scan code representation
 	; into more usable 7bit representation
@@ -145,8 +147,6 @@ int_kbd.process:
 	add	r4, r4, r5
 	lw	r4, r4
 	
-	mixll	r7, r7, r2
-	
 	brine	r2, int_kbd.process_low
 	mixhh	r2, r2, r4
 	bri	-, int_kbd.processed
@@ -157,34 +157,33 @@ int_kbd.process_low:
 int_kbd.processed:
 	
 	
-; 	; notify
-; 	
-; 	; compute address of keybit in keypress_map
-; 	liw	r4, key_press_map
-; 	shr	r5, r2, 3
-; 	shl	r2, r2, 11
-; 	shr	r2, r2, 11
-; 	add	r4, r4, r5
-; 	
-; 	; create bit mask
-; 	li	r5, 1
-; 	rrr	r5, r5, r2
-; 	
-; 	lw	r2, r4
-; 	
-; 	bspl	r3, r3, 0
-; 	brine	r3, int_kbd.notify_release
-; 	
-; 	; notify keypress
-; 	or	r2, r2, r5
-; 	bri	-, int_kbd.notified
-; 	
-; int_kbd.notify_release:
-; 	not	r5, r5
-; 	and	r2, r2, r5
-; 	
-; int_kbd.notified:
-; 	sw	r2, r4
+	; notify
+	
+	; compute address of keybit in keypress_map
+	liw	r4, key_press_map
+	shr	r5, r2, 3
+	add	r4, r4, r5
+	
+	; create bit mask
+	li	r5, 1
+	not	r2, r2
+	rrr	r5, r5, r2
+	
+	lw	r2, r4
+	
+	bspl	r3, r3, 0
+	brine	r3, int_kbd.notify_release
+	
+	; notify keypress
+	or	r2, r2, r5
+	bri	-, int_kbd.notified
+	
+int_kbd.notify_release:
+	not	r5, r5
+	and	r2, r2, r5
+	
+int_kbd.notified:
+	sw	r2, r4
 	
 	; clear status
 	li	r3, 0
@@ -461,6 +460,15 @@ event_kbd_no_clip_right:
 event_kbd_no_right:
 
 event_not_kbd:
+	
+	
+	; small delay : ~5M cc ~0.1s
+	li	r4, 20
+	li	r3, 0
+	dec	r3, r3
+	brine	r3, $-1
+	dec	r4, r4
+	brine	r4, $-4
 	
 	bri	-, event_loop
 	
