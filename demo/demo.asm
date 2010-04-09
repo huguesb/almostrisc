@@ -477,13 +477,6 @@ redraw:
 	bail	-, r6, putchar
 	; compensate putchar-induced increase of x coordinate
 	dec	r0, r0
-		; small delay : ~2.5M cc ~0.05s
-	li	r4, 10
-	li	r3, 0
-	dec	r3, r3
-	brine	r3, $-1
-	dec	r4, r4
-	brine	r4, $-4
 	
 event_loop:
 	
@@ -556,7 +549,8 @@ event_kbd:
 	bspl	r3, r2, 0
 	brieq	r3, event_kbd_no_up
 	
-	shr	r3, r1, 2
+	li	r3, 8
+	sub	r3, r1, r3
 	brine	r3, event_kbd_no_clip_up
 	li	r1, 240
 event_kbd_no_clip_up:
