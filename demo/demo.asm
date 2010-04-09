@@ -122,8 +122,8 @@ int_kbd:
 	lw	r2, r2
 	
 	mixll	r7, r7, r2
-; 	li	r4, 9
-; 	sw	r7, r4
+	li	r4, 9
+	sw	r7, r4
 	
 	li	r4, 0xF0
 	sub	r4, r2, r4
