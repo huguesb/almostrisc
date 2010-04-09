@@ -186,6 +186,9 @@ int_kbd.notify_release:
 int_kbd.notified:
 	sw	r2, r4
 	
+	li	r4, 11
+	sw	r2, r4
+	
 	; clear status
 	li	r3, 0
 	ba	-, r6
