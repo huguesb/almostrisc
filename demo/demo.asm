@@ -488,7 +488,7 @@ redraw:
 	dec	r0, r0
 	
 	; small delay
-	li	r4, 20
+	li	r2, 20
 	li	r3, 0
 	dec	r3, r3
 	brine	r3, $-1
