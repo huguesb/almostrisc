@@ -132,33 +132,34 @@ int_kbd:
 	brieq	r4, int_kbd.extended
 	
 	mixll	r7, r7, r2
+	
+int_kbd.process:
+	; convert useless scan code representation
+	; into more usable 7bit representation
+	
+	; select proper keymap
+	liw	r4, scan_code_map
+	;shr	r5, r3, 0
+	;shl	r5, r5, 6
+	;add	r4, r4, r5
+	
+	shr	r5, r2, 0
+	sbc	r2, r2, r2
+	
+	add	r4, r4, r5
+	lw	r4, r4
+	
+	brine	r2, int_kbd.process_low
+	mixhh	r2, r2, r4
+	bri	-, int_kbd.processed
+int_kbd.process_low:
+	li	r2, 0
+	mixhl	r2, r2, r4
+	
+int_kbd.processed:
+	
+	mixll	r7, r7, r2
 	out	r7
-; 	
-; int_kbd.process:
-; 	; convert useless scan code representation
-; 	; into more usable 7bit representation
-; 	
-; 	; select proper keymap
-; 	liw	r4, scan_code_map
-; 	;shr	r5, r3, 0
-; 	;shl	r5, r5, 6
-; 	;add	r4, r4, r5
-; 	
-; 	shr	r5, r2, 0
-; 	sbc	r2, r2, r2
-; 	
-; 	add	r4, r4, r5
-; 	lw	r4, r4
-; 	
-; 	brine	r2, int_kbd.process_low
-; 	mixhh	r2, r2, r4
-; 	bri	-, int_kbd.processed
-; int_kbd.process_low:
-; 	li	r2, 0
-; 	mixhl	r2, r2, r4
-; 	
-; int_kbd.processed:
-; 	
 ; 	
 ; 	; notify
 ; 	
