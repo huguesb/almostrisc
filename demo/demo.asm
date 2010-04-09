@@ -475,19 +475,15 @@ redraw:
 	bail	-, r6, putchar
 	; compensate putchar-induced increase of x coordinate
 	dec	r0, r0
+		; small delay : ~2.5M cc ~0.05s
+	li	r4, 10
+	li	r3, 0
+	dec	r3, r3
+	brine	r3, $-1
+	dec	r4, r4
+	brine	r4, $-4
 	
 event_loop:
-	
-	
-	
-; 	; small delay : ~2.5M cc ~0.05s
-; 	li	r4, 10
-; 	li	r3, 0
-; 	dec	r3, r3
-; 	brine	r3, $-1
-; 	dec	r4, r4
-; 	brine	r4, $-4
-	
 	
 event_kbd:
 	
