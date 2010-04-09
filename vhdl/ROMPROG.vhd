@@ -228,7 +228,7 @@ architecture Behavioral of ROMPROG is
   380=>x"C140",	-- 1100000101000000  li	r0, 40
   381=>x"0600",	-- 0000011000000000  dec	r0, r0
   382=>x"F4D3",	-- 1111010011010011  bspl	r3, r2, 3
-  383=>x"BE98",	-- 1011111010011000  brieq	r3, event_kbd_no_up
+  383=>x"81D8",	-- 1000000111011000  brieq	r3, event_kbd_no_down
   384=>x"C743",	-- 1100011101000011  li	r3, 232
   385=>x"0ACB",	-- 0000101011001011  sub	r3, r1, r3
   386=>x"809D",	-- 1000000010011101  brilt	r3, event_kbd_no_clip_down

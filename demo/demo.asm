@@ -441,7 +441,7 @@ event_kbd_no_clip_left:
 event_kbd_no_left:
 	; down
 	bspl	r3, r2, 3
-	brieq	r3, event_kbd_no_up
+	brieq	r3, event_kbd_no_down
 	li	r3, 232
 	sub	r3, r1, r3
 	brilt	r3, event_kbd_no_clip_down
