@@ -360,6 +360,10 @@ test.puts:
 	li	r1, 8
 	li	r5, 0
 	
+	li	r6, 0
+	dec	r7, r7
+	sw	r6, r7
+	
 event_loop:
 	dec	r7, r7
 	sw	r5, r7
@@ -442,6 +446,15 @@ event_kbd:
 	liw	r3, PS2_rx
 	lw	r2, r3
 	
+	lw	r6, r7
+	inc	r7, r7
+	
+	mixll	r6, r6, r2
+	out	r6
+	
+	dec	r7, r7
+	sw	r6, r7
+	
 	li	r4, 0xF0
 	sub	r4, r2, r4
 	brieq	r4, event_kbd_release
@@ -452,8 +465,6 @@ event_kbd:
 	
 	bspl	r4, r5, 0
 	brine	r4, event_kbd_press
-	
-	out	r2
 	
 	bspl	r4, r5, 1
 	brine	r4, event_kbd_press_extended
