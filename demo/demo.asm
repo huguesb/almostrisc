@@ -405,66 +405,66 @@ event_kbd:
 	
 	; interrupt-based conversion, only use key codes
 	
-; 	liw	r2, key_press_map
-; 	lw	r2, r2
-; 	brieq	r2, event_not_kbd
-; 	
-; 	; clear previous char
-; 	li	r3, 0
-; 	bail	-, r6, putchar
-; 	; compensate putchar-induced increase of x coordinate
-; 	dec	r0, r0
-; 	
-; 	; up
-; 	bspl	r3, r2, 1
-; 	brieq	r3, event_kbd_no_up
-; 	
-; 	shr	r3, r1, 2
-; 	brine	r3, event_kbd_no_clip_up
-; 	li	r0, 240
-; event_kbd_no_clip_up:
-; 	li	r3, 8
-; 	sub	r1, r1, r3
-; 	
-; event_kbd_no_up:
-; 	; left
-; 	bspl	r3, r2, 2
-; 	brieq	r3, event_kbd_no_left
-; 	
-; 	brine	r0, event_kbd_no_clip_left
-; 	li	r0, 40
-; event_kbd_no_clip_left:
-; 	dec	r0, r0
-; 	
-; event_kbd_no_left:
-; 	; down
-; 	bspl	r3, r2, 3
-; 	brieq	r3, event_kbd_no_up
-; 	li	r3, 232
-; 	sub	r3, r1, r3
-; 	brilt	r3, event_kbd_no_clip_down
-; 	li	r0, 0
-; event_kbd_no_clip_down:
-; 	li	r3, 8
-; 	add	r1, r1, r3
-; 	
-; event_kbd_no_down:
-; 	; right
-; 	bspl	r3, r2, 4
-; 	brieq	r3, event_kbd_no_right
-; 	li	r3, 39
-; 	sub	r3, r0, r3
-; 	brilt	r3, event_kbd_no_clip_right
-; 	li	r0, -1
-; event_kbd_no_clip_right:
-; 	inc	r0, r0
-; 	
-; event_kbd_no_right:
-; 
-; event_not_kbd:
-; 	
-; 	
-; 	; small delay : ~5M cc ~0.1s
+	liw	r2, key_press_map
+	lw	r2, r2
+	brieq	r2, event_not_kbd
+	
+	; clear previous char
+	li	r3, 0
+	bail	-, r6, putchar
+	; compensate putchar-induced increase of x coordinate
+	dec	r0, r0
+	
+	; up
+	bspl	r3, r2, 1
+	brieq	r3, event_kbd_no_up
+	
+	shr	r3, r1, 2
+	brine	r3, event_kbd_no_clip_up
+	li	r0, 240
+event_kbd_no_clip_up:
+	li	r3, 8
+	sub	r1, r1, r3
+	
+event_kbd_no_up:
+	; left
+	bspl	r3, r2, 2
+	brieq	r3, event_kbd_no_left
+	
+	brine	r0, event_kbd_no_clip_left
+	li	r0, 40
+event_kbd_no_clip_left:
+	dec	r0, r0
+	
+event_kbd_no_left:
+	; down
+	bspl	r3, r2, 3
+	brieq	r3, event_kbd_no_up
+	li	r3, 232
+	sub	r3, r1, r3
+	brilt	r3, event_kbd_no_clip_down
+	li	r0, 0
+event_kbd_no_clip_down:
+	li	r3, 8
+	add	r1, r1, r3
+	
+event_kbd_no_down:
+	; right
+	bspl	r3, r2, 4
+	brieq	r3, event_kbd_no_right
+	li	r3, 39
+	sub	r3, r0, r3
+	brilt	r3, event_kbd_no_clip_right
+	li	r0, -1
+event_kbd_no_clip_right:
+	inc	r0, r0
+	
+event_kbd_no_right:
+
+event_not_kbd:
+	
+	
+	; small delay : ~5M cc ~0.1s
 ; 	li	r4, 20
 ; 	li	r3, 0
 ; 	dec	r3, r3
