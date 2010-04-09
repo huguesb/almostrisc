@@ -160,6 +160,8 @@ int_kbd.processed:
 	li	r4, 10
 	sw r2, r4
 	
+	brieq	r2, int_kbd.unknown
+	
 	; notify
 	
 ; 	; compute address of keybit in keypress_map
@@ -187,13 +189,14 @@ int_kbd.notified:
 ; 	sw	r2, r4
 	
 	li	r4, 11
-	sw	r2, r4
+	sw	r5, r4
 	li	r2, -1
 	li	r4, 29
 	sw	r2, r4
 	li	r4, 31
 	sw	r2, r4
 	
+int_kbd.unknown:
 	; clear status
 	li	r3, 0
 	ba	-, r6
