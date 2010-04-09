@@ -121,6 +121,9 @@ int_kbd:
 	liw	r2, PS2_rx
 	lw	r2, r2
 	
+	liw	r3, key_press_map + 8
+	lw	r3, r3
+	
 	mixll	r7, r7, r2
 	li	r4, 9
 	sw	r7, r4
@@ -308,16 +311,22 @@ int_kbd_write:
 int_kbd_done:
 	; clear status
 	li	r3, 0
+	liw	r4, key_press_map + 8
+	sw	r3, r4
 	ba	-, r6
 	
 int_kbd.extended:
 	li	r4, 2
 	or	r3, r3, r4
+	liw	r4, key_press_map + 8
+	sw	r3, r4
 	ba	-, r6
 	
 int_kbd.release:
 	li	r4, 1
 	or	r3, r3, r4
+	liw	r4, key_press_map + 8
+	sw	r3, r4
 	ba	-, r6
 
 
@@ -591,9 +600,9 @@ event_kbd_no_clip_right:
 	inc	r0, r0
 	
 event_kbd_no_right:
-	liw	r3, key_press_map
-	li	r4, 0
-	sw	r4, r3
+; 	liw	r3, key_press_map
+; 	li	r4, 0
+; 	sw	r4, r3
 	bri	-, redraw
 	
 event_not_kbd:
