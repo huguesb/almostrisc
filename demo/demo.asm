@@ -407,21 +407,24 @@ test.puts:
 	li	r0, 1
 	li	r1, 8
 	
-event_loop:
+redraw:
 	; display char
 	li	r3, 0x23
 	bail	-, r6, putchar
 	; compensate putchar-induced increase of x coordinate
 	dec	r0, r0
 	
+event_loop:
 	
-	; small delay : ~2.5M cc ~0.05s
-	li	r4, 10
-	li	r3, 0
-	dec	r3, r3
-	brine	r3, $-1
-	dec	r4, r4
-	brine	r4, $-4
+	
+	
+; 	; small delay : ~2.5M cc ~0.05s
+; 	li	r4, 10
+; 	li	r3, 0
+; 	dec	r3, r3
+; 	brine	r3, $-1
+; 	dec	r4, r4
+; 	brine	r4, $-4
 	
 	
 event_kbd:
@@ -534,7 +537,9 @@ event_kbd_no_clip_right:
 	inc	r0, r0
 	
 event_kbd_no_right:
-
+	
+	bri	-, redraw
+	
 event_not_kbd:
 	
 	bri	-, event_loop
