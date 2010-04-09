@@ -132,6 +132,7 @@ int_kbd:
 	brieq	r4, int_kbd.extended
 	
 	mixll	r7, r7, r2
+	out	r7
 	
 int_kbd.process:
 	; convert useless scan code representation
@@ -159,7 +160,6 @@ int_kbd.process_low:
 int_kbd.processed:
 	
 	mixll	r7, r7, r2
-	out	r7
 ; 	
 ; 	; notify
 ; 	
