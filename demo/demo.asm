@@ -304,9 +304,6 @@ int_kbd_write:
 	
 	li	r3, 10
 	sw	r2, r3
-	li	r3, 30
-	li	r2, -1
-	sw	r2, r3
 	
 int_kbd_done:
 	; clear status
@@ -389,6 +386,11 @@ os_init:
 	sw	r1, r0
 	inc	r0, r0
 	sw	r1, r0
+	
+	; mark
+	li	r3, 30
+	li	r2, -1
+	sw	r2, r3
 	
 start:
 	; "userspace" starts here
@@ -595,7 +597,9 @@ event_kbd_no_clip_right:
 	inc	r0, r0
 	
 event_kbd_no_right:
-	
+	liw	r3, key_press_map
+	li	r4, 0
+	sw	r4, r3
 	bri	-, redraw
 	
 event_not_kbd:
