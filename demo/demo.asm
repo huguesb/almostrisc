@@ -488,6 +488,7 @@ redraw:
 	
 	; display char
 	liw	r2, font_map + 4 * 0x23
+	li	r3, 8
 	bail	-, r6, put_sprite_8
 	
 	lw	r0, r7
@@ -570,6 +571,7 @@ event_kbd:
 	
 	; clear char
 	liw	r2, font_map
+	li	r3, 8
 	bail	-, r6, put_sprite_8
 	
 	lw	r0, r7
@@ -967,7 +969,7 @@ put_sprite_8:
 	and	r5, r0, r5
 	shr	r0, r0, 2
 	
-	bri	r5, put_sprite_8_aligned
+	brieq	r5, put_sprite_8_aligned
 	dec	r5, r5
 	
 	; r4 = 16*y
