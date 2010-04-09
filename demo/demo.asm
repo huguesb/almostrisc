@@ -406,24 +406,14 @@ test.puts:
 	
 	li	r0, 1
 	li	r1, 8
-	li	r5, 0
-	
-	li	r6, 0
-	dec	r7, r7
-	sw	r6, r7
 	
 event_loop:
-	dec	r7, r7
-	sw	r5, r7
-	
 	; display char
 	li	r3, 0x23
 	bail	-, r6, putchar
 	; compensate putchar-induced increase of x coordinate
 	dec	r0, r0
 	
-	lw	r5, r7
-	inc	r7, r7
 	
 	
 event_kbd:
@@ -479,14 +469,20 @@ event_kbd:
 	lw	r2, r2
 	brieq	r2, event_not_kbd
 	
+	dec	r7, r7
+	sw	r2, r7
+	
 	; clear previous char
 	li	r3, 0
 	bail	-, r6, putchar
 	; compensate putchar-induced increase of x coordinate
 	dec	r0, r0
 	
+	lw	r2, r7
+	inc	r7, r7
+	
 	; up
-	bspl	r3, r2, 1
+	bspl	r3, r2, 0
 	brieq	r3, event_kbd_no_up
 	
 	shr	r3, r1, 2
@@ -498,7 +494,7 @@ event_kbd_no_clip_up:
 	
 event_kbd_no_up:
 	; left
-	bspl	r3, r2, 2
+	bspl	r3, r2, 1
 	brieq	r3, event_kbd_no_left
 	
 	brine	r0, event_kbd_no_clip_left
@@ -508,7 +504,7 @@ event_kbd_no_clip_left:
 	
 event_kbd_no_left:
 	; down
-	bspl	r3, r2, 3
+	bspl	r3, r2, 2
 	brieq	r3, event_kbd_no_down
 	li	r3, 232
 	sub	r3, r1, r3
@@ -520,7 +516,7 @@ event_kbd_no_clip_down:
 	
 event_kbd_no_down:
 	; right
-	bspl	r3, r2, 4
+	bspl	r3, r2, 3
 	brieq	r3, event_kbd_no_right
 	li	r3, 39
 	sub	r3, r0, r3
@@ -535,12 +531,12 @@ event_not_kbd:
 	
 	
 	; small delay : ~5M cc ~0.1s
-; 	li	r4, 20
-; 	li	r3, 0
-; 	dec	r3, r3
-; 	brine	r3, $-1
-; 	dec	r4, r4
-; 	brine	r4, $-4
+	li	r4, 20
+	li	r3, 0
+	dec	r3, r3
+	brine	r3, $-1
+	dec	r4, r4
+	brine	r4, $-4
 	
 	bri	-, event_loop
 	
