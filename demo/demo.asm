@@ -225,7 +225,7 @@ int_kbd_notdown:
 	li	r5, 8
 	bri	-, int_kbd_end
 int_kbd_notright:
-	
+	bri	-, int_kbd_done
 	
 int_kbd_end:
 	bspl	r4, r3, 0
@@ -240,6 +240,13 @@ int_kbd_maskout:
 int_kbd_write:
 	sw	r2, r3
 	
+	li	r3, 10
+	sw	r2, r3
+	li	r3, 30
+	li	r2, -1
+	sw	r2, r3
+	
+int_kbd_done:
 	; clear status
 	li	r3, 0
 	ba	-, r6
