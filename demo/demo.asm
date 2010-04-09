@@ -477,14 +477,14 @@ test.puts:
 	; stop there
 	;bri	-, $
 	
-	li	r0, 1*8
+	li	r0, 8
 	li	r1, 8
 	
 redraw:
 	dec	r7, r7
-	sw	r0, r7
-	dec	r7, r7
 	sw	r1, r7
+	dec	r7, r7
+	sw	r0, r7
 	
 	; display char
 	liw	r2, font_map + 4 * 0x23
@@ -564,9 +564,9 @@ event_kbd:
 	
 	
 	dec	r7, r7
-	sw	r0, r7
-	dec	r7, r7
 	sw	r1, r7
+	dec	r7, r7
+	sw	r0, r7
 	
 	; clear char
 	liw	r2, font_map
@@ -967,7 +967,7 @@ put_sprite_8:
 	and	r5, r0, r5
 	shr	r0, r0, 2
 	
-	brieq	r5, put_sprite_8_aligned
+	bri	r5, put_sprite_8_aligned
 	dec	r5, r5
 	
 	; r4 = 16*y
