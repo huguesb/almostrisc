@@ -423,7 +423,7 @@ event_kbd:
 	
 	shr	r3, r1, 2
 	brine	r3, event_kbd_no_clip_up
-	li	r0, 240
+	li	r1, 240
 event_kbd_no_clip_up:
 	li	r3, 8
 	sub	r1, r1, r3
@@ -445,7 +445,7 @@ event_kbd_no_left:
 	li	r3, 232
 	sub	r3, r1, r3
 	brilt	r3, event_kbd_no_clip_down
-	li	r0, 0
+	li	r1, 0
 event_kbd_no_clip_down:
 	li	r3, 8
 	add	r1, r1, r3
