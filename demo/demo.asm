@@ -95,8 +95,8 @@ int_isr:
 .org	0x0040
 int_tmr:
 	;simple visual test for timer
-	not r7, r7
-	out	r7
+; 	not r7, r7
+; 	out	r7
 	
 	ba	-, r6
 
@@ -121,17 +121,17 @@ int_kbd:
 	liw	r2, PS2_rx
 	lw	r2, r2
 	
-	mixll	r7, r7, r2
+	;mixll	r7, r7, r2
 	
-; 	li	r4, 0xF0
-; 	sub	r4, r2, r4
-; 	brieq	r4, int_kbd.release
-; 	
-; 	li	r4, 0xE0
-; 	sub	r4, r2, r4
-; 	brieq	r4, int_kbd.extended
-; 	
-; 	mixll	r7, r7, r2
+	li	r4, 0xF0
+	sub	r4, r2, r4
+	brieq	r4, int_kbd.release
+	
+	li	r4, 0xE0
+	sub	r4, r2, r4
+	brieq	r4, int_kbd.extended
+	
+	mixll	r7, r7, r2
 ; 	
 ; int_kbd.process:
 ; 	; convert useless scan code representation
@@ -187,18 +187,18 @@ int_kbd:
 ; int_kbd.notified:
 ; 	sw	r2, r4
 ; 	
-; 	; clear status
-; 	li	r3, 0
-; 	ba	-, r6
-; 	
-; int_kbd.extended:
-; 	li	r4, 2
-; 	or	r3, r3, r4
-; 	ba	-, r6
-; 	
-; int_kbd.release:
-; 	li	r4, 1
-; 	or	r3, r3, r4
+	; clear status
+	li	r3, 0
+	ba	-, r6
+	
+int_kbd.extended:
+	li	r4, 2
+	or	r3, r3, r4
+	ba	-, r6
+	
+int_kbd.release:
+	li	r4, 1
+	or	r3, r3, r4
 	ba	-, r6
 
 
@@ -414,53 +414,53 @@ event_kbd:
 	bail	-, r6, putchar
 	; compensate putchar-induced increase of x coordinate
 	dec	r0, r0
-	
-	; up
-	bspl	r3, r2, 1
-	brieq	r3, event_kbd_no_up
-	
-	shr	r3, r1, 2
-	brine	r3, event_kbd_no_clip_up
-	li	r0, 240
-event_kbd_no_clip_up:
-	li	r3, 8
-	sub	r1, r1, r3
-	
-event_kbd_no_up:
-	; left
-	bspl	r3, r2, 2
-	brieq	r3, event_kbd_no_left
-	
-	brine	r0, event_kbd_no_clip_left
-	li	r0, 40
-event_kbd_no_clip_left:
-	dec	r0, r0
-	
-event_kbd_no_left:
-	; down
-	bspl	r3, r2, 3
-	brieq	r3, event_kbd_no_up
-	li	r3, 232
-	sub	r3, r1, r3
-	brilt	r3, event_kbd_no_clip_down
-	li	r0, 0
-event_kbd_no_clip_down:
-	li	r3, 8
-	add	r1, r1, r3
-	
-event_kbd_no_down:
-	; right
-	bspl	r3, r2, 4
-	brieq	r3, event_kbd_no_right
-	li	r3, 39
-	sub	r3, r0, r3
-	brilt	r3, event_kbd_no_clip_right
-	li	r0, -1
-event_kbd_no_clip_right:
-	inc	r0, r0
-	
-event_kbd_no_right:
-
+; 	
+; 	; up
+; 	bspl	r3, r2, 1
+; 	brieq	r3, event_kbd_no_up
+; 	
+; 	shr	r3, r1, 2
+; 	brine	r3, event_kbd_no_clip_up
+; 	li	r0, 240
+; event_kbd_no_clip_up:
+; 	li	r3, 8
+; 	sub	r1, r1, r3
+; 	
+; event_kbd_no_up:
+; 	; left
+; 	bspl	r3, r2, 2
+; 	brieq	r3, event_kbd_no_left
+; 	
+; 	brine	r0, event_kbd_no_clip_left
+; 	li	r0, 40
+; event_kbd_no_clip_left:
+; 	dec	r0, r0
+; 	
+; event_kbd_no_left:
+; 	; down
+; 	bspl	r3, r2, 3
+; 	brieq	r3, event_kbd_no_up
+; 	li	r3, 232
+; 	sub	r3, r1, r3
+; 	brilt	r3, event_kbd_no_clip_down
+; 	li	r0, 0
+; event_kbd_no_clip_down:
+; 	li	r3, 8
+; 	add	r1, r1, r3
+; 	
+; event_kbd_no_down:
+; 	; right
+; 	bspl	r3, r2, 4
+; 	brieq	r3, event_kbd_no_right
+; 	li	r3, 39
+; 	sub	r3, r0, r3
+; 	brilt	r3, event_kbd_no_clip_right
+; 	li	r0, -1
+; event_kbd_no_clip_right:
+; 	inc	r0, r0
+; 	
+; event_kbd_no_right:
+; 
 event_not_kbd:
 	
 	
