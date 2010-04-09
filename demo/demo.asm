@@ -198,33 +198,95 @@ int_kbd.process:
 ; 	
 ; int_kbd.unknown:
 	
-	li	r4, 0x75
+	bspl	r4, r3, 1
+	brine	r4, int_kbd_ext
+	
+	li	r4, 0x63
 	sub	r4, r2, r4
 	brine	r4, int_kbd_notup
 	li	r5, 1
 	bri	-, int_kbd_end
 int_kbd_notup:
 	
-	li	r4, 0x6B
+	li	r4, 0x61
 	sub	r4, r2, r4
 	brine	r4, int_kbd_notleft
 	li	r5, 2
 	bri	-, int_kbd_end
 int_kbd_notleft:
 	
-	li	r4, 0x72
+	li	r4, 0x60
 	sub	r4, r2, r4
 	brine	r4, int_kbd_notdown
 	li	r5, 4
 	bri	-, int_kbd_end
 int_kbd_notdown:
 	
-	li	r4, 0x74
+	li	r4, 0x6A
 	sub	r4, r2, r4
 	brine	r4, int_kbd_notright
 	li	r5, 8
 	bri	-, int_kbd_end
 int_kbd_notright:
+	
+	li	r4, 0x1D
+	sub	r4, r2, r4
+	brine	r4, int_kbd_notW
+	li	r5, 1
+	bri	-, int_kbd_end
+int_kbd_notW:
+	
+	li	r4, 0x1C
+	sub	r4, r2, r4
+	brine	r4, int_kbd_notA
+	li	r5, 2
+	bri	-, int_kbd_end
+int_kbd_notA:
+	
+	li	r4, 0x1B
+	sub	r4, r2, r4
+	brine	r4, int_kbd_notS
+	li	r5, 4
+	bri	-, int_kbd_end
+int_kbd_notS:
+	
+	li	r4, 0x23
+	sub	r4, r2, r4
+	brine	r4, int_kbd_notD
+	li	r5, 8
+	bri	-, int_kbd_end
+int_kbd_notD:
+	bri	-, int_kbd_done
+	
+int_kbd_ext:
+	
+	li	r4, 0x75
+	sub	r4, r2, r4
+	brine	r4, int_kbd_ext_notup
+	li	r5, 1
+	bri	-, int_kbd_end
+int_kbd_ext_notup:
+	
+	li	r4, 0x6B
+	sub	r4, r2, r4
+	brine	r4, int_kbd_ext_notleft
+	li	r5, 2
+	bri	-, int_kbd_end
+int_kbd_ext_notleft:
+	
+	li	r4, 0x72
+	sub	r4, r2, r4
+	brine	r4, int_kbd_ext_notdown
+	li	r5, 4
+	bri	-, int_kbd_end
+int_kbd_ext_notdown:
+	
+	li	r4, 0x74
+	sub	r4, r2, r4
+	brine	r4, int_kbd_ext_notright
+	li	r5, 8
+	bri	-, int_kbd_end
+int_kbd_ext_notright:
 	bri	-, int_kbd_done
 	
 int_kbd_end:
