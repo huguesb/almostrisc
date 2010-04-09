@@ -477,15 +477,24 @@ test.puts:
 	; stop there
 	;bri	-, $
 	
-	li	r0, 1
+	li	r0, 1*8
 	li	r1, 8
 	
 redraw:
+	dec	r7, r7
+	sw	r0, r7
+	dec	r7, r7
+	sw	r1, r7
+	
 	; display char
-	li	r3, 0x23
-	bail	-, r6, putchar
-	; compensate putchar-induced increase of x coordinate
-	dec	r0, r0
+	liw	r2, font_map + 4 * 0x23
+	bail	-, r6, put_sprite_8
+	
+	lw	r0, r7
+	inc	r7, r7
+	lw	r1, r7
+	inc	r7, r7
+	
 	
 	; small delay
 	li	r2, 20
@@ -553,11 +562,21 @@ event_kbd:
 	dec	r7, r7
 	sw	r2, r7
 	
-	; clear previous char
-	li	r3, 0
-	bail	-, r6, putchar
-	; compensate putchar-induced increase of x coordinate
-	dec	r0, r0
+	
+	dec	r7, r7
+	sw	r0, r7
+	dec	r7, r7
+	sw	r1, r7
+	
+	; clear char
+	liw	r2, font_map
+	bail	-, r6, put_sprite_8
+	
+	lw	r0, r7
+	inc	r7, r7
+	lw	r1, r7
+	inc	r7, r7
+	
 	
 	lw	r2, r7
 	inc	r7, r7
@@ -580,7 +599,7 @@ event_kbd_no_up:
 	brieq	r3, event_kbd_no_left
 	
 	brine	r0, event_kbd_no_clip_left
-	li	r0, 40
+	li	r0, 39*8 ; 40
 event_kbd_no_clip_left:
 	dec	r0, r0
 	
@@ -600,7 +619,7 @@ event_kbd_no_down:
 	; right
 	bspl	r3, r2, 3
 	brieq	r3, event_kbd_no_right
-	li	r3, 39
+	li	r3, 39*8
 	sub	r3, r0, r3
 	brilt	r3, event_kbd_no_clip_right
 	li	r0, -1
@@ -608,9 +627,6 @@ event_kbd_no_clip_right:
 	inc	r0, r0
 	
 event_kbd_no_right:
-; 	liw	r3, key_press_map
-; 	li	r4, 0
-; 	sw	r4, r3
 	bri	-, redraw
 	
 event_not_kbd:
@@ -935,3 +951,251 @@ put_sprite_8_aligned.loop1:
 	baeq	r3, r6
 	
 	bri	-, put_sprite_8_aligned.loop1
+
+	; inputs : 
+	;	* (r0, r1) = (x, y)
+	;	* r2 = sprite data
+	;	* r3 = sprite height
+	;	
+	;	* r6 = return address 
+put_sprite_8:
+	; r4 will be address in VGA buffer : base at 0x0000
+	; buffer is 320*240pix, 16pix per word
+	; => one buffer line is 20 words
+	
+	li	r5, 7
+	and	r5, r0, r5
+	shr	r0, r0, 2
+	
+	brieq	r5, put_sprite_8_aligned
+	dec	r5, r5
+	
+	; r4 = 16*y
+	shl r4, r1, 3
+	; r1 = 4*y
+	shl	r1, r1, 1
+	; r4 = 20*y
+	add	r4, r4, r1
+	; r1 = x/16
+	shr	r1, r0, 0
+	; r0 = c ? 0xffff : 0
+	sbc	r0, r0, r0
+	; r4 = 20*y + x/16 : first word for sprite
+	add	r4, r4, r1
+	
+	brine	r0, put_sprite_8.loop1
+	
+put_sprite_8.loop0:
+	; smask = 0xff00, inmask = 0x00ff
+	
+	; load sprite data
+	lw	r0, r2
+	
+	dec	r7, r7
+	sw	r2, r7
+	
+	li	r2, 0
+	mixhl	r0, r0, r2
+	li	r2, 0x100
+	rrl	r2, r2, r5
+	rrl	r0, r0, r5
+	
+	; load buffer value
+	lw	r1, r4
+	
+	; compose data
+	and	r0, r2, r0
+	not	r2, r2
+	and	r1, r1, r2
+	or	r1, r1, r0
+	
+	; write it to buffer
+	sw	r1, r4
+	
+	; move to next buffer line
+	li	r1, 20
+	add	r4, r4, r1
+	
+	lw	r2, r7
+	inc	r7, r7
+	
+	dec	r3, r3
+	baeq	r3, r6
+	
+	; load sprite data
+	lw	r0, r2
+	
+	dec	r7, r7
+	sw	r2, r7
+	
+	li	r2, 0
+	mixll	r0, r0, r2
+	li	r2, 0x100
+	rrl	r2, r2, r5
+	rrl	r3, r0, r5
+	
+	; load buffer value
+	lw	r1, r4
+	
+	; compose data
+	and	r0, r2, r0
+	not	r2, r2
+	and	r1, r1, r2
+	or	r1, r1, r0
+	
+	; write it to buffer
+	sw	r1, r4
+	
+	; move to next buffer line
+	li	r1, 20
+	add	r4, r4, r1
+	
+	lw	r2, r7
+	inc	r7, r7
+	
+	; move to next sprite word
+	inc	r2, r2
+	
+	; loop...
+	dec	r3, r3
+	baeq	r3, r6
+	bri	-, put_sprite_8.loop0
+	
+put_sprite_8.loop1:
+	; sshift = 8, inmask = 0xff00
+	
+	; load sprite data
+	lw	r0, r2
+	
+; 	; load buffer value
+; 	lw	r1, r4
+; 	; compose data
+; 	mixhh	r1, r1, r0
+; 	; write it to buffer
+; 	sw	r1, r4
+; 	
+	
+	
+	dec	r7, r7
+	sw	r2, r7
+	dec	r7, r7
+	sw	r3, r7
+	
+	li	r2, 0
+	mixlh	r3, r2, r0
+	li	r2, 0xFF
+	rsl	r2, r2, r5
+	rsl	r3, r3, r5
+	
+	; load buffer value
+	lw	r1, r4
+	
+	; compose data
+	and	r3, r2, r3
+	not	r2, r2
+	and	r1, r1, r2
+	or	r1, r1, r3
+	
+	; write it to buffer
+	sw	r1, r4
+	
+	inc	r4, r4
+	
+	li	r2, 0
+	mixhl	r3, r0, r2
+	li	r2, -1
+	rsl	r2, r2, r5
+	rsl	r3, r3, r5
+	
+	; load buffer value
+	lw	r1, r4
+	
+	; compose data
+	and	r3, r2, r3
+	not	r2, r2
+	and	r1, r1, r2
+	or	r1, r1, r3
+	
+	; write it to buffer
+	sw	r1, r4
+	
+	
+	; move to next buffer line
+	li	r1, 19
+	add	r4, r4, r1
+	
+	lw	r3, r7
+	inc	r7, r7
+	lw	r2, r7
+	inc	r7, r7
+	
+	dec	r3, r3
+	baeq	r3, r6
+	
+; 	; load buffer value
+; 	lw	r1, r4
+; 	; compose data
+; 	mixhl	r1, r1, r0
+; 	; write it to buffer
+; 	sw	r1, r4
+	
+	dec	r7, r7
+	sw	r2, r7
+	dec	r7, r7
+	sw	r3, r7
+	
+	li	r2, 0
+	mixll	r3, r2, r0
+	li	r2, 0xFF
+	rsl	r2, r2, r5
+	rsl	r3, r3, r5
+	
+	; load buffer value
+	lw	r1, r4
+	
+	; compose data
+	and	r3, r2, r3
+	not	r2, r2
+	and	r1, r1, r2
+	or	r1, r1, r3
+	
+	; write it to buffer
+	sw	r1, r4
+	
+	inc	r4, r4
+	
+	li	r2, 0
+	mixll	r3, r0, r2
+	li	r2, -1
+	rsl	r2, r2, r5
+	rsl	r3, r3, r5
+	
+	; load buffer value
+	lw	r1, r4
+	
+	; compose data
+	and	r3, r2, r3
+	not	r2, r2
+	and	r1, r1, r2
+	or	r1, r1, r3
+	
+	; write it to buffer
+	sw	r1, r4
+	
+	; move to next buffer line
+	li	r1, 29
+	add	r4, r4, r1
+	
+	lw	r3, r7
+	inc	r7, r7
+	lw	r2, r7
+	inc	r7, r7
+	
+	; move to next sprite word
+	inc	r2, r2
+	
+	; loop...
+	dec	r3, r3
+	baeq	r3, r6
+	
+	bri	-, put_sprite_8.loop1
