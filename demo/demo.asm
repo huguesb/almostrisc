@@ -358,14 +358,20 @@ test.puts:
 	
 	li	r0, 1
 	li	r1, 8
-	liw	r2, font_map
+	li	r5, 0
 	
 event_loop:
+	dec	r7, r7
+	sw	r5, r7
+	
 	; display char
 	li	r3, 0x23
 	bail	-, r6, putchar
 	; compensate putchar-induced increase of x coordinate
 	dec	r0, r0
+	
+	lw	r5, r7
+	inc	r7, r7
 	
 	
 event_kbd:
@@ -446,6 +452,8 @@ event_kbd:
 	
 	bspl	r4, r5, 0
 	brine	r4, event_kbd_press
+	
+	out	r2
 	
 	bspl	r4, r5, 1
 	brine	r4, event_kbd_press_extended
