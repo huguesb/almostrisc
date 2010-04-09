@@ -415,6 +415,14 @@ event_loop:
 	dec	r0, r0
 	
 	
+	; small delay : ~2.5M cc ~0.05s
+	li	r4, 10
+	li	r3, 0
+	dec	r3, r3
+	brine	r3, $-1
+	dec	r4, r4
+	brine	r4, $-4
+	
 	
 event_kbd:
 	
@@ -528,15 +536,6 @@ event_kbd_no_clip_right:
 event_kbd_no_right:
 
 event_not_kbd:
-	
-	
-	; small delay : ~5M cc ~0.1s
-	li	r4, 20
-	li	r3, 0
-	dec	r3, r3
-	brine	r3, $-1
-	dec	r4, r4
-	brine	r4, $-4
 	
 	bri	-, event_loop
 	
