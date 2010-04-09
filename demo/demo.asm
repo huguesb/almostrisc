@@ -118,6 +118,8 @@ int_kbd:
 	; r2 : last byte from PS2 peripheral
 	; r3 : status = {0 | nothing, 1 | release, 2 | extended, 3 | both} 
 	
+	ba	-, r6
+	
 	liw	r2, PS2_rx
 	lw	r2, r2
 	
@@ -164,11 +166,11 @@ int_kbd.processed:
 	
 	; notify
 	
-; 	; compute address of keybit in keypress_map
-; 	liw	r4, key_press_map
+	; compute address of keybit in keypress_map
+	liw	r4, key_press_map
 ; 	shr	r5, r2, 3
-; 	add	r4, r4, r5
-; 	
+	add	r4, r4, r5
+	
 	; create bit mask
 	li	r5, 1
 	not	r2, r2
@@ -413,11 +415,14 @@ event_kbd:
 ; 	lw	r2, r7
 ; 	inc	r7, r7
 	
-	; interrupt-based conversion, only use key codes
+	liw	r3, PS2_stat
+	lw	r3, r3
 	
-	liw	r2, key_press_map
-	lw	r2, r2
-	brieq	r2, event_not_kbd
+	bspl	r4, r3, 0
+	brine	r4, event_not_kbd
+	
+	dec	r7, r7
+	sw	r5, r7
 	
 	; clear previous char
 	li	r3, 0
@@ -425,9 +430,33 @@ event_kbd:
 	; compensate putchar-induced increase of x coordinate
 	dec	r0, r0
 	
-	; up
-	bspl	r3, r2, 1
-	brieq	r3, event_kbd_no_up
+	lw	r5, r7
+	inc	r7, r7
+	
+	liw	r3, PS2_rx
+	lw	r2, r3
+	
+	li	r4, 0xF0
+	sub	r4, r2, r4
+	brieq	r4, event_kbd_release
+	
+	li	r4, 0xE0
+	sub	r4, r2, r4
+	brieq	r4, event_kbd_extended
+	
+	bspl	r4, r5, 0
+	brine	r4, event_kbd_press
+	
+	bspl	r4, r5, 1
+	brine	r4, event_kbd_press_extended
+	
+	
+	bri	-, event_kbd_press
+	
+event_kbd_press_extended:
+	li	r4, 0x75
+	sub	r4, r2, r4
+	brine	r4, event_kbd_no_up
 	
 	shr	r3, r1, 2
 	brine	r3, event_kbd_no_clip_up
@@ -435,11 +464,11 @@ event_kbd:
 event_kbd_no_clip_up:
 	li	r3, 8
 	sub	r1, r1, r3
-	
 event_kbd_no_up:
-	; left
-	bspl	r3, r2, 2
-	brieq	r3, event_kbd_no_left
+
+	li	r4, 0x6B
+	sub	r4, r2, r4
+	brine	r4, event_kbd_no_left
 	
 	brine	r0, event_kbd_no_clip_left
 	li	r0, 40
@@ -447,9 +476,9 @@ event_kbd_no_clip_left:
 	dec	r0, r0
 	
 event_kbd_no_left:
-	; down
-	bspl	r3, r2, 3
-	brieq	r3, event_kbd_no_down
+	li	r4, 0x72
+	sub	r4, r2, r4
+	brine	r4, event_kbd_no_down
 	li	r3, 232
 	sub	r3, r1, r3
 	brilt	r3, event_kbd_no_clip_down
@@ -459,9 +488,9 @@ event_kbd_no_clip_down:
 	add	r1, r1, r3
 	
 event_kbd_no_down:
-	; right
-	bspl	r3, r2, 4
-	brieq	r3, event_kbd_no_right
+	li	r4, 0x74
+	sub	r4, r2, r4
+	brine	r4, event_kbd_no_right
 	li	r3, 39
 	sub	r3, r0, r3
 	brilt	r3, event_kbd_no_clip_right
@@ -470,6 +499,81 @@ event_kbd_no_clip_right:
 	inc	r0, r0
 	
 event_kbd_no_right:
+
+event_kbd_press:
+	
+	
+	
+	li	r5, 0
+	bri	-, event_not_kbd
+	
+event_kbd_release:
+	li	r4, 1
+	or	r5, r5, r4
+	bri	-, event_not_kbd
+	
+event_kbd_extended:
+	li	r4, 2
+	or	r5, r5, r4
+	
+	
+	; interrupt-based conversion, only use key codes
+	
+; 	liw	r2, key_press_map
+; 	lw	r2, r2
+; 	brieq	r2, event_not_kbd
+; 	
+; 	; clear previous char
+; 	li	r3, 0
+; 	bail	-, r6, putchar
+; 	; compensate putchar-induced increase of x coordinate
+; 	dec	r0, r0
+; 	
+; 	; up
+; 	bspl	r3, r2, 1
+; 	brieq	r3, event_kbd_no_up
+; 	
+; 	shr	r3, r1, 2
+; 	brine	r3, event_kbd_no_clip_up
+; 	li	r1, 240
+; event_kbd_no_clip_up:
+; 	li	r3, 8
+; 	sub	r1, r1, r3
+; 	
+; event_kbd_no_up:
+; 	; left
+; 	bspl	r3, r2, 2
+; 	brieq	r3, event_kbd_no_left
+; 	
+; 	brine	r0, event_kbd_no_clip_left
+; 	li	r0, 40
+; event_kbd_no_clip_left:
+; 	dec	r0, r0
+; 	
+; event_kbd_no_left:
+; 	; down
+; 	bspl	r3, r2, 3
+; 	brieq	r3, event_kbd_no_down
+; 	li	r3, 232
+; 	sub	r3, r1, r3
+; 	brilt	r3, event_kbd_no_clip_down
+; 	li	r1, 0
+; event_kbd_no_clip_down:
+; 	li	r3, 8
+; 	add	r1, r1, r3
+; 	
+; event_kbd_no_down:
+; 	; right
+; 	bspl	r3, r2, 4
+; 	brieq	r3, event_kbd_no_right
+; 	li	r3, 39
+; 	sub	r3, r0, r3
+; 	brilt	r3, event_kbd_no_clip_right
+; 	li	r0, -1
+; event_kbd_no_clip_right:
+; 	inc	r0, r0
+; 	
+; event_kbd_no_right:
 ; 
 event_not_kbd:
 	
