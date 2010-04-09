@@ -162,29 +162,29 @@ int_kbd.processed:
 	
 	; notify
 	
-	; compute address of keybit in keypress_map
-	liw	r4, key_press_map
-	shr	r5, r2, 3
-	add	r4, r4, r5
-	
-	; create bit mask
-	li	r5, 1
-	not	r2, r2
-	rrr	r5, r5, r2
-	
-	lw	r2, r4
-	
-	bspl	r3, r3, 0
-	brine	r3, int_kbd.notify_release
-	or	r2, r2, r5
-	bri	-, int_kbd.notified
-	
-int_kbd.notify_release:
-	not	r5, r5
-	and	r2, r2, r5
-	
-int_kbd.notified:
-	sw	r2, r4
+; 	; compute address of keybit in keypress_map
+; 	liw	r4, key_press_map
+; 	shr	r5, r2, 3
+; 	add	r4, r4, r5
+; 	
+; 	; create bit mask
+; 	li	r5, 1
+; 	not	r2, r2
+; 	rrr	r5, r5, r2
+; 	
+; 	lw	r2, r4
+; 	
+; 	bspl	r3, r3, 0
+; 	brine	r3, int_kbd.notify_release
+; 	or	r2, r2, r5
+; 	bri	-, int_kbd.notified
+; 	
+; int_kbd.notify_release:
+; 	not	r5, r5
+; 	and	r2, r2, r5
+; 	
+; int_kbd.notified:
+; 	sw	r2, r4
 	
 	li	r4, 11
 	sw	r2, r4
@@ -472,12 +472,12 @@ event_not_kbd:
 	
 	
 	; small delay : ~5M cc ~0.1s
-	li	r4, 20
-	li	r3, 0
-	dec	r3, r3
-	brine	r3, $-1
-	dec	r4, r4
-	brine	r4, $-4
+; 	li	r4, 20
+; 	li	r3, 0
+; 	dec	r3, r3
+; 	brine	r3, $-1
+; 	dec	r4, r4
+; 	brine	r4, $-4
 	
 	bri	-, event_loop
 	
