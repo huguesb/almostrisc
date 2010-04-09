@@ -188,6 +188,11 @@ int_kbd.notified:
 	
 	li	r4, 11
 	sw	r2, r4
+	li	r2, -1
+	li	r4, 29
+	sw	r2, r4
+	li	r4, 31
+	sw	r2, r4
 	
 	; clear status
 	li	r3, 0
@@ -467,12 +472,12 @@ event_not_kbd:
 	
 	
 	; small delay : ~5M cc ~0.1s
-; 	li	r4, 20
-; 	li	r3, 0
-; 	dec	r3, r3
-; 	brine	r3, $-1
-; 	dec	r4, r4
-; 	brine	r4, $-4
+	li	r4, 20
+	li	r3, 0
+	dec	r3, r3
+	brine	r3, $-1
+	dec	r4, r4
+	brine	r4, $-4
 	
 	bri	-, event_loop
 	
