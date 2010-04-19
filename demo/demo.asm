@@ -18,11 +18,11 @@
 .equ	paper_sprites	0x16D0
 .equ	paper_hud		0x1720
 .equ	paper_tiles		0x1730
-.equ	paper_dir		0x1732
-.equ	paper_speed		0x1733
-.equ	paper_pos		0x1736
-.equ	paper_title		0x173A
-.equ	paper_unit		0x1741
+.equ	paper_dir		0x173C
+.equ	paper_speed		0x173D
+.equ	paper_pos		0x1740
+.equ	paper_title		0x1744
+.equ	paper_unit		0x174A
 .equ	paper_tilemap	0x1780
 
 .equ	key_press_map	0x1800
@@ -450,30 +450,15 @@ PaperGameTileLoop:
 	shr	r1, r3, 1
 	shl	r1, r1, 2
 	
-	liw	r2, paper_tiles
-	li	r3, 8
-	bailne	r0, r6, put_sprite_8_aligned
-	
 	shl	r4, r4, 7
 	shr	r4, r4, 7
 	
+	li	r3, 1
+	bailne	r0, r6, put_tile
+	
 PaperGameSegmentLoop:
-	dec	r7, r7
-	sw	r0, r7
-	dec	r7, r7
-	sw	r1, r7
-	dec	r7, r7
-	sw	r4, r7
-	liw	r2, paper_tiles + 4 * 2
-	li	r3, 8
-	bail	-, r6, put_sprite_8_aligned
-	lw	r4, r7
-	inc	r7, r7
-	lw	r1, r7
-	inc	r7, r7
-	lw	r0, r7
-	inc	r7, r7
-	inc	r0, r0
+	li	r3, 2
+	bail	-, r6, put_tile
 	dec	r4, r4
 	brine	r4, PaperGameSegmentLoop
 	

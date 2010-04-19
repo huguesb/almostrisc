@@ -194,7 +194,7 @@
 .db %00000000
 
 ; text
-.org	0x1732
+;.org	0x173C
 
 ; direction
 .dw	0
@@ -203,10 +203,10 @@
 ; speed (x, y, z)
 .dw	0, 0, 0
 
-.org	0x173A
+.org	0x1744
 .db "PaperPlane", 0
 
-.org	0x1741
+.org	0x174A
 .db "m/s", 0
 
 ; tilemap : up to 4 segments per line, 1 word per segment, 25 lines => 100 words
