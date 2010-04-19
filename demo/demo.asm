@@ -504,39 +504,39 @@ PaperGameRedraw:
 	bail	-, r6, puts
 	
 	; forward arrow
-	li	r0, 242
+	li	r0, 241
 	li	r1, 1
 	liw	r2, paper_hud
 	li	r3, 8
 	bail	-, r6, put_sprite_8
 	
 	; speed (itoa...)
-	li	r0, 30
+	li	r0, 31
 	li	r1, 123
 	li	r2, 0
 	bail	-, r6, printnum
 	
 	; "m/s"
-	li	r0, 35
+	li	r0, 36
 	li	r1, 1
 	liw	r2, paper_unit
 	bail	-, r6, puts 
 	
 	; up (or down) arrow
-	li	r0, 242
+	li	r0, 241
 	li	r1, 10
 	liw	r2, paper_hud + 4
 	li	r3, 8
 	bail	-, r6, put_sprite_8
 	
 	; speed
-	li	r0, 30
+	li	r0, 31
 	li	r1, 10
 	li	r2, 45
 	bail	-, r6, printnum
 	
 	; "m/s"
-	li	r0, 35
+	li	r0, 36
 	li	r1, 10
 	liw	r2, paper_unit
 	bail	-, r6, puts 
