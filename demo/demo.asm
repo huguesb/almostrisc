@@ -1146,18 +1146,11 @@ put_sprite_16.loop:
 	
 	lw	r1, r2
 	
-	inc	r5, r5
-	not	r5, r5
-	dec	r5, r5
-	
 	li	r0, -1
-	rsl	r0, r0, r5
-	rrl	r1, r1, r5
+	rsr	r0, r0, r5
+	rrr	r1, r1, r5
+	not	r0, r0
 	and	r1, r1, r0
-	
-	inc	r5, r5
-	not	r5, r5
-	dec	r5, r5
 	
 	lw	r3, r4
 	not	r0, r0
