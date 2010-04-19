@@ -160,9 +160,17 @@
 ; text
 .org	0x1730
 
+; direction
+.dw	0
+; position (x, y, z)
+.dw	0, 0, 0
+; speed (x, y, z)
+.dw	0, 0, 0
+
+.org 0x1738
 .db "PaperPlane", 0
 
-.org	0x1736
+.org	0x173E
 .db "m/s", 0
 
 ; .org 0x1738

@@ -17,8 +17,11 @@
 .equ	paper_keys		0x16C0
 .equ	paper_sprites	0x16D0
 .equ	paper_hud		0x1720
-.equ	paper_title		0x1730
-.equ	paper_speed		0x1736
+.equ	paper_dir		0x1730
+.equ	paper_speed		0x1731
+.equ	paper_pos		0x1734
+.equ	paper_title		0x1738
+.equ	paper_unit		0x173E
 
 .equ	key_press_map	0x1800
 
@@ -208,10 +211,10 @@ int_kbd.process:
 	
 	; scan code : bit position
 	
-	liw	r5, 0x16C0 - 1
+	liw	r5, paper_keys - 1
 	bspl	r4, r3, 1
 	brieq	r4, $+3
-	liw	r5, 0x16CA - 1
+	liw	r5, paper_keys + 10 - 1
 	
 scan_code_loop:
 	inc	r5, r5
@@ -491,23 +494,42 @@ PaperMenuLoop:
 ;------------------------------------------------------------
 PaperGameStart:
 	
-	li	r0, 0
-	liw	r1, 0x0801
+	liw	r0, paper_dir
+	
+	; init direction
+	li	r1, 0
+	sw	r1, r0
+	inc	r0, r0
+	
+	; init position
+	li	r1, 152
+	sw	r1, r0
+	inc	r0, r0
+	
+	li	r1, 0
+	sw	r1, r0
+	inc	r0, r0
+	
+	li	r1, 128
+	sw	r1, r0
+	inc	r0, r0
+	
+	; init speed
+	li	r1, 0
+	sw	r1, r0
+	inc	r0, r0
+	
+	li	r1, 20
+	sw	r1, r0
+	inc	r0, r0
+	
+	li	r1, 5
+	sw	r1, r0
+	inc	r0, r0
 	
 ; paper plane game loop
-	; r0 : plane direction in {0, 1, 2, 3, 4}
-	; r1 : plane speed : high=forward [0-16], low=upward (signed)
-	; r2 : plane position : high=altitude, low=x (grid in buffer orientation)
 
 PaperGameRedraw:
-	
-	; push r0, r1, r2
-	dec	r7, r7
-	sw	r0, r7
-	dec	r7, r7
-	sw	r1, r7
-	dec	r7, r7
-	sw	r2, r7
 	
 	; draw HUD
 	
@@ -552,10 +574,14 @@ PaperGameRedraw:
 	li	r3, 8
 	bail	-, r6, put_sprite_8
 	
+	; speed (itoa...)
+	
+	
+	
 	; "m/s"
 	li	r0, 35
 	li	r1, 1
-	liw	r2, paper_speed
+	liw	r2, paper_unit
 	bail	-, r6, puts 
 	
 	; up (or down) arrow
@@ -565,57 +591,46 @@ PaperGameRedraw:
 	li	r3, 8
 	bail	-, r6, put_sprite_8
 	
+	; speed
+	
+	
+	
 	; "m/s"
 	li	r0, 35
 	li	r1, 10
-	liw	r2, paper_speed
+	liw	r2, paper_unit
 	bail	-, r6, puts 
-	
-	; pop r2, r1, r0
-	lw	r2, r7
-	inc	r7, r7
-	lw	r1, r7
-	inc	r7, r7
-	lw	r0, r7
-	inc	r7, r7
 	
 PaperGameRedrawContent:
 	
-	; push r0, r1
-	dec	r7, r7
-	sw	r0, r7
-	dec	r7, r7
-	sw	r1, r7
-	dec	r7, r7
-	sw	r2, r7
+	; clear content area (not hud)
+	liw	r0, 20*20
+	li	r1, 0
+	liw	r2, 220*20
 	
-; 	; clear content area (not hud)
-; 	li	r0, 20*20
-; 	li	r1, 0
-; 	liw	r2, 220*20
-; 	
-; 	sw	r1, r0
-; 	inc	r0, r0
-; 	dec	r2, r2
-; 	brine	r2, $-3
+	sw	r1, r0
+	inc	r0, r0
+	dec	r2, r2
+	brine	r2, $-3
 	
 	; draw game area : y in 24..240
 	
 	
 	; draw plane
-	li	r0, 152
-	li	r1, 44
+	liw	r3, paper_dir
+	
+	lw	r4, r3
+	inc	r3, r3
+	
+	lw	r0, r3
+	inc	r3, r3
+	
 	liw	r2, paper_sprites
+	shl	r4, r4, 3
+	add	r2, r2, r4
+	
 	li	r3, 16
 	bail	-, r6, put_sprite_16
-	
-	; pop r2, r1, r0
-	lw	r2, r7
-	inc	r7, r7
-	lw	r1, r7
-	inc	r7, r7
-	lw	r0, r7
-	inc	r7, r7
 	
 PaperGameLoop:
 	
@@ -625,8 +640,21 @@ PaperGameLoop:
 	; speed up : decreases with gravity, decrease can be mitigated by steering up
 	; or worsened by steering down. Positive up speed decreases forward speed, negative
 	; up speed increases forward speed
-	; 
 	
+	liw	r2, paper_dir
+	lw	r0, r2
+	inc	r2, r2
+	lw	r1, r2
+	
+	dec	r0, r0
+	brine	r0, $+3
+	dec	r1, r1
+	bri	-, $+4
+	dec	r0, r0
+	brine	r0, $+2
+	inc	r1, r1
+	
+	sw	r1, r2
 	
 	
 ; check for keyboard action
@@ -654,12 +682,18 @@ PaperNoMoveDOWN:
 	; LEFT
 	bspl	r4, r3, 1
 	brieq	r4, PaperNoMoveLEFT
-	
+	liw	r2, paper_dir
+	;lw	r0, r2
+	li	r0, 2
+	sw	r0, r2
 PaperNoMoveLEFT:
 	; RIGHT
 	bspl	r4, r3, 3
 	brieq	r4, PaperNoMoveRIGHT
-	
+	liw	r2, paper_dir
+	;lw	r0, r2
+	li	r0, 1
+	sw	r0, r2
 PaperNoMoveRIGHT:
 	
 	bri	-, PaperGameLoop
