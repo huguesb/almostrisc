@@ -621,9 +621,7 @@ PaperGameRedrawContent:
 	
 	lw	r4, r3
 	inc	r3, r3
-	
 	lw	r0, r3
-	inc	r3, r3
 	
 	liw	r2, paper_sprites
 	shl	r4, r4, 3
@@ -649,7 +647,7 @@ PaperGameLoop:
 	
 	; check for ESC
 	bspl	r4, r3, 15
-	brieq	r4, PaperGameQuit
+	brine	r4, PaperGameQuit
 	
 	; check for movement
 	
