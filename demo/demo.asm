@@ -512,8 +512,8 @@ PaperGameRedraw:
 	
 	; speed (itoa...)
 	li	r0, 31
-	li	r1, 123
-	li	r2, 0
+	li	r1, 1
+	li	r2, 123
 	bail	-, r6, printnum
 	
 	; "m/s"
@@ -1091,7 +1091,11 @@ printnum.loop:
 	
 	dec	r7, r7
 	sw	r6, r7
+	dec	r7, r7
+	sw	r2, r7
 	bail	-, r6, putchar
+	lw	r2, r7
+	inc	r7, r7
 	lw	r6, r7
 	inc	r7, r7
 	
