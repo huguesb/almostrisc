@@ -511,8 +511,10 @@ PaperGameRedraw:
 	bail	-, r6, put_sprite_8
 	
 	; speed (itoa...)
-	
-	
+	li	r0, 30
+	li	r1, 123
+	li	r2, 0
+	bail	-, r6, printnum
 	
 	; "m/s"
 	li	r0, 35
@@ -528,8 +530,10 @@ PaperGameRedraw:
 	bail	-, r6, put_sprite_8
 	
 	; speed
-	
-	
+	li	r0, 30
+	li	r1, 10
+	li	r2, 45
+	bail	-, r6, printnum
 	
 	; "m/s"
 	li	r0, 35
@@ -569,7 +573,7 @@ PaperGameRedrawContent:
 	
 	
 	; small delay
-	li	r2, 8
+	li	r2, 5
 	li	r3, 0
 	dec	r3, r3
 	brine	r3, $-1
@@ -1051,6 +1055,43 @@ putchar:
 	inc	r0, r0
 	
 	; pop	r6
+	lw	r6, r7
+	inc	r7, r7
+	
+	ba	-, r6
+	
+	; input : (r0, r1) = (x, y), r2 = number
+	; output : string representation of number (in base 10) written at given coords
+	; destroys : r2, r3, r4, r5
+printnum:
+	dec	r7, r7
+	sw	r6, r7
+	
+	liw	r4, 10000
+	bail	-, r6, printnum.sub
+	liw	r4, 1000
+	bail	-, r6, printnum.sub
+	li	r4, 100
+	bail	-, r6, printnum.sub
+	li	r4, 10
+	bail	-, r6, printnum.sub
+	
+	lw	r6, r7
+	inc	r7, r7
+	
+	li	r4, 1
+	
+printnum.sub:
+	li	r3, '0' - 1
+printnum.loop:
+	inc	r3, r3
+	sub	r2, r2, r4
+	brige	r2, printnum.loop
+	add	r2, r2, r4
+	
+	dec	r7, r7
+	sw	r6, r7
+	bail	-, r6, putchar
 	lw	r6, r7
 	inc	r7, r7
 	
