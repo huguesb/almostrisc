@@ -629,9 +629,9 @@ PaperNoMoveLEFT:
 	sw	r0, r2
 	inc	r2, r2
 	lw	r0, r2
-	li	r1, 304
-	sub	r1, r0, r1
-	brige	r1, $+3
+; 	li	r1, 304
+; 	sub	r1, r0, r1
+; 	brige	r1, $+3
 	inc	r0, r0
 	sw	r0, r2
 PaperNoMoveRIGHT:
@@ -1146,10 +1146,7 @@ put_sprite_16.loop:
 	
 	lw	r1, r2
 	
-	li	r0, -1
-	rsr	r0, r0, r5
 	rrr	r1, r1, r5
-	not	r0, r0
 	and	r1, r1, r0
 	
 	lw	r3, r4
