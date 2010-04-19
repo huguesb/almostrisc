@@ -569,7 +569,7 @@ PaperGameRedrawContent:
 	
 	
 	; small delay
-	li	r2, 15
+	li	r2, 8
 	li	r3, 0
 	dec	r3, r3
 	brine	r3, $-1
@@ -616,6 +616,7 @@ PaperNoMoveDOWN:
 	sw	r0, r2
 	inc	r2, r2
 	lw	r0, r2
+	brieq	r0, $+3
 	dec	r0, r0
 	sw	r0, r2
 PaperNoMoveLEFT:
@@ -628,6 +629,9 @@ PaperNoMoveLEFT:
 	sw	r0, r2
 	inc	r2, r2
 	lw	r0, r2
+	li	r1, 304
+	sub	r1, r0, r1
+	brige	r1, $+3
 	inc	r0, r0
 	sw	r0, r2
 PaperNoMoveRIGHT:
@@ -1142,14 +1146,18 @@ put_sprite_16.loop:
 	
 	lw	r1, r2
 	
+	inc	r5, r5
 	not	r5, r5
+	dec	r5, r5
 	
 	li	r0, -1
 	rsl	r0, r0, r5
 	rrl	r1, r1, r5
 	and	r1, r1, r0
 	
+	inc	r5, r5
 	not	r5, r5
+	dec	r5, r5
 	
 	lw	r3, r4
 	not	r0, r0
