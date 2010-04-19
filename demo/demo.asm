@@ -448,7 +448,7 @@ PaperGameTileLoop:
 	shr	r0, r4, 7
 	
 	shr	r1, r3, 1
-	shl	r1, r1, 3
+	shl	r1, r1, 2
 	
 	li	r3, 1
 	bailne	r0, r6, put_tile
@@ -456,14 +456,15 @@ PaperGameTileLoop:
 	shl	r4, r4, 7
 	shr	r4, r4, 7
 	
-PaperGameSegmentLoop:
 	li	r3, 2
+	
+PaperGameSegmentLoop:
 	bail	-, r6, put_tile
 	dec	r4, r4
 	brine	r4, PaperGameSegmentLoop
 	
-	li	r3, 0
-	bailne	r0, r6, put_tile
+; 	li	r3, 0
+; 	bailne	r0, r6, put_tile
 	
 	lw	r5, r7
 	inc	r7, r7
@@ -566,18 +567,23 @@ PaperGameQuit:
 	
 	
 ; brief : display the 8*8 tile in r3 at pos (r0, r1)
-; destroys r2, r3
+; destroys : none (updates r0)
 put_tile:
-	; push	r6
-	dec	r7, r7
-	sw	r6, r7
-	
+	; push	r0-r6
 	dec	r7, r7
 	sw	r0, r7
 	dec	r7, r7
 	sw	r1, r7
 	dec	r7, r7
+	sw	r2, r7
+	dec	r7, r7
+	sw	r3, r7
+	dec	r7, r7
 	sw	r4, r7
+	dec	r7, r7
+	sw	r5, r7
+	dec	r7, r7
+	sw	r6, r7
 	
 	liw	r2, paper_tiles
 	shl	r3, r3, 1
@@ -586,7 +592,16 @@ put_tile:
 	li	r3, 8
 	bail	-, r6, put_sprite_8_aligned
 	
+	; push	r6-r0
+	lw	r6, r7
+	inc	r7, r7
+	lw	r5, r7
+	inc	r7, r7
 	lw	r4, r7
+	inc	r7, r7
+	lw	r3, r7
+	inc	r7, r7
+	lw	r2, r7
 	inc	r7, r7
 	lw	r1, r7
 	inc	r7, r7
@@ -594,10 +609,6 @@ put_tile:
 	inc	r7, r7
 	
 	inc	r0, r0
-	
-	; pop	r6
-	lw	r6, r7
-	inc	r7, r7
 	
 	ba	-, r6
 	
