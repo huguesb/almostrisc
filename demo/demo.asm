@@ -17,11 +17,13 @@
 .equ	paper_keys		0x16C0
 .equ	paper_sprites	0x16D0
 .equ	paper_hud		0x1720
-.equ	paper_dir		0x1730
-.equ	paper_speed		0x1731
-.equ	paper_pos		0x1734
-.equ	paper_title		0x1738
-.equ	paper_unit		0x173E
+.equ	paper_tiles		0x1730
+.equ	paper_dir		0x1732
+.equ	paper_speed		0x1733
+.equ	paper_pos		0x1736
+.equ	paper_title		0x173A
+.equ	paper_unit		0x1741
+.equ	paper_tilemap	0x1780
 
 .equ	key_press_map	0x1800
 
@@ -199,133 +201,6 @@ scan_code_mismatch:
 	liw	r4, key_press_map + 8
 	sw	r3, r4
 	ba	-, r6
-	
-; 	; hardcoded conversion (does not use keymap...)
-; 	; recognizes WASD (ZQSD on AZERTY) and arrows for various
-; 	; PS2 scan code sets and alter up/left/down/right keybits
-; 	; in keypress_map accordingly
-; 	
-; 	bspl	r4, r3, 1
-; 	brine	r4, int_kbd_ext
-; 	
-; 	
-; 	li	r4, 0x76
-; 	
-; 	
-; 	li	r4, 0x08
-; 	
-; 	
-; 	
-; 	li	r4, 0x63
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_notup
-; 	li	r5, 1
-; 	bri	-, int_kbd_end
-; int_kbd_notup:
-; 	
-; 	li	r4, 0x61
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_notleft
-; 	li	r5, 2
-; 	bri	-, int_kbd_end
-; int_kbd_notleft:
-; 	
-; 	li	r4, 0x60
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_notdown
-; 	li	r5, 4
-; 	bri	-, int_kbd_end
-; int_kbd_notdown:
-; 	
-; 	li	r4, 0x6A
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_notright
-; 	li	r5, 8
-; 	bri	-, int_kbd_end
-; int_kbd_notright:
-; 	
-; 	li	r4, 0x1D
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_notW
-; 	li	r5, 1
-; 	bri	-, int_kbd_end
-; int_kbd_notW:
-; 	
-; 	li	r4, 0x1C
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_notA
-; 	li	r5, 2
-; 	bri	-, int_kbd_end
-; int_kbd_notA:
-; 	
-; 	li	r4, 0x1B
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_notS
-; 	li	r5, 4
-; 	bri	-, int_kbd_end
-; int_kbd_notS:
-; 	
-; 	li	r4, 0x23
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_notD
-; 	li	r5, 8
-; 	bri	-, int_kbd_end
-; int_kbd_notD:
-; 	bri	-, int_kbd_done
-; 	
-; int_kbd_ext:
-; 	
-; 	li	r4, 0x75
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_ext_notup
-; 	li	r5, 1
-; 	bri	-, int_kbd_end
-; int_kbd_ext_notup:
-; 	
-; 	li	r4, 0x6B
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_ext_notleft
-; 	li	r5, 2
-; 	bri	-, int_kbd_end
-; int_kbd_ext_notleft:
-; 	
-; 	li	r4, 0x72
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_ext_notdown
-; 	li	r5, 4
-; 	bri	-, int_kbd_end
-; int_kbd_ext_notdown:
-; 	
-; 	li	r4, 0x74
-; 	sub	r4, r2, r4
-; 	brine	r4, int_kbd_ext_notright
-; 	li	r5, 8
-; 	bri	-, int_kbd_end
-; int_kbd_ext_notright:
-; 	bri	-, int_kbd_done
-; 	
-; int_kbd_end:
-; 	bspl	r4, r3, 0
-; 	liw	r3, key_press_map
-; 	lw	r2, r3
-; 	brine	r4, int_kbd_maskout
-; 	or	r2, r2, r5
-; 	bri	-, int_kbd_write
-; int_kbd_maskout:
-; 	not	r5, r5
-; 	and	r2, r2, r5
-; int_kbd_write:
-; 	sw	r2, r3
-; 	
-; 	li	r3, 10
-; 	sw	r2, r3
-; 	
-; int_kbd_done:
-; 	; clear status
-; 	li	r3, 0
-; 	liw	r4, key_press_map + 8
-; 	sw	r3, r4
-; 	ba	-, r6
 	
 int_kbd.extended:
 	li	r4, 2
@@ -555,6 +430,49 @@ PaperGameRedrawContent:
 	
 	; draw game area : y in 24..240
 	
+	liw	r5, paper_tilemap
+	
+PaperGameTileLoop:
+	lw	r4, r5
+	inc	r5, r5
+	
+	brieq	r4, PaperGameTileSkip
+	
+	dec	r7, r7
+	sw	r5, r7
+	
+	liw	r3, paper_tilemap
+	sub	r3, r5, r3
+	
+	; compute coordinates
+	shr	r0, r4, 7
+	
+	shr	r1, r3, 1
+	shl	r1, r1, 3
+	
+	li	r3, 1
+	bailne	r0, r6, put_tile
+	
+	shl	r4, r4, 7
+	shr	r4, r4, 7
+	
+PaperGameSegmentLoop:
+	li	r3, 2
+	bail	-, r6, put_tile
+	dec	r4, r4
+	brine	r4, PaperGameSegmentLoop
+	
+	li	r3, 0
+	bailne	r0, r6, put_tile
+	
+	lw	r5, r7
+	inc	r7, r7
+	
+PaperGameTileSkip:
+	liw r4, paper_tilemap + 125
+	sub	r4, r5, r4
+	
+	brilt	r4, PaperGameTileLoop
 	
 	; draw plane
 	liw	r3, paper_dir
@@ -646,6 +564,42 @@ PaperNoMoveRIGHT:
 PaperGameQuit:
 	reset
 	
+	
+; brief : display the 8*8 tile in r3 at pos (r0, r1)
+; destroys r2, r3
+put_tile:
+	; push	r6
+	dec	r7, r7
+	sw	r6, r7
+	
+	dec	r7, r7
+	sw	r0, r7
+	dec	r7, r7
+	sw	r1, r7
+	dec	r7, r7
+	sw	r4, r7
+	
+	liw	r2, paper_tiles
+	shl	r3, r3, 1
+	add	r2, r2, r3
+	
+	li	r3, 8
+	bail	-, r6, put_sprite_8_aligned
+	
+	lw	r4, r7
+	inc	r7, r7
+	lw	r1, r7
+	inc	r7, r7
+	lw	r0, r7
+	inc	r7, r7
+	
+	inc	r0, r0
+	
+	; pop	r6
+	lw	r6, r7
+	inc	r7, r7
+	
+	ba	-, r6
 	
 ; 	; old tests
 ; 	
@@ -1027,7 +981,7 @@ puts.end:
 	
 	; exit routine
 	ba	-, r6
-
+	
 ; brief : display the 8*8 char in r3 at pos (r0, r1)
 ; destroys r2, r3, r4
 putchar:
@@ -1082,7 +1036,7 @@ printnum:
 	li	r4, 1
 	
 printnum.sub:
-	li	r3, '0' - 1
+	li	r3, 0x2F
 printnum.loop:
 	inc	r3, r3
 	sub	r2, r2, r4
