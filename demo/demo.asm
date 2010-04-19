@@ -143,78 +143,14 @@ int_kbd:
 	brieq	r4, int_kbd.extended
 	
 int_kbd.process:
-; 	; convert useless scan code representation
-; 	; into more usable 7bit representation
-; 	
-; 	; select proper keymap
-; 	liw	r4, scan_code_map
-; 	shr	r5, r3, 0
-; 	shl	r5, r5, 6
-; 	add	r4, r4, r5
-; 	
-; 	shr	r5, r2, 0
-; 	sbc	r2, r2, r2
-; 	
-; 	add	r4, r4, r5
-; 	lw	r4, r4
-; 	
-; 	brine	r2, int_kbd.process_low
-; 	mixhh	r2, r2, r4
-; 	bri	-, int_kbd.processed
-; int_kbd.process_low:
-; 	li	r2, 0
-; 	mixhl	r2, r2, r4
-; 	
-; int_kbd.processed:
-; 	li	r4, 10
-; 	sw r2, r4
-; 	
-; 	brieq	r2, int_kbd.unknown
-; 	
-; 	; notify
-; 	
-; 	; compute address of keybit in keypress_map
-; 	liw	r4, key_press_map
-; ; 	shr	r5, r2, 3
-; 	add	r4, r4, r5
-; 	
-; 	; create bit mask
-; 	li	r5, 1
-; 	not	r2, r2
-; 	rrr	r5, r5, r2
-; 	
-; 	lw	r2, r4
-; 	
-; 	bspl	r3, r3, 0
-; 	brine	r3, int_kbd.notify_release
-; 	or	r2, r2, r5
-; 	bri	-, int_kbd.notified
-; 	
-; int_kbd.notify_release:
-; 	not	r5, r5
-; 	and	r2, r2, r5
-; 	
-; int_kbd.notified:
-; ; 	sw	r2, r4
-; 	
-; 	li	r4, 11
-; 	sw	r5, r4
-; 	li	r2, -1
-; 	li	r4, 29
-; 	sw	r2, r4
-; 	li	r4, 31
-; 	sw	r2, r4
-; 	
-; int_kbd.unknown:
 	
 	; search keymap of the form :
-	
 	; scan code : bit position
 	
 	liw	r5, paper_keys - 1
 	bspl	r4, r3, 1
 	brieq	r4, $+3
-	liw	r5, paper_keys + 10 - 1
+	liw	r5, paper_keys + 11 - 1
 	
 scan_code_loop:
 	inc	r5, r5
@@ -630,6 +566,15 @@ PaperGameRedrawContent:
 	li	r1, 44
 	li	r3, 16
 	bail	-, r6, put_sprite_16
+	
+	
+	; small delay
+	li	r2, 15
+	li	r3, 0
+	dec	r3, r3
+	brine	r3, $-1
+	dec	r2, r2
+	brine	r2, $-4
 	
 PaperGameLoop:
 	
