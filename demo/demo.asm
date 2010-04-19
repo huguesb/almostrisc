@@ -379,7 +379,7 @@ PaperGameRedraw:
 	bail	-, r6, puts
 	
 	; forward arrow
-	li	r0, 241
+	li	r0, 239
 	li	r1, 1
 	liw	r2, paper_hud
 	li	r3, 8
@@ -398,7 +398,7 @@ PaperGameRedraw:
 	bail	-, r6, puts 
 	
 	; up (or down) arrow
-	li	r0, 241
+	li	r0, 239
 	li	r1, 10
 	liw	r2, paper_hud + 4
 	li	r3, 8
@@ -450,16 +450,30 @@ PaperGameTileLoop:
 	shr	r1, r3, 1
 	shl	r1, r1, 2
 	
-	li	r3, 1
-	bailne	r0, r6, put_tile
+	liw	r2, paper_tiles
+	li	r3, 8
+	bailne	r0, r6, put_sprite_8_aligned
 	
 	shl	r4, r4, 7
 	shr	r4, r4, 7
 	
-	li	r3, 2
-	
 PaperGameSegmentLoop:
-	bail	-, r6, put_tile
+	dec	r7, r7
+	sw	r0, r7
+	dec	r7, r7
+	sw	r1, r7
+	dec	r7, r7
+	sw	r4, r7
+	liw	r2, paper_tiles + 4 * 2
+	li	r3, 8
+	bail	-, r6, put_sprite_8_aligned
+	lw	r4, r7
+	inc	r7, r7
+	lw	r1, r7
+	inc	r7, r7
+	lw	r0, r7
+	inc	r7, r7
+	inc	r0, r0
 	dec	r4, r4
 	brine	r4, PaperGameSegmentLoop
 	
