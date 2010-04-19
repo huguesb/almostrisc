@@ -497,7 +497,7 @@ PaperGameStart:
 ; paper plane game loop
 	; r0 : plane direction in {0, 1, 2, 3, 4}
 	; r1 : plane speed : high=forward [0-16], low=upward (signed)
-	; r2 : plane position : high=x, low=y (grid in buffer orientation)
+	; r2 : plane position : high=altitude, low=x (grid in buffer orientation)
 
 PaperGameRedraw:
 	
@@ -589,15 +589,15 @@ PaperGameRedrawContent:
 	dec	r7, r7
 	sw	r2, r7
 	
-	; clear content area (not hud)
-	li	r0, 20*20
-	li	r1, 0
-	liw	r2, 220*20
-	
-	sw	r1, r0
-	inc	r0, r0
-	dec	r2, r2
-	brine	r2, $-3
+; 	; clear content area (not hud)
+; 	li	r0, 20*20
+; 	li	r1, 0
+; 	liw	r2, 220*20
+; 	
+; 	sw	r1, r0
+; 	inc	r0, r0
+; 	dec	r2, r2
+; 	brine	r2, $-3
 	
 	; draw game area : y in 24..240
 	
@@ -621,6 +621,11 @@ PaperGameLoop:
 	
 ; update position and velocity
 	
+	; move direction : less straight => bigger forward speed loss
+	; speed up : decreases with gravity, decrease can be mitigated by steering up
+	; or worsened by steering down. Positive up speed decreases forward speed, negative
+	; up speed increases forward speed
+	; 
 	
 	
 	
