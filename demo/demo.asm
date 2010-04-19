@@ -211,185 +211,185 @@ int_kbd.process:
 	
 	; scan code : bit position
 	
-; 	liw	r5, paper_keys - 1
-; 	bspl	r4, r3, 1
-; 	brieq	r4, $+3
-; 	liw	r5, paper_keys + 10 - 1
-; 	
-; scan_code_loop:
-; 	inc	r5, r5
-; 	lw	r4, r5
-; 	brieq	r4, scan_code_mismatch
-; 	shr	r4, r4, 7
-; 	sub	r4, r2, r4
-; 	brine	r4, scan_code_loop
-; 	
-; scan_code_match:
-; 	lw	r2, r5
-; 	
-; 	bspl	r4, r3, 0
-; 	
-; 	; compute keybit offset
-; 	shl	r3, r2, 7
-; 	shr	r3, r3, 10
-; 	
-; 	; compute keybit mask
-; 	li	r5, 1
-; 	dec	r2, r2
-; 	rrl	r2, r5, r2
-; 	
-; 	; compute keybit address
-; 	liw	r5, key_press_map
-; 	add	r5, r5, r3
-; 	
-; 	; updare keybit accordding to press/release
-; 	lw	r3, r5
-; 	
-; 	brine	r4, scan_code_release
-; scan_code_press:
-; 	or	r3, r3, r2
-; 	bri	-, scan_code_notify
-; scan_code_release:
-; 	not	r2, r2
-; 	and	r3, r3, r2
-; 	
-; scan_code_notify:
-; 	sw	r3, r5
-; 	
-; scan_code_mismatch:
-; 	
-; 	; clear status
-; 	li	r3, 0
-; 	liw	r4, key_press_map + 8
-; 	sw	r3, r4
-; 	ba	-, r6
-	
-	; hardcoded conversion (does not use keymap...)
-	; recognizes WASD (ZQSD on AZERTY) and arrows for various
-	; PS2 scan code sets and alter up/left/down/right keybits
-	; in keypress_map accordingly
-	
+	liw	r5, paper_keys - 1
 	bspl	r4, r3, 1
-	brine	r4, int_kbd_ext
+	brieq	r4, $+3
+	liw	r5, paper_keys + 10 - 1
 	
-	
-	li	r4, 0x76
-	
-	
-	li	r4, 0x08
-	
-	
-	
-	li	r4, 0x63
+scan_code_loop:
+	inc	r5, r5
+	lw	r4, r5
+	brieq	r4, scan_code_mismatch
+	shr	r4, r4, 7
 	sub	r4, r2, r4
-	brine	r4, int_kbd_notup
-	li	r5, 1
-	bri	-, int_kbd_end
-int_kbd_notup:
+	brine	r4, scan_code_loop
 	
-	li	r4, 0x61
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notleft
-	li	r5, 2
-	bri	-, int_kbd_end
-int_kbd_notleft:
+scan_code_match:
+	lw	r2, r5
 	
-	li	r4, 0x60
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notdown
-	li	r5, 4
-	bri	-, int_kbd_end
-int_kbd_notdown:
-	
-	li	r4, 0x6A
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notright
-	li	r5, 8
-	bri	-, int_kbd_end
-int_kbd_notright:
-	
-	li	r4, 0x1D
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notW
-	li	r5, 1
-	bri	-, int_kbd_end
-int_kbd_notW:
-	
-	li	r4, 0x1C
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notA
-	li	r5, 2
-	bri	-, int_kbd_end
-int_kbd_notA:
-	
-	li	r4, 0x1B
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notS
-	li	r5, 4
-	bri	-, int_kbd_end
-int_kbd_notS:
-	
-	li	r4, 0x23
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notD
-	li	r5, 8
-	bri	-, int_kbd_end
-int_kbd_notD:
-	bri	-, int_kbd_done
-	
-int_kbd_ext:
-	
-	li	r4, 0x75
-	sub	r4, r2, r4
-	brine	r4, int_kbd_ext_notup
-	li	r5, 1
-	bri	-, int_kbd_end
-int_kbd_ext_notup:
-	
-	li	r4, 0x6B
-	sub	r4, r2, r4
-	brine	r4, int_kbd_ext_notleft
-	li	r5, 2
-	bri	-, int_kbd_end
-int_kbd_ext_notleft:
-	
-	li	r4, 0x72
-	sub	r4, r2, r4
-	brine	r4, int_kbd_ext_notdown
-	li	r5, 4
-	bri	-, int_kbd_end
-int_kbd_ext_notdown:
-	
-	li	r4, 0x74
-	sub	r4, r2, r4
-	brine	r4, int_kbd_ext_notright
-	li	r5, 8
-	bri	-, int_kbd_end
-int_kbd_ext_notright:
-	bri	-, int_kbd_done
-	
-int_kbd_end:
 	bspl	r4, r3, 0
-	liw	r3, key_press_map
-	lw	r2, r3
-	brine	r4, int_kbd_maskout
-	or	r2, r2, r5
-	bri	-, int_kbd_write
-int_kbd_maskout:
-	not	r5, r5
-	and	r2, r2, r5
-int_kbd_write:
-	sw	r2, r3
 	
-	li	r3, 10
-	sw	r2, r3
+	; compute keybit offset
+	shl	r3, r2, 7
+	shr	r3, r3, 10
 	
-int_kbd_done:
+	; compute keybit mask
+	li	r5, 1
+	dec	r2, r2
+	rrl	r2, r5, r2
+	
+	; compute keybit address
+	liw	r5, key_press_map
+	add	r5, r5, r3
+	
+	; updare keybit accordding to press/release
+	lw	r3, r5
+	
+	brine	r4, scan_code_release
+scan_code_press:
+	or	r3, r3, r2
+	bri	-, scan_code_notify
+scan_code_release:
+	not	r2, r2
+	and	r3, r3, r2
+	
+scan_code_notify:
+	sw	r3, r5
+	
+scan_code_mismatch:
+	
 	; clear status
 	li	r3, 0
 	liw	r4, key_press_map + 8
 	sw	r3, r4
 	ba	-, r6
+	
+; 	; hardcoded conversion (does not use keymap...)
+; 	; recognizes WASD (ZQSD on AZERTY) and arrows for various
+; 	; PS2 scan code sets and alter up/left/down/right keybits
+; 	; in keypress_map accordingly
+; 	
+; 	bspl	r4, r3, 1
+; 	brine	r4, int_kbd_ext
+; 	
+; 	
+; 	li	r4, 0x76
+; 	
+; 	
+; 	li	r4, 0x08
+; 	
+; 	
+; 	
+; 	li	r4, 0x63
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notup
+; 	li	r5, 1
+; 	bri	-, int_kbd_end
+; int_kbd_notup:
+; 	
+; 	li	r4, 0x61
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notleft
+; 	li	r5, 2
+; 	bri	-, int_kbd_end
+; int_kbd_notleft:
+; 	
+; 	li	r4, 0x60
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notdown
+; 	li	r5, 4
+; 	bri	-, int_kbd_end
+; int_kbd_notdown:
+; 	
+; 	li	r4, 0x6A
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notright
+; 	li	r5, 8
+; 	bri	-, int_kbd_end
+; int_kbd_notright:
+; 	
+; 	li	r4, 0x1D
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notW
+; 	li	r5, 1
+; 	bri	-, int_kbd_end
+; int_kbd_notW:
+; 	
+; 	li	r4, 0x1C
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notA
+; 	li	r5, 2
+; 	bri	-, int_kbd_end
+; int_kbd_notA:
+; 	
+; 	li	r4, 0x1B
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notS
+; 	li	r5, 4
+; 	bri	-, int_kbd_end
+; int_kbd_notS:
+; 	
+; 	li	r4, 0x23
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notD
+; 	li	r5, 8
+; 	bri	-, int_kbd_end
+; int_kbd_notD:
+; 	bri	-, int_kbd_done
+; 	
+; int_kbd_ext:
+; 	
+; 	li	r4, 0x75
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_ext_notup
+; 	li	r5, 1
+; 	bri	-, int_kbd_end
+; int_kbd_ext_notup:
+; 	
+; 	li	r4, 0x6B
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_ext_notleft
+; 	li	r5, 2
+; 	bri	-, int_kbd_end
+; int_kbd_ext_notleft:
+; 	
+; 	li	r4, 0x72
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_ext_notdown
+; 	li	r5, 4
+; 	bri	-, int_kbd_end
+; int_kbd_ext_notdown:
+; 	
+; 	li	r4, 0x74
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_ext_notright
+; 	li	r5, 8
+; 	bri	-, int_kbd_end
+; int_kbd_ext_notright:
+; 	bri	-, int_kbd_done
+; 	
+; int_kbd_end:
+; 	bspl	r4, r3, 0
+; 	liw	r3, key_press_map
+; 	lw	r2, r3
+; 	brine	r4, int_kbd_maskout
+; 	or	r2, r2, r5
+; 	bri	-, int_kbd_write
+; int_kbd_maskout:
+; 	not	r5, r5
+; 	and	r2, r2, r5
+; int_kbd_write:
+; 	sw	r2, r3
+; 	
+; 	li	r3, 10
+; 	sw	r2, r3
+; 	
+; int_kbd_done:
+; 	; clear status
+; 	li	r3, 0
+; 	liw	r4, key_press_map + 8
+; 	sw	r3, r4
+; 	ba	-, r6
 	
 int_kbd.extended:
 	li	r4, 2
@@ -661,7 +661,7 @@ PaperGameLoop:
 ; check for keyboard action
 	liw	r3, key_press_map
 	lw	r3, r3
-	brieq	r3, event_not_kbd
+	brieq	r3, PaperGameLoop
 	
 	; check for ESC
 	bspl	r4, r3, 15
@@ -697,7 +697,7 @@ PaperNoMoveLEFT:
 	sw	r0, r2
 PaperNoMoveRIGHT:
 	
-	bri	-, PaperGameLoop
+	bri	-, PaperGameRedrawContent
 	
 	
 PaperGameQuit:
@@ -776,166 +776,166 @@ PaperGameQuit:
 ; 	sw	r2, r0
 ; 	add	r0, r0, r1
 ; 	
-	; stop there
-	;bri	-, $
-	
-	li	r0, 8
-	li	r1, 8
-	
-redraw:
-	dec	r7, r7
-	sw	r1, r7
-	dec	r7, r7
-	sw	r0, r7
-	
-	; display char
-	liw	r2, font_map + 4 * 0x23
-	li	r3, 8
-	bail	-, r6, put_sprite_8
-	
-	lw	r0, r7
-	inc	r7, r7
-	lw	r1, r7
-	inc	r7, r7
-	
-	
-	; small delay
-	li	r2, 20
-	li	r3, 0
-	dec	r3, r3
-	brine	r3, $-1
-	dec	r2, r2
-	brine	r2, $-4
-	
-event_loop:
-	
-event_kbd:
-	
-	; keyboard polling...
-	
-; 	liw	r3, PS2_stat
-; 	lw	r3, r3
+; 	; stop there
+; 	;bri	-, $
 ; 	
-; 	bspl	r4, r3, 0
-; 	brine	r4, event_not_kbd
+; 	li	r0, 8
+; 	li	r1, 8
+; 	
+; redraw:
+; 	dec	r7, r7
+; 	sw	r1, r7
+; 	dec	r7, r7
+; 	sw	r0, r7
+; 	
+; 	; display char
+; 	liw	r2, font_map + 4 * 0x23
+; 	li	r3, 8
+; 	bail	-, r6, put_sprite_8
+; 	
+; 	lw	r0, r7
+; 	inc	r7, r7
+; 	lw	r1, r7
+; 	inc	r7, r7
+; 	
+; 	
+; 	; small delay
+; 	li	r2, 20
+; 	li	r3, 0
+; 	dec	r3, r3
+; 	brine	r3, $-1
+; 	dec	r2, r2
+; 	brine	r2, $-4
+; 	
+; event_loop:
+; 	
+; event_kbd:
+; 	
+; 	; keyboard polling...
+; 	
+; ; 	liw	r3, PS2_stat
+; ; 	lw	r3, r3
+; ; 	
+; ; 	bspl	r4, r3, 0
+; ; 	brine	r4, event_not_kbd
+; ; 	
+; ; 	dec	r7, r7
+; ; 	sw	r2, r7
+; ; 	dec	r7, r7
+; ; 	sw	r0, r7
+; ; 	dec	r7, r7
+; ; 	sw	r1, r7
+; ; 	
+; ; 	liw	r3, PS2_rx
+; ; 	lw	r3, r3
+; ; 	
+; ; 	shl	r3, r3, 1
+; ; 	add	r2, r2, r3
+; ; 	
+; ; 	li	r3, 8
+; ; 	bail	-, r6, put_sprite_8_aligned
+; ; 	
+; ; 	lw	r1, r7
+; ; 	inc	r7, r7
+; ; 	lw	r0, r7
+; ; 	inc	r7, r7
+; ; 	
+; ; 	inc	r0, r0
+; ; 	li	r2, 40
+; ; 	sub	r2, r0, r2
+; ; 	brilt	r2, event_kbd_end
+; ; 	shr	r0, r1, 2
+; ; 	li	r2, 8
+; ; 	add	r1, r1, r2
+; ; 	li	r2, 233
+; ; 	sub	r2, r1, r2
+; ; 	brilt	r2, event_kbd_end
+; ; 	li	r1, 8
+; ; 	li	r0, 0
+; ; event_kbd_end:
+; ; 	lw	r2, r7
+; ; 	inc	r7, r7
+; 	
+; 	; interrupt-based conversion, only use key codes
+; 	
+; 	liw	r2, key_press_map
+; 	lw	r2, r2
+; 	brieq	r2, event_not_kbd
 ; 	
 ; 	dec	r7, r7
 ; 	sw	r2, r7
-; 	dec	r7, r7
-; 	sw	r0, r7
+; 	
+; 	
 ; 	dec	r7, r7
 ; 	sw	r1, r7
+; 	dec	r7, r7
+; 	sw	r0, r7
 ; 	
-; 	liw	r3, PS2_rx
-; 	lw	r3, r3
-; 	
-; 	shl	r3, r3, 1
-; 	add	r2, r2, r3
-; 	
+; 	; clear char
+; 	liw	r2, font_map
 ; 	li	r3, 8
-; 	bail	-, r6, put_sprite_8_aligned
+; 	bail	-, r6, put_sprite_8
 ; 	
-; 	lw	r1, r7
-; 	inc	r7, r7
 ; 	lw	r0, r7
 ; 	inc	r7, r7
+; 	lw	r1, r7
+; 	inc	r7, r7
 ; 	
-; 	inc	r0, r0
-; 	li	r2, 40
-; 	sub	r2, r0, r2
-; 	brilt	r2, event_kbd_end
-; 	shr	r0, r1, 2
-; 	li	r2, 8
-; 	add	r1, r1, r2
-; 	li	r2, 233
-; 	sub	r2, r1, r2
-; 	brilt	r2, event_kbd_end
-; 	li	r1, 8
-; 	li	r0, 0
-; event_kbd_end:
+; 	
 ; 	lw	r2, r7
 ; 	inc	r7, r7
-	
-	; interrupt-based conversion, only use key codes
-	
-	liw	r2, key_press_map
-	lw	r2, r2
-	brieq	r2, event_not_kbd
-	
-	dec	r7, r7
-	sw	r2, r7
-	
-	
-	dec	r7, r7
-	sw	r1, r7
-	dec	r7, r7
-	sw	r0, r7
-	
-	; clear char
-	liw	r2, font_map
-	li	r3, 8
-	bail	-, r6, put_sprite_8
-	
-	lw	r0, r7
-	inc	r7, r7
-	lw	r1, r7
-	inc	r7, r7
-	
-	
-	lw	r2, r7
-	inc	r7, r7
-	
-	; up
-	bspl	r3, r2, 0
-	brieq	r3, event_kbd_no_up
-	
-	li	r3, 8
-	sub	r3, r1, r3
-	brine	r3, event_kbd_no_clip_up
-	li	r1, 240
-event_kbd_no_clip_up:
-	li	r3, 8
-	sub	r1, r1, r3
-	
-event_kbd_no_up:
-	; left
-	bspl	r3, r2, 1
-	brieq	r3, event_kbd_no_left
-	
-	brine	r0, event_kbd_no_clip_left
-	li	r0, 39*8 ; 40
-event_kbd_no_clip_left:
-	dec	r0, r0
-	
-event_kbd_no_left:
-	; down
-	bspl	r3, r2, 2
-	brieq	r3, event_kbd_no_down
-	li	r3, 232
-	sub	r3, r1, r3
-	brilt	r3, event_kbd_no_clip_down
-	li	r1, 0
-event_kbd_no_clip_down:
-	li	r3, 8
-	add	r1, r1, r3
-	
-event_kbd_no_down:
-	; right
-	bspl	r3, r2, 3
-	brieq	r3, event_kbd_no_right
-	li	r3, 39*8
-	sub	r3, r0, r3
-	brilt	r3, event_kbd_no_clip_right
-	li	r0, -1
-event_kbd_no_clip_right:
-	inc	r0, r0
-	
-event_kbd_no_right:
-	bri	-, redraw
-	
-event_not_kbd:
-	
-	bri	-, event_loop
+; 	
+; 	; up
+; 	bspl	r3, r2, 0
+; 	brieq	r3, event_kbd_no_up
+; 	
+; 	li	r3, 8
+; 	sub	r3, r1, r3
+; 	brine	r3, event_kbd_no_clip_up
+; 	li	r1, 240
+; event_kbd_no_clip_up:
+; 	li	r3, 8
+; 	sub	r1, r1, r3
+; 	
+; event_kbd_no_up:
+; 	; left
+; 	bspl	r3, r2, 1
+; 	brieq	r3, event_kbd_no_left
+; 	
+; 	brine	r0, event_kbd_no_clip_left
+; 	li	r0, 39*8 ; 40
+; event_kbd_no_clip_left:
+; 	dec	r0, r0
+; 	
+; event_kbd_no_left:
+; 	; down
+; 	bspl	r3, r2, 2
+; 	brieq	r3, event_kbd_no_down
+; 	li	r3, 232
+; 	sub	r3, r1, r3
+; 	brilt	r3, event_kbd_no_clip_down
+; 	li	r1, 0
+; event_kbd_no_clip_down:
+; 	li	r3, 8
+; 	add	r1, r1, r3
+; 	
+; event_kbd_no_down:
+; 	; right
+; 	bspl	r3, r2, 3
+; 	brieq	r3, event_kbd_no_right
+; 	li	r3, 39*8
+; 	sub	r3, r0, r3
+; 	brilt	r3, event_kbd_no_clip_right
+; 	li	r0, -1
+; event_kbd_no_clip_right:
+; 	inc	r0, r0
+; 	
+; event_kbd_no_right:
+; 	bri	-, redraw
+; 	
+; event_not_kbd:
+; 	
+; 	bri	-, event_loop
 	
 	
 	; test division
