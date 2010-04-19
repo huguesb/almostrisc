@@ -14,9 +14,12 @@
 
 .equ	font_map		0x12C0
 
-.equ	hello_str		0x16C0
+.equ	paper_keys		0x16C0
+.equ	paper_sprites	0x16D0
+.equ	paper_hud		0x1720
+.equ	paper_title		0x1730
+.equ	paper_speed		0x1736
 
-.equ	scan_code_map	0x1700
 .equ	key_press_map	0x1800
 
 .equ	IRQ_mask		0x2000
@@ -114,7 +117,7 @@ int_kbd:
 	; simple visual test for kbd
 	; display scan code value on 7segments
 	
-	; r0, r1, r6, r7 : reserved for IRQ dispatcher
+	; r0, r1, r6 : reserved for IRQ dispatcher
 	; r2 : last byte from PS2 peripheral
 	; r3 : status = {0 | nothing, 1 | release, 2 | extended, 3 | both} 
 	
@@ -125,8 +128,8 @@ int_kbd:
 	lw	r3, r3
 	
 	mixll	r7, r7, r2
-	li	r4, 9
-	sw	r7, r4
+; 	li	r4, 9
+; 	sw	r7, r4
 	
 	li	r4, 0xF0
 	sub	r4, r2, r4
@@ -201,119 +204,189 @@ int_kbd.process:
 ; 	
 ; int_kbd.unknown:
 	
+	; search keymap of the form :
+	
+	; scan code : bit position
+	
+	liw	r5, 0x16C0 - 1
 	bspl	r4, r3, 1
-	brine	r4, int_kbd_ext
+	brieq	r4, $+3
+	liw	r5, 0x16CA - 1
 	
-	li	r4, 0x63
+scan_code_loop:
+	inc	r5, r5
+	lw	r4, r5
+	brieq	r4, scan_code_mismatch
+	shr	r4, r4, 7
 	sub	r4, r2, r4
-	brine	r4, int_kbd_notup
-	li	r5, 1
-	bri	-, int_kbd_end
-int_kbd_notup:
+	brine	r4, scan_code_loop
 	
-	li	r4, 0x61
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notleft
-	li	r5, 2
-	bri	-, int_kbd_end
-int_kbd_notleft:
+scan_code_match:
+	lw	r2, r5
 	
-	li	r4, 0x60
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notdown
-	li	r5, 4
-	bri	-, int_kbd_end
-int_kbd_notdown:
-	
-	li	r4, 0x6A
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notright
-	li	r5, 8
-	bri	-, int_kbd_end
-int_kbd_notright:
-	
-	li	r4, 0x1D
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notW
-	li	r5, 1
-	bri	-, int_kbd_end
-int_kbd_notW:
-	
-	li	r4, 0x1C
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notA
-	li	r5, 2
-	bri	-, int_kbd_end
-int_kbd_notA:
-	
-	li	r4, 0x1B
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notS
-	li	r5, 4
-	bri	-, int_kbd_end
-int_kbd_notS:
-	
-	li	r4, 0x23
-	sub	r4, r2, r4
-	brine	r4, int_kbd_notD
-	li	r5, 8
-	bri	-, int_kbd_end
-int_kbd_notD:
-	bri	-, int_kbd_done
-	
-int_kbd_ext:
-	
-	li	r4, 0x75
-	sub	r4, r2, r4
-	brine	r4, int_kbd_ext_notup
-	li	r5, 1
-	bri	-, int_kbd_end
-int_kbd_ext_notup:
-	
-	li	r4, 0x6B
-	sub	r4, r2, r4
-	brine	r4, int_kbd_ext_notleft
-	li	r5, 2
-	bri	-, int_kbd_end
-int_kbd_ext_notleft:
-	
-	li	r4, 0x72
-	sub	r4, r2, r4
-	brine	r4, int_kbd_ext_notdown
-	li	r5, 4
-	bri	-, int_kbd_end
-int_kbd_ext_notdown:
-	
-	li	r4, 0x74
-	sub	r4, r2, r4
-	brine	r4, int_kbd_ext_notright
-	li	r5, 8
-	bri	-, int_kbd_end
-int_kbd_ext_notright:
-	bri	-, int_kbd_done
-	
-int_kbd_end:
 	bspl	r4, r3, 0
-	liw	r3, key_press_map
-	lw	r2, r3
-	brine	r4, int_kbd_maskout
-	or	r2, r2, r5
-	bri	-, int_kbd_write
-int_kbd_maskout:
-	not	r5, r5
-	and	r2, r2, r5
-int_kbd_write:
-	sw	r2, r3
 	
-	li	r3, 10
-	sw	r2, r3
+	; compute keybit offset
+	shl	r3, r2, 7
+	shr	r3, r3, 10
 	
-int_kbd_done:
+	; compute keybit mask
+	li	r5, 1
+	dec	r2, r2
+	rrl	r2, r5, r2
+	
+	; compute keybit address
+	liw	r5, key_press_map
+	add	r5, r5, r3
+	
+	; updare keybit accordding to press/release
+	lw	r3, r5
+	
+	brine	r4, scan_code_release
+scan_code_press:
+	or	r3, r3, r2
+	bri	-, scan_code_notify
+scan_code_release:
+	not	r2, r2
+	and	r3, r3, r2
+	
+scan_code_notify:
+	sw	r3, r5
+	
+scan_code_mismatch:
+	
 	; clear status
 	li	r3, 0
 	liw	r4, key_press_map + 8
 	sw	r3, r4
 	ba	-, r6
+	
+; 	; hardcoded conversion (does not use keymap...)
+; 	; recognizes WASD (ZQSD on AZERTY) and arrows for various
+; 	; PS2 scan code sets and alter up/left/down/right keybits
+; 	; in keypress_map accordingly
+; 	
+; 	bspl	r4, r3, 1
+; 	brine	r4, int_kbd_ext
+; 	
+; 	
+; 	li	r4, 0x76
+; 	
+; 	
+; 	li	r4, 0x08
+; 	
+; 	
+; 	
+; 	li	r4, 0x63
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notup
+; 	li	r5, 1
+; 	bri	-, int_kbd_end
+; int_kbd_notup:
+; 	
+; 	li	r4, 0x61
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notleft
+; 	li	r5, 2
+; 	bri	-, int_kbd_end
+; int_kbd_notleft:
+; 	
+; 	li	r4, 0x60
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notdown
+; 	li	r5, 4
+; 	bri	-, int_kbd_end
+; int_kbd_notdown:
+; 	
+; 	li	r4, 0x6A
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notright
+; 	li	r5, 8
+; 	bri	-, int_kbd_end
+; int_kbd_notright:
+; 	
+; 	li	r4, 0x1D
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notW
+; 	li	r5, 1
+; 	bri	-, int_kbd_end
+; int_kbd_notW:
+; 	
+; 	li	r4, 0x1C
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notA
+; 	li	r5, 2
+; 	bri	-, int_kbd_end
+; int_kbd_notA:
+; 	
+; 	li	r4, 0x1B
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notS
+; 	li	r5, 4
+; 	bri	-, int_kbd_end
+; int_kbd_notS:
+; 	
+; 	li	r4, 0x23
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_notD
+; 	li	r5, 8
+; 	bri	-, int_kbd_end
+; int_kbd_notD:
+; 	bri	-, int_kbd_done
+; 	
+; int_kbd_ext:
+; 	
+; 	li	r4, 0x75
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_ext_notup
+; 	li	r5, 1
+; 	bri	-, int_kbd_end
+; int_kbd_ext_notup:
+; 	
+; 	li	r4, 0x6B
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_ext_notleft
+; 	li	r5, 2
+; 	bri	-, int_kbd_end
+; int_kbd_ext_notleft:
+; 	
+; 	li	r4, 0x72
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_ext_notdown
+; 	li	r5, 4
+; 	bri	-, int_kbd_end
+; int_kbd_ext_notdown:
+; 	
+; 	li	r4, 0x74
+; 	sub	r4, r2, r4
+; 	brine	r4, int_kbd_ext_notright
+; 	li	r5, 8
+; 	bri	-, int_kbd_end
+; int_kbd_ext_notright:
+; 	bri	-, int_kbd_done
+; 	
+; int_kbd_end:
+; 	bspl	r4, r3, 0
+; 	liw	r3, key_press_map
+; 	lw	r2, r3
+; 	brine	r4, int_kbd_maskout
+; 	or	r2, r2, r5
+; 	bri	-, int_kbd_write
+; int_kbd_maskout:
+; 	not	r5, r5
+; 	and	r2, r2, r5
+; int_kbd_write:
+; 	sw	r2, r3
+; 	
+; 	li	r3, 10
+; 	sw	r2, r3
+; 	
+; int_kbd_done:
+; 	; clear status
+; 	li	r3, 0
+; 	liw	r4, key_press_map + 8
+; 	sw	r3, r4
+; 	ba	-, r6
 	
 int_kbd.extended:
 	li	r4, 2
@@ -378,23 +451,12 @@ os_init:
 	; clear kbd memory
 	liw	r0, key_press_map
 	li	r1, 0
+	li	r2, 8
+	
 	sw	r1, r0
 	inc	r0, r0
-	sw	r1, r0
-	inc	r0, r0
-	sw	r1, r0
-	inc	r0, r0
-	sw	r1, r0
-	inc	r0, r0
-	sw	r1, r0
-	inc	r0, r0
-	sw	r1, r0
-	inc	r0, r0
-	sw	r1, r0
-	inc	r0, r0
-	sw	r1, r0
-	inc	r0, r0
-	sw	r1, r0
+	dec	r2, r2
+	brine	r2, $-3
 	
 	; mark
 	li	r3, 30
@@ -404,76 +466,276 @@ os_init:
 start:
 	; "userspace" starts here
 	
-test.extra:
-	; test imm16 loading
-	liw	r0, 0x8421
-	liw	r1, 0x1234
 	
-	out	r1
+;------------------------------------------------------------
+; Paper Plane init
+;------------------------------------------------------------
 	
-	; test reg-mem swap instruction
-	exw	r0, r1
-	exw	r0, r1
+; no menu as of yet...
+	bri	-, PaperGameStart
 	
-	; test mixing instructions
-	mixhh	r2, r0, r1
-	mixhl	r3, r0, r1
-	mixlh	r4, r0, r1
-	mixll	r5, r0, r1
+;------------------------------------------------------------
+; paper plane menu
+;------------------------------------------------------------
+PaperMemu:
 	
-	; test register-indexed shift/rotates
-	li	r6, 3
+; paper plane menu loop
+PaperMenuLoop:
 	
-	rrr	r5, r0, r6
-	rrl	r5, r1, r6
-	rsr	r5, r2, r6
-	rsl	r5, r3, r6
 	
-	; test hw multiplication
-	mul	r6, r1, r0 ; r1:r6 = r1 * r0
+	bri	-, PaperMenuLoop
 	
-test.puts:
-	li	r0, 39
+	
+;------------------------------------------------------------
+; paper plane game
+;------------------------------------------------------------
+PaperGameStart:
+	
+	li	r0, 0
+	liw	r1, 0x0801
+	
+; paper plane game loop
+	; r0 : plane direction in {0, 1, 2, 3, 4}
+	; r1 : plane speed : high=forward [0-16], low=upward (signed)
+	; r2 : plane position : high=x, low=y (grid in buffer orientation)
+
+PaperGameRedraw:
+	
+	; push r0, r1, r2
+	dec	r7, r7
+	sw	r0, r7
+	dec	r7, r7
+	sw	r1, r7
+	dec	r7, r7
+	sw	r2, r7
+	
+	; draw HUD
+	
+	; top line of hud
+	li	r0, 0
+	li	r1, -1
+	li	r2, 20
+	
+	sw	r1, r0
+	inc	r0, r0
+	dec	r2, r2
+	brine	r2, $-3
+	
+	; clear hud area
 	li	r1, 0
-	liw	r2, font_map + 4 * 0x23
-	li	r3, 8
-	bail	-, r6, put_sprite_8_aligned
+	liw	r2, 18*20
 	
+	sw	r1, r0
+	inc	r0, r0
+	dec	r2, r2
+	brine	r2, $-3
+	
+	; bottom line of hud
+	li	r1, -1
+	li	r2, 20
+	
+	sw	r1, r0
+	inc	r0, r0
+	dec	r2, r2
+	brine	r2, $-3
+	
+	; Title text
 	li	r0, 4
-	li	r1, 0
-	liw	r2, hello_str
-	
+	li	r1, 5
+	liw	r2, paper_title
 	bail	-, r6, puts
 	
+	; forward arrow
+	li	r0, 242
+	li	r1, 1
+	liw	r2, paper_hud
+	li	r3, 8
+	bail	-, r6, put_sprite_8
 	
-	xor	r0, r0, r0
-	li	r1, 20
+	; "m/s"
+	li	r0, 35
+	li	r1, 1
+	liw	r2, paper_speed
+	bail	-, r6, puts 
 	
-	liw	r2, 0x2020
-	sw	r2, r0
-	add	r0, r0, r1
-	liw	r2, 0x7070
-	sw	r2, r0
-	add	r0, r0, r1
-	liw	r2, 0xF8F8 ; 
-	sw	r2, r0
-	add	r0, r0, r1
-	liw	r2, 0xF8F8 ; 
-	sw	r2, r0
-	add	r0, r0, r1
-	liw	r2, 0xF870 ; 
-	sw	r2, r0
-	add	r0, r0, r1
-	liw	r2, 0x7020 ; 
-	sw	r2, r0
-	add	r0, r0, r1
-	liw	r2, 0x2070 ; 
-	sw	r2, r0
-	add	r0, r0, r1
-	liw	r2, 0x0000 ; 
-	sw	r2, r0
-	add	r0, r0, r1
+	; up (or down) arrow
+	li	r0, 242
+	li	r1, 10
+	liw	r2, paper_hud + 4
+	li	r3, 8
+	bail	-, r6, put_sprite_8
 	
+	; "m/s"
+	li	r0, 35
+	li	r1, 10
+	liw	r2, paper_speed
+	bail	-, r6, puts 
+	
+	; pop r2, r1, r0
+	lw	r2, r7
+	inc	r7, r7
+	lw	r1, r7
+	inc	r7, r7
+	lw	r0, r7
+	inc	r7, r7
+	
+PaperGameRedrawContent:
+	
+	; push r0, r1
+	dec	r7, r7
+	sw	r0, r7
+	dec	r7, r7
+	sw	r1, r7
+	dec	r7, r7
+	sw	r2, r7
+	
+	; clear content area (not hud)
+	li	r0, 20*20
+	li	r1, 0
+	liw	r2, 220*20
+	
+	sw	r1, r0
+	inc	r0, r0
+	dec	r2, r2
+	brine	r2, $-3
+	
+	; draw game area : y in 24..240
+	
+	
+	; draw plane
+	li	r0, 152
+	li	r1, 44
+	liw	r2, paper_sprites
+	li	r3, 16
+	bail	-, r6, put_sprite_16
+	
+	; pop r2, r1, r0
+	lw	r2, r7
+	inc	r7, r7
+	lw	r1, r7
+	inc	r7, r7
+	lw	r0, r7
+	inc	r7, r7
+	
+PaperGameLoop:
+	
+; update position and velocity
+	
+	
+	
+	
+; check for keyboard action
+	liw	r3, key_press_map
+	lw	r3, r3
+	brieq	r3, event_not_kbd
+	
+	; check for ESC
+	bspl	r4, r3, 15
+	brieq	r4, PaperGameQuit
+	
+	; check for movement
+	
+	; UP
+	bspl	r4, r3, 0
+	brieq	r4, PaperNoMoveUp
+	
+PaperNoMoveUp:
+	; DOWN
+	bspl	r4, r3, 2
+	brieq	r4, PaperNoMoveDOWN
+	
+PaperNoMoveDOWN:
+	
+	; LEFT
+	bspl	r4, r3, 1
+	brieq	r4, PaperNoMoveLEFT
+	
+PaperNoMoveLEFT:
+	; RIGHT
+	bspl	r4, r3, 3
+	brieq	r4, PaperNoMoveRIGHT
+	
+PaperNoMoveRIGHT:
+	
+	bri	-, PaperGameLoop
+	
+	
+PaperGameQuit:
+	reset
+	
+	
+; 	; old tests
+; 	
+; test.extra:
+; 	; test imm16 loading
+; 	liw	r0, 0x8421
+; 	liw	r1, 0x1234
+; 	
+; 	out	r1
+; 	
+; 	; test reg-mem swap instruction
+; 	exw	r0, r1
+; 	exw	r0, r1
+; 	
+; 	; test mixing instructions
+; 	mixhh	r2, r0, r1
+; 	mixhl	r3, r0, r1
+; 	mixlh	r4, r0, r1
+; 	mixll	r5, r0, r1
+; 	
+; 	; test register-indexed shift/rotates
+; 	li	r6, 3
+; 	
+; 	rrr	r5, r0, r6
+; 	rrl	r5, r1, r6
+; 	rsr	r5, r2, r6
+; 	rsl	r5, r3, r6
+; 	
+; 	; test hw multiplication
+; 	mul	r6, r1, r0 ; r1:r6 = r1 * r0
+; 	
+; test.puts:
+; 	li	r0, 39
+; 	li	r1, 0
+; 	liw	r2, font_map + 4 * 0x23
+; 	li	r3, 8
+; 	bail	-, r6, put_sprite_8_aligned
+; 	
+; 	li	r0, 4
+; 	li	r1, 0
+; 	liw	r2, hello_str
+; 	
+; 	bail	-, r6, puts
+; 	
+; 	
+; 	xor	r0, r0, r0
+; 	li	r1, 20
+; 	
+; 	liw	r2, 0x2020
+; 	sw	r2, r0
+; 	add	r0, r0, r1
+; 	liw	r2, 0x7070
+; 	sw	r2, r0
+; 	add	r0, r0, r1
+; 	liw	r2, 0xF8F8 ; 
+; 	sw	r2, r0
+; 	add	r0, r0, r1
+; 	liw	r2, 0xF8F8 ; 
+; 	sw	r2, r0
+; 	add	r0, r0, r1
+; 	liw	r2, 0xF870 ; 
+; 	sw	r2, r0
+; 	add	r0, r0, r1
+; 	liw	r2, 0x7020 ; 
+; 	sw	r2, r0
+; 	add	r0, r0, r1
+; 	liw	r2, 0x2070 ; 
+; 	sw	r2, r0
+; 	add	r0, r0, r1
+; 	liw	r2, 0x0000 ; 
+; 	sw	r2, r0
+; 	add	r0, r0, r1
+; 	
 	; stop there
 	;bri	-, $
 	
@@ -822,7 +1084,7 @@ putchar:
 	;	
 	;	* r6 = return address 
 	;
-	; destroys : r0, r1, r2, r3, r4, r5
+	; destroys : r0, r1, r2, r3, r4
 put_sprite_16_aligned:
 	; r4 will be address in VGA buffer : base at 0x0000
 	; buffer is 320*240pix, 16pix per word
@@ -837,12 +1099,14 @@ put_sprite_16_aligned:
 	; r4 = 20*y + x/16 : first word for sprite
 	add	r4, r4, r0
 	
+	li	r0, 20
+	
 put_sprite_16_aligned.loop:
 	lw	r1, r2
 	sw	r1, r4
 	
 	inc	r2, r2
-	inc	r4, r4
+	add	r4, r4, r0
 	
 	dec	r3, r3
 	brine	r3, put_sprite_16_aligned.loop
@@ -850,6 +1114,92 @@ put_sprite_16_aligned.loop:
 put_sprite_16_aligned.end:
 	
 	ba	-, r6
+
+
+	; inputs : 
+	;	* (r0, r1) = (x, y)
+	;	* r2 = sprite data
+	;	* r3 = sprite height
+	;	
+	;	* r6 = return address 
+	;
+	; destroys : r0, r1, r2, r3, r4, r5
+put_sprite_16:
+	; r4 will be address in VGA buffer : base at 0x0000
+	; buffer is 320*240pix, 16pix per word
+	; => one buffer line is 20 words
+	
+	li	r5, 15
+	and	r5, r0, r5
+	shr	r0, r0, 3
+	
+	brieq	r5, put_sprite_16_aligned
+	dec	r5, r5
+	
+	; r4 = 16*y
+	shl r4, r1, 3
+	; r1 = 4*y
+	shl	r1, r1, 1
+	; r4 = 20*y
+	add	r4, r4, r1
+	; r4 = 20*y + x/16 : first word for sprite
+	add	r4, r4, r0
+	
+put_sprite_16.loop:
+	; push r3
+	dec	r7, r7
+	sw	r3, r7
+	
+	lw	r1, r2
+	
+	li	r0, -1
+	rsr	r0, r0, r5
+	rrr	r1, r1, r5
+	and	r1, r1, r0
+	
+	lw	r3, r4
+	not	r0, r0
+	and	r3, r3, r0
+	or	r1, r1, r3
+	sw	r1, r4
+	
+	inc	r4, r4
+	
+	lw	r1, r2
+	
+	not	r5, r5
+	
+	li	r0, -1
+	rsl	r0, r0, r5
+	rrl	r1, r1, r5
+	and	r1, r1, r0
+	
+	not	r5, r5
+	
+	lw	r3, r4
+	not	r0, r0
+	and	r3, r3, r0
+	or	r1, r1, r3
+	sw	r1, r4
+	
+	; move to next sprite line
+	inc	r2, r2
+	
+	; move to next buffer line
+	li	r0, 19
+	add	r4, r4, r0
+	
+	; pop	r3
+	lw	r3, r7
+	inc	r7, r7
+	
+	dec	r3, r3
+	brine	r3, put_sprite_16.loop
+	
+put_sprite_16.end:
+	
+	ba	-, r6
+
 
 	; inputs : 
 	;	* (r0, r1) = (x / 8, y)
@@ -969,6 +1319,7 @@ put_sprite_8:
 	and	r5, r0, r5
 	shr	r0, r0, 2
 	
+	; go  aligned
 	brieq	r5, put_sprite_8_aligned
 	dec	r5, r5
 	
@@ -993,14 +1344,14 @@ put_sprite_8.loop0:
 	; load sprite data
 	lw	r0, r2
 	
+	; push r2
 	dec	r7, r7
 	sw	r2, r7
 	
-	li	r2, 0
-	mixhl	r0, r0, r2
+	; shift sprite and mask appropriately
 	li	r2, 0x100
-	rrl	r2, r2, r5
-	rrl	r0, r0, r5
+	rrr	r2, r2, r5
+	rrr	r0, r0, r5
 	
 	; load buffer value
 	lw	r1, r4
@@ -1018,6 +1369,7 @@ put_sprite_8.loop0:
 	li	r1, 20
 	add	r4, r4, r1
 	
+	; pop r2
 	lw	r2, r7
 	inc	r7, r7
 	
@@ -1027,14 +1379,18 @@ put_sprite_8.loop0:
 	; load sprite data
 	lw	r0, r2
 	
+	; push r2
 	dec	r7, r7
 	sw	r2, r7
 	
-	li	r2, 0
-	mixll	r0, r0, r2
+	; select proper byte of sprite data
+	;shl	r0, r0, 7
+	mixll	r0, r0, r0
+	
+	; shift mask and sprite appropriately
 	li	r2, 0x100
-	rrl	r2, r2, r5
-	rrl	r3, r0, r5
+	rrr	r2, r2, r5
+	rrr	r0, r0, r5
 	
 	; load buffer value
 	lw	r1, r4
@@ -1052,6 +1408,7 @@ put_sprite_8.loop0:
 	li	r1, 20
 	add	r4, r4, r1
 	
+	; pop r2
 	lw	r2, r7
 	inc	r7, r7
 	
@@ -1069,63 +1426,57 @@ put_sprite_8.loop1:
 	; load sprite data
 	lw	r0, r2
 	
-; 	; load buffer value
-; 	lw	r1, r4
-; 	; compose data
-; 	mixhh	r1, r1, r0
-; 	; write it to buffer
-; 	sw	r1, r4
-; 	
-	
-	
+	; push r2 / push r3
 	dec	r7, r7
 	sw	r2, r7
 	dec	r7, r7
 	sw	r3, r7
 	
-	li	r2, 0
-	mixlh	r3, r2, r0
-	li	r2, 0xFF
-	rsl	r2, r2, r5
-	rsl	r3, r3, r5
+	li	r2, 0x100
+	rrr	r2, r2, r5
+	rrr	r0, r0, r5
+	
+	; mask out irrelevant part
+	and	r0, r0, r2
 	
 	; load buffer value
 	lw	r1, r4
 	
-	; compose data
-	and	r3, r2, r3
-	not	r2, r2
-	and	r1, r1, r2
+	; mask out sprite "spot"
+	shr	r3, r2, 7
+	not	r3, r3
+	and	r1, r1, r3
+	
+	; compose sprite data
+	shr	r3, r0, 7
 	or	r1, r1, r3
 	
 	; write it to buffer
 	sw	r1, r4
 	
+	; next word (unaligned sprite can cross word boundaries)
 	inc	r4, r4
 	
-	li	r2, 0
-	mixhl	r3, r0, r2
-	li	r2, -1
-	rsl	r2, r2, r5
-	rsl	r3, r3, r5
-	
 	; load buffer value
 	lw	r1, r4
 	
-	; compose data
-	and	r3, r2, r3
-	not	r2, r2
-	and	r1, r1, r2
+	; mask out sprite "spot"
+	shl	r3, r2, 7
+	not	r3, r3
+	and	r1, r1, r3
+	
+	; compose sprite data
+	shl	r3, r0, 7
 	or	r1, r1, r3
 	
 	; write it to buffer
 	sw	r1, r4
-	
 	
 	; move to next buffer line
 	li	r1, 19
 	add	r4, r4, r1
 	
+	; pop r3 / pop r2
 	lw	r3, r7
 	inc	r7, r7
 	lw	r2, r7
@@ -1134,60 +1485,100 @@ put_sprite_8.loop1:
 	dec	r3, r3
 	baeq	r3, r6
 	
+; 	li	r2, 0
+; 	mixll	r3, r2, r0
+; 	li	r2, 0xFF
+; 	rsl	r2, r2, r5
+; 	rsl	r3, r3, r5
+; 	
 ; 	; load buffer value
 ; 	lw	r1, r4
+; 	
 ; 	; compose data
-; 	mixhl	r1, r1, r0
+; 	and	r3, r2, r3
+; 	not	r2, r2
+; 	and	r1, r1, r2
+; 	or	r1, r1, r3
+; 	
 ; 	; write it to buffer
 ; 	sw	r1, r4
+; 	
+; 	inc	r4, r4
+; 	
+; 	li	r2, 0
+; 	mixll	r3, r0, r2
+; 	li	r2, -1
+; 	rsl	r2, r2, r5
+; 	rsl	r3, r3, r5
+; 	
+; 	; load buffer value
+; 	lw	r1, r4
+; 	
+; 	; compose data
+; 	and	r3, r2, r3
+; 	not	r2, r2
+; 	and	r1, r1, r2
+; 	or	r1, r1, r3
+; 	
+; 	; write it to buffer
+; 	sw	r1, r4
+; 	
 	
+	; load sprite data
+	lw	r0, r2
+	shl	r0, r0, 7
+	
+	; push r2 / push r3
 	dec	r7, r7
 	sw	r2, r7
 	dec	r7, r7
 	sw	r3, r7
 	
-	li	r2, 0
-	mixll	r3, r2, r0
-	li	r2, 0xFF
-	rsl	r2, r2, r5
-	rsl	r3, r3, r5
+	li	r2, 0x100
+	rrr	r2, r2, r5
+	rrr	r0, r0, r5
+	
+	; mask out irrelevant part
+	and	r0, r0, r2
 	
 	; load buffer value
 	lw	r1, r4
 	
-	; compose data
-	and	r3, r2, r3
-	not	r2, r2
-	and	r1, r1, r2
+	; mask out sprite "spot"
+	shr	r3, r2, 7
+	not	r3, r3
+	and	r1, r1, r3
+	
+	; compose sprite data
+	shr	r3, r0, 7
 	or	r1, r1, r3
 	
 	; write it to buffer
 	sw	r1, r4
 	
+	; next word (unaligned sprite can cross word boundaries)
 	inc	r4, r4
-	
-	li	r2, 0
-	mixll	r3, r0, r2
-	li	r2, -1
-	rsl	r2, r2, r5
-	rsl	r3, r3, r5
 	
 	; load buffer value
 	lw	r1, r4
 	
-	; compose data
-	and	r3, r2, r3
-	not	r2, r2
-	and	r1, r1, r2
+	; mask out sprite "spot"
+	shl	r3, r2, 7
+	not	r3, r3
+	and	r1, r1, r3
+	
+	; compose sprite data
+	shl	r3, r0, 7
 	or	r1, r1, r3
 	
 	; write it to buffer
 	sw	r1, r4
 	
 	; move to next buffer line
-	li	r1, 29
+	li	r1, 19
 	add	r4, r4, r1
 	
+	; pop r3 / pop r2
 	lw	r3, r7
 	inc	r7, r7
 	lw	r2, r7
