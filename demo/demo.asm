@@ -642,22 +642,6 @@ PaperGameLoop:
 	; or worsened by steering down. Positive up speed decreases forward speed, negative
 	; up speed increases forward speed
 	
-	liw	r2, paper_dir
-	lw	r0, r2
-	inc	r2, r2
-	lw	r1, r2
-	
-	dec	r0, r0
-	brine	r0, $+3
-	dec	r1, r1
-	bri	-, $+4
-	dec	r0, r0
-	brine	r0, $+2
-	inc	r1, r1
-	
-	sw	r1, r2
-	
-	
 ; check for keyboard action
 	liw	r3, key_press_map
 	lw	r3, r3
@@ -687,6 +671,10 @@ PaperNoMoveDOWN:
 	;lw	r0, r2
 	li	r0, 2
 	sw	r0, r2
+	inc	r2, r2
+	lw	r0, r2
+	dec	r0, r0
+	sw	r0, r2
 PaperNoMoveLEFT:
 	; RIGHT
 	bspl	r4, r3, 3
@@ -694,6 +682,10 @@ PaperNoMoveLEFT:
 	liw	r2, paper_dir
 	;lw	r0, r2
 	li	r0, 1
+	sw	r0, r2
+	inc	r2, r2
+	lw	r0, r2
+	inc	r0, r0
 	sw	r0, r2
 PaperNoMoveRIGHT:
 	
