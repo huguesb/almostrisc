@@ -500,19 +500,17 @@ PaperGameTileSkip:
 	
 	; draw plane
 	liw	r3, paper_speed
-	lw	r4, r3
-	bspl	r5, r4, 15
-	xor	r4, r4, r5
-	shr	r4, r4, 2
-	xor	r4, r4, r5
+	lw	r3, r3
+	li	r4, 0x1F8
+	and	r4, r3, r4
+	add	r4, r4, r4
 	
 	liw	r3, paper_pos
 	lw	r0, r3
 	shr	r0, r0, 2
 	
 	liw	r2, paper_sprites
-; 	shl	r4, r4, 3
-; 	add	r2, r2, r4
+	add	r2, r2, r4
 	
 	li	r1, 44
 	li	r3, 16
