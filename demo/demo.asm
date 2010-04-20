@@ -330,11 +330,11 @@ PaperGameStart:
 	sw	r1, r0
 	inc	r0, r0
 	
-	li	r1, 20
+	li	r1, 1
 	sw	r1, r0
 	inc	r0, r0
 	
-	li	r1, 5
+	li	r1, 1
 	sw	r1, r0
 	inc	r0, r0
 	
@@ -498,21 +498,12 @@ PaperGameTileSkip:
 	shr	r0, r0, 2
 	
 	liw	r2, paper_sprites
-	shl	r4, r4, 3
-	add	r2, r2, r4
+; 	shl	r4, r4, 3
+; 	add	r2, r2, r4
 	
 	li	r1, 44
 	li	r3, 16
 	bail	-, r6, put_sprite_16
-	
-	
-	; small delay
-	li	r2, 3
-	li	r3, 0
-	dec	r3, r3
-	brine	r3, $-1
-	dec	r2, r2
-	brine	r2, $-4
 	
 PaperGameLoop:
 	
