@@ -505,13 +505,14 @@ PaperGameTileSkip:
 	xor	r4, r4, r5
 	shr	r4, r4, 2
 	xor	r4, r4, r5
+	
 	liw	r3, paper_pos
 	lw	r0, r3
 	shr	r0, r0, 2
 	
 	liw	r2, paper_sprites
-	shl	r4, r4, 3
-	add	r2, r2, r4
+; 	shl	r4, r4, 3
+; 	add	r2, r2, r4
 	
 	li	r1, 44
 	li	r3, 16
@@ -580,23 +581,23 @@ PaperGameScrollLoop:
 	
 	; generate new tilemap line
 	
-	bail	-, r6, rand16
-	
-	liw	r2, 0x0507
-	and	r1, r1, r2
-	mixhh	r2, r1, r1
-	add	r2, r2, r2
-	add	r2, r2, r2
-	mixll	r1, r2, r1
-	
-	sw	r1, r0
-	inc	r0, r0
-	li	r5, 0
-	sw	r5, r0
-	inc	r0, r0
-	sw	r5, r0
-	inc	r0, r0
-	sw	r5, r0
+; 	bail	-, r6, rand16
+; 	
+; 	liw	r2, 0x0507
+; 	and	r1, r1, r2
+; 	mixhh	r2, r1, r1
+; 	add	r2, r2, r2
+; 	add	r2, r2, r2
+; 	mixll	r1, r2, r1
+; 	
+; 	sw	r1, r0
+; 	inc	r0, r0
+; 	li	r5, 0
+; 	sw	r5, r0
+; 	inc	r0, r0
+; 	sw	r5, r0
+; 	inc	r0, r0
+; 	sw	r5, r0
 	
 PaperGameSkipScroll:
 	
