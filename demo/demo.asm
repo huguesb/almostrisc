@@ -330,7 +330,7 @@ PaperGameStart:
 	sw	r1, r0
 	inc	r0, r0
 	
-	li	r1, 2
+	li	r1, 5
 	sw	r1, r0
 	inc	r0, r0
 	
@@ -491,14 +491,17 @@ PaperGameTileSkip:
 	; draw plane
 	liw	r3, paper_speed
 	lw	r4, r3
+	bspl	r5, r4, 15
+	xor	r4, r4, r5
 	shr	r4, r4, 2
+	xor	r4, r4, r5
 	liw	r3, paper_pos
 	lw	r0, r3
 	shr	r0, r0, 2
 	
 	liw	r2, paper_sprites
-; 	shl	r4, r4, 3
-; 	add	r2, r2, r4
+	shl	r4, r4, 3
+	add	r2, r2, r4
 	
 	li	r1, 44
 	li	r3, 16
@@ -528,26 +531,28 @@ PaperGameLoop:
 	liw	r2, paper_pos
 	liw	r3, paper_speed
 	
-; 	lw	r0, r2
-; 	lw	r1, r3
-; 	add	r0, r0, r1
+	lw	r0, r2
+	lw	r1, r3
+	add	r0, r0, r1
 ; 	brilt	r0, PaperGameQuit
 ; 	li	r4, 300
 ; 	sub	r4, r0, r4
 ; 	brige	r4, PaperGameQuit
-; 	sw	r0, r2
+	sw	r0, r2
 	
 	inc	r2, r2
 	inc	r3, r3
 	
 	lw	r0, r2
 	lw	r1, r3
-	add	r0, r0, r1
-	sw	r0, r2
+	add	r1, r0, r1
+	sw	r1, r2
 	
 	; scroll tilemap on boundary...
-	li	r4, 7
+	li	r4, 0x1F8
 	and	r0, r0, r4
+	and	r1, r1, r4
+	xor	r0, r0, r1
 	brine	r0, PaperGameSkipScroll
 	
 	liw	r0, paper_tilemap
