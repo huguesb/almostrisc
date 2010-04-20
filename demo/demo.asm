@@ -313,7 +313,7 @@ PaperGameStart:
 	inc	r0, r0
 	
 	; init position
-	li	r1, 152
+	liw	r1, 152 * 8
 	sw	r1, r0
 	inc	r0, r0
 	
@@ -321,7 +321,7 @@ PaperGameStart:
 	sw	r1, r0
 	inc	r0, r0
 	
-	li	r1, 128
+	liw	r1, 128 * 8
 	sw	r1, r0
 	inc	r0, r0
 	
@@ -505,7 +505,7 @@ PaperGameTileSkip:
 	bail	-, r6, put_sprite_16
 	
 	; delay
-	li	r0, 6
+	li	r0, 5
 	
 	li	r1, 0
 	bri	-, $+1
@@ -545,8 +545,27 @@ PaperGameLoop:
 	add	r0, r0, r1
 	sw	r0, r2
 	
-	; update tilemap on boundary...
+	; scroll tilemap on boundary...
+	li	r4, 7
+	and	r0, r0, r4
+	brine	r0, PaperGameSkipScroll
 	
+	liw	r0, paper_tilemap
+	li	r1, 5
+	add	r1, r0, r1
+	li	r2, 24
+	
+PaperGameScrollLoop:
+	lw	r3, r1
+	sw	r3, r0
+	inc	r0, r0
+	inc	r1, r1
+	dec	r2, r2
+	brine	r2, PaperGameScrollLoop
+	
+	; generate new tilemap line
+	
+PaperGameSkipScroll:
 	
 ; check for keyboard action
 	liw	r3, key_press_map
