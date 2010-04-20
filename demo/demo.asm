@@ -505,6 +505,17 @@ PaperGameTileSkip:
 	li	r3, 16
 	bail	-, r6, put_sprite_16
 	
+	; delay
+	li	r0, 7
+	
+	li	r1, 0
+	bri	-, $+1
+	bri	-, $+1
+	dec	r1, r1
+	brine	r1, $-3
+	dec	r0, r0
+	brine	r0, $-6
+	
 PaperGameLoop:
 	
 ; update position and velocity
@@ -518,21 +529,21 @@ PaperGameLoop:
 	liw	r2, paper_pos
 	liw	r3, paper_speed
 	
-	lw	r0, r2
-	lw	r1, r3
-	add	r0, r0, r1
-	brilt	r0, PaperGameQuit
-	li	r4, 300
-	sub	r4, r0, r4
-	brige	r4, PaperGameQuit
-	sw	r0, r2
+; 	lw	r0, r2
+; 	lw	r1, r3
+; 	add	r0, r0, r1
+; 	brilt	r0, PaperGameQuit
+; 	li	r4, 300
+; 	sub	r4, r0, r4
+; 	brige	r4, PaperGameQuit
+; 	sw	r0, r2
 	
 	inc	r2, r2
 	inc	r3, r3
 	
 	lw	r0, r2
 	lw	r1, r3
-	add	r0, r0, r1
+	inc	r0, r0 ;add	r0, r0, r1
 	sw	r0, r2
 	
 	; update tilemap on boundary...
