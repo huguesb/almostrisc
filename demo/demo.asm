@@ -330,11 +330,11 @@ PaperGameStart:
 	sw	r1, r0
 	inc	r0, r0
 	
-	li	r1, 1
+	li	r1, 2
 	sw	r1, r0
 	inc	r0, r0
 	
-	li	r1, 1
+	li	r1, 2
 	sw	r1, r0
 	inc	r0, r0
 	
@@ -490,23 +490,22 @@ PaperGameTileSkip:
 	
 	; draw plane
 	liw	r3, paper_speed
-	
 	lw	r4, r3
 	shr	r4, r4, 2
-	inc	r3, r3
+	liw	r3, paper_pos
 	lw	r0, r3
 	shr	r0, r0, 2
 	
 	liw	r2, paper_sprites
-; 	shl	r4, r4, 3
-; 	add	r2, r2, r4
+	shl	r4, r4, 3
+	add	r2, r2, r4
 	
 	li	r1, 44
 	li	r3, 16
 	bail	-, r6, put_sprite_16
 	
 	; delay
-	li	r0, 7
+	li	r0, 4
 	
 	li	r1, 0
 	bri	-, $+1
@@ -543,7 +542,7 @@ PaperGameLoop:
 	
 	lw	r0, r2
 	lw	r1, r3
-	inc	r0, r0 ;add	r0, r0, r1
+	add	r0, r0, r1
 	sw	r0, r2
 	
 	; update tilemap on boundary...
