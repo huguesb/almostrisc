@@ -27,6 +27,8 @@
 
 .equ	key_press_map	0x1800
 
+.equ	rand_seed		0x1808
+
 .equ	IRQ_mask		0x2000
 .equ	IRQ_sens		0x2001
 .equ	IRQ_ack 		0x2002 ; Write : ack, Read : triggered
@@ -234,7 +236,7 @@ os_init:
 	li	r2, 7
 	add	r0, r0, r2	; r0 = 0x2008 : timers control
 	
-	li	r2, 0x1D 	; enable first timer, loop, speed = 1MHz / 10**1 = 10Hz
+	li	r2, 0x1D 	; enable first timer, loop, speed = 1MHz / 10**5 = 10Hz
 	sw	r2, r0
 	
 	inc	r0, r0		; r0 = 0x2009 : first timer, base count
@@ -242,15 +244,15 @@ os_init:
 	li	r2, 15		; fire every 15 timer period (so every 1.5s in this case)
 	sw	r2, r0
 	
-; 	inc	r0, r0		; r0 = 0x200A : second timer, frequency
-; 	
-; 	li	r2, 0x1B 	; enable second timer, loop, speed = 1MHz / 10**3 = 1kHz
-; 	sw	r2, r0
-; 	
-; 	inc	r0, r0		; r0 = 0x200B : second timer, base count
-; 	
-; 	li	r2, 3		; fire every 3 timer period (so every 0.003s in this case)
-; 	sw	r2, r0
+	inc	r0, r0		; r0 = 0x200A : second timer, frequency
+	
+	li	r2, 0x1B 	; enable second timer, loop, speed = 1MHz / 10**3 = 1kHz
+	sw	r2, r0
+	
+	inc	r0, r0		; r0 = 0x200B : second timer, base count
+	
+	liw	r2, 817		; fire every 817 timer period
+	sw	r2, r0
 ; 	
 ; 	inc	r0, r0		; r0 = 0x200C : third timer, frequency
 ; 	
@@ -304,7 +306,6 @@ PaperMenuLoop:
 ; paper plane game
 ;------------------------------------------------------------
 PaperGameStart:
-	
 	liw	r0, paper_dir
 	
 	; init direction
@@ -337,6 +338,11 @@ PaperGameStart:
 	li	r1, 2
 	sw	r1, r0
 	inc	r0, r0
+	
+	; init random seed
+	liw	r0, TMR_cur1
+	lw	r0, r0
+	bail	-, r6, rand16_init
 	
 ; paper plane game loop
 
@@ -451,7 +457,7 @@ PaperGameTileLoop:
 	
 	shr	r1, r3, 1
 	shl	r1, r1, 2
-	li	r2, 24
+	li	r2, 27
 	add	r1, r1, r2
 	
 	liw	r2, paper_pos + 1
@@ -538,7 +544,7 @@ PaperGameLoop:
 	lw	r0, r2
 	lw	r1, r3
 	add	r0, r0, r1
-; 	brilt	r0, PaperGameQuit
+	brilt	r0, PaperGameQuit
 ; 	li	r4, 300
 ; 	sub	r4, r0, r4
 ; 	brige	r4, PaperGameQuit
@@ -557,10 +563,6 @@ PaperGameLoop:
 	sw	r1, r2
 	
 	; scroll tilemap on boundary...
-; 	li	r4, 0x1C0
-; 	and	r0, r0, r4
-; 	and	r1, r1, r4
-; 	xor	r0, r0, r1
 	brieq	r0, PaperGameSkipScroll
 	
 	liw	r0, paper_tilemap
@@ -577,6 +579,18 @@ PaperGameScrollLoop:
 	brine	r2, PaperGameScrollLoop
 	
 	; generate new tilemap line
+	
+	bail	-, r6, rand16
+	
+	li	r2, 5
+	bail	-, r6, div_16_16
+	mixll	r5, r5, r1
+	li	r2, 5
+	bail	-, r6, div_16_16
+	mixll	r5, r5, r1
+	
+	sw	r5, r0
+	inc	r0, r0
 	
 PaperGameSkipScroll:
 	
@@ -625,7 +639,37 @@ PaperNoMoveRIGHT:
 PaperGameQuit:
 	reset
 	
-	
+; brief : init random seed
+; input : r0 = base value
+; destroys : r0, r1, r2
+rand16_init:
+	mul	r1, r0, r6
+	xor	r0, r1, r0
+	liw	r2, rand_seed
+	sw	r0, r2
+	ba	-, r6
+
+; brief : pseudo random number generator
+; output : r1 = prn
+; destroys : r2, r3, r4, r5
+rand16:
+	liw	r2, rand_seed
+	lw	r3, r2
+	li	r4, 253
+	mixll	r1, r3, r4
+	mixhh	r4, r4, r3
+	li	r2, 0
+	sub	r1, r1, r3
+	sbc	r4, r4, r2
+	sbc	r1, r1, r3
+	sbc	r4, r4, r2
+	mixhl	r3, r2, r4
+	sbc	r1, r1, r3
+	adc	r1, r1, r2
+	liw	r2, rand_seed
+	sw	r1, r2
+	ba	-, r6
+
 ; brief : display the 8*8 tile in r3 at pos (r0, r1)
 ; destroys : none (updates r0)
 put_tile:
