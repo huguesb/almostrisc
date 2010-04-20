@@ -15,7 +15,7 @@
 .equ	font_map		0x12C0
 
 .equ	paper_keys		0x16C0
-.equ	paper_sprites	0x16D0
+.equ	paper_sprites	0x16F0
 .equ	paper_hud		0x1720
 .equ	paper_tiles		0x1730
 .equ	paper_dir		0x173C
@@ -388,7 +388,8 @@ PaperGameRedraw:
 	; speed (itoa...)
 	li	r0, 31
 	li	r1, 1
-	li	r2, 123
+	liw	r2, paper_speed + 1
+	lw	r2, r2
 	bail	-, r6, printnum
 	
 	; "m/s"
@@ -407,7 +408,8 @@ PaperGameRedraw:
 	; speed
 	li	r0, 31
 	li	r1, 10
-	li	r2, 45
+	liw	r2, paper_speed + 2
+	lw	r2, r2
 	bail	-, r6, printnum
 	
 	; "m/s"
@@ -450,14 +452,23 @@ PaperGameTileLoop:
 	shr	r1, r3, 1
 	shl	r1, r1, 2
 	
+	liw	r2, paper_pos + 1
+	lw	r2, r2
+	shr	r2, r2, 2
+	li	r3, 7
+	and	r2, r2, r3
+	
+	sub	r1, r1, r2
+	
 	shl	r4, r4, 7
 	shr	r4, r4, 7
 	
 	li	r3, 1
 	bailne	r0, r6, put_tile
 	
-PaperGameSegmentLoop:
 	li	r3, 2
+	
+PaperGameSegmentLoop:
 	bail	-, r6, put_tile
 	dec	r4, r4
 	brine	r4, PaperGameSegmentLoop
@@ -474,12 +485,17 @@ PaperGameTileSkip:
 	
 	brilt	r4, PaperGameTileLoop
 	
+	; check for collision
+	
+	
 	; draw plane
-	liw	r3, paper_dir
+	liw	r3, paper_speed
 	
 	lw	r4, r3
+	shr	r4, r4, 2
 	inc	r3, r3
 	lw	r0, r3
+	shr	r0, r0, 2
 	
 	liw	r2, paper_sprites
 	shl	r4, r4, 3
@@ -491,7 +507,7 @@ PaperGameTileSkip:
 	
 	
 	; small delay
-	li	r2, 5
+	li	r2, 3
 	li	r3, 0
 	dec	r3, r3
 	brine	r3, $-1
@@ -506,6 +522,30 @@ PaperGameLoop:
 	; speed up : decreases with gravity, decrease can be mitigated by steering up
 	; or worsened by steering down. Positive up speed decreases forward speed, negative
 	; up speed increases forward speed
+	
+	
+	liw	r2, paper_pos
+	liw	r3, paper_speed
+	
+	lw	r0, r2
+	lw	r1, r3
+	add	r0, r0, r1
+	brilt	r0, PaperGameQuit
+	li	r4, 300
+	sub	r4, r0, r4
+	brige	r4, PaperGameQuit
+	sw	r0, r2
+	
+	inc	r2, r2
+	inc	r3, r3
+	
+	lw	r0, r2
+	lw	r1, r3
+	add	r0, r0, r1
+	sw	r0, r2
+	
+	; update tilemap on boundary...
+	
 	
 ; check for keyboard action
 	liw	r3, key_press_map
@@ -532,28 +572,16 @@ PaperNoMoveDOWN:
 	; LEFT
 	bspl	r4, r3, 1
 	brieq	r4, PaperNoMoveLEFT
-	liw	r2, paper_dir
-	;lw	r0, r2
-	li	r0, 2
-	sw	r0, r2
-	inc	r2, r2
+	liw	r2, paper_speed
 	lw	r0, r2
-	brieq	r0, $+3
 	dec	r0, r0
 	sw	r0, r2
 PaperNoMoveLEFT:
 	; RIGHT
 	bspl	r4, r3, 3
 	brieq	r4, PaperNoMoveRIGHT
-	liw	r2, paper_dir
-	;lw	r0, r2
-	li	r0, 1
-	sw	r0, r2
-	inc	r2, r2
+	liw	r2, paper_speed
 	lw	r0, r2
-; 	li	r1, 304
-; 	sub	r1, r0, r1
-; 	brige	r1, $+3
 	inc	r0, r0
 	sw	r0, r2
 PaperNoMoveRIGHT:
