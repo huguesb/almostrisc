@@ -541,14 +541,14 @@ PaperGameLoop:
 	liw	r2, paper_pos
 	liw	r3, paper_speed
 	
-	lw	r0, r2
-	lw	r1, r3
-	add	r0, r0, r1
+; 	lw	r0, r2
+; 	lw	r1, r3
+; 	add	r0, r0, r1
 ; 	brilt	r0, PaperGameQuit
 ; 	li	r4, 300
 ; 	sub	r4, r0, r4
 ; 	brige	r4, PaperGameQuit
-	sw	r0, r2
+; 	sw	r0, r2
 	
 	inc	r2, r2
 	inc	r3, r3
@@ -582,8 +582,12 @@ PaperGameScrollLoop:
 	
 	bail	-, r6, rand16
 	
-	liw	r2, 0x0707
+	liw	r2, 0x0507
 	and	r1, r1, r2
+	mixhh	r2, r1, r1
+	add	r2, r2, r2
+	add	r2, r2, r2
+	mixll	r1, r2, r1
 	
 	sw	r1, r0
 	inc	r0, r0
