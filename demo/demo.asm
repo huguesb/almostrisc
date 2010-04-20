@@ -552,7 +552,7 @@ PaperGameLoop:
 ; check for keyboard action
 	liw	r3, key_press_map
 	lw	r3, r3
-	brieq	r3, PaperGameLoop
+	brieq	r3, PaperGameRedrawContent
 	
 	; check for ESC
 	bspl	r4, r3, 15

@@ -303,7 +303,7 @@ architecture Behavioral of ROMPROG is
   448=>x"FFF3",	-- 1111111111110011  liw	r3, key_press_map
   449=>x"1800",	-- 0001100000000000  
   450=>x"D01B",	-- 1101000000011011  lw	r3, r3
-  451=>x"BCD8",	-- 1011110011011000  brieq	r3, PaperGameLoop
+  451=>x"AC58",	-- 1010110001011000  brieq	r3, PaperGameRedrawContent
   452=>x"F7DC",	-- 1111011111011100  bspl	r4, r3, 15
   453=>x"8524",	-- 1000010100100100  brine	r4, PaperGameQuit
   454=>x"F41C",	-- 1111010000011100  bspl	r4, r3, 0
