@@ -553,10 +553,10 @@ PaperGameLoop:
 	and	r0, r0, r4
 	and	r1, r1, r4
 	xor	r0, r0, r1
-	brine	r0, PaperGameSkipScroll
+	brieq	r0, PaperGameSkipScroll
 	
 	liw	r0, paper_tilemap
-	li	r1, 5
+	li	r1, 4
 	add	r1, r0, r1
 	li	r2, 24
 	
