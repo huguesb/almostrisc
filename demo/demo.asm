@@ -497,15 +497,15 @@ PaperGameTileSkip:
 	shr	r0, r0, 2
 	
 	liw	r2, paper_sprites
-	shl	r4, r4, 3
-	add	r2, r2, r4
+; 	shl	r4, r4, 3
+; 	add	r2, r2, r4
 	
 	li	r1, 44
 	li	r3, 16
 	bail	-, r6, put_sprite_16
 	
 	; delay
-	li	r0, 4
+	li	r0, 6
 	
 	li	r1, 0
 	bri	-, $+1
