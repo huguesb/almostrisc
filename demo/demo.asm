@@ -545,14 +545,14 @@ PaperGameLoop:
 	
 	lw	r0, r2
 	lw	r1, r3
-	li	r4, 7
-	add	r0, r0, r1
-	and	r1, r0, r4
-	not	r4, r4
-	and	r0, r0, r4
+	add	r1, r0, r1
 	sw	r1, r2
 	
 	; scroll tilemap on boundary...
+	li	r4, 0x1C0
+	and	r0, r0, r4
+	and	r1, r1, r4
+	xor	r0, r0, r1
 	brieq	r0, PaperGameSkipScroll
 	
 	liw	r0, paper_tilemap
