@@ -544,7 +544,7 @@ PaperGameLoop:
 	lw	r0, r2
 	lw	r1, r3
 	add	r0, r0, r1
-	brilt	r0, PaperGameQuit
+; 	brilt	r0, PaperGameQuit
 ; 	li	r4, 300
 ; 	sub	r4, r0, r4
 ; 	brige	r4, PaperGameQuit
@@ -580,16 +580,12 @@ PaperGameScrollLoop:
 	
 	; generate new tilemap line
 	
-; 	bail	-, r6, rand16
-; 	
-; 	li	r2, 5
-; 	bail	-, r6, div_16_16
-; 	mixll	r5, r5, r1
-; 	li	r2, 5
-; 	bail	-, r6, div_16_16
-; 	mixll	r5, r5, r1
-	liw	r5, 0x1010
-	sw	r5, r0
+	bail	-, r6, rand16
+	
+	liw	r2, 0x0707
+	and	r1, r1, r2
+	
+	sw	r1, r0
 	inc	r0, r0
 	li	r5, 0
 	sw	r5, r0
