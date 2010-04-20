@@ -451,6 +451,8 @@ PaperGameTileLoop:
 	
 	shr	r1, r3, 1
 	shl	r1, r1, 2
+	li	r2, 24
+	add	r1, r1, r2
 	
 	liw	r2, paper_pos + 1
 	lw	r2, r2
@@ -473,8 +475,10 @@ PaperGameSegmentLoop:
 	dec	r4, r4
 	brine	r4, PaperGameSegmentLoop
 	
-; 	li	r3, 0
-; 	bailne	r0, r6, put_tile
+	li	r3, 0
+	li	r4, 40
+	sub	r4, r0, r4
+	baillt	r4, r6, put_tile
 	
 	lw	r5, r7
 	inc	r7, r7
