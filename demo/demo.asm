@@ -580,17 +580,23 @@ PaperGameScrollLoop:
 	
 	; generate new tilemap line
 	
-	bail	-, r6, rand16
-	
-	li	r2, 5
-	bail	-, r6, div_16_16
-	mixll	r5, r5, r1
-	li	r2, 5
-	bail	-, r6, div_16_16
-	mixll	r5, r5, r1
-	
+; 	bail	-, r6, rand16
+; 	
+; 	li	r2, 5
+; 	bail	-, r6, div_16_16
+; 	mixll	r5, r5, r1
+; 	li	r2, 5
+; 	bail	-, r6, div_16_16
+; 	mixll	r5, r5, r1
+	liw	r5, 0x1010
 	sw	r5, r0
 	inc	r0, r0
+	li	r5, 0
+	sw	r5, r0
+	inc	r0, r0
+	sw	r5, r0
+	inc	r0, r0
+	sw	r5, r0
 	
 PaperGameSkipScroll:
 	
@@ -643,8 +649,8 @@ PaperGameQuit:
 ; input : r0 = base value
 ; destroys : r0, r1, r2
 rand16_init:
-	mul	r1, r0, r6
-	xor	r0, r1, r0
+; 	mul	r1, r0, r6
+; 	xor	r0, r1, r0
 	liw	r2, rand_seed
 	sw	r0, r2
 	ba	-, r6
@@ -668,6 +674,7 @@ rand16:
 	adc	r1, r1, r2
 	liw	r2, rand_seed
 	sw	r1, r2
+	
 	ba	-, r6
 
 ; brief : display the 8*8 tile in r3 at pos (r0, r1)
