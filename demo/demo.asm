@@ -603,7 +603,7 @@ PaperGameSkipScroll:
 ; check for keyboard action
 	liw	r3, key_press_map
 	lw	r3, r3
-	brieq	r3, PaperGameRedrawContent
+	baieq	r3, PaperGameRedrawContent
 	
 	; check for ESC
 	bspl	r4, r3, 15
@@ -639,7 +639,7 @@ PaperNoMoveLEFT:
 	sw	r0, r2
 PaperNoMoveRIGHT:
 	
-	bri	-, PaperGameRedrawContent
+	bai	-, PaperGameRedrawContent
 	
 	
 PaperGameQuit:
