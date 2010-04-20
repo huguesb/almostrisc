@@ -19,8 +19,8 @@
 .equ	paper_hud		0x1720
 .equ	paper_tiles		0x1730
 .equ	paper_dir		0x173C
-.equ	paper_speed		0x173D
-.equ	paper_pos		0x1740
+.equ	paper_pos		0x173D
+.equ	paper_speed		0x1740
 .equ	paper_title		0x1744
 .equ	paper_unit		0x174A
 .equ	paper_tilemap	0x1780
