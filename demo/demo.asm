@@ -562,7 +562,7 @@ PaperGameLoop:
 	liw	r0, paper_tilemap
 	li	r1, 4
 	add	r1, r0, r1
-	li	r2, 24
+	li	r2, 24*4
 	
 PaperGameScrollLoop:
 	lw	r3, r1
