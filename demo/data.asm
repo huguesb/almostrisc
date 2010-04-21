@@ -24,7 +24,7 @@
 
 ; "regular" scan codes
 .db 0x76, 0x0F ; ESC (scan code 2)
-.db 0x08, 0x0F ; ESC (scan code 3)
+.db 0x29, 0x0F ; space
 .db 0x63, 0x00 ; up (scan code 3)
 .db 0x61, 0x01 ; left (scan code 3)
 .db 0x60, 0x02 ; down (scan code 3)

@@ -308,6 +308,11 @@ PaperMenuLoop:
 ; paper plane game
 ;------------------------------------------------------------
 PaperGameStart:
+	; init score
+	liw	r0, paper_score
+	li	r1, 0
+	sw	r1, r0
+	
 	liw	r0, paper_dir
 	
 	; init direction
@@ -568,11 +573,6 @@ PaperGameLoop:
 	brige	r4, PaperGameFail
 	sw	r0, r2
 	
-	bspl	r5, r1, 15
-	brieq	r5, $+2
-	nega	r1, r1
-	shr	r5, r1, 3
-	
 	inc	r2, r2
 	inc	r3, r3
 	
@@ -580,8 +580,8 @@ PaperGameLoop:
 	lw	r0, r2
 	lw	r1, r3
 	li	r4, 0xFF
+	shr	r1, r1, 1
 	add	r0, r0, r1
-	sub	r0, r0, r5
 	and	r1, r0, r4
 	sw	r1, r2
 	not	r4, r4
