@@ -456,7 +456,7 @@ PaperGameTileLoop:
 	shr	r0, r4, 7
 	
 	shr	r1, r3, 1
-	shl	r1, r1, 3
+	shl	r1, r1, 4
 	li	r2, 27
 	add	r1, r1, r2
 	
@@ -494,7 +494,7 @@ PaperGameSegmentSkip:
 	inc	r7, r7
 	
 PaperGameTileSkip:
-	liw r4, paper_tilemap + 48
+	liw r4, paper_tilemap + 24
 	sub	r4, r5, r4
 	
 	brilt	r4, PaperGameTileLoop
@@ -516,7 +516,6 @@ PaperGameTileSkip:
 	
 	li	r1, 44
 	li	r3, 16
-; 	bail	-, r6, put_sprite_16
 	bail	-, r6, put_sprite_16_masked
 	
 	; collision check
@@ -562,7 +561,7 @@ PaperGameLoop:
 	; update y coordinate (scroll...)
 	lw	r0, r2
 	lw	r1, r3
-	li	r4, 0x5F
+	li	r4, 0xFF
 	add	r0, r0, r1
 	and	r1, r0, r4
 	not	r4, r4
@@ -665,7 +664,7 @@ PaperMapScroll:
 	liw	r0, paper_tilemap
 	li	r1, 4
 	add	r1, r0, r1
-	li	r2, 24*4
+	li	r2, 5*4
 	
 PaperGameScrollLoop:
 	lw	r3, r1
