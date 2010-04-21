@@ -437,6 +437,7 @@ PaperGameRedraw:
 	li	r1, 10
 	liw	r2, paper_speed + 1
 	lw	r2, r2
+	shr	r2, r2, 2
 	bail	-, r6, printnum
 	
 	; "m/s"
@@ -523,7 +524,7 @@ PaperGameTileSkip:
 	; draw plane
 	liw	r3, paper_speed
 	lw	r3, r3
-	li	r4, 0x1F0
+	li	r4, 0x1E0
 	and	r4, r3, r4
 	
 	liw	r3, paper_pos
