@@ -581,7 +581,7 @@ PaperGameLoop:
 	lw	r0, r2
 	lw	r1, r3
 	li	r4, 0xFF
-	shr	r1, r1, 1
+	shr	r1, r1, 0
 	add	r0, r0, r1
 	and	r1, r0, r4
 	sw	r1, r2
