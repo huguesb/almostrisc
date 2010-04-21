@@ -1125,25 +1125,28 @@ put_sprite_16_masked.loop:
 	dec	r7, r7
 	sw	r3, r7
 	
+	; push r5
+	dec	r7, r7
+	sw	r3, r7
+	
 	; load mask line
 	lw	r0, r2
+	rrr	r0, r0, r6
 	inc	r2, r2
-	
-	; rotate mask appropriately
-	not	r0, r0
-	rsr	r0, r0, r6
-	not	r0, r0
-	
 	; load sprite line
 	lw	r1, r2
+	rrr	r1, r1, r6
 	
-	; rotate and mask start of sprite line
-	rsr	r1, r1, r6
-	;and	r1, r1, r0
+	li	r5, -1
+	rsr	r5, r5, r6
+	
+	and	r1, r1, r5
 	
 	; compose start of sprite line with first buffer word
 	lw	r3, r4
-	and	r3, r3, r0
+	not	r5, r5
+	or	r5, r5, r0
+	and	r3, r3, r5
 	or	r3, r3, r1
 	
 	; write new value to buffer but preserve old for collision check
@@ -1151,44 +1154,46 @@ put_sprite_16_masked.loop:
 	
 	; collision check
 	and	r3, r3, r1
+	
+	; pop	r5
+	lw	r5, r7
+	inc	r7, r7
+	
 	or	r5, r5, r3
 	
 	; move to next buffer word
 	inc	r4, r4
 	
-	dec	r2, r2
-	
-	; reload mask line
-	lw	r0, r2
-	inc	r2, r2
-	
-	not	r6, r6
-	
-	; rotate mask appropriately
-	not	r0, r0
-	rsl	r0, r0, r6
-	not	r0, r0
+	; push r5
+	dec	r7, r7
+	sw	r3, r7
 	
 	; reload sprite line
 	lw	r1, r2
+	rrr	r1, r1, r6
 	
-	; rotate and mask end sprite line
-	rsl	r1, r1, r6
-	;and	r1, r1, r0
+	li	r5, -1
+	rsr	r5, r5, r6
+	not	r5, r5
 	
-	not	r6, r6
+	and	r1, r1, r5
 	
-	; compose end of sprite line with second buffer word
+	; compose start of sprite line with first buffer word
 	lw	r3, r4
-	;not	r0, r0
-	and	r3, r3, r0
+	not	r5, r5
+	or	r5, r5, r0
+	and	r3, r3, r5
 	or	r3, r3, r1
-	
 	; write new value to buffer but preserve old for collision check
 	exw	r3, r4
 	
 	; collision check
 	and	r3, r3, r1
+	
+	; pop	r5
+	lw	r5, r7
+	inc	r7, r7
+	
 	or	r5, r5, r3
 	
 	; move to next sprite line
