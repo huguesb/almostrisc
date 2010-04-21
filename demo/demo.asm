@@ -503,10 +503,8 @@ PaperGameTileSkip:
 	; draw plane
 	liw	r3, paper_speed
 	lw	r3, r3
-	li	r4, 0x1F8
+	li	r4, 0x1E0
 	and	r4, r3, r4
-	add	r4, r4, r4
-	add	r4, r4, r4
 	
 	liw	r3, paper_pos
 	lw	r0, r3
@@ -617,9 +615,8 @@ PaperNoMoveDOWN:
 	brieq	r4, PaperNoMoveLEFT
 	liw	r2, paper_speed
 	lw	r0, r2
-	dec	r0, r0
-	dec	r0, r0
-	dec	r0, r0
+	li	r4, 5
+	sub	r0, r0, r4
 	sw	r0, r2
 PaperNoMoveLEFT:
 	; RIGHT
@@ -627,9 +624,8 @@ PaperNoMoveLEFT:
 	brieq	r4, PaperNoMoveRIGHT
 	liw	r2, paper_speed
 	lw	r0, r2
-	inc	r0, r0
-	inc	r0, r0
-	inc	r0, r0
+	li	r4, 5
+	add	r0, r0, r4
 	sw	r0, r2
 PaperNoMoveRIGHT:
 	
