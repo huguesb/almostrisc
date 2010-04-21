@@ -349,8 +349,8 @@ begin
 	
 	-- wire for all cases :
 	op <= IR(14 downto 9);
-	SelRb <= IR(8 downto 6);
-	SelRa <= IR(5 downto 3);
+	SelRb <= sIR(8 downto 6);
+	SelRa <= sIR(5 downto 3);
 	SelRd <= PIR(5 downto 3) when sCurState = SMult else sIR(2 downto 0);
 	
 	CE <= '1' ;
