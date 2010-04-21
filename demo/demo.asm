@@ -567,22 +567,22 @@ PaperGameLoop:
 	and	r0, r0, r4
 	sw	r1, r2
 	
-	; push r0
-	dec	r7, r7
-	sw	r0, r7
-	
-	inc	r2, r2
-	inc	r3, r3
-	
-	; update z coordinate (unused as of yet...)
-	lw	r0, r2
-	lw	r1, r3
-	add	r0, r0, r1
-	sw	r0, r2
-	
-	; pop	r0
-	lw	r0, r7
-	inc	r7, r7
+; 	; push r0
+; 	dec	r7, r7
+; 	sw	r0, r7
+; 	
+; 	inc	r2, r2
+; 	inc	r3, r3
+; 	
+; 	; update z coordinate (unused as of yet...)
+; 	lw	r0, r2
+; 	lw	r1, r3
+; 	add	r0, r0, r1
+; 	sw	r0, r2
+; 	
+; 	; pop	r0
+; 	lw	r0, r7
+; 	inc	r7, r7
 	
 	; scroll tilemap on boundary...
 	brieq	r0, PaperGameSkipScroll
