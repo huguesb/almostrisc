@@ -274,11 +274,6 @@ os_init:
 	dec	r2, r2
 	brine	r2, $-3
 	
-	; mark
-	li	r3, 30
-	li	r2, -1
-	sw	r2, r3
-	
 start:
 	; "userspace" starts here
 	
@@ -339,11 +334,16 @@ PaperGameStart:
 	sw	r1, r0
 	inc	r0, r0
 	
-	; init random seed
-; 	liw	r0, TMR_cur1
-; 	lw	r0, r0
-	li	r0, -1
-	bail	-, r6, rand16_init
+	; clear tilemap
+	liw	r0, paper_tilemap
+	li	r1, 0
+	li	r2, 6*4
+	
+	sw	r1, r0
+	inc	r0, r0
+	dec	r2, r2
+	brine	r2, $-3
+	
 	
 ; paper plane game loop
 
