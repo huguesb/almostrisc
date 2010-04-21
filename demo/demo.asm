@@ -1199,16 +1199,13 @@ put_sprite_16_masked.loop:
 	not	r5, r5
 	or	r5, r5, r0
 	and	r3, r3, r5
-	; collision check
-	and	r5, r3, r1
 	or	r3, r3, r1
 	; write new value to buffer but preserve old for collision check
 	exw	r3, r4
 	
 	; collision check
-; 	not	r5, r5
-; 	and	r3, r3, r5
-	mova	r3, r5
+	not	r5, r5
+	and	r3, r3, r5
 	
 	; pop	r5
 	lw	r5, r7
@@ -1238,8 +1235,6 @@ put_sprite_16_masked.loop:
 	not	r5, r5
 	or	r5, r5, r0
 	and	r3, r3, r5
-	; collision check
-	and	r5, r3, r1
 	or	r3, r3, r1
 	; write new value to buffer but preserve old for collision check
 	exw	r3, r4
@@ -1247,7 +1242,6 @@ put_sprite_16_masked.loop:
 	; collision check
 ; 	not	r5, r5
 ; 	and	r3, r3, r5
-	mova	r3, r5
 	
 	; pop	r5
 	lw	r5, r7
