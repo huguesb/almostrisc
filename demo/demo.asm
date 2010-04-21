@@ -544,6 +544,7 @@ PaperGameLoop:
 	liw	r2, paper_pos
 	liw	r3, paper_speed
 	
+	; update x coordinate (left/right)
 	lw	r0, r2
 	lw	r1, r3
 	add	r0, r0, r1
@@ -556,6 +557,7 @@ PaperGameLoop:
 	inc	r2, r2
 	inc	r3, r3
 	
+	; update y coordinate (scroll...)
 	lw	r0, r2
 	lw	r1, r3
 	li	r4, 0x3F
@@ -564,6 +566,23 @@ PaperGameLoop:
 	not	r4, r4
 	and	r0, r0, r4
 	sw	r1, r2
+	
+	; push r0
+	dec	r7, r7
+	sw	r0, r7
+	
+	inc	r2, r2
+	inc	r3, r3
+	
+	; update z coordinate (unused as of yet...)
+	lw	r0, r2
+	lw	r1, r3
+	add	r0, r0, r1
+	sw	r0, r2
+	
+	; pop	r0
+	lw	r0, r7
+	inc	r7, r7
 	
 	; scroll tilemap on boundary...
 	brieq	r0, PaperGameSkipScroll
@@ -583,9 +602,42 @@ PaperGameScrollLoop:
 	
 	; generate new tilemap line
 	
-; 	bail	-, r6, rand16
+	bail	-, r6, rand16
 	
-	li	r1, 34
+	li	r2, 7
+	shr	r3, r1, 2
+	and	r1, r1, r2
+	and	r3, r3, r2
+	
+	mixll	r1, r1, r3
+	
+	sw	r1, r0
+	inc	r0, r0
+	
+	; make sure we have no overlaps
+	shl	r3, r1, 7
+	mixhl	r1, r1, r3
+	add	r1, r1, r3
+	
+	;push r1
+	dec	r7, r7
+	sw	r1, r7
+	
+	bail	-, r6, rand16
+	
+	li	r2, 7
+	shr	r3, r1, 2
+	and	r1, r1, r2
+	and	r3, r3, r2
+	
+	mixll	r1, r1, r3
+	
+	;pop	r2
+	lw	r2, r7
+	inc	r7, r7
+	
+	add	r1, r1, r2
+	
 	sw	r1, r0
 	inc	r0, r0
 	
