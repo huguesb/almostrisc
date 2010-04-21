@@ -463,7 +463,7 @@ PaperGameTileLoop:
 	liw	r2, paper_pos + 1
 	lw	r2, r2
 	shr	r2, r2, 2
-	li	r3, 15
+	li	r3, 31
 	and	r2, r2, r3
 	
 	sub	r1, r1, r2
@@ -564,9 +564,9 @@ PaperGameLoop:
 	li	r4, 0xFF
 	add	r0, r0, r1
 	and	r1, r0, r4
+	sw	r1, r2
 	not	r4, r4
 	and	r0, r0, r4
-	sw	r1, r2
 	
 ; 	; push r0
 ; 	dec	r7, r7
