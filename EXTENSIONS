@@ -1,0 +1,85 @@
+
+Outils
+------
+
+assembleur :
+	* core en JS => frontend web et frontend cli
+	* une version pour code, une pour données
+
+script de mise a jour du bitstream
+	* 8k mots
+	* ROM et RAM
+
+
+VHDL
+----
+
+FSM :
+	* "pipeline"
+		=> Decode/Execution regroupe
+		=> Fetch/Decode en parallele pour la plupart des instructions
+		=> necessite de Stall pour les branches
+
+instruction supplémentaires :
+	* cf ISA
+
+UAL :
+	* refonte interne pour plus de parallélisme => plus rapide
+	* utilisation d'un additioneur rapide (type Kooge & Stone)
+	* utilisation d'un décaleur à base de log2(n) niveaux de mux
+
+multiplieur :
+	* hors UAL
+		=> contraintes de performance
+		=> recuperation des 32 bits du produit 16*16
+
+proto-MMU :
+	* decodeur d'adresse pour les differents peripheriques
+	
+	[considere mais non realise]
+		* protection de la RAM en ecriture (pour la police par ex)
+		* mapping de la RAM asynchrone
+
+afficheur 7 segments :
+	* affichage de valeur hexadecimales 16 bits par OUT
+
+gestionnaire d'interruptions :
+	* sources multiples (jusqu'à 16)
+	* masquage par source
+	* réglage de la sensibilité par source
+	* acquitement par source
+	* ISR @ 0x0010
+	* banque de registres dédiés aux interruptions
+	* sauvegarde du carry
+	* interruptions "mises en attente" pendant ISR
+	* communication avec CPU par mapping mémoire
+
+timers programmables :
+	* trois timers distincts
+	* frequences : 8 ordres de magnitude, de 1MHz à 0.1Hz
+	* compteur 16bit par timer
+	* possibilité de boucler
+	* émission d'interruption quand le compteur atteint zéro (3 sources distinctes)
+	* communication avec CPU par mapping mémoire
+
+VGA : 
+	* affichage "propre" du buffer dans la ram double port
+	* buffer "dense" (utilise seulement les 4800 premiers mots)
+	
+	[considere mais non realise]
+		* modes d'affichage
+			=> choisir 1 des 8 couleurs possible pour les deux valeurs de pixel
+			=> régler la resolution (inferieur a 320*240 pour utiliser moins de memoire)
+		* utiliser la RAM asynchrone comme framebuffer
+			=> possibilite d'atteindre 640*480*8
+
+driver clavier PS/2 :
+	* réception de trames
+	* FIFO pour éviter la perte de trames
+	* interruptions pour réception et erreur de transmission
+	* communication avec CPU par mapping mémoire
+
+[considere mais non realise]
+RS232 :
+	I/O avec baud rate reglable
+

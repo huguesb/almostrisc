@@ -1,0 +1,55 @@
+ISA description
+
+
+	|F|E|D|C|B|A|9|8|7|6|5|4|3|2|1|0| 
+	|-------------------------------|
+
+basic instruction set :
+	|1 1 1 1|1 1 1 1|1 1 1 1|1 1 1 1| reset     %pc := 0
+	|-------------------------------|
+	|1 1 0 1|0 1 0 x|x x x x|x|  Rd | in        %rd := PIN
+	|-------------------------------|
+	|1 1 0 1|0 1 1|  Rb |x x x x x x| out       POUT := %rb
+	|-------------------------------|
+	|0|    op     |  Rb |  Ra |  Rd | ual       %rd := %ra OP %rb
+	|-------------------------------|
+	|1 1 0 1|0 0 0 x|x x|  Ra |  Rd | lw        %rd := MEM(%ra)
+	|-------------------------------|
+	|1 1 0 1|0 0 1 x|x x|  Ra |  Rd | sw        MEM(%ra) := %rd
+	|-------------------------------|
+	|1 1 1 0|0 0 0|  Rb |  Ra |  cc | brcc      si %ra valide cc alors %pc := %pc + %rb sinon %pc := %pc + 1
+	|-------------------------------|
+	|1 1 1 0|0 0 1|  Rb |  Ra |  cc | bacc      si %ra valide cc alors %pc := %rb sinon %pc := %pc + 1
+	|-------------------------------|
+	|1 0|     imm8      |  Ra |  cc | bricc     si %ra valide cc alors %pc := %pc + ext2(imm8) sinon %pc := %pc + 1
+	|-------------------------------|
+	|1 1 0 0|      imm9       |  Rd | li        %rd := ext2(imm9)
+	|-------------------------------|
+	|1 1 1 1|0 0 0|x x x|  Rb |  Rd | brl       %rd := %pc || %pc := %pc + %rb
+	|-------------------------------|
+	|1 1 1 1|0 0 1|x x x|  Rb |  Rd | bal       %rd := %pc || %pc := %rb
+
+
+extended instruction set :
+	|-------------------------------|
+	|1 1 1 1|1 1 1 1|1 1 1 1|1 1 1 0| reti                     retour d'interruption, restore registres et carry
+	|-------------------------------|
+	|1 1 1 0|0 1 0 0|0 0|  Ra |  Rd | exw rd, ra               (MEM(%ra), %rd) := (%rd, MEM(%ra))
+	|-------------------------------|
+	|1 1 1 1|1 1 1 1|1 1 1 1 0|  Rd |
+	|            imm16              | liw rd, imm16            %rd := imm16
+	|-------------------------------|
+	|1 1 1 1|1 0 0|  cc |  Ra |x x x|
+	|            imm16              | baicc ra, imm16          si %ra valide cc alors %pc := imm16 sinon %pc = %pc + 1
+	|-------------------------------|
+	|1 1 1 1|1 0 1|  cc |  Ra |  Rd |
+	|            imm16              | bailcc rd, ra, imm16     si %ra valide cc alors %rd = %pc || %pc := imm16 sinon %pc = %pc + 1
+    |-------------------------------|
+	|0 0 0 1|1 H H|  Rb |  Ra |  Rd | mix[hl][hl] rd, ra, rb   %rd := high/low(%ra) & high/low(%rb)
+	|-------------------------------|
+	|0 0 1 1|1 S L|  Rb |  Ra |  Rd | r[rs][rl] rd, ra, rb     %rd := shift/rotate de %ra, %rb fois (max 15...)
+	|-------------------------------|
+	|1 1 1 1|1 1 0|  Rb |  Ra |  Rd | mul rd, ra, rb           %ra & %rd = %ra * %rb
+	|-------------------------------|
+	|1 1 1 1|0 1|i i i i|  Ra |  Rd | bspl rd, ra, imm4        %rd = (15 downto 0 => %ra(imm4))
+	|-------------------------------|
