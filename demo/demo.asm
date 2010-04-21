@@ -514,8 +514,8 @@ PaperGameTileSkip:
 	
 	li	r1, 44
 	li	r3, 16
-	bail	-, r6, put_sprite_16
-; 	bail	-, r6, put_sprite_16_masked
+; 	bail	-, r6, put_sprite_16
+	bail	-, r6, put_sprite_16_masked
 	
 	; collision check
 	brine	r5, PaperGameFail
@@ -619,6 +619,7 @@ PaperNoMoveDOWN:
 	liw	r2, paper_speed
 	lw	r0, r2
 	dec	r0, r0
+	dec	r0, r0
 	sw	r0, r2
 PaperNoMoveLEFT:
 	; RIGHT
@@ -626,6 +627,7 @@ PaperNoMoveLEFT:
 	brieq	r4, PaperNoMoveRIGHT
 	liw	r2, paper_speed
 	lw	r0, r2
+	inc	r0, r0
 	inc	r0, r0
 	sw	r0, r2
 PaperNoMoveRIGHT:
