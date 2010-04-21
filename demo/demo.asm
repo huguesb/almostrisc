@@ -827,7 +827,7 @@ rand16:
 	adc	r1, r1, r2
 	liw	r2, rand_seed
 	sw	r1, r2
-	
+	out	r1
 	ba	-, r6
 
 ; brief : display the 8*8 tile in r3 at pos (r0, r1)
