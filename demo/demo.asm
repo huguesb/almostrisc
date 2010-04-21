@@ -604,14 +604,14 @@ PaperGameScrollLoop:
 	
 	bail	-, r6, rand16
 	
-; 	li	r2, 7
-; 	shr	r3, r1, 2
-; 	and	r1, r1, r2
-; 	and	r3, r3, r2
-; 	
-; 	mixll	r1, r1, r3
-; 	
-; 	sw	r1, r0
+	li	r2, 0x0F
+	shr	r3, r1, 2
+	and	r1, r1, r2
+	and	r3, r3, r2
+	
+	mixll	r1, r1, r3
+	
+	sw	r1, r0
 ; 	inc	r0, r0
 ; 	
 ; 	; make sure we have no overlaps
