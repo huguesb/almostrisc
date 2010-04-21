@@ -339,7 +339,7 @@ PaperGameStart:
 	sw	r1, r0
 	inc	r0, r0
 	
-	li	r1, 13
+	li	r1, 23
 	sw	r1, r0
 	inc	r0, r0
 	
@@ -581,7 +581,7 @@ PaperGameLoop:
 	lw	r0, r2
 	lw	r1, r3
 	li	r4, 0xFF
-	shr	r1, r1, 0
+	shr	r1, r1, 2
 	add	r0, r0, r1
 	and	r1, r0, r4
 	sw	r1, r2
