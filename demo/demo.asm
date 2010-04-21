@@ -585,61 +585,7 @@ PaperGameLoop:
 ; 	inc	r7, r7
 	
 	; scroll tilemap on boundary...
-	brieq	r0, PaperGameSkipScroll
-	
-	liw	r0, paper_tilemap
-	li	r1, 4
-	add	r1, r0, r1
-	li	r2, 24*4
-	
-PaperGameScrollLoop:
-	lw	r3, r1
-	sw	r3, r0
-	inc	r0, r0
-	inc	r1, r1
-	dec	r2, r2
-	brine	r2, PaperGameScrollLoop
-	
-	; generate new tilemap line
-	
-	bail	-, r6, rand16
-	
-	li	r2, 0x0F
-	shr	r3, r1, 2
-	and	r1, r1, r2
-	and	r3, r3, r2
-	
-	mixll	r1, r1, r3
-	
-	sw	r1, r0
-; 	inc	r0, r0
-; 	
-; 	; make sure we have no overlaps
-; 	shl	r3, r1, 7
-; 	mixhl	r1, r1, r3
-; 	add	r1, r1, r3
-; 	
-; 	;push r1
-; 	dec	r7, r7
-; 	sw	r1, r7
-; 	
-; 	bail	-, r6, rand16
-; 	
-; 	li	r2, 7
-; 	shr	r3, r1, 2
-; 	and	r1, r1, r2
-; 	and	r3, r3, r2
-; 	
-; 	mixll	r1, r1, r3
-; 	
-; 	;pop	r2
-; 	lw	r2, r7
-; 	inc	r7, r7
-; 	
-; 	add	r1, r1, r2
-; 	
-; 	sw	r1, r0
-; 	inc	r0, r0
+	bailne	r0, r6, PaperMapScroll
 	
 PaperGameSkipScroll:
 	
@@ -709,6 +655,73 @@ PaperGameFail:
 	
 PaperGameQuit:
 	reset
+	
+	
+PaperMapScroll:
+	dec	r7, r7
+	sw	r6, r7
+	
+	; scroll tilemap up
+	
+	liw	r0, paper_tilemap
+	li	r1, 4
+	add	r1, r0, r1
+	li	r2, 24*4
+	
+PaperGameScrollLoop:
+	lw	r3, r1
+	sw	r3, r0
+	inc	r0, r0
+	inc	r1, r1
+	dec	r2, r2
+	brine	r2, PaperGameScrollLoop
+	
+	; generate new tilemap line
+	
+	bail	-, r6, rand16
+	
+	li	r2, 0x0F
+	shr	r3, r1, 2
+	and	r1, r1, r2
+	and	r3, r3, r2
+	
+	mixll	r1, r1, r3
+	
+	sw	r1, r0
+; 	inc	r0, r0
+; 	
+; 	; make sure we have no overlaps
+; 	shl	r3, r1, 7
+; 	mixhl	r1, r1, r3
+; 	add	r1, r1, r3
+; 	
+; 	;push r1
+; 	dec	r7, r7
+; 	sw	r1, r7
+; 	
+; 	bail	-, r6, rand16
+; 	
+; 	li	r2, 7
+; 	shr	r3, r1, 2
+; 	and	r1, r1, r2
+; 	and	r3, r3, r2
+; 	
+; 	mixll	r1, r1, r3
+; 	
+; 	;pop	r2
+; 	lw	r2, r7
+; 	inc	r7, r7
+; 	
+; 	add	r1, r1, r2
+; 	
+; 	sw	r1, r0
+; 	inc	r0, r0
+	
+	lw	r6, r7
+	inc	r7, r7
+	
+	ba	-, r6
+	
 	
 ; brief : init random seed
 ; input : r0 = base value
