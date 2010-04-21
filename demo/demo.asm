@@ -503,7 +503,7 @@ PaperGameTileSkip:
 	li	r4, 0x1F8
 	and	r4, r3, r4
 	add	r4, r4, r4
-	add	r4, r4, r4
+; 	add	r4, r4, r4
 	
 	liw	r3, paper_pos
 	lw	r0, r3
@@ -514,7 +514,8 @@ PaperGameTileSkip:
 	
 	li	r1, 44
 	li	r3, 16
-	bail	-, r6, put_sprite_16_masked
+	bail	-, r6, put_sprite_16
+; 	bail	-, r6, put_sprite_16_masked
 	
 	; collision check
 	brine	r5, PaperGameFail
@@ -546,10 +547,10 @@ PaperGameLoop:
 	lw	r0, r2
 	lw	r1, r3
 	add	r0, r0, r1
-	brilt	r0, PaperGameFail
-	liw	r4, 300*8
-	sub	r4, r0, r4
-	brige	r4, PaperGameFail
+; 	brilt	r0, PaperGameFail
+; 	liw	r4, 300*8
+; 	sub	r4, r0, r4
+; 	brige	r4, PaperGameFail
 	sw	r0, r2
 	
 	inc	r2, r2
