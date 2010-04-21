@@ -602,44 +602,44 @@ PaperGameScrollLoop:
 	
 	; generate new tilemap line
 	
-	bail	-, r6, rand16
-	
-	li	r2, 7
-	shr	r3, r1, 2
-	and	r1, r1, r2
-	and	r3, r3, r2
-	
-	mixll	r1, r1, r3
-	
-	sw	r1, r0
-	inc	r0, r0
-	
-	; make sure we have no overlaps
-	shl	r3, r1, 7
-	mixhl	r1, r1, r3
-	add	r1, r1, r3
-	
-	;push r1
-	dec	r7, r7
-	sw	r1, r7
-	
-	bail	-, r6, rand16
-	
-	li	r2, 7
-	shr	r3, r1, 2
-	and	r1, r1, r2
-	and	r3, r3, r2
-	
-	mixll	r1, r1, r3
-	
-	;pop	r2
-	lw	r2, r7
-	inc	r7, r7
-	
-	add	r1, r1, r2
-	
-	sw	r1, r0
-	inc	r0, r0
+; 	bail	-, r6, rand16
+; 	
+; 	li	r2, 7
+; 	shr	r3, r1, 2
+; 	and	r1, r1, r2
+; 	and	r3, r3, r2
+; 	
+; 	mixll	r1, r1, r3
+; 	
+; 	sw	r1, r0
+; 	inc	r0, r0
+; 	
+; 	; make sure we have no overlaps
+; 	shl	r3, r1, 7
+; 	mixhl	r1, r1, r3
+; 	add	r1, r1, r3
+; 	
+; 	;push r1
+; 	dec	r7, r7
+; 	sw	r1, r7
+; 	
+; 	bail	-, r6, rand16
+; 	
+; 	li	r2, 7
+; 	shr	r3, r1, 2
+; 	and	r1, r1, r2
+; 	and	r3, r3, r2
+; 	
+; 	mixll	r1, r1, r3
+; 	
+; 	;pop	r2
+; 	lw	r2, r7
+; 	inc	r7, r7
+; 	
+; 	add	r1, r1, r2
+; 	
+; 	sw	r1, r0
+; 	inc	r0, r0
 	
 PaperGameSkipScroll:
 	
@@ -722,7 +722,7 @@ rand16_init:
 
 ; brief : pseudo random number generator
 ; output : r1 = prn
-; destroys : r2, r3, r4, r5
+; destroys : r2, r3, r4
 rand16:
 	liw	r2, rand_seed
 	lw	r3, r2
