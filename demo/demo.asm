@@ -494,7 +494,7 @@ PaperGameSegmentSkip:
 	inc	r7, r7
 	
 PaperGameTileSkip:
-	liw r4, paper_tilemap + 125
+	liw r4, paper_tilemap + 48
 	sub	r4, r5, r4
 	
 	brilt	r4, PaperGameTileLoop

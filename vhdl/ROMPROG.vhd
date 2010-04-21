@@ -287,8 +287,8 @@ architecture Behavioral of ROMPROG is
   433=>x"0246",	-- 0000001001000110  
   434=>x"D03D",	-- 1101000000111101  lw	r5, r7
   435=>x"043F",	-- 0000010000111111  inc	r7, r7
-  436=>x"FFF4",	-- 1111111111110100  liw r4, paper_tilemap + 125
-  437=>x"182D",	-- 0001100000101101  
+  436=>x"FFF4",	-- 1111111111110100  liw r4, paper_tilemap + 48
+  437=>x"17E0",	-- 0001011111100000  
   438=>x"0B2C",	-- 0000101100101100  sub	r4, r5, r4
   439=>x"B5A5",	-- 1011010110100101  brilt	r4, PaperGameTileLoop
   440=>x"FFF3",	-- 1111111111110011  liw	r3, paper_speed
