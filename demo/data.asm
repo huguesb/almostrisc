@@ -15,6 +15,9 @@
 ; .org 0x16C8
 .dw 0
 
+; high score
+; .org 0x16C9
+
 ; keymap
 
 .org	0x16D0

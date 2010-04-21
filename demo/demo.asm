@@ -17,6 +17,7 @@
 .equ	key_press_map	0x16C0
 .equ	rand_seed		0x16C8
 
+.equ	paper_score		0x16C9
 .equ	paper_keys		0x16D0
 .equ	paper_sprites	0x1720
 .equ	paper_hud		0x1780
@@ -154,7 +155,7 @@ int_kbd.process:
 	; add a wee bit of randomness into prng via entropy...
 	liw	r5, rand_seed
 	lw	r4, r5
-	add	r4, r4, r2
+	xor	r4, r4, r2
 	sw	r4, r5
 	
 	liw	r5, paper_keys - 1
@@ -391,6 +392,13 @@ PaperGameRedraw:
 	liw	r2, paper_title
 	bail	-, r6, puts
 	
+	; score
+	li	r0, 18
+	li	r1, 5
+	liw	r2, paper_score
+	lw	r2, r2
+	bail	-, r6, printnum
+	
 	; forward arrow
 	li	r0, 239
 	li	r1, 1
@@ -414,7 +422,7 @@ PaperGameRedraw:
 	; up (or down) arrow
 	li	r0, 239
 	li	r1, 10
-	liw	r2, paper_hud + 4
+	liw	r2, paper_hud + 8
 	li	r3, 8
 	bail	-, r6, put_sprite_8
 	
@@ -552,12 +560,18 @@ PaperGameLoop:
 	; update x coordinate (left/right)
 	lw	r0, r2
 	lw	r1, r3
+	
 	add	r0, r0, r1
 	brilt	r0, PaperGameFail
 	liw	r4, 304*8
 	sub	r4, r0, r4
 	brige	r4, PaperGameFail
 	sw	r0, r2
+	
+	bspl	r5, r1, 15
+	brieq	r5, $+2
+	nega	r1, r1
+	shr	r5, r1, 3
 	
 	inc	r2, r2
 	inc	r3, r3
@@ -567,6 +581,7 @@ PaperGameLoop:
 	lw	r1, r3
 	li	r4, 0xFF
 	add	r0, r0, r1
+	sub	r0, r0, r5
 	and	r1, r0, r4
 	sw	r1, r2
 	not	r4, r4
@@ -738,6 +753,12 @@ PaperGameScrollLoop:
 	; TODO : better physics...
 	
 	liw	r2, paper_speed + 1
+	lw	r1, r2
+	inc	r1, r1
+	sw	r1, r2
+	
+	; update score
+	liw	r2, paper_score
 	lw	r1, r2
 	inc	r1, r1
 	sw	r1, r2
