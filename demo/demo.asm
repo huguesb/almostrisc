@@ -528,9 +528,9 @@ PaperGameTileSkip:
 	li	r1, 0
 	bri	-, $+1
 	dec	r1, r1
-	brine	r1, $-3
+	brine	r1, $-2
 	dec	r0, r0
-	brine	r0, $-6
+	brine	r0, $-5
 	
 PaperGameLoop:
 	
