@@ -672,6 +672,12 @@ PaperGameFail:
 	dec	r2, r2
 	brine	r2, $-5
 	
+	; wait for keyrelease
+	liw	r3, key_press_map
+	
+	lw	r2, r3
+	brine	r2, $-1
+	
 	; wait for keypress
 	liw	r3, key_press_map
 	
@@ -686,6 +692,12 @@ PaperGamePause:
 	li	r1, 24
 	liw	r2, paper_pause
 	bail	-, r6, puts
+	
+	; wait for keyrelease
+	liw	r3, key_press_map
+	
+	lw	r2, r3
+	brine	r2, $-1
 	
 	; wait for keypress
 	liw	r3, key_press_map
