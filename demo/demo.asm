@@ -547,7 +547,7 @@ PaperGameLoop:
 	lw	r0, r2
 	lw	r1, r3
 	add	r0, r0, r1
-; 	brilt	r0, PaperGameFail
+	brilt	r0, PaperGameFail
 ; 	liw	r4, 300*8
 ; 	sub	r4, r0, r4
 ; 	brige	r4, PaperGameFail
@@ -920,7 +920,7 @@ put_sprite_16_aligned.loop:
 	inc	r2, r2
 	
 	lw	r1, r2
-	sw	r1, r4
+	exw	r1, r4
 	
 	inc	r2, r2
 	add	r4, r4, r0
@@ -981,7 +981,7 @@ put_sprite_16.loop:
 	not	r0, r0
 	and	r3, r3, r0
 	or	r1, r1, r3
-	sw	r1, r4
+	exw	r1, r4
 	
 	inc	r4, r4
 	
@@ -994,7 +994,7 @@ put_sprite_16.loop:
 	not	r0, r0
 	and	r3, r3, r0
 	or	r1, r1, r3
-	sw	r1, r4
+	exw	r1, r4
 	
 	; move to next sprite line
 	inc	r2, r2
