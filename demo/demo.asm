@@ -503,7 +503,7 @@ PaperGameTileSkip:
 	li	r4, 0x1F8
 	and	r4, r3, r4
 	add	r4, r4, r4
-; 	add	r4, r4, r4
+	add	r4, r4, r4
 	
 	liw	r3, paper_pos
 	lw	r0, r3
@@ -917,6 +917,8 @@ put_sprite_16_aligned:
 	li	r0, 20
 	
 put_sprite_16_aligned.loop:
+	inc	r2, r2
+	
 	lw	r1, r2
 	sw	r1, r4
 	
@@ -928,6 +930,7 @@ put_sprite_16_aligned.loop:
 	
 put_sprite_16_aligned.end:
 	
+	li	r5, 0
 	ba	-, r6
 
 
@@ -964,6 +967,8 @@ put_sprite_16.loop:
 	; push r3
 	dec	r7, r7
 	sw	r3, r7
+	
+	inc	r2, r2
 	
 	lw	r1, r2
 	
@@ -1007,6 +1012,7 @@ put_sprite_16.loop:
 	
 put_sprite_16.end:
 	
+	li	r5, 0
 	ba	-, r6
 
 	; inputs : 
