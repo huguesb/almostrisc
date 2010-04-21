@@ -18,7 +18,7 @@
 .equ	rand_seed		0x16C8
 
 .equ	paper_keys		0x16D0
-.equ	paper_sprites	0x1700
+.equ	paper_sprites	0x1720
 .equ	paper_hud		0x1780
 .equ	paper_tiles		0x1790
 .equ	paper_dir		0x179C
@@ -26,7 +26,7 @@
 .equ	paper_speed		0x17A0
 .equ	paper_title		0x17A4
 .equ	paper_unit		0x17AA
-.equ	paper_tilemap	0x17E0
+.equ	paper_tilemap	0x17B0
 
 
 .equ	IRQ_mask		0x2000
