@@ -1240,8 +1240,8 @@ put_sprite_16_masked.loop:
 	exw	r3, r4
 	
 	; collision check
-; 	not	r5, r5
-; 	and	r3, r3, r5
+	not	r5, r5
+	and	r3, r3, r5
 	
 	; pop	r5
 	lw	r5, r7
