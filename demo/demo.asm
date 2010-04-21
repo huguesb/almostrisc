@@ -28,6 +28,7 @@
 .equ	paper_title		0x17A4
 .equ	paper_unit		0x17AA
 .equ	paper_tilemap	0x17B0
+.equ	paper_pause		0x17C8
 
 
 .equ	IRQ_mask		0x2000
@@ -615,8 +616,12 @@ PaperGameSkipScroll:
 	baieq	r3, PaperGameRedraw
 	
 	; check for ESC
-	bspl	r4, r3, 15
+	bspl	r4, r3, 5
 	brine	r4, PaperGameQuit
+	
+	; check for space (pause)
+	bspl	r4, r3, 4
+	brine	r4, PaperGamePause
 	
 	; check for movement
 	
@@ -676,6 +681,19 @@ PaperGameFail:
 PaperGameQuit:
 	reset
 	
+PaperGamePause:
+	li	r0, 16
+	li	r1, 24
+	liw	r2, paper_pause
+	bail	-, r6, puts
+	
+	; wait for keypress
+	liw	r3, key_press_map
+	
+	lw	r2, r3
+	brieq	r2, $-1
+	
+	bai	-, PaperGameRedraw
 	
 PaperMapScroll:
 	; scroll tilemap up
