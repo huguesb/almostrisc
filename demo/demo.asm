@@ -151,6 +151,12 @@ int_kbd.process:
 	; search keymap of the form :
 	; scan code : bit position
 	
+	; add a wee bit of randomness into prng via entropy...
+	liw	r5, rand_seed
+	lw	r4, r5
+	add	r4, r4, r2
+	sw	r4, r5
+	
 	liw	r5, paper_keys - 1
 	bspl	r4, r3, 1
 	brieq	r4, $+3
@@ -591,7 +597,7 @@ PaperGameSkipScroll:
 ; check for keyboard action
 	liw	r3, key_press_map
 	lw	r3, r3
-	baieq	r3, PaperGameRedrawContent
+	baieq	r3, PaperGameRedraw
 	
 	; check for ESC
 	bspl	r4, r3, 15
