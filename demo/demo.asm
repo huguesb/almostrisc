@@ -549,9 +549,9 @@ PaperGameLoop:
 	lw	r1, r3
 	add	r0, r0, r1
 	brilt	r0, PaperGameFail
-; 	liw	r4, 300*8
-; 	sub	r4, r0, r4
-; 	brige	r4, PaperGameFail
+	liw	r4, 304*8
+	sub	r4, r0, r4
+	brige	r4, PaperGameFail
 	sw	r0, r2
 	
 	inc	r2, r2
@@ -602,7 +602,7 @@ PaperGameScrollLoop:
 	
 	; generate new tilemap line
 	
-	bail	-, r6, rand16
+; 	bail	-, r6, rand16
 	
 	li	r2, 7
 	shr	r3, r1, 2
