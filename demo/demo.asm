@@ -729,75 +729,54 @@ PaperGameScrollLoop:
 	
 	bail	-, r6, rand16
 	
-	liw	r2, 0x7777
-	and	r2, r1, r2
+	li	r2, 0x05
 	
-	shr	r3, r2, 3
-	li	r4, 0x10F
-	and	r3, r3, r4
+	and	r3, r1, r2
+	shr	r1, r1, 2
+	and	r4, r1, r2
+	shr	r1, r1, 2
+	
+	mixll	r1, r3, r4
 	sw	r1, r0
 	inc	r0, r0
 	
-	shr	r4, r2, 7
-	li	r5, 0x0F
-	and	r4, r4, r5
-	inc	r4, r4
-	inc	r4, r4
-	inc	r4, r4
-	shl	r4, r4, 7
-	add	r3, r4, r3
-	and	r2, r2, r5
-	add	r3, r3, r5
-	sw	r1, r0
+	li	r2, 0x07
 	
-; 	li	r2, 0x05
-; 	
-; 	and	r3, r1, r2
-; 	shr	r1, r1, 2
-; 	and	r4, r1, r2
-; 	shr	r1, r1, 2
-; 	
-; 	mixll	r1, r3, r4
-; 	sw	r1, r0
-; 	inc	r0, r0
-; 	
-; 	li	r2, 0x07
-; 	
-; 	add r4, r3, r4
-; 	and	r3, r1, r2
-; 	add r4, r3, r4
-; 	li	r3, 3
-; 	add	r4, r4, r3
-; 	shr	r1, r1, 1
-; 	
-; 	and	r3, r1, r2
-; 	add r3, r3, r4
-; 	shr	r1, r1, 2
-; 	and	r4, r1, r2
-; 	shr	r1, r1, 2
-; 	
-; 	mixll	r1, r3, r4
-; 	sw	r1, r0
-; 	inc	r0, r0
-; 	
-; 	li	r2, 0x05
-; 	
-; 	add r4, r3, r4
-; 	and	r3, r1, r2
-; 	add r4, r3, r4
-; 	li	r3, 3
-; 	add	r4, r4, r3
-; 	shr	r1, r1, 1
-; 	
-; 	and	r3, r1, r2
-; 	add r3, r3, r4
-; 	shr	r1, r1, 2
-; 	and	r4, r1, r2
-; 	shr	r1, r1, 2
-; 	
-; 	mixll	r1, r3, r4
-; 	sw	r1, r0
-; 	inc	r0, r0
+	add r4, r3, r4
+	and	r3, r1, r2
+	add r4, r3, r4
+	li	r3, 3
+	add	r4, r4, r3
+	shr	r1, r1, 1
+	
+	and	r3, r1, r2
+	add r3, r3, r4
+	shr	r1, r1, 2
+	and	r4, r1, r2
+	shr	r1, r1, 2
+	
+	mixll	r1, r3, r4
+	sw	r1, r0
+	inc	r0, r0
+	
+	li	r2, 0x05
+	
+	add r4, r3, r4
+	and	r3, r1, r2
+	add r4, r3, r4
+	li	r3, 3
+	add	r4, r4, r3
+	shr	r1, r1, 1
+	
+	and	r3, r1, r2
+	add r3, r3, r4
+	shr	r1, r1, 2
+	and	r4, r1, r2
+	shr	r1, r1, 2
+	
+	mixll	r1, r3, r4
+	sw	r1, r0
+	inc	r0, r0
 	
 	; increase falling speed
 	; TODO : better physics...
