@@ -395,7 +395,7 @@ PaperGameRedraw:
 	; speed (itoa...)
 	li	r0, 31
 	li	r1, 1
-	liw	r2, paper_speed + 1
+	liw	r2, paper_speed
 	lw	r2, r2
 	bail	-, r6, printnum
 	
@@ -415,7 +415,7 @@ PaperGameRedraw:
 	; speed
 	li	r0, 31
 	li	r1, 10
-	liw	r2, paper_speed + 2
+	liw	r2, paper_speed + 1
 	lw	r2, r2
 	bail	-, r6, printnum
 	
@@ -629,7 +629,7 @@ PaperNoMoveLEFT:
 	sw	r0, r2
 PaperNoMoveRIGHT:
 	
-	bai	-, PaperGameRedrawContent
+	bai	-, PaperGameRedraw
 	
 	
 PaperGameFail:
@@ -679,7 +679,7 @@ PaperGameScrollLoop:
 	
 	bail	-, r6, rand16
 	
-	li	r2, 0x07
+	li	r2, 0x05
 	
 	and	r3, r1, r2
 	shr	r1, r1, 2
@@ -690,10 +690,32 @@ PaperGameScrollLoop:
 	sw	r1, r0
 	inc	r0, r0
 	
+	li	r2, 0x07
+	
 	add r4, r3, r4
 	and	r3, r1, r2
 	add r4, r3, r4
-	inc	r4, r4
+	li	r3, 3
+	add	r4, r4, r3
+	shr	r1, r1, 1
+	
+	and	r3, r1, r2
+	add r3, r3, r4
+	shr	r1, r1, 2
+	and	r4, r1, r2
+	shr	r1, r1, 2
+	
+	mixll	r1, r3, r4
+	sw	r1, r0
+	inc	r0, r0
+	
+	li	r2, 0x05
+	
+	add r4, r3, r4
+	and	r3, r1, r2
+	add r4, r3, r4
+	li	r3, 3
+	add	r4, r4, r3
 	shr	r1, r1, 1
 	
 	and	r3, r1, r2
