@@ -1117,6 +1117,9 @@ put_sprite_16_masked_aligned.loop:
 	exw	r0, r4
 	
 	; collision check
+	and	r0, r0, r1
+	or	r5, r5, r0
+	
 	dec	r2, r2
 	lw	r1, r2
 	not	r1, r1
@@ -1210,6 +1213,7 @@ put_sprite_16_masked.loop:
 	
 	; collision check
 	not	r5, r5
+	or	r5, r5, r1
 	and	r3, r3, r5
 	
 	; pop	r5
@@ -1246,6 +1250,7 @@ put_sprite_16_masked.loop:
 	
 	; collision check
 	not	r5, r5
+	or	r5, r5, r1
 	and	r3, r3, r5
 	
 	; pop	r5
