@@ -658,9 +658,6 @@ PaperGameQuit:
 	
 	
 PaperMapScroll:
-	dec	r7, r7
-	sw	r6, r7
-	
 	; scroll tilemap up
 	
 	liw	r0, paper_tilemap
@@ -678,6 +675,9 @@ PaperGameScrollLoop:
 	
 	; generate new tilemap line
 	
+	dec	r7, r7
+	sw	r6, r7
+	
 	bail	-, r6, rand16
 	
 	li	r2, 0x0F
@@ -687,7 +687,7 @@ PaperGameScrollLoop:
 	
 	mixll	r1, r1, r3
 	
-	sw	r1, r0
+; 	sw	r1, r0
 ; 	inc	r0, r0
 ; 	
 ; 	; make sure we have no overlaps
