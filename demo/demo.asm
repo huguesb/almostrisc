@@ -1130,18 +1130,19 @@ put_sprite_16_masked.loop:
 	inc	r2, r2
 	
 	; rotate mask appropriately
+	not	r0, r0
 	rsr	r0, r0, r6
+	not	r0, r0
 	
 	; load sprite line
 	lw	r1, r2
 	
 	; rotate and mask start of sprite line
-	rrr	r1, r1, r6
-	and	r1, r1, r0
+	rsr	r1, r1, r6
+	;and	r1, r1, r0
 	
 	; compose start of sprite line with first buffer word
 	lw	r3, r4
-	not	r0, r0
 	and	r3, r3, r0
 	or	r3, r3, r1
 	
@@ -1155,16 +1156,31 @@ put_sprite_16_masked.loop:
 	; move to next buffer word
 	inc	r4, r4
 	
+	dec	r2, r2
+	
+	; reload mask line
+	lw	r0, r2
+	inc	r2, r2
+	
+	not	r6, r6
+	
+	; rotate mask appropriately
+	not	r0, r0
+	rsl	r0, r0, r6
+	not	r0, r0
+	
 	; reload sprite line
 	lw	r1, r2
 	
 	; rotate and mask end sprite line
-	rrr	r1, r1, r6
-	and	r1, r1, r0
+	rsl	r1, r1, r6
+	;and	r1, r1, r0
+	
+	not	r6, r6
 	
 	; compose end of sprite line with second buffer word
 	lw	r3, r4
-	not	r0, r0
+	;not	r0, r0
 	and	r3, r3, r0
 	or	r3, r3, r1
 	
