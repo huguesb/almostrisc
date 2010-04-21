@@ -331,7 +331,7 @@ PaperGameStart:
 	sw	r1, r0
 	inc	r0, r0
 	
-	li	r1, 5
+	li	r1, 13
 	sw	r1, r0
 	inc	r0, r0
 	
@@ -526,7 +526,6 @@ PaperGameTileSkip:
 	li	r0, 5
 	
 	li	r1, 0
-	bri	-, $+1
 	bri	-, $+1
 	dec	r1, r1
 	brine	r1, $-3

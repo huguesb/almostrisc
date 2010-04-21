@@ -32,10 +32,10 @@ end Timer;
 --
 
 -- 
--- offer 3 "programmable" countdown timers with a base clock of 10MHz (assuming
+-- offer 3 "programmable" countdown timers with a base clock of 1MHz (assuming
 -- a circuit clock of 50MHz) and 7 derived clocks, each one being an order of
 -- magnitude slower than its "parent" clock (i.e 10 times slower) : 1MHz, 100KHz,
--- 10KHz, 1KHz, 100Hz, 10Hz and 1Hz
+-- 10KHz, 1KHz, 100Hz, 10Hz, 1Hz and 0.1Hz
 --
 -- each timer is associated with a 16 bit counter which offers a practical range
 -- of timing from 10MHz to 1/65536Hz
