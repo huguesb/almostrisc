@@ -340,8 +340,9 @@ PaperGameStart:
 	inc	r0, r0
 	
 	; init random seed
-	liw	r0, TMR_cur1
-	lw	r0, r0
+; 	liw	r0, TMR_cur1
+; 	lw	r0, r0
+	li	r0, -1
 	bail	-, r6, rand16_init
 	
 ; paper plane game loop
@@ -717,6 +718,13 @@ PaperGameScrollLoop:
 ; 	
 ; 	sw	r1, r0
 ; 	inc	r0, r0
+	
+	; increase falling speed
+	
+	liw	r2, paper_speed + 1
+	lw	r1, r2
+	inc	r1, r1
+	sw	r1, r2
 	
 	lw	r6, r7
 	inc	r7, r7
