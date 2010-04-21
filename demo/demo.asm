@@ -456,14 +456,14 @@ PaperGameTileLoop:
 	shr	r0, r4, 7
 	
 	shr	r1, r3, 1
-	shl	r1, r1, 2
+	shl	r1, r1, 3
 	li	r2, 27
 	add	r1, r1, r2
 	
 	liw	r2, paper_pos + 1
 	lw	r2, r2
 	shr	r2, r2, 2
-	li	r3, 7
+	li	r3, 15
 	and	r2, r2, r3
 	
 	sub	r1, r1, r2
@@ -476,11 +476,13 @@ PaperGameTileLoop:
 	bailne	r0, r6, put_tile
 	
 	; draw middle tiles
+	brieq	r4, PaperGameSegmentSkip
 	li	r3, 2
 PaperGameSegmentLoop:
 	bail	-, r6, put_tile
 	dec	r4, r4
 	brine	r4, PaperGameSegmentLoop
+PaperGameSegmentSkip:
 	
 	; draw right tile
 	li	r3, 0
@@ -560,7 +562,7 @@ PaperGameLoop:
 	; update y coordinate (scroll...)
 	lw	r0, r2
 	lw	r1, r3
-	li	r4, 0x3F
+	li	r4, 0x5F
 	add	r0, r0, r1
 	and	r1, r0, r4
 	not	r4, r4
@@ -687,7 +689,7 @@ PaperGameScrollLoop:
 	
 	mixll	r1, r1, r3
 	
-; 	sw	r1, r0
+	sw	r1, r0
 ; 	inc	r0, r0
 ; 	
 ; 	; make sure we have no overlaps
