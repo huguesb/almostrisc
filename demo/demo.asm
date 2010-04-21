@@ -541,7 +541,7 @@ PaperGameTileSkip:
 	brine	r5, PaperGameFail
 	
 	; delay
-	li	r0, 5
+	li	r0, 2
 	
 	li	r1, 0
 	bri	-, $+1
