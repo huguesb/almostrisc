@@ -1,0 +1,61 @@
+
+Demo concept :
+
+	PaperPlane clone, with a twist
+
+ * gameplay
+	Paper plane falling down.
+	
+	Avoid collisions : any collision 
+	
+	Take advantage of wind sources to stay up as long as possible and go as far as possible
+	
+
+ * graphics
+
+	plane that can turn left/right : 3*2 + 1 = 7 different sprites
+	
+	obstacles : walls
+	
+	wind sources
+	
+	"HUD" to indicates score, altitude and speed...
+	
+	  ------------------------------------ 320 px ------------------------------------
+	  |
+	  |
+	  |-------------------------------------------------------------------------------
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	240 px
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	  |
+	  ------------------------------------ 320 px ------------------------------------
+
+ * controls
+	
+	left/right to steer the plane
+	up/down to control speed (going down increases speed but brings closer to floor and vice versa)
+
+
+TODO :
+  [ ] decent random map generation
+  [ ] decent "physics"
+  [ ] better looking sprites for plane (adapt original assets?)

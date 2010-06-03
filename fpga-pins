@@ -1,0 +1,65 @@
+; FPGA clock (50MHz)
+NET "CLK" LOC="T9";
+
+; reset button
+NET "RESET" LOC="L14";
+
+; LEDs
+NET "LEDS<0>" LOC="K12";
+NET "LEDS<1>" LOC="P14";
+NET "LEDS<2>" LOC="L12";
+NET "LEDS<3>" LOC="N14";
+NET "LEDS<4>" LOC="P13";
+NET "LEDS<5>" LOC="N12";
+NET "LEDS<6>" LOC="P12";
+NET "LEDS<7>" LOC="P11";
+
+; 7 segments
+NET "SEGS<0>" LOC="E14";
+NET "SEGS<1>" LOC="G13";
+NET "SEGS<2>" LOC="N15";
+NET "SEGS<3>" LOC="P15";
+NET "SEGS<4>" LOC="R16";
+NET "SEGS<5>" LOC="F13";
+NET "SEGS<6>" LOC="N16";
+
+; Anode control
+NET "AN<0>" LOC="D14";
+NET "AN<1>" LOC="G14";
+NET "AN<2>" LOC="F14";
+NET "AN<3>" LOC="E13";
+
+; Switches
+NET "SLIDER<0>" LOC="F12";
+NET "SLIDER<1>" LOC="G12";
+NET "SLIDER<2>" LOC="H14";
+NET "SLIDER<3>" LOC="H13";
+NET "SLIDER<4>" LOC="J14";
+NET "SLIDER<5>" LOC="J13";
+NET "SLIDER<6>" LOC="K14";
+NET "SLIDER<7>" LOC="K13";
+
+; buttons (except reset)
+NET "PUSHBUTTON<0>" LOC="M13";
+NET "PUSHBUTTON<1>" LOC="M14";
+NET "PUSHBUTTON<2>" LOC="L13";
+
+; socket clock
+NET "OSCILLATOR" LOC="D9";
+
+; VGA pins
+NET "HS" LOC="R9";
+NET "VS" LOC="T10";
+NET "R" LOC="R12";
+NET "G" LOC="T12";
+NET "B" LOC="R11";
+
+; ps2 pins
+NET "PS2C" LOC="M16";
+NET "PS2D" LOC="M15";
+
+; RS232 pins
+NET "RXD" LOC="T13";
+NET "TXD" LOC="R13";
+NET "RXDA" LOC="N10";
+NET "TXDA" LOC="T14";
